@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   shell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/01/27 12:29:02 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/09 19:47:03 by cbaldy           ###   ########.fr       */
+/*   Created: 2016/03/15 19:12:49 by cbaldy            #+#    #+#             */
+/*   Updated: 2016/03/15 19:41:52 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "libft.h"
 # include "ft_printf.h"
 # include "struct_shell.h"
+# include "get_next_line.h"
 
 # include <stdio.h>
 # include <unistd.h>
@@ -59,8 +60,8 @@ int				cd_substitution(char **com);
 int				cd_update_env(char *old_path, char *new_path, int opt);
 
 int				sh_set_term(void);
+int				sh_get_term_fildes(void);
 int				sh_reset_term(void);
-int				sh_split_com(char *str);
 int				ft_tputs(char *s, int nb_l, int flag);
 int				term_edit_line(char *buf, int len, t_com_list **begin, t_hist_list **hist);
 t_com_list		*com_list_new(char value);
@@ -89,5 +90,7 @@ int				parse_find_error(char *s);
 t_exec_list		*exec_list_new(char *str, int connect);
 int				exec_list_add(t_exec_list **begin, t_exec_list *new);
 int				exec_list_count(t_exec_list *begin);
+int				sh_exec_list(char *str);
+int				sh_minishell(void);
 
 #endif

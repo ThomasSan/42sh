@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 17:33:25 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/14 13:08:13 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/15 17:20:12 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,6 @@ static int		parse_create_exec_list(char *str, int clog, t_exec_list **begin)
 	return (0);
 }
 
-/*t_exec_list		*parse_in_out_check(t_exec_list *begin)
-{
-	t_exec_list	*tmp;
-	int			i;
-
-	tmp = begin;
-	i = 0;
-	if (tmp->clog == 3 || tmp ->clog == 5)
-		i = -1;
-
-}*/
-
 t_exec_list		*parse_build_com(char *str)
 {
 	t_exec_list	*begin;
@@ -78,5 +66,4 @@ t_exec_list		*parse_build_com(char *str)
 		i[0] += i[1] + i[3];
 	}
 	return (begin);
-	//return (parse_in_out_check(begin));
 }

@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 11:42:12 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/08 13:37:17 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/15 18:48:31 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@ static int	term_mv_home_end(int move, int len_list)
 	else
 		k = 3;
 	while (term_mv_horizontal(k, len_list) == 0)
-	{
-	}
+		;
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:43:04 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/14 13:08:11 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/15 19:18:50 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,38 +32,10 @@ static int	sh_error_msg(char **com, int error)
 	return (0);
 }
 
-/*static int	**sh_prepare_exec(t_exec_list *begin)
+static int	sh_execute(char **com)
 {
-	int			**fds;
-	int			i;
-	t_exec_list	*tmp;
+	int		i;
 
-	i = exec_list_count(begin);
-	if ((fds = (int **)malloc(sizeof(int *) * (i + 1))) == NULL)
-		return (NULL);
-	i = 0;
-	while (begin->next != NULL)
-	{
-		fds[i] = malloc(sizeof(int) * 2);
-		pipe(fds[i]);
-		if (begin->clog == 3 || begin->clog == 5)
-			fds[i][0] = open(begin->next->arg[0]
-
-	}
-}*/
-
-static int	sh_interpret(char *str)
-{
-	t_exec_list	*begin;
-	//t_exec_list	*tmp;
-	char		**com;
-	int			i;
-	//int			**fds;
-
-	if ((begin = parse_build_com(str)) == NULL)
-		return (0);
-	//fds	= sh_prepare_exec(begin);
-	com = begin->arg;
 	i = 0;
 	while (i < 5 && com[0] != NULL)
 	{
@@ -81,18 +53,76 @@ static int	sh_interpret(char *str)
 	return (0);
 }
 
-int			sh_split_com(char *str)
+static int	sh_pipe(t_exec_list *tmp)
 {
-	char	**split;
-	int		i;
+	int			fd[2];
+	pid_t		pid;
+	int	i;
 
-	split = ft_strsplit(str, ';');
-	i = 0;
-	while (split[i] != NULL)
+	pipe(fd);
+	pid = fork();
+	if (pid == 0)
 	{
-		sh_interpret(split[i]);
-		i++;
+		close(fd[0]);
+		dup2(fd[1], STDOUT_FILENO);
+		sh_execute(tmp->arg);
+		exit(0);
 	}
-	ft_free_tab(split);
+	else if (pid > 0)
+	{
+		close(fd[1]);
+		dup2(fd[0], STDIN_FILENO);
+		close(fd[0]);
+		wait(&i);
+	}
+	return (0);
+}
+
+static int	sh_output(t_exec_list *tmp)
+{
+	mode_t	mode;
+	int		opt;
+	int		fd_o;
+	char	buf;
+
+	mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
+	opt = O_WRONLY | O_CREAT;
+	if (tmp->clog == 5)
+		opt |= O_APPEND;
+	tmp = tmp->next;
+	fd_o = open(tmp->arg[0], opt, mode);
+	while (read(STDIN_FILENO, &buf, 1) > 0)
+		write(fd_o, &buf, 1);
+	return (0);
+}
+
+static int	sh_interpret(t_exec_list *tmp)
+{
+	if (tmp->clog == 1)
+		sh_pipe(tmp);
+	else if (tmp->clog == 3 || tmp->clog == 5)
+	{
+		sh_pipe(tmp);
+		sh_output(tmp);
+	}
+	else if (tmp->previous == NULL || tmp->previous->clog != 0)
+		sh_execute(tmp->arg);
+	return (0);
+}
+
+int			sh_exec_list(char *str)
+{
+	t_exec_list	*begin;
+	t_exec_list	*tmp;
+
+	if ((begin = parse_build_com(str)) == NULL)
+		return (0);
+	tmp = begin;
+	while (tmp != NULL)
+	{
+		sh_interpret(tmp);
+		tmp = tmp->next;
+	}
+	dup2(1, STDIN_FILENO);
 	return (0);
 }

@@ -6,11 +6,26 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/27 12:36:46 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/09 16:10:15 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/15 19:39:23 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+static int	main_alt(void)
+{
+	sh_reset_term();
+	while (42)
+	{
+		if (sh_minishell() < 0)
+		{
+			ft_free_tab(g_env);
+			sh_reset_term();
+			return (0);
+		}
+	}
+	return (0);
+}
 
 int			main(int ac, char **av, char **env)
 {
@@ -20,8 +35,8 @@ int			main(int ac, char **av, char **env)
 		return (0);
 	}
 	sh_set_env(env);
-	sh_set_term();
-	signal(SIGQUIT, signal_handler);
+	if (sh_set_term() < 0 || sh_get_term_fildes() < 0)
+		return (main_alt());
 	while (42)
 	{
 		if (sh_prompt() < 0)
