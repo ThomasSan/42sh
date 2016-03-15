@@ -1,0 +1,79 @@
+#include "lexer.h"
+#include "parser.h"
+
+void	ft_display_tokens(t_tree *head)
+{
+	t_tree	*tmp;
+
+	if (head)
+	{
+		tmp = head;
+		while (tmp)
+		{
+			printf("je suis :%s, type : %d\n", tmp->content, tmp->types);
+			tmp = tmp->next;
+		}
+	}
+}
+
+t_tree	*delete_tree(t_tree *head)
+{
+	t_tree	*tmp;
+	t_tree	*node;
+
+	tmp = head;
+	if (tmp != NULL)
+	{
+		while (tmp)
+		{
+			node = tmp;
+			tmp = tmp->next;
+			free(node->content);
+			free(node);
+			// printf("free : %s ptr : %p\n", node->content, node);
+		}
+	}
+	head = NULL;
+	return (head);
+}
+
+t_token	*free_token_list(t_token *tok)
+{
+	t_token	*tmp;
+
+	while (tok)
+	{
+		tmp = tok;
+		tok = tok->next;
+		free(tmp->content);
+		free(tmp);
+	}
+	return (tok);
+}
+
+int		main(int ac, char **av)
+{
+	t_token	*tok;
+	t_token	*tmp1;
+	t_tree	*head;
+
+	if (ac > 1)
+	{
+		head = NULL;
+		tok = NULL;
+		tok = ft_tokeniser(av[1], tok);
+		tmp1 = tok;
+		while (tmp1)
+		{
+			printf("type : %d, content : %s\n", tmp1->type, tmp1->content);
+			tmp1 = tmp1->next;
+		}
+		head = tree_generator(head, tok);
+		ft_display_tokens(head);
+		head = delete_tree(head);
+		tok = free_token_list(tok);
+	}
+	else
+		printf("not enough arg\n");
+	return (0);
+}
