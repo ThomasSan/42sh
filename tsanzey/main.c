@@ -51,29 +51,35 @@ t_token	*free_token_list(t_token *tok)
 	return (tok);
 }
 
-int		main(int ac, char **av)
+int		main(void)
 {
 	t_token	*tok;
-	t_token	*tmp1;
+	// t_token	*tmp1;
 	t_tree	*head;
+	char	*line;
 
-	if (ac > 1)
+	while(1)
 	{
 		head = NULL;
 		tok = NULL;
-		tok = ft_tokeniser(av[1], tok);
-		tmp1 = tok;
-		while (tmp1)
-		{
-			printf("type : %d, content : %s\n", tmp1->type, tmp1->content);
-			tmp1 = tmp1->next;
-		}
+		line = NULL;
+		ft_putstr("$> ");
+		while(get_next_line(0, &line) == -1);
+		if (ft_strncmp(line, "exit", 4) == 0)
+			exit(0);
+		tok = ft_tokeniser(line, tok);
+		tok = ft_checking_syntax(tok);
+		// tmp1 = tok;
+		// while (tmp1)
+		// {
+		// 	printf("type : %d, content : %s\n", tmp1->type, tmp1->content);
+		// 	tmp1 = tmp1->next;
+		// }
 		head = tree_generator(head, tok);
 		ft_display_tokens(head);
 		head = delete_tree(head);
 		tok = free_token_list(tok);
+		free(line);
 	}
-	else
-		printf("not enough arg\n");
 	return (0);
 }

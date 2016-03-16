@@ -18,12 +18,10 @@ int		ft_token_type(char *s, int i)
 	int					type;
 	int					j;
 	static const char	*token_types[] = {"\"", "\'", "`", ">", ">>", "<",
-	"<<", "|", ";", "&", "-", "~", "/", "\\", "\0"};
+	"<<", "|", ";", "&", "~", "/", "\\", "$", "#", "-", "\0"};
 
 	type = -1;
 	j = 0;
-	if (ft_isspace(s[i]))
-		return(99);
 	while (*token_types[j])
 	{
 		if (s[i] == *token_types[j])
