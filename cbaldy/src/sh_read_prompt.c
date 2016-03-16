@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:36:22 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/15 19:41:17 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/16 11:32:05 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	sh_print_prompt(void)
 		i = ft_dprintf(STDIN_FILENO, &(ft_strchr(g_env[i], '=')[1]));
 	if (i < 0)
 		i = 0;
-	i += ft_dprintf(STDIN_FILENO, "$>");
+	i += ft_dprintf(STDIN_FILENO, "$> ");
 	g_local->prompt = i;
 	g_local->curs = i + 1;
 	g_local->begin = NULL;
@@ -77,16 +77,19 @@ int			sh_prompt(void)
 	static t_hist_list	*hist;
 	char				*str;
 	int					i;
+	t_hist_list			*modif_hist;
 
 	sh_print_prompt();
 	i = 0;
 	begin = NULL;
 	hist_list_new(&hist);
+	modif_hist = copy_hist(hist);
 	while (i != 10 && i != 4 && i != -1 && i != 3)
-		i = sh_read_prompt(&begin, &hist);
+		i = sh_read_prompt(&begin, &modif_hist);
 	if ((str = sh_get_line(&begin, i)) == NULL)
 		return (0);
 	hist_add_elem(begin, &hist);
+	clear_hist(&modif_hist);
 	sh_reset_term();
 	signal(SIGINT, SIG_IGN);
 	sh_exec_list(str);

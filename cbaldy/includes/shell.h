@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:12:49 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/15 19:41:52 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/16 11:46:18 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@
 # include <curses.h>
 # include <term.h>
 # include <sys/ioctl.h>
+# define HIST_SIZE 20
 
+void			clear_hist(t_hist_list **hist);
+t_hist_list		*copy_hist(t_hist_list *hist);
 int				sh_prompt(void);
 int				sh_command(char **com);
 int				sh_builtin_cd(char **com);
