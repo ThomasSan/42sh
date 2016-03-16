@@ -7,6 +7,7 @@
 # include <dirent.h>
 # include <fcntl.h>
 # include "libft/libft.h"
+# include "get_next_line.h"
 
 typedef enum 		e_sym
 {
@@ -20,11 +21,13 @@ typedef enum 		e_sym
 	PIPE,
 	SEMICOL,
 	AMPERSAND,
-	MINUS,
 	TILD,
 	SLASH,
 	BACKSLASH,
-	SPACE = 99,
+	DOLLAR,
+	HASHTAG,
+	MINUS,
+	// SPACE = 99,
 	WORDS = -1
 }					t_sym;
 
@@ -50,4 +53,5 @@ char				*rules_for_semicol(char *s);
 t_token				*ft_checking_syntax(t_token *tok);
 t_token				*ft_tokeniser(char *s, t_token *head);
 t_tree				*tree_generator(t_tree *head, t_token *tok);
+t_token				*ft_checking_syntax(t_token *tok);
 #endif

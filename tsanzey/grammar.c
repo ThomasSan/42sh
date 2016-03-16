@@ -15,6 +15,7 @@
 
 int		ft_check_closing(t_token *tok, t_sym sym)
 {
+	printf("tok %s\n", tok->content);
 	while (tok)
 	{
 		if (tok->type == sym)
@@ -26,6 +27,8 @@ int		ft_check_closing(t_token *tok, t_sym sym)
 
 int		check_next_token(t_token *tok)
 {
+	// while (tok && tok->type == SPACE)
+
 	if (tok->next)
 		return (tok->next->type);
 	else
@@ -106,7 +109,6 @@ char	*rules_for_strings(t_token *tok)
 			str = ft_strjoin(str, option_open_quotes(tok));
 			//lancer option open quotes
 		}
-		// printf("freeing\n");
 		free(tmp);
 	}
 	return (str);
