@@ -27,15 +27,24 @@ typedef enum 		e_sym
 	DOLLAR,
 	HASHTAG,
 	MINUS,
-	// SPACE = 99,
+	NUMBERS = 100,
+	WHITESPACE = 200,
 	WORDS = -1
 }					t_sym;
 
+typedef	enum 		e_cmd
+{
+	CMD,
+	I_REDIR,
+	O_REDIR,
+	TUBES	
+}					t_cmd;
+
 typedef struct 		s_tree
 {
-	struct s_tree	*next;
-	struct s_tree	*prev;
-	char			*content;
+	struct s_tree	*left;
+	struct s_tree	*right;
+	char			**cmd;
 	int				types;
 }					t_tree;
 
@@ -54,4 +63,8 @@ t_token				*ft_checking_syntax(t_token *tok);
 t_token				*ft_tokeniser(char *s, t_token *head);
 t_tree				*tree_generator(t_tree *head, t_token *tok);
 t_token				*ft_checking_syntax(t_token *tok);
+int					check_next_token(t_token *tok);
+int					check_prev_token(t_token *tok);
+t_tree				*ft_push_cmd(t_tree *head, t_token *tok);
+t_tree				*ft_analyse_token(t_tree *head, t_token *tok);
 #endif

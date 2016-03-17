@@ -18,7 +18,7 @@ char	*parsing_nodes(t_token *tok)
 	char	*str;
 
 	str = NULL;
-	if (tok->type == -1)
+	if (tok->type == WORDS)
 	{
 		str = rules_for_strings(tok);
 	}
@@ -48,30 +48,30 @@ int		ft_get_types(t_token *tok)
 	return (0);
 }
 
-t_tree	**ft_push_node(t_tree **head, char *str, t_token *tok)
-{
-	t_tree	*new;
-	t_tree	*tmp;
+// t_tree	**ft_push_node(t_tree **head, char *str, t_token *tok)
+// {
+// 	t_tree	*new;
+// 	t_tree	*tmp;
 
-	if (!(new = (t_tree*)malloc(sizeof(t_tree))))
-		return (NULL);
-	new->types = ft_get_types(tok);
-	new->content = ft_strdup(str);
-	free(str);
-	new->next = NULL;
-	new->prev = NULL;
-	if (*head)
-	{
-		tmp = *head;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new;
-		new->prev = tmp;
-	}
-	else
-		*head = new;
-	return (head);
-}
+// 	if (!(new = (t_tree*)malloc(sizeof(t_tree))))
+// 		return (NULL);
+// 	new->types = ft_get_types(tok);
+// 	new->content = ft_strdup(str);
+// 	free(str);
+// 	new->next = NULL;
+// 	new->prev = NULL;
+// 	if (*head)
+// 	{
+// 		tmp = *head;
+// 		while (tmp->next)
+// 			tmp = tmp->next;
+// 		tmp->next = new;
+// 		new->prev = tmp;
+// 	}
+// 	else
+// 		*head = new;
+// 	return (head);
+// }
 
 t_tree	*tree_generator(t_tree *head, t_token *tok)
 {
@@ -81,14 +81,23 @@ t_tree	*tree_generator(t_tree *head, t_token *tok)
 	head = NULL;
 	while (tok)
 	{
-		if (tok->used == 0)
+		// if (tok->used == 0)
+		// {
+		// 	str = parsing_nodes(tok);
+		// 	tok->used = 1;
+		// 	head = *ft_push_node(&head, str, tok);
+		// }
+		if (tok->type == WORDS)
 		{
-			str = parsing_nodes(tok);
-			// printf("s : %s, used %d, tok %s\n", str, tok->used, tok->content);
-			tok->used = 1;
-			head = *ft_push_node(&head, str, tok);
+			head = ft_push_cmd(head, tok);
+			while (tok && tok->type == WORDS)
+				tok = tok->next;
 		}
-		tok = tok->next;
+		else if (tok->type != WORDS)
+		{
+			head = ft_analyse_token(head, tok);
+			tok = tok->next;
+		}
 	}
 	return (head);
 }

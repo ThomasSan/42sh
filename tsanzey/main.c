@@ -3,39 +3,33 @@
 
 void	ft_display_tokens(t_tree *head)
 {
-	t_tree	*tmp;
-
-	if (head)
-	{
-		tmp = head;
-		while (tmp)
-		{
-			printf("je suis :%s, type : %d\n", tmp->content, tmp->types);
-			tmp = tmp->next;
-		}
-	}
+	printf("head %s\n", head->cmd[0]);
+	if (head->left)
+		ft_display_tokens(head->left);
+	if (head->right)
+		ft_display_tokens(head->right);
 }
 
-t_tree	*delete_tree(t_tree *head)
-{
-	t_tree	*tmp;
-	t_tree	*node;
+// t_tree	*delete_tree(t_tree *head)
+// {
+// 	t_tree	*tmp;
+// 	t_tree	*node;
 
-	tmp = head;
-	if (tmp != NULL)
-	{
-		while (tmp)
-		{
-			node = tmp;
-			tmp = tmp->next;
-			free(node->content);
-			free(node);
-			// printf("free : %s ptr : %p\n", node->content, node);
-		}
-	}
-	head = NULL;
-	return (head);
-}
+// 	tmp = head;
+// 	if (tmp != NULL)
+// 	{
+// 		while (tmp)
+// 		{
+// 			node = tmp;
+// 			tmp = tmp->next;
+// 			free(node->content);
+// 			free(node);
+// 			// printf("free : %s ptr : %p\n", node->content, node);
+// 		}
+// 	}
+// 	head = NULL;
+// 	return (head);
+// }
 
 t_token	*free_token_list(t_token *tok)
 {
@@ -54,7 +48,7 @@ t_token	*free_token_list(t_token *tok)
 int		main(void)
 {
 	t_token	*tok;
-	// t_token	*tmp1;
+	t_token	*tmp1;
 	t_tree	*head;
 	char	*line;
 
@@ -69,15 +63,15 @@ int		main(void)
 			exit(0);
 		tok = ft_tokeniser(line, tok);
 		tok = ft_checking_syntax(tok);
-		// tmp1 = tok;
-		// while (tmp1)
-		// {
-		// 	printf("type : %d, content : %s\n", tmp1->type, tmp1->content);
-		// 	tmp1 = tmp1->next;
-		// }
+		tmp1 = tok;
+		while (tmp1)
+		{
+			printf("type : %d, content : %s\n", tmp1->type, tmp1->content);
+			tmp1 = tmp1->next;
+		}
 		head = tree_generator(head, tok);
 		ft_display_tokens(head);
-		head = delete_tree(head);
+		// head = delete_tree(head);
 		tok = free_token_list(tok);
 		free(line);
 	}

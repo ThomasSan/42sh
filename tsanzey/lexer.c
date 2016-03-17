@@ -20,8 +20,12 @@ int		ft_token_type(char *s, int i)
 	static const char	*token_types[] = {"\"", "\'", "`", ">", ">>", "<",
 	"<<", "|", ";", "&", "~", "/", "\\", "$", "#", "-", "\0"};
 
-	type = -1;
+	type = WORDS;
 	j = 0;
+	if (ft_isdigit(s[i]))
+		return (NUMBERS);
+	if (ft_isspace(s[i]))
+		return (WHITESPACE);
 	while (*token_types[j])
 	{
 		if (s[i] == *token_types[j])
@@ -82,6 +86,7 @@ t_token	*ft_push_token(t_token *head, t_token *new)
 
 	new->used = 0;
 	new->next = NULL;
+	new->prev = NULL;
 	if (!head)
 		head = new;
 	else
@@ -90,6 +95,7 @@ t_token	*ft_push_token(t_token *head, t_token *new)
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = new;
+		new->prev = tmp;
 	}
 	return (head);
 }
