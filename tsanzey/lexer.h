@@ -67,4 +67,8 @@ int					check_next_token(t_token *tok);
 int					check_prev_token(t_token *tok);
 t_tree				*ft_push_cmd(t_tree *head, t_token *tok);
 t_tree				*ft_analyse_token(t_tree *head, t_token *tok);
+t_tree				*ft_push_output(t_tree *head);
+t_tree				*ft_push_input(t_tree *head);
+void				free_array(char **arr);
+
 #endif

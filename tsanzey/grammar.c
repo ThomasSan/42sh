@@ -68,7 +68,6 @@ char	*option_open_quotes(t_token *tok)
 	str = ft_strdup(tok->content);
 	tmp = tok;
 	tok = tok->next;
-	// pop_token(tmp);
 	while (tok)
 	{
 		str_tmp = str;

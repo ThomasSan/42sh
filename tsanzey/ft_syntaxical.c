@@ -69,14 +69,20 @@ t_tree	*ft_push_cmd(t_tree *head, t_token *tok)
 	}
 	else if (head->types == TUBES)
 		head->right = new;
+	else if (head->types == I_REDIR)
+		head->left = new;
+	else if (head->types == O_REDIR)
+		head->right = new;
 	return (head);
 }
 
 t_tree	*ft_analyse_token(t_tree *head, t_token *tok)
 {
 	if (tok->type == PIPE)
-	{
 		head = ft_push_pipe(head);
-	}
+	if (tok->type == DIPLE_L)
+		head = ft_push_input(head);
+	if (tok->type == DIPLE_R || tok->type == DOUBLE_R)
+		head = ft_push_output(head);
 	return (head);
 }

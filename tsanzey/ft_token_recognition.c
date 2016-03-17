@@ -18,14 +18,18 @@ int		check_prev_token(t_token *tok)
 
 t_token		*pop_middle_token(t_token *tok)
 {
+	t_token *tmp;
 	if (tok->prev)
 	{
 		tok->prev->next = tok->next;
-		tok->next->prev = tok->prev;
+		if (tok->next)
+			tok->next->prev = tok->prev;
 	}
 	free(tok->content);
 	free(tok);
-	return (tok->next);
+	tmp = tok->next;
+	tok = NULL;
+	return (tmp);
 }
 
 void		return_type_quoted(t_token *tok)
@@ -68,46 +72,20 @@ void		return_type_redirected(t_token *tok)
 	}
 }*/
 
-t_token		*ft_remove_space(t_token *tok)
-{
-	t_token	*tmp;
-	t_token	*head;
-
-	head = tok;
-	while (tok)
-	{
-		tmp = tok;
-		tok = tok->next;
-		if (tmp->type == WHITESPACE)
-		{
-			if (head == tmp)
-			{
-				head = head->next;
-				head->prev = NULL;
-			}
-			else
-			{
-				tmp->prev->next = tmp->next;
-				tmp->next->prev = tmp->prev;
-			}
-			free(tmp->content);
-			free(tmp);
-		}
-	}
-	return (head);
-}
-
 t_token		*check_minus(t_token *tok)
 {
 	t_token	*tmp;
+	char	*tmp1;
 
 	tmp = tok;
 	while (tmp->next)
 	{
 		if (tmp->type == MINUS && check_next_token(tmp) == WORDS)
 		{
+			tmp1 = tmp->next->content;
 			tmp->next->content = ft_strjoin(tmp->content, tmp->next->content);
 			tmp->type = WORDS;
+			free(tmp1);
 			if (tmp == tok)
 				tok = tok->next;
 			tmp = pop_middle_token(tmp);
@@ -118,12 +96,32 @@ t_token		*check_minus(t_token *tok)
 	return (tok);
 }
 
+t_token		*ft_token_removal(t_token *tok, t_sym sym)
+{
+	t_token *tmp;
+
+	tmp = tok;
+	while (tmp)
+	{
+		if(tmp->type == sym)
+		{
+			if (tok == tmp)
+				tok = tok->next;
+			tmp = pop_middle_token(tmp);
+		}
+		else
+			tmp = tmp->next;
+	}
+	return(tok);
+}
+
 t_token		*ft_checking_syntax(t_token *tok)
 {
 	return_type_quoted(tok);
 	tok = check_minus(tok);
-	tok = ft_remove_space(tok);
-	// tok = ft_quote_removal(tok);
+	tok = ft_token_removal(tok, WHITESPACE);
+	tok = ft_token_removal(tok, QUOTES);
+	tok = ft_token_removal(tok, SEMICOL);
 	// return_type_redirected(tok);
 	return (tok);
 }

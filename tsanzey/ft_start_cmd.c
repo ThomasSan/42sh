@@ -35,7 +35,7 @@ int		ft_pipe_exec(char **array, t_env *env)
 	int		fd[2];
 
 	pipe(fd);
-	pid = fork()
+	pid = fork();
 	if (pid == 0)
 	{
 		dup2(pfd[0], 0);
