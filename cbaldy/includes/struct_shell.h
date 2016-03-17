@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 12:18:39 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/16 11:32:33 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/17 11:23:04 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 # define STRUCT_SHELL_H
 
 # include "shell.h"
+
+typedef struct			s_edit_line
+{
+	char				*id;
+	int					ret;
+}						t_edit_line;
 
 typedef struct			s_builtin
 {

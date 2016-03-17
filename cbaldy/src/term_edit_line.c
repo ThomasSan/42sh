@@ -6,13 +6,32 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 12:51:22 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/16 12:08:07 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/17 11:22:39 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static int	term_len_1(char buf)
+t_edit_line	g_edit_line[] = {
+	{"\x1c", 1},
+	{"\x3", 1},
+	{"\xc3\xa7", 2},
+	{"\xe2\x89\x88", 2},
+	{"\xe2\x88\x9a", 3},
+	{"\x1b[A", 4},
+	{"\x1b[B", 4},
+	{"\x1b[C", 5},
+	{"\x1b[D", 5},
+	{"\x1b[F", 6},
+	{"\x1b[H", 6},
+	{"\x1b[1;2A", 6},
+	{"\x1b[1;2B", 6},
+	{"\x1b[1;2C", 6},
+	{"\x1b[1;2D", 6},
+	{NULL, 0},
+};
+
+static int	term_spec_char(char buf)
 {
 	if (buf == 28)
 	{
@@ -31,37 +50,37 @@ static int	term_len_1(char buf)
 	return (0);
 }
 
-static int	term_len_3(char buf, t_com_list **begin, t_hist_list **hist)
-{
-	if (buf == 65 || buf == 66)
-		return (hist_change(buf - 64, hist, begin));
-	if (buf == 67 || buf == 68)
-		term_mv_horizontal(buf - 64, com_list_count(*begin));
-	if (buf == 70 || buf == 72)
-		return (term_mv_cursor(buf, com_list_count(*begin), *begin));
-	return (0);	
-}
-
-int			term_edit_line(char *buf, int len, t_com_list **begin,
+static int	term_tree_choice(char *buf, int *arr, t_com_list **begin,
 		t_hist_list **hist)
 {
-	if (len == 1)
-		return (term_len_1(buf[0]));
-	if (len == 3 && buf[0] == 27 && buf[1] == 91)
-		term_len_3(buf[2], begin, hist);
-	else if (len == 6 && buf[0] == 27 && buf[1] == 91 && buf[2] == 49 && buf[3]
-			== 59 && buf[4] == 50)
-	{
-		if (buf[5] == 65 || buf[5] == 66)
-			term_mv_cursor(buf[5], com_list_count(*begin), *begin);
-		else if (buf[5] == 67 || buf[5] == 68)
-			term_mv_cursor(buf[5], com_list_count(*begin), *begin);
-	}
-	else if (len == 2 && buf[0] == -61 && buf[1] == -89)
-		copy_cut_mode(begin, 1);
-	else if (len == 3 && buf[0] == -30 && buf[1] == -120 && buf[2] == -102)
+	if (arr[1] == 1)
+		return (term_spec_char(buf[0]));
+	else if (arr[1] == 2)
+		copy_cut_mode(begin, buf[0]);
+	else if (arr[1] == 3)
 		copy_paste(begin);
-	else if (len == 3 && buf[0] == -30 && buf[1] == -119 && buf[2] == -120)
-		copy_cut_mode(begin, 2);
+	else if (arr[1] == 4)
+		return (hist_change(buf[arr[0] - 1] - 64, hist, begin));
+	else if (arr[1] == 5)
+		term_mv_horizontal(buf[arr[0] -1] - 64, com_list_count(*begin));
+	else if (arr[1] == 6)
+		term_mv_cursor(buf[arr[0] - 1], com_list_count(*begin), *begin);
 	return (buf[0]);
+}
+
+int		term_edit_line(char *buf, int len, t_com_list **begin,
+		t_hist_list **hist)
+{
+	int		i;
+	int		arr[2];
+
+	i = 0;
+	while (g_edit_line[i].id != NULL &&
+			ft_strncmp(g_edit_line[i].id, buf, len) != 0)
+		i++;
+	if (g_edit_line[i].ret == 0)
+		return (0);
+	arr[0] = len;
+	arr[1] = g_edit_line[i].ret;
+	return (term_tree_choice(buf, arr, begin, hist));
 }
