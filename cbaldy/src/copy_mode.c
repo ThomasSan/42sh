@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/04 14:35:13 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/05 15:35:51 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/17 11:22:41 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int			copy_cut_mode(t_com_list **begin, int mode)
 
 	arr[0] = com_list_count(*begin);
 	arr[1] = g_local->prompt;
-	arr[2] = mode;
+	arr[2] = (mode == -30 ? 2 : 1);
 	tmp = *begin;
 	while (arr[1]++ != g_local->curs - 1 && tmp != NULL)
 		tmp = tmp->next;
