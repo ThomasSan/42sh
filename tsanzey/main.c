@@ -54,6 +54,7 @@ int		main(void)
 	t_tree	*head;
 	char	*line;
 
+	ft_array_fun();
 	while (1)
 	{
 		head = NULL;
@@ -72,12 +73,9 @@ int		main(void)
 		// 	tmp1 = tmp1->next;
 		// }
 		head = tree_generator(head, tok);
-		printf("ed %p\n", head);
 		ft_display_tokens(head);
-		printf("displlay ok\n");
 		tok = free_token_list(tok);
 		head = delete_tree(head);
-		printf("delete oks\n");
 		free(line);
 	}
 	return (0);

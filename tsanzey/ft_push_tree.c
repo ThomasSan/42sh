@@ -8,7 +8,7 @@ t_tree	*ft_push_output(t_tree *head)
 		return (NULL);
 	if (!(new->cmd = (char **)malloc(sizeof(char *) * 2)))
 		return (NULL);
-	new->cmd[0] = ft_strdup("> || >>");
+	new->cmd[0] = ft_strdup("> or >>");
 	new->cmd[1] = NULL;
 	//changer new->cmd par NULL;
 	new->types = O_REDIR;

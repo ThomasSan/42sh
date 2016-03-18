@@ -55,22 +55,13 @@ void		return_type_quoted(t_token *tok)
 	}
 }
 
-void		parse_Error(char *s)
+void		parse_error(char *s)
 {
 	//free all the stuff;
 	ft_putstr("Parse error near ");
 	ft_putendl(s);
 }
-/*
-void		return_type_redirected(t_token *tok)
-{
-	while (tok)
-	{
-		if (tok->type == DIPLE_R)
-			rules_for_greater(tok);
-		tok = tok->next;
-	}
-}*/
+
 
 t_token		*check_minus(t_token *tok)
 {
@@ -121,6 +112,9 @@ t_token		*ft_checking_syntax(t_token *tok)
 	tok = check_minus(tok);
 	tok = ft_token_removal(tok, WHITESPACE);
 	tok = ft_token_removal(tok, QUOTES);
+	if (!ft_command_isvalid(tok))
+		return (NULL);
+	printf("exit the valid\n");
 	tok = ft_token_removal(tok, SEMICOL);
 	// return_type_redirected(tok);
 	return (tok);

@@ -37,7 +37,7 @@ typedef	enum 		e_cmd
 	CMD,
 	I_REDIR,
 	O_REDIR,
-	TUBES	
+	TUBES
 }					t_cmd;
 
 typedef struct 		s_tree
@@ -70,5 +70,13 @@ t_tree				*ft_analyse_token(t_tree *head, t_token *tok);
 t_tree				*ft_push_output(t_tree *head);
 t_tree				*ft_push_input(t_tree *head);
 void				free_array(char **arr);
+int					ft_command_isvalid(t_token *tok);
+void				parse_error(char *s);
+/*
+**				Array of function pointer
+*/
+int					(*g_f[20])(t_token*);
+void				ft_array_fun(void);
+int					rules_for_pipes(t_token *tok);
 
 #endif

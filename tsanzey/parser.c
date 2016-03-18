@@ -37,7 +37,6 @@ t_tree	*tree_generator(t_tree *head, t_token *tok)
 	head = NULL;
 	while (tok)
 	{
-		printf("tok %p cmd %s\n", tok, tok->content);
 		if (tok->type == WORDS)
 		{
 			head = ft_push_cmd(head, tok);
@@ -50,6 +49,5 @@ t_tree	*tree_generator(t_tree *head, t_token *tok)
 			tok = tok->next;
 		}
 	}
-	printf("ed %p\n", head);
 	return (head);
 }
