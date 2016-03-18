@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/04 14:42:54 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/07 15:57:01 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/18 11:12:52 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,15 @@ static int	copy_reset_line(t_com_list *begin)
 int			copy_paste(t_com_list **begin)
 {
 	t_com_list	*new;
+	int			i;
 
 	if ((new = com_list_reconstruct(g_paste)) == NULL)
 		return (0);
 	com_list_add(begin, new);
 	copy_reset_line(*begin);
+	i = com_list_count(*begin);
+	while (term_mv_horizontal(3, i) == 0)
+		;
 	return (0);
 }
 
@@ -87,10 +91,10 @@ int			copy_end_mode(t_com_list **begin)
 		tmp = tmp->next;
 	}
 	copy_clean_com(begin);
-	if (g_paste != NULL)
+	if (g_paste != NULL && str[0] != '\0')
 		free(g_paste);
-	g_paste = ft_strdup(str);
+	if (str[0] != '\0')
+		g_paste = ft_strdup(str);
 	free(str);
-	copy_reset_line(*begin);
-	return (0);
+	return (copy_reset_line(*begin));
 }
