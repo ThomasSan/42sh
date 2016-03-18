@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 12:51:22 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/17 11:22:39 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/18 11:03:04 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 t_edit_line	g_edit_line[] = {
 	{"\x1c", 1},
 	{"\x3", 1},
+	{"\x9", 1},
+	{"\x4", 1},
+	{"\x15", 7},
+	{"\x0b", 7},
+	{"\x19", 7},
 	{"\xc3\xa7", 2},
 	{"\xe2\x89\x88", 2},
 	{"\xe2\x88\x9a", 3},
@@ -41,13 +46,10 @@ static int	term_spec_char(char buf)
 		exit(0);
 	}
 	if (buf == 3)
-	{
 		ft_dprintf(STDOUT_FILENO, "\n");
-		return (3);
-	}
-	if (buf == 4)
-		return (4);
-	return (0);
+	if (buf == 9)
+		ft_putstr("tab");
+	return (buf);
 }
 
 static int	term_tree_choice(char *buf, int *arr, t_com_list **begin,
@@ -65,10 +67,12 @@ static int	term_tree_choice(char *buf, int *arr, t_com_list **begin,
 		term_mv_horizontal(buf[arr[0] -1] - 64, com_list_count(*begin));
 	else if (arr[1] == 6)
 		term_mv_cursor(buf[arr[0] - 1], com_list_count(*begin), *begin);
+	else if (arr[1] == 7)
+		return (yank_line(buf[0], begin));
 	return (buf[0]);
 }
 
-int		term_edit_line(char *buf, int len, t_com_list **begin,
+int			term_edit_line(char *buf, int len, t_com_list **begin,
 		t_hist_list **hist)
 {
 	int		i;
