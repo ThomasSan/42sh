@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:12:49 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/18 13:58:02 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/21 19:04:19 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "ft_printf.h"
 # include "struct_shell.h"
 # include "get_next_line.h"
+# include "ft_select.h"
 
 # include <stdio.h>
 # include <unistd.h>

@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/25 18:38:14 by cbaldy            #+#    #+#             */
-/*   Updated: 2015/11/30 19:09:39 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/21 18:31:43 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,11 @@ void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 int					ft_power(int nb, int power);
-void				ft_sort_integer_table(int *tab, int size);
+void				ft_sort_integer_table(int *tabl, int size);
 int					ft_sqrt(int nb);
 int					ft_is_prime(int nb);
 int					ft_find_next_prime(int nb);
 char				*ft_convert_base(char *nbr, char *base_from,
 					char *base_to);
-
+char				*ft_strtrunc(char *str, int c);
 #endif
