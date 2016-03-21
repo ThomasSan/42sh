@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/12 15:48:41 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/07 17:53:26 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/21 11:01:46 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int			sh_set_env(char **env)
 		sh_change_var_env("SHLVL", nb_shlvl);
 		free(nb_shlvl);
 	}
+	hash_get_tab();
 	if (sh_set_local_env() < 0)
 		return (-1);
 	return (0);
