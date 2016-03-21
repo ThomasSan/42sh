@@ -13,6 +13,34 @@
 #include "lexer.h"
 #include "parser.h"
 
+int		is_word_or(char *s, int i)
+{
+	if (!ft_isdigit(s[i]))
+		return (0);
+	if (s[i + 1] != '\0' && s[i + 1] == '>')
+			return (1);
+	if (s[i - 1] && s[i - 1] == '&')
+			return (1);
+	return (0);
+}
+
+int		ft_other_redirs(char *s, int i, int type)
+{
+	static const char	*token_types[] = {"\"", "\'", "`", ">", ">>", "<",
+	"<<", "|", ";", "&", "~", "/", "\\", "$", "#", "-", "\0"};
+
+	if (s[i + 1] && type == DIPLE_R && s[i + 1] == s[i])
+		return (4);
+	if (s[i + 1] && type == DIPLE_L && s[i + 1] == s[i])
+		return (6);
+	if (s[i + 1] && type == DIPLE_R && s[i + 1] == *token_types[AMPERSAND])
+		return (GREAT_AND);
+	if (s[i + 1] && type == DIPLE_L && s[i + 1] == *token_types[AMPERSAND])
+		return (LESS_AND);
+	if (s[i + 1] && type == DIPLE_L && s[i + 1] == *token_types[DIPLE_R])
+		return (LESS_GREAT);
+	return (type);
+}
 int		ft_token_type(char *s, int i)
 {
 	int					type;
@@ -22,7 +50,7 @@ int		ft_token_type(char *s, int i)
 
 	type = WORDS;
 	j = 0;
-	if (ft_isdigit(s[i]))
+	if (is_word_or(s, i))
 		return (NUMBERS);
 	if (ft_isspace(s[i]))
 		return (WHITESPACE);
@@ -31,10 +59,8 @@ int		ft_token_type(char *s, int i)
 		if (s[i] == *token_types[j])
 		{
 			type = j;
-			if (s[i + 1] && j == 3 && s[i + 1] == s[i])
-				return (4);
-			if (s[i + 1] && j == 5 && s[i + 1] == s[i])
-				return (6);
+			if (j == 3 || j == 5)
+				return (ft_other_redirs(s, i, type));
 			return (type);
 		}
 		j++;
@@ -44,17 +70,17 @@ int		ft_token_type(char *s, int i)
 
 char	*tok_content(char *s, int start, int type)
 {
-	int		i;
-	char	*dst;
+	int					i;
+	char				*dst;
+	static const char	*token_types[] = {"\"", "\'", "`", ">", ">>", "<",
+	"<<", "|", ";", "&", "~", "/", "\\", "$", "#", "-", "<&", ">&", "<>","\0"};
 
-	if (type == 4 || type == 6)
+	if (type == DOUBLE_R || type == DOUBLE_L || type == LESS_AND || type == GREAT_AND
+		|| type == LESS_GREAT)
 	{
 		if (!(dst = (char *)malloc(sizeof(char) * 3)))
 			return (NULL);
-		if (type == 4)
-			dst = ft_strdup(">>");
-		if (type == 6)
-			dst = ft_strdup("<<");
+		dst = ft_strdup(token_types[type]);
 		return (dst);
 	}
 	i = 0;
@@ -112,7 +138,8 @@ t_token	*ft_tokeniser(char *s, t_token *head)
 			return (NULL);
 		new->type = ft_token_type(s, i);
 		new->content = tok_content(s, i, new->type);
-		if (new->type == 4 || new->type == 6)
+		if (new->type == DOUBLE_R || new->type == DOUBLE_L || new->type == LESS_AND ||
+			new->type == GREAT_AND || new->type == LESS_GREAT)
 			i++;
 		if (ft_token_type(s, i) == -1)
 			i = ft_next_token(s, i);

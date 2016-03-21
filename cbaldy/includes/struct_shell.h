@@ -6,14 +6,16 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 12:18:39 by cbaldy            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2016/03/21 18:57:27 by dbaldy           ###   ########.fr       */
+=======
+/*   Updated: 2016/03/21 10:28:55 by cbaldy           ###   ########.fr       */
+>>>>>>> 47de2cb53d207e4bb2ebd916b91644eaa14814ad
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_SHELL_H
 # define STRUCT_SHELL_H
-
-# include "shell.h"
 
 typedef struct			s_edit_line
 {
