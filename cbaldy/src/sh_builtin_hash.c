@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hash.h                                             :+:      :+:    :+:   */
+/*   sh_builtin_hash.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/21 10:56:52 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/21 17:04:53 by cbaldy           ###   ########.fr       */
+/*   Created: 2016/03/21 17:02:17 by cbaldy            #+#    #+#             */
+/*   Updated: 2016/03/21 17:04:29 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HASH_H
-# define HASH_H
+#include "shell.h"
 
-typedef struct			s_hash_tree
+int		sh_builtin_hash(char **com)
 {
-	char				*name;
-	char				*path;
-	struct s_hash_tree	*left;
-	struct s_hash_tree	*right;
-	struct s_hash_tree	*root;
-}						t_hash_tree;
+	int		i;
 
-char					**g_hash;
-
-int						hash_get_tab(void);
-int						sh_builtin_hash(char **com);
-
-#endif
+	i = 0;
+	if (com[1] != NULL)
+		while (ft_strcmp(g_hash[i], com[1]) < 0)
+			i++;
+	while (g_hash[i] != NULL)
+	{
+		ft_putendl(g_hash[i]);
+		i++;
+	}
+	return (0);
+}

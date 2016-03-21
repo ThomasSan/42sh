@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:43:04 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/21 12:51:23 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/21 14:26:57 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 t_builtin	g_list_builtin[] = {
 	{"cd", &sh_builtin_cd},
 	{"env", &sh_builtin_env},
+	{"hash", &sh_builtin_hash},
 	{"exit", &sh_builtin_exit},
 	{"setenv", &sh_builtin_setenv},
 	{"unsetenv", &sh_builtin_unsetenv},
