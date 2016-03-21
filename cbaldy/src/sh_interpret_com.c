@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:43:04 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/15 19:18:50 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/18 19:26:06 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int	sh_pipe(t_exec_list *tmp)
 {
 	int			fd[2];
 	pid_t		pid;
-	int	i;
+	int			i;
 
 	pipe(fd);
 	pid = fork();
@@ -66,10 +66,12 @@ static int	sh_pipe(t_exec_list *tmp)
 		close(fd[0]);
 		dup2(fd[1], STDOUT_FILENO);
 		sh_execute(tmp->arg);
+		close(fd[1]);
 		exit(0);
 	}
 	else if (pid > 0)
 	{
+		close(0);
 		close(fd[1]);
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);
@@ -82,27 +84,44 @@ static int	sh_output(t_exec_list *tmp)
 {
 	mode_t	mode;
 	int		opt;
-	int		fd_o;
-	char	buf;
+	int		fd_1;
+	int		fd_2;
 
 	mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
-	opt = O_WRONLY | O_CREAT;
+	opt = O_WRONLY | O_CREAT | O_TRUNC;
 	if (tmp->clog == 5)
 		opt |= O_APPEND;
 	tmp = tmp->next;
-	fd_o = open(tmp->arg[0], opt, mode);
-	while (read(STDIN_FILENO, &buf, 1) > 0)
-		write(fd_o, &buf, 1);
+	fd_1 = open(tmp->arg[0], opt, mode);
+	fd_2 = open("2", opt, mode);
+
+	int			fd[2];
+	pid_t		pid;
+	int			i;
+	
+	pipe(fd);
+	dup2(fd_1, STDOUT_FILENO);
+	dup2(fd_1, fd[1]);
+	dup2(fd_2, fd[0]);
+	tmp = tmp->previous;
+	sh_execute(tmp->arg);
+	close(fd[1]);
+	close(fd[0]);
+	close(fd_1);
+	close(fd_2);
 	return (0);
+	i = 0;
+	pid = 0;
 }
 
 static int	sh_interpret(t_exec_list *tmp)
 {
-	if (tmp->clog == 1)
+	if (ft_strcmp("1", tmp->arg[0]) == 0)
+		return (0);
+	else if (tmp->clog == 1)
 		sh_pipe(tmp);
 	else if (tmp->clog == 3 || tmp->clog == 5)
 	{
-		sh_pipe(tmp);
 		sh_output(tmp);
 	}
 	else if (tmp->previous == NULL || tmp->previous->clog != 0)
@@ -113,16 +132,23 @@ static int	sh_interpret(t_exec_list *tmp)
 int			sh_exec_list(char *str)
 {
 	t_exec_list	*begin;
-	t_exec_list	*tmp;
+	int			s[3];
 
 	if ((begin = parse_build_com(str)) == NULL)
 		return (0);
-	tmp = begin;
-	while (tmp != NULL)
+	s[0] = dup(STDIN_FILENO);
+	s[1] = dup(STDOUT_FILENO);
+	s[2] = dup(STDERR_FILENO);
+	while (begin != NULL)
 	{
-		sh_interpret(tmp);
-		tmp = tmp->next;
+		sh_interpret(begin);
+		begin = begin->next;
 	}
-	dup2(1, STDIN_FILENO);
+	dup2(s[0], STDIN_FILENO);
+	dup2(s[1], STDOUT_FILENO);
+	dup2(s[2], STDERR_FILENO);
+	close(s[0]);
+	close(s[1]);
+	close(s[2]);
 	return (0);
 }

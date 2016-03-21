@@ -1,5 +1,6 @@
 NAME = Lexer
-SRC = main.c lexer.c parser.c grammar.c\
+SRC = main.c lexer.c parser.c grammar.c ft_token_recognition.c get_next_line.c\
+ ft_free.c ft_syntaxical.c ft_push_tree.c ft_misc.c pipe_grammar.c ft_grammar_great.c\
 
 OBJ = $(SRC:%.c=obj/%.o)
 

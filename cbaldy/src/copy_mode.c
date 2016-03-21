@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/04 14:35:13 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/05 15:35:51 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/18 10:36:56 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,17 +59,15 @@ static int	copy_interpret(int *arr, char *buf, t_com_list *tmp)
 static int	copy_read(t_com_list *begin, int *arr)
 {
 	int			i[2];
-	char		*buf;
+	char		buf[10];
 	t_com_list	*tmp;
 
 	i[1] = g_local->prompt;
 	tmp = begin;
 	while (i[1]++ != g_local->curs - 1 && tmp->next != NULL)
 		tmp = tmp->next;
-	buf = ft_strnew(10);
 	read(STDIN_FILENO, buf, 9);
 	i[0] = copy_interpret(arr, buf, tmp);
-	free(buf);
 	return (i[0]);
 }
 
@@ -80,7 +78,7 @@ int			copy_cut_mode(t_com_list **begin, int mode)
 
 	arr[0] = com_list_count(*begin);
 	arr[1] = g_local->prompt;
-	arr[2] = mode;
+	arr[2] = (mode == -30 ? 2 : 1);
 	tmp = *begin;
 	while (arr[1]++ != g_local->curs - 1 && tmp != NULL)
 		tmp = tmp->next;

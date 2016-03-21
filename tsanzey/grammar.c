@@ -15,7 +15,6 @@
 
 int		ft_check_closing(t_token *tok, t_sym sym)
 {
-	printf("tok %s\n", tok->content);
 	while (tok)
 	{
 		if (tok->type == sym)
@@ -23,16 +22,6 @@ int		ft_check_closing(t_token *tok, t_sym sym)
 		tok = tok->next;
 	}
 	return (0);
-}
-
-int		check_next_token(t_token *tok)
-{
-	// while (tok && tok->type == SPACE)
-
-	if (tok->next)
-		return (tok->next->type);
-	else
-		return (-2);
 }
 
 void	pop_token(t_token *tmp, t_token *tok)
@@ -79,7 +68,6 @@ char	*option_open_quotes(t_token *tok)
 	str = ft_strdup(tok->content);
 	tmp = tok;
 	tok = tok->next;
-	// pop_token(tmp);
 	while (tok)
 	{
 		str_tmp = str;
