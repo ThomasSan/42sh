@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 12:51:22 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/18 11:03:04 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/18 13:50:32 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_edit_line	g_edit_line[] = {
 	{NULL, 0},
 };
 
-static int	term_spec_char(char buf)
+static int	term_spec_char(char buf, t_com_list *begin)
 {
 	if (buf == 28)
 	{
@@ -48,7 +48,7 @@ static int	term_spec_char(char buf)
 	if (buf == 3)
 		ft_dprintf(STDOUT_FILENO, "\n");
 	if (buf == 9)
-		ft_putstr("tab");
+		return (tab_mode(begin));
 	return (buf);
 }
 
@@ -56,7 +56,7 @@ static int	term_tree_choice(char *buf, int *arr, t_com_list **begin,
 		t_hist_list **hist)
 {
 	if (arr[1] == 1)
-		return (term_spec_char(buf[0]));
+		return (term_spec_char(buf[0], *begin));
 	else if (arr[1] == 2)
 		copy_cut_mode(begin, buf[0]);
 	else if (arr[1] == 3)
@@ -77,7 +77,7 @@ int			term_edit_line(char *buf, int len, t_com_list **begin,
 {
 	int		i;
 	int		arr[2];
-
+	
 	i = 0;
 	while (g_edit_line[i].id != NULL &&
 			ft_strncmp(g_edit_line[i].id, buf, len) != 0)
