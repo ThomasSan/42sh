@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:43:04 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/18 19:26:06 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/21 14:26:57 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 t_builtin	g_list_builtin[] = {
 	{"cd", &sh_builtin_cd},
 	{"env", &sh_builtin_env},
+	{"hash", &sh_builtin_hash},
 	{"exit", &sh_builtin_exit},
 	{"setenv", &sh_builtin_setenv},
 	{"unsetenv", &sh_builtin_unsetenv},
@@ -71,7 +72,6 @@ static int	sh_pipe(t_exec_list *tmp)
 	}
 	else if (pid > 0)
 	{
-		close(0);
 		close(fd[1]);
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);
@@ -86,32 +86,38 @@ static int	sh_output(t_exec_list *tmp)
 	int		opt;
 	int		fd_1;
 	int		fd_2;
+	int fd[2];
 
 	mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
-	opt = O_WRONLY | O_CREAT | O_TRUNC;
+	opt = O_RDWR | O_CREAT | O_TRUNC;
 	if (tmp->clog == 5)
 		opt |= O_APPEND;
 	tmp = tmp->next;
 	fd_1 = open(tmp->arg[0], opt, mode);
-	fd_2 = open("2", opt, mode);
+	fd_2 = dup(STDOUT_FILENO);
+	ft_printf("%d ", fd_2);
 
-	int			fd[2];
-	pid_t		pid;
-	int			i;
-	
+	pid_t	pid;
+	int		i;
 	pipe(fd);
-	dup2(fd_1, STDOUT_FILENO);
-	dup2(fd_1, fd[1]);
-	dup2(fd_2, fd[0]);
-	tmp = tmp->previous;
-	sh_execute(tmp->arg);
-	close(fd[1]);
-	close(fd[0]);
+	pid = fork();
+	if (pid == 0)
+	{
+		dup2(fd_1, STDOUT_FILENO);
+		tmp = tmp->previous;
+		sh_execute(tmp->arg);
+		exit(0);
+	}
+	else if (pid > 0)
+	{
+		dup2(fd[0], STDIN_FILENO);
+		wait(&i);
+	}
+	//dup2(fd_1, STDOUT_FILENO);
+	//tmp = tmp->previous;
+	//sh_execute(tmp->arg);
 	close(fd_1);
-	close(fd_2);
 	return (0);
-	i = 0;
-	pid = 0;
 }
 
 static int	sh_interpret(t_exec_list *tmp)

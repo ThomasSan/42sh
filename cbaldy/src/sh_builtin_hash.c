@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tab_mode.c                                         :+:      :+:    :+:   */
+/*   sh_builtin_hash.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/18 13:40:47 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/21 10:20:56 by cbaldy           ###   ########.fr       */
+/*   Created: 2016/03/21 17:02:17 by cbaldy            #+#    #+#             */
+/*   Updated: 2016/03/21 17:04:29 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-int			tab_mode(t_com_list *begin)
+int		sh_builtin_hash(char **com)
 {
-	t_com_list	*tmp;
-	int			i;
+	int		i;
 
-	if (begin == NULL)
-		return (0);
-	return (0);
-	tmp = begin;
 	i = 0;
-	while (tmp->previous != NULL)
+	if (com[1] != NULL)
+		while (ft_strcmp(g_hash[i], com[1]) < 0)
+			i++;
+	while (g_hash[i] != NULL)
 	{
-		if (tmp->c == ' ')
-			i = 1;
-		tmp = tmp->previous;
+		ft_putendl(g_hash[i]);
+		i++;
 	}
-	
+	return (0);
 }

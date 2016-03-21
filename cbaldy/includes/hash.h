@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tab_mode.c                                         :+:      :+:    :+:   */
+/*   hash.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/18 13:40:47 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/21 10:20:56 by cbaldy           ###   ########.fr       */
+/*   Created: 2016/03/21 10:56:52 by cbaldy            #+#    #+#             */
+/*   Updated: 2016/03/21 17:04:53 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell.h"
+#ifndef HASH_H
+# define HASH_H
 
-int			tab_mode(t_com_list *begin)
+typedef struct			s_hash_tree
 {
-	t_com_list	*tmp;
-	int			i;
+	char				*name;
+	char				*path;
+	struct s_hash_tree	*left;
+	struct s_hash_tree	*right;
+	struct s_hash_tree	*root;
+}						t_hash_tree;
 
-	if (begin == NULL)
-		return (0);
-	return (0);
-	tmp = begin;
-	i = 0;
-	while (tmp->previous != NULL)
-	{
-		if (tmp->c == ' ')
-			i = 1;
-		tmp = tmp->previous;
-	}
-	
-}
+char					**g_hash;
+
+int						hash_get_tab(void);
+int						sh_builtin_hash(char **com);
+
+#endif
