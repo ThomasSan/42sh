@@ -106,6 +106,22 @@ t_token		*ft_token_removal(t_token *tok, t_sym sym)
 	return(tok);
 }
 
+void		ft_token_for_num(t_token *tok)
+{
+	while (tok)
+	{
+		if (tok->type == NUMBERS)
+		{
+			if (check_next_token(tok) == DIPLE_R || check_prev_token(tok) == AMPERSAND)
+				tok = tok->next;
+			else
+				tok->type = WORDS;
+		}
+		else
+			tok = tok->next;
+	}
+}
+
 t_token		*ft_checking_syntax(t_token *tok)
 {
 	return_type_quoted(tok);
@@ -114,8 +130,8 @@ t_token		*ft_checking_syntax(t_token *tok)
 	tok = ft_token_removal(tok, QUOTES);
 	if (!ft_command_isvalid(tok))
 		return (NULL);
-	printf("exit the valid\n");
 	tok = ft_token_removal(tok, SEMICOL);
+	// tok = ft_token_redirection(tok);
 	// return_type_redirected(tok);
 	return (tok);
 }

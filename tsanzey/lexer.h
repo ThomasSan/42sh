@@ -27,6 +27,9 @@ typedef enum 		e_sym
 	DOLLAR,
 	HASHTAG,
 	MINUS,
+	LESS_AND,
+	GREAT_AND,
+	LESS_GREAT,
 	NUMBERS = 100,
 	WHITESPACE = 200,
 	WORDS = -1
@@ -40,12 +43,25 @@ typedef	enum 		e_cmd
 	TUBES
 }					t_cmd;
 
+/*
+cmd = 0;
+pipe = 1;
+< = 2;
+> = 3;
+<< = 4;
+>> = 5;
+&& = 6;
+|| = 7;
+; = 8;
+*/
+
 typedef struct 		s_tree
 {
 	struct s_tree	*left;
 	struct s_tree	*right;
 	char			**cmd;
 	int				types;
+	int				fd[2];
 }					t_tree;
 
 typedef struct 		s_token
@@ -57,6 +73,15 @@ typedef struct 		s_token
 	struct s_token	*prev;
 }					t_token;
 
+typedef struct		s_env
+{
+	char			*name;
+	char			*val;
+	struct s_env	*next;
+}					t_env;
+
+void				ft_start_cmd(char **cmd, t_env *env, int fd[2]);
+void				ft_start_cmd2(char **cmd, t_env *env, int fd[2]);
 char				*rules_for_strings(t_token *tok);
 char				*rules_for_semicol(char *s);
 t_token				*ft_checking_syntax(t_token *tok);
@@ -78,5 +103,6 @@ void				parse_error(char *s);
 int					(*g_f[20])(t_token*);
 void				ft_array_fun(void);
 int					rules_for_pipes(t_token *tok);
+int					rules_for_great(t_token *tok);
 
 #endif
