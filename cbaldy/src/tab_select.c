@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/19 10:02:21 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/21 19:09:44 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/22 15:48:26 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ int					tab_select(t_param *debut, t_com_list *begin)
 	else
 	{
 		ft_notputs("vi", 1);
+		g_local->completion = 1;
 		print_args(debut);
 		ft_notputs("ve", 1);
 	}

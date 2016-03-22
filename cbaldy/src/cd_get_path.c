@@ -6,13 +6,13 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/08 15:22:50 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/02/15 14:07:00 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/22 12:17:29 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static char	*cd_var_env(char *name)
+char		*cd_var_env(char *name)
 {
 	int		i;
 	char	*tmp;
@@ -56,7 +56,7 @@ char		*cd_get_path(char **com, int opt)
 {
 	char	*path;
 	int		dir;
-
+	
 	dir = (opt == 0 || com[1] == NULL ? 1 : 2);
 	path = NULL;
 	if (com[dir] == NULL)
