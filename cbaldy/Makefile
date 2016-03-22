@@ -6,7 +6,7 @@
 #    By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/14 14:42:25 by cbaldy            #+#    #+#              #
-#    Updated: 2016/03/21 19:31:59 by dbaldy           ###   ########.fr        #
+#    Updated: 2016/03/22 17:01:18 by cbaldy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,11 @@ SRC = main.c sh_set_term.c sh_read_prompt.c sh_command.c sh_builtin_cd.c \
 	  tab_select.c tab_nb_col.c tab_nb_row.c tab_cursor_mvt.c  tab_supp.c\
 	  hash_get_tab.c sh_builtin_hash.c
 
+LEX = lexer.c parser.c ft_token_recognition.c ft_free.c ft_syntaxical.c \
+	  ft_push_tree.c ft_misc.c pipe_grammar.c ft_great_grammar.c \
+	  ft_input_correct.c ft_start_cmd.c tree_ft.c tree_build_cmd.c \
+	  ft_isspace.c ft_catplus.c sh_lexer_parser.c
+
 INCLUDE = -I includes/
 
 FLAG = -Wall -Werror -Wextra
@@ -31,20 +36,22 @@ FLAG = -Wall -Werror -Wextra
 LIBRARIES = -L libft/ -L ft_printf -lft -lftprintf -ltermcap
 
 CFILES = $(addprefix src/, $(SRC))
+CLEX = $(addprefix src/lexer_parser/, $(LEX))
 
 OBJ = $(SRC:.c=.o)
+OBJ2 = $(LEX:.c=.o)
 
 all: $(NAME)
 
 $(NAME):
-	@gcc -c $(FLAG) $(INCLUDE) $(CFILES)
+	@gcc -c $(FLAG) $(INCLUDE) $(CFILES) $(CLEX)
 	@#@make -C libft/ fclean && make -C libft && make -C libft/ clean
 	@#@make -C ft_printf/ fclean && make -C ft_printf && make -C ft_printf/ clean
-	@gcc -o $(NAME) $(LIBRARIES) $(OBJ)
+	@gcc -o $(NAME) $(LIBRARIES) $(OBJ) $(OBJ2)
 	@echo "\x1b[32;02m$(NAME) ready\x1b[0;m"
 
 clean:
-	@/bin/rm -f $(OBJ)
+	@/bin/rm -f $(OBJ) $(OBJ2)
 	@echo "\x1b[0;01mclean\x1b[0;m"
 
 fclean: clean

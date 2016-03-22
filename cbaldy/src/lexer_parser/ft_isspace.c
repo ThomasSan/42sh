@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsanzey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/12/15 11:04:02 by tsanzey           #+#    #+#             */
-/*   Updated: 2015/12/23 13:48:25 by tsanzey          ###   ########.fr       */
+/*   Created: 2015/11/24 15:23:20 by tsanzey           #+#    #+#             */
+/*   Updated: 2016/03/22 16:38:41 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# define BUFF_SIZE 1
+#include "libft.h"
 
-int		get_next_line(int const fd, char **line);
-int		get_line_len(int const fd, char **dst);
-int		checknewline(char *s);
-char	*del_line(char *s, int i);
-
-#endif
+int		ft_isspace(int c)
+{
+	if (c == ' ' || c == '\n' || c == '\t')
+		return (1);
+	else
+		return (0);
+}

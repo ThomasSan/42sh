@@ -6,8 +6,7 @@
 # include <unistd.h>
 # include <dirent.h>
 # include <fcntl.h>
-# include "libft/libft.h"
-# include "get_next_line.h"
+# include "libft.h"
 
 typedef enum 		e_sym
 {
@@ -80,6 +79,8 @@ typedef struct		s_env
 	struct s_env	*next;
 }					t_env;
 
+int					ft_isspace(int c);
+char				*ft_catplus(char *s1, char *s2, char c);
 void				ft_start_cmd(char **cmd, t_env *env, int fd[2]);
 void				ft_start_cmd2(char **cmd, t_env *env, int fd[2]);
 char				*rules_for_strings(t_token *tok);

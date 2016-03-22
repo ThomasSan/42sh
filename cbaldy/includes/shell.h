@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:12:49 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/22 12:14:37 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/22 16:59:31 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "get_next_line.h"
 # include "ft_select.h"
 # include "hash.h"
+# include "lexer.h"
 
 # include <stdio.h>
 # include <unistd.h>
@@ -101,5 +102,6 @@ int				sh_exec_list(char *str);
 int				sh_minishell(void);
 int				yank_line(char c, t_com_list **begin);
 int				tab_mode(t_com_list *begin);
+t_tree			*sh_lexer_parser(char *str);
 
 #endif
