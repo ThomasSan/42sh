@@ -45,11 +45,11 @@ typedef	enum 		e_cmd
 
 /*
 cmd = 0;
-pipe = 1;
-< = 2;
-> = 3;
-<< = 4;
->> = 5;
+< = 1;
+> = 2;
+<< = 3;
+>> = 4;
+pipe = 5;
 && = 6;
 || = 7;
 ; = 8;
@@ -79,6 +79,10 @@ typedef struct		s_env
 	char			*val;
 	struct s_env	*next;
 }					t_env;
+
+
+# include "tree_build_cmd.h"
+
 
 void				ft_start_cmd(char **cmd, t_env *env, int fd[2]);
 void				ft_start_cmd2(char **cmd, t_env *env, int fd[2]);

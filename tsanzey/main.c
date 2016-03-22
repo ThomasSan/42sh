@@ -105,7 +105,7 @@ void	display_env(t_env *env)
 int		main(int ac, char **av, char **envp)
 {
 	t_token	*tok;
-	// t_token	*tmp1;
+	t_token	*tmp1;
 	t_env	*env;
 	t_tree	*head;
 	char	*line;
@@ -134,18 +134,23 @@ int		main(int ac, char **av, char **envp)
 		{
 			tok = ft_tokeniser(line, tok);
 			tok = ft_checking_syntax(tok);
-			// tmp1 = tok;
-			// while (tmp1)
-			// {
-			// 	printf("type : %d, content : %s\n", tmp1->type, tmp1->content);
-			// 	tmp1 = tmp1->next;
-			// }
-			head = tree_generator(head, tok);
-			ft_display_tokens(head, env, 0, fd);
-			tok = free_token_list(tok);
-			head = delete_tree(head);
+			 tmp1 = tok;
+			 while (tmp1)
+			 {
+			 	printf("type : %d, content : %s\n", tmp1->type, tmp1->content);
+			 	tmp1 = tmp1->next;
+			 }
+			 tree_build_cmd(tok);
+			//head = tree_generator(head, tok);
+			//ft_display_tokens(head, env, 0, fd);
+			//tok = free_token_list(tok);
+			//head = delete_tree(head);
 		}
 		free(line);
 	}
 	return (0);
+			head = tree_generator(head, tok);
+			ft_display_tokens(head, env, 0, fd);
+			tok = free_token_list(tok);
+			head = delete_tree(head);
 }
