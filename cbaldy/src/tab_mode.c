@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 13:40:47 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/22 15:43:00 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/22 16:52:07 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,9 +119,10 @@ int					tab_mode(t_com_list *begin)
 	if (table == NULL)
 		return (0);
 	word = word_to_tab(var);
-	debut = string_matches(word, table);
+	if ((debut = string_matches(word, table)) == NULL && g_local->completion)
+		exit_completion(begin);
 	if (debut != NULL)
-		tab_select(debut, begin);
+		tab_select(debut, begin, word);
 	if (iscommand(var) != 0)
 		ft_free_tab(table);
 	free(var);

@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 15:53:13 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/22 15:49:28 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/22 19:46:58 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 int			print_lines(int nb_row)
 {
 	ft_notputs("sf", nb_row);
-	ft_notputs("do", 1);
 	ft_notputs("cr", 1);
+	ft_notputs("cd", 1);
 	return (0);
 }
 

@@ -6,11 +6,29 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 17:53:59 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/19 10:49:15 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/22 16:10:29 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
+
+int			exit_completion(t_com_list *begin)
+{
+	int		size_list;
+	int		row_pos;
+	int		row_to_skip;
+
+	if (g_local->completion == 1)
+	{
+		size_list = com_list_count(begin);
+		row_pos = g_local->curs / g_local->nb_col;
+		row_to_skip = (size_list / g_local->nb_col) - row_pos;
+		ft_notputs("do", row_to_skip);
+		ft_notputs("cd", 1);
+		g_local->completion = 0;
+	}
+	return (0);
+}
 
 int			get_size_list(t_param *debut)
 {

@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:12:49 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/22 12:14:37 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/22 16:09:06 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 
 # define HIST_SIZE 20
 
+int				exit_completion(t_com_list *begin);
 char			*cd_var_env(char *name);
 void			clear_hist(t_hist_list **hist);
 t_hist_list		*copy_hist(t_hist_list *hist);

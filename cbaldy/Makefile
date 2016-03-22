@@ -6,7 +6,7 @@
 #    By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/14 14:42:25 by cbaldy            #+#    #+#              #
-#    Updated: 2016/03/21 19:31:59 by dbaldy           ###   ########.fr        #
+#    Updated: 2016/03/22 16:29:09 by dbaldy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRC = main.c sh_set_term.c sh_read_prompt.c sh_command.c sh_builtin_cd.c \
 	  term_mv_cursor.c parse_build_com.c parse_find_error.c exec_list_ft.c \
 	  sh_minishell.c get_next_line.c change_hist.c yank_line.c tab_mode.c\
 	  tab_select.c tab_nb_col.c tab_nb_row.c tab_cursor_mvt.c  tab_supp.c\
-	  hash_get_tab.c sh_builtin_hash.c
+	  hash_get_tab.c sh_builtin_hash.c tab_line_management.c
 
 INCLUDE = -I includes/
 
