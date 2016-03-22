@@ -6,7 +6,11 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:12:49 by cbaldy            #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2016/03/21 19:04:19 by dbaldy           ###   ########.fr       */
+=======
 /*   Updated: 2016/03/21 13:05:13 by cbaldy           ###   ########.fr       */
+>>>>>>> 47de2cb53d207e4bb2ebd916b91644eaa14814ad
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +21,11 @@
 # include "ft_printf.h"
 # include "struct_shell.h"
 # include "get_next_line.h"
+<<<<<<< HEAD
+# include "ft_select.h"
+=======
 # include "hash.h"
+>>>>>>> 47de2cb53d207e4bb2ebd916b91644eaa14814ad
 
 # include <stdio.h>
 # include <unistd.h>
