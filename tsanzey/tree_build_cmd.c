@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 10:22:10 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/22 13:04:01 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/22 14:10:53 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@ static int	tree_print(t_tree *root)
 		i = 0;
 		while (root->cmd[i] != NULL)
 		{
-			ft_putendl(root->cmd[i]);
+			printf("%s ", root->cmd[i]);
 			i++;
 		}
+		printf("\n");
 	}
 	else
 		printf("%d\n", root->types);
@@ -43,7 +44,7 @@ static int	tree_get_cmd(t_token *tok, t_tree **root)
 
 	i[0] = 0;
 	tmp = tok;
-	while (tmp != NULL && tok->type == -1)
+	while (tmp != NULL && tmp->type == -1)
 	{
 		tmp = tmp->next;
 		i[0]++;
@@ -54,6 +55,7 @@ static int	tree_get_cmd(t_token *tok, t_tree **root)
 	while (i[1] < i[0])
 	{
 		str[i[1]] = ft_strdup(tok->content);
+		tok = tok->next;
 		i[1]++;
 	}
 	str[i[1]] = NULL;
@@ -72,6 +74,14 @@ static int	tree_get_other(t_token *tok, t_tree **root)
 		if ((new = tree_new_elem(NULL, 5)) == NULL)
 			return (1);
 		tree_place_type_pipe(new, root);
+		return (1);
+	}
+	if (tok->type == 3)
+	{
+		if ((new = tree_new_elem(&(tok->next->content), 2)) == NULL)
+			return (2);
+		tree_place_type_red(new, root);
+		return (2);
 	}
 	return (1);
 }
