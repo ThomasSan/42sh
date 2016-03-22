@@ -24,3 +24,20 @@ t_tree		*sh_lexer_parser(char *str)
 	tok = ft_checking_syntax(tok);
 	return (tree_build_cmd(tok));
 }
+
+// tab[0] = ls;
+// tab[1] = -la;
+// tab[3] = /;
+// tab[4] = NULL;
+// garder les seprators;
+// changer var $""
+// remove quotes
+// tild expansion
+// cd ~/work
+/*
+int		i;
+char 	*str;
+
+if ((i = sh_is_new_var("VAR_NAME")) >= 0)
+	str = ft_strdup(&(ft_strchr(g_env[i], '=')[1]));
+*/

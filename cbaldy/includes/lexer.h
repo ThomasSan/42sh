@@ -31,6 +31,7 @@ typedef enum 		e_sym
 	// LESS_GREAT,
 	NUMBERS = 100,
 	WHITESPACE = 200,
+	COMMANDS = 300,
 	WORDS = -1
 }					t_sym;
 

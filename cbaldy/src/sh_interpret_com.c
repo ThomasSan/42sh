@@ -142,8 +142,8 @@ int			sh_exec_list(char *str)
 
 	if ((begin = parse_build_com(str)) == NULL)
 		return (0);
-	if (sh_lexer_parser(str) != NULL)
-		ft_putendl("LEXER_PARSER: OK");
+	// if (sh_lexer_parser(str) != NULL)
+		// ft_putendl("LEXER_PARSER: OK");
 	s[0] = dup(STDIN_FILENO);
 	s[1] = dup(STDOUT_FILENO);
 	s[2] = dup(STDERR_FILENO);
