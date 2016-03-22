@@ -29,7 +29,7 @@ typedef enum 		e_sym
 	MINUS,
 	LESS_AND,
 	GREAT_AND,
-	LESS_GREAT,
+	// LESS_GREAT,
 	NUMBERS = 100,
 	WHITESPACE = 200,
 	WORDS = -1

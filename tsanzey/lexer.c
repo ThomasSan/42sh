@@ -37,8 +37,8 @@ int		ft_other_redirs(char *s, int i, int type)
 		return (GREAT_AND);
 	if (s[i + 1] && type == DIPLE_L && s[i + 1] == *token_types[AMPERSAND])
 		return (LESS_AND);
-	if (s[i + 1] && type == DIPLE_L && s[i + 1] == *token_types[DIPLE_R])
-		return (LESS_GREAT);
+	// if (s[i + 1] && type == DIPLE_L && s[i + 1] == *token_types[DIPLE_R])
+	// 	return (LESS_GREAT);
 	return (type);
 }
 int		ft_token_type(char *s, int i)
@@ -75,8 +75,7 @@ char	*tok_content(char *s, int start, int type)
 	static const char	*token_types[] = {"\"", "\'", "`", ">", ">>", "<",
 	"<<", "|", ";", "&", "~",/* "/", */"\\", "$", "#", "-", "<&", ">&", "<>","\0"};
 
-	if (type == DOUBLE_R || type == DOUBLE_L || type == LESS_AND || type == GREAT_AND
-		|| type == LESS_GREAT)
+	if (type == DOUBLE_R || type == DOUBLE_L || type == LESS_AND || type == GREAT_AND)
 	{
 		if (!(dst = (char *)malloc(sizeof(char) * 3)))
 			return (NULL);
@@ -139,7 +138,7 @@ t_token	*ft_tokeniser(char *s, t_token *head)
 		new->type = ft_token_type(s, i);
 		new->content = tok_content(s, i, new->type);
 		if (new->type == DOUBLE_R || new->type == DOUBLE_L || new->type == LESS_AND ||
-			new->type == GREAT_AND || new->type == LESS_GREAT)
+			new->type == GREAT_AND)
 			i++;
 		if (ft_token_type(s, i) == -1)
 			i = ft_next_token(s, i);
