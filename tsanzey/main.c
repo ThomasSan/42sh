@@ -3,7 +3,7 @@
 
 void	ft_display_tokens(t_tree *head, t_env *env, int i, int *fd)
 {
-	pid_t	pid;
+/*	pid_t	pid;
 
 	head->fd[0] = fd[0];
 	head->fd[1] = fd[1];
@@ -19,7 +19,7 @@ void	ft_display_tokens(t_tree *head, t_env *env, int i, int *fd)
 		// 	exit(0); //in case of error
 		else
 		{
-			wait(NULL);
+			wait(&pid);
 			ft_display_tokens(head->right, env, i, head->fd);			
 		}
 	}
@@ -30,7 +30,9 @@ void	ft_display_tokens(t_tree *head, t_env *env, int i, int *fd)
 		else
 			ft_start_cmd2(head->cmd, env, head->fd);
 		i++;
-	}
+	}*/
+	(void)fd;
+	printf("head : %s\n", head->cmd[0]);
 	if (head->left)
 		ft_display_tokens(head->left, env, i, head->fd);
 	if (head->right)
@@ -105,7 +107,7 @@ void	display_env(t_env *env)
 int		main(int ac, char **av, char **envp)
 {
 	t_token	*tok;
-	// t_token	*tmp1;
+	t_token	*tmp1;
 	t_env	*env;
 	t_tree	*head;
 	char	*line;
@@ -134,7 +136,7 @@ int		main(int ac, char **av, char **envp)
 		{
 			tok = ft_tokeniser(line, tok);
 			tok = ft_checking_syntax(tok);
-			// tmp1 = tok;
+			tmp1 = tok;
 			// while (tmp1)
 			// {
 			// 	printf("type : %d, content : %s\n", tmp1->type, tmp1->content);

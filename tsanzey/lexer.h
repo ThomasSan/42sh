@@ -22,7 +22,7 @@ typedef enum 		e_sym
 	SEMICOL,
 	AMPERSAND,
 	TILD,
-	SLASH,
+	// SLASH,
 	BACKSLASH,
 	DOLLAR,
 	HASHTAG,

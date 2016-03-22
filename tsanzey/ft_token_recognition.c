@@ -130,6 +130,7 @@ t_token		*ft_checking_syntax(t_token *tok)
 	tok = ft_token_removal(tok, QUOTES);
 	if (!ft_command_isvalid(tok))
 		return (NULL);
+	printf("is valid\n");
 	tok = ft_token_removal(tok, SEMICOL);
 	// tok = ft_token_redirection(tok);
 	// return_type_redirected(tok);

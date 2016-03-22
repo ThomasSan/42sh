@@ -27,7 +27,7 @@ int		is_word_or(char *s, int i)
 int		ft_other_redirs(char *s, int i, int type)
 {
 	static const char	*token_types[] = {"\"", "\'", "`", ">", ">>", "<",
-	"<<", "|", ";", "&", "~", "/", "\\", "$", "#", "-", "\0"};
+	"<<", "|", ";", "&", "~", /*"/", */"\\", "$", "#", "-", "\0"};
 
 	if (s[i + 1] && type == DIPLE_R && s[i + 1] == s[i])
 		return (4);
@@ -46,7 +46,7 @@ int		ft_token_type(char *s, int i)
 	int					type;
 	int					j;
 	static const char	*token_types[] = {"\"", "\'", "`", ">", ">>", "<",
-	"<<", "|", ";", "&", "~", "/", "\\", "$", "#", "-", "\0"};
+	"<<", "|", ";", "&", "~",/* "/", */"\\", "$", "#", "-", "\0"};
 
 	type = WORDS;
 	j = 0;
@@ -73,7 +73,7 @@ char	*tok_content(char *s, int start, int type)
 	int					i;
 	char				*dst;
 	static const char	*token_types[] = {"\"", "\'", "`", ">", ">>", "<",
-	"<<", "|", ";", "&", "~", "/", "\\", "$", "#", "-", "<&", ">&", "<>","\0"};
+	"<<", "|", ";", "&", "~",/* "/", */"\\", "$", "#", "-", "<&", ">&", "<>","\0"};
 
 	if (type == DOUBLE_R || type == DOUBLE_L || type == LESS_AND || type == GREAT_AND
 		|| type == LESS_GREAT)
