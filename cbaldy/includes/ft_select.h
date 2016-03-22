@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/17 17:00:59 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/21 19:09:03 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/22 13:54:55 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct				s_arg_list
 	struct s_arg_list		*prev;
 }							t_param;
 
+int							iscommand(char *var);
 t_param						*add_file(t_param *debut, char *str);
 int							reset_select(t_param *debut);
 int							suppr_char_list(t_line **line);
