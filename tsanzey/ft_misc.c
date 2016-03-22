@@ -8,4 +8,5 @@ void	ft_array_fun(void)
 	// g_f[DOUBLE_L] = ;
 	g_f[PIPE] = rules_for_pipes;
 	// g_f[TILD] = ;
+	// g_f[MINUS] = rules_for_minus;
 }

@@ -13,22 +13,6 @@
 #include "lexer.h"
 #include "parser.h"
 
-char	*parsing_nodes(t_token *tok)
-{
-	char	*str;
-
-	str = NULL;
-	if (tok->type == WORDS)
-	{
-		str = rules_for_strings(tok);
-	}
-	else
-	{
-		str = rules_for_semicol(tok->content);
-	}
-	return (str);
-}
-
 t_tree	*tree_generator(t_tree *head, t_token *tok)
 {
 	char	*str;
