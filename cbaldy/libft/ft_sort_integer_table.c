@@ -6,13 +6,13 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/29 18:23:39 by cbaldy            #+#    #+#             */
-/*   Updated: 2015/11/29 18:49:23 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/21 18:31:23 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_sort_integer_table(int *tab, int size)
+void	ft_sort_integer_table(int *tabl, int size)
 {
 	int		i[2];
 	int		n;

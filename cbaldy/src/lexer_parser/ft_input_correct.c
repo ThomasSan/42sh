@@ -2,7 +2,8 @@
 
 int		ft_command_isvalid(t_token *tok)
 {
-	if (tok->type == WORDS)
+	printf("cmd %s\n", tok->content);
+	if (tok->type == WORDS || tok->type == NUMBERS)
 	{
 		if (tok->next)
 			return (ft_command_isvalid(tok->next));

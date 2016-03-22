@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: tsanzey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/25 12:16:19 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/22 13:01:39 by dbaldy           ###   ########.fr       */
+/*   Created: 2016/03/03 11:04:30 by tsanzey           #+#    #+#             */
+/*   Updated: 2016/03/03 11:04:31 by tsanzey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "lexer.h"
 
-char	*ft_strrchr(const char *s, int c)
+void	free_array(char **arr)
 {
-	int		k;
+	int		i;
 
-	k = 0;
-	while (s[k])
-		k++;
-	while (k >= 0)
+	i = 0;
+	while (arr[i])
 	{
-		if (s[k] == c)
-			return (&((char *)s)[k]);
-		k--;
+		free(arr[i]);
+		i++;
 	}
-	if (c == 0)
-		return (&((char *)s)[k]);
-	else
-		return (NULL);
 }

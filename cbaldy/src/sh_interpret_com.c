@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:43:04 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/21 14:26:57 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/22 17:09:05 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,8 @@ int			sh_exec_list(char *str)
 
 	if ((begin = parse_build_com(str)) == NULL)
 		return (0);
+	if (sh_lexer_parser(str) != NULL)
+		ft_putendl("LEXER_PARSER: OK");
 	s[0] = dup(STDIN_FILENO);
 	s[1] = dup(STDOUT_FILENO);
 	s[2] = dup(STDERR_FILENO);

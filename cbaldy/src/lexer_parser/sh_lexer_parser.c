@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*   sh_lexer_parser.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/26 15:03:34 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/22 11:31:09 by dbaldy           ###   ########.fr       */
+/*   Created: 2016/03/22 16:53:20 by cbaldy            #+#    #+#             */
+/*   Updated: 2016/03/22 17:01:39 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "shell.h"
+#include "lexer.h"
+#include "parser.h"
+#include "tree_build_cmd.h"
 
-char	*ft_strtrim(char const *s)
+t_tree		*sh_lexer_parser(char *str)
 {
-	char	*str;
-	size_t	i;
-	size_t	j;
+	t_token	*tok;
 
-	i = 0;
-	j = ft_strlen(s) - 1;
-	while (s[i] == ' ' || s[i] == '\n' || s[i] == '\t')
-		i++;
-	while ((s[j] == ' ' || s[j] == '\n' || s[j] == '\t') && (j > 0))
-		j--;
-	if (i > j)
-		return (ft_strnew(1));
-	if ((str = ft_strsub(s, i, j - i + 1)) == NULL)
-		return (NULL);
-	return (str);
+	tok = NULL;
+	tok = ft_tokeniser(str, tok);
+	tok = ft_checking_syntax(tok);
+	return (tree_build_cmd(tok));
 }

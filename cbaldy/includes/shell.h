@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:12:49 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/21 13:05:13 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/22 16:59:31 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@
 # include "ft_printf.h"
 # include "struct_shell.h"
 # include "get_next_line.h"
+# include "ft_select.h"
 # include "hash.h"
+# include "lexer.h"
 
 # include <stdio.h>
 # include <unistd.h>
@@ -36,6 +38,7 @@
 
 # define HIST_SIZE 20
 
+char			*cd_var_env(char *name);
 void			clear_hist(t_hist_list **hist);
 t_hist_list		*copy_hist(t_hist_list *hist);
 int				sh_prompt(void);
@@ -99,5 +102,6 @@ int				sh_exec_list(char *str);
 int				sh_minishell(void);
 int				yank_line(char c, t_com_list **begin);
 int				tab_mode(t_com_list *begin);
+t_tree			*sh_lexer_parser(char *str);
 
 #endif

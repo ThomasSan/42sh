@@ -6,8 +6,7 @@
 # include <unistd.h>
 # include <dirent.h>
 # include <fcntl.h>
-# include "libft/libft.h"
-# include "get_next_line.h"
+# include "libft.h"
 
 typedef enum 		e_sym
 {
@@ -22,14 +21,14 @@ typedef enum 		e_sym
 	SEMICOL,
 	AMPERSAND,
 	TILD,
-	SLASH,
+	// SLASH,
 	BACKSLASH,
 	DOLLAR,
 	HASHTAG,
 	MINUS,
 	LESS_AND,
 	GREAT_AND,
-	LESS_GREAT,
+	// LESS_GREAT,
 	NUMBERS = 100,
 	WHITESPACE = 200,
 	WORDS = -1
@@ -45,11 +44,11 @@ typedef	enum 		e_cmd
 
 /*
 cmd = 0;
-< = 1;
-> = 2;
-<< = 3;
->> = 4;
-pipe = 5;
+pipe = 1;
+< = 2;
+> = 3;
+<< = 4;
+>> = 5;
 && = 6;
 || = 7;
 ; = 8;
@@ -80,10 +79,8 @@ typedef struct		s_env
 	struct s_env	*next;
 }					t_env;
 
-
-# include "tree_build_cmd.h"
-
-
+int					ft_isspace(int c);
+char				*ft_catplus(char *s1, char *s2, char c);
 void				ft_start_cmd(char **cmd, t_env *env, int fd[2]);
 void				ft_start_cmd2(char **cmd, t_env *env, int fd[2]);
 char				*rules_for_strings(t_token *tok);

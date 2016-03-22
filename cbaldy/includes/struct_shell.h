@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 12:18:39 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/21 10:28:55 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/22 15:42:40 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct			s_com_list
 
 typedef struct			s_local
 {
+	int					completion;
 	int					prompt;
 	int					curs;
 	int					exit_value;

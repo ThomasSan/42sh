@@ -1,32 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*   tree_build_cmd.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/26 15:03:34 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/22 11:31:09 by dbaldy           ###   ########.fr       */
+/*   Created: 2016/03/22 10:20:49 by cbaldy            #+#    #+#             */
+/*   Updated: 2016/03/22 16:58:27 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef TREE_BUILD_CMD_H
+# define TREE_BUILD_CMD_H
 
-char	*ft_strtrim(char const *s)
-{
-	char	*str;
-	size_t	i;
-	size_t	j;
+# include "lexer.h"
 
-	i = 0;
-	j = ft_strlen(s) - 1;
-	while (s[i] == ' ' || s[i] == '\n' || s[i] == '\t')
-		i++;
-	while ((s[j] == ' ' || s[j] == '\n' || s[j] == '\t') && (j > 0))
-		j--;
-	if (i > j)
-		return (ft_strnew(1));
-	if ((str = ft_strsub(s, i, j - i + 1)) == NULL)
-		return (NULL);
-	return (str);
-}
+t_tree	*tree_build_cmd(t_token *tok);
+int		tree_place_cmd(t_tree *new, t_tree **root);
+t_tree	*tree_new_elem(char **cmd, int type);
+int		tree_place_type_pipe(t_tree *new, t_tree **root);
+int		tree_place_type_red(t_tree *new, t_tree **root);
+
+#endif
