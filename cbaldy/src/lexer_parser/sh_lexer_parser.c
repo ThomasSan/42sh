@@ -20,7 +20,6 @@ t_tree		*sh_lexer_parser(char *str)
 
 	tok = NULL;
 	tok = ft_tokeniser(str, tok);
-	printf("tokenised\n");
 	tok = ft_checking_syntax(tok);
 	return (tree_build_cmd(tok));
 }
