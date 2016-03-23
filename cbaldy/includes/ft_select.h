@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/17 17:00:59 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/23 12:26:50 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/23 15:49:32 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ typedef struct				s_list_compl
 	t_param					*begin;
 }							t_compl;
 
+char						*tab_prepare_select(t_param *debut,
+		t_com_list *begin);
 int							tab_complete_line(t_param *debut, t_com_list *begin,
 		char *word);
 int							clear_tparam(t_param **begin);

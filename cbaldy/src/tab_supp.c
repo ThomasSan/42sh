@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 15:14:39 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/23 12:53:44 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/23 16:22:47 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_param		*add_file(t_param *debut, char *str)
 	}
 	else
 		new->nb = 0;
-	new->select = (buf == NULL) ? 1 : 0;
+	new->select = (buf == NULL) ? 2 : 0;
 	return (new);
 }
 

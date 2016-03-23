@@ -6,33 +6,37 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 16:49:46 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/23 12:43:22 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/23 17:27:24 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static int	increase_line(t_com_list *begin, char *test, char *word)
+static int	increase_line(t_com_list *begin, char *test)
 {
-	int			i;
 	t_com_list	*buf;
+	int			i;
+	int			len_list;
 
+	i = 0;
 	buf = begin;
-	i = g_local->prompt;
-	while (i++ < g_local->curs)
-		buf = buf->next;
-	while (buf->next && buf->next->c != ' ')
+	len_list = com_list_count(begin);
+	while (buf && i < g_local->curs)
 	{
 		buf = buf->next;
-		g_local->curs++;
+		i++;
 	}
-	while (*word)
+	while (buf && buf->c != ' ')
 	{
-//		ed_add_char(&begin, *word);
-		word++;
+		term_mv_horizontal(3, len_list);
+		buf = buf->next;
+	}
+	while (*test)
+	{
+		term_write_line(&begin, *test);
+		test++;
 	}
 	return (0);
-	test = NULL;
 }
 
 static int	can_increase(t_param *debut, char *test, size_t size_curr_word)
@@ -77,21 +81,16 @@ int			tab_complete_line(t_param *debut, t_com_list *begin, char *word)
 	if (size_curr_word == (int)ft_strlen(debut->var))
 		return (0);
 	size_curr_word = get_compl_max(debut, size_curr_word);
-//	ft_dprintf(1, "%d %d %d\n", (int)ft_strlen(word), size_curr_word, debut->next->nb);
 	if (size_curr_word == (int)(ft_strlen(word)))
 	{
 		if (debut->next->nb != 0 && g_curr_compl == NULL)
 			return (1);
 		else if (debut->next->nb != 0)
-			while (debut->prev->select != 1)
-				debut = debut->next;
-		debut->prev->select = 0;
-		debut->select = 1;
-		test = ft_strdup(debut->var);
+			test = tab_prepare_select(g_curr_compl->begin, begin);
+		else
+			return (0);
 	}
 	else
-		test = ft_strsub(debut->var, 0, size_curr_word);
-//	ft_dprintf(1, "%s\n", test);
-//	exit(1);
-	return (increase_line(begin, test, word));
+		test = ft_strsub(debut->var, ft_strlen(word), size_curr_word);
+	return (increase_line(begin, test));
 }

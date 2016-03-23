@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 13:40:47 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/23 12:54:16 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/23 17:27:19 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,8 @@ static t_param		*string_matches(char *var, char **buf)
 			debut = tmp;
 		i++;
 	}
-	tmp->select = 1;
 	debut->prev = tmp;
 	tmp->next = debut;
-	debut->select = 0;
 	return (debut);
 }
 
@@ -106,6 +104,26 @@ static char			*word_to_tab(char *var)
 	return (ft_strdup(word));	
 }
 
+static char			**hash_table(char **hash)
+{
+	int		i;
+	char	**res;
+
+	i = 0;
+	while (hash[i])
+		i++;
+	if ((res = (char**)malloc(sizeof(char*) * (i + 1))) == NULL)
+		return (NULL);
+	i = 0;
+	while (hash[i])
+	{
+		res[i] = ft_strtrunc(hash[i], '=');
+		i++;
+	}
+	res[i] = NULL;
+	return (res);
+}
+
 int					tab_mode(t_com_list *begin)
 {
 	t_param				*debut;
@@ -117,16 +135,15 @@ int					tab_mode(t_com_list *begin)
 		return (0);
 	if ((var = com_list_string(begin)) == NULL)
 		return (0);
-	table = (iscommand(var) == 0) ? g_hash : list_path(var);
+	table = (iscommand(var) == 0) ? hash_table(g_hash) : list_path(var);
 	if (table == NULL)
 		return (0);
 	word = word_to_tab(var);
-	if ((debut = string_matches(word, table)) == NULL && g_curr_compl)
+	if ((debut = string_matches(word, table)) == NULL && g_curr_compl != NULL)
 		exit_completion(begin);
 	if (debut != NULL)
 		tab_select(&debut, begin, word);
-	if (iscommand(var) != 0)
-		ft_free_tab(table);
+	ft_free_tab(table);
 	free(var);
 	free(word);
 	return (0);
