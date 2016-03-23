@@ -84,8 +84,6 @@ int					ft_isspace(int c);
 char				*ft_catplus(char *s1, char *s2, char c);
 void				ft_start_cmd(char **cmd, t_env *env, int fd[2]);
 void				ft_start_cmd2(char **cmd, t_env *env, int fd[2]);
-char				*rules_for_strings(t_token *tok);
-char				*rules_for_semicol(char *s);
 t_token				*ft_checking_syntax(t_token *tok);
 t_token				*ft_tokeniser(char *s, t_token *head);
 t_tree				*tree_generator(t_tree *head, t_token *tok);
@@ -99,6 +97,9 @@ t_tree				*ft_push_input(t_tree *head);
 void				free_array(char **arr);
 int					ft_command_isvalid(t_token *tok);
 void				parse_error(char *s);
+t_token				*ft_tild_expand(t_token *tok);
+t_token				*pop_middle_token(t_token *tok);
+t_token				*ft_variable_expand(t_token *tok);
 /*
 **				Array of function pointer
 */

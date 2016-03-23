@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:36:22 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/22 15:51:34 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/22 16:08:44 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int			sh_prompt(void)
 		i = sh_read_prompt(&begin, &modif_hist);
 	if ((str = sh_get_line(&begin, i)) == NULL)
 		return (0);
-//	exit_completion();
+	exit_completion(begin);
 	hist_add_elem(begin, &hist);
 	clear_hist(&modif_hist);
 	sh_reset_term();

@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/19 10:02:21 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/22 15:48:26 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/23 10:05:37 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,37 +61,23 @@ static int			print_args(t_param *debut)
 	return (0);
 }
 
-static int			complete_line(char *var, t_com_list *begin)
+int					tab_select(t_param *debut, t_com_list *begin, char *word)
 {
-	int			i;
-	t_com_list	*new;
-
-	i = g_local->prompt + 1;
-	while (i < g_local->curs)
-	{
-		i++;
-		begin = begin->next;
-	}
-	while (*var)
-	{
-		ft_dprintf(STDIN_FILENO, "%c", *var);
-		new = com_list_new(*var);
-		com_list_add(&begin, new);
-		var++;
-	}
-	return (0);
-}
-
-int					tab_select(t_param *debut, t_com_list *begin)
-{
-	if (debut->next == NULL)
-		complete_line(debut->var, begin);
+	return (0);	
+	debut = NULL;
+	begin = NULL;
+	word = NULL;
+	print_args(debut);
+/*	if (tab_complete_line(debut, begin, word) == 0)
+		return (0);
 	else
 	{
 		ft_notputs("vi", 1);
 		g_local->completion = 1;
+		place_cursor_to_completion(begin);
 		print_args(debut);
+		go_back_to_selected_char(begin);
 		ft_notputs("ve", 1);
 	}
-	return (0);
+	return (0);*/
 }

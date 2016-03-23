@@ -41,6 +41,8 @@ void		return_type_quoted(t_token *tok)
 	{
 		if (tok->type == QUOTES)
 			is_quoted = is_quoted == 1 ? 0: 1;
+		if (is_quoted && tok->type == DOLLAR)
+			ft_variable_expand(tok);
 		if (is_quoted && tok->type != QUOTES)
 			tok->type = WORDS;
 		if (tok->type == BACKSLASH)
@@ -54,14 +56,6 @@ void		return_type_quoted(t_token *tok)
 		tok = tok->next;
 	}
 }
-
-void		parse_error(char *s)
-{
-	//free all the stuff;
-	ft_putstr("Parse error near ");
-	ft_putendl(s);
-}
-
 
 t_token		*check_minus(t_token *tok)
 {
@@ -106,32 +100,29 @@ t_token		*ft_token_removal(t_token *tok, t_sym sym)
 	return(tok);
 }
 
-void		ft_token_for_num(t_token *tok)
+void		ft_display_tokens(t_token *tok)
 {
 	while (tok)
 	{
-		if (tok->type == NUMBERS)
-		{
-			if (check_next_token(tok) == DIPLE_R || check_prev_token(tok) == AMPERSAND)
-				tok = tok->next;
-			else
-				tok->type = WORDS;
-		}
-		else
-			tok = tok->next;
+		printf("t : %s, type : %d\n", tok->content, tok->type);
+		tok = tok->next;
 	}
 }
 
 t_token		*ft_checking_syntax(t_token *tok)
 {
 	return_type_quoted(tok);
+	// printf("QUOTES check\n");
 	tok = check_minus(tok);
+	// printf("MINUS check\n");
+	tok = ft_tild_expand(tok);
+	// printf("TILD check\n");
+	// ft_display_tokens(tok);
 	tok = ft_token_removal(tok, WHITESPACE);
+	// printf("SPACES check\n");
 	tok = ft_token_removal(tok, QUOTES);
+	// printf("QUOTES check\n");
 	if (!ft_command_isvalid(tok))
 		return (NULL);
-	// tok = ft_token_removal(tok, SEMICOL);
-	// tok = ft_token_redirection(tok);
-	// return_type_redirected(tok);
 	return (tok);
 }
