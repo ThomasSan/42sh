@@ -6,7 +6,11 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:12:49 by cbaldy            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2016/03/22 16:09:06 by dbaldy           ###   ########.fr       */
+=======
+/*   Updated: 2016/03/22 19:38:21 by cbaldy           ###   ########.fr       */
+>>>>>>> 65f000298db208db404686136fb3d06c6600fc1f
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +23,7 @@
 # include "get_next_line.h"
 # include "ft_select.h"
 # include "hash.h"
+# include "lexer.h"
 
 # include <stdio.h>
 # include <unistd.h>
@@ -102,5 +107,9 @@ int				sh_exec_list(char *str);
 int				sh_minishell(void);
 int				yank_line(char c, t_com_list **begin);
 int				tab_mode(t_com_list *begin);
+t_tree			*sh_lexer_parser(char *str);
+int				sh_execute(char **com);
+int				exec_cmd(t_tree *root);
+int				exec_pipe(t_tree *root);
 
 #endif

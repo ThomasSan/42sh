@@ -1,4 +1,5 @@
 NAME = Lexer
+
 SRC = main.c lexer.c parser.c ft_token_recognition.c get_next_line.c\
  ft_free.c ft_syntaxical.c ft_push_tree.c ft_misc.c pipe_grammar.c ft_great_grammar.c\
  ft_input_correct.c ft_start_cmd.c\
