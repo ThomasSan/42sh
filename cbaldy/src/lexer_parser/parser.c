@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "lexer.h"
-#include "parser.h"
 
 t_tree	*tree_generator(t_tree *head, t_token *tok)
 {
@@ -27,7 +26,7 @@ t_tree	*tree_generator(t_tree *head, t_token *tok)
 			while (tok && tok->type == WORDS)
 				tok = tok->next;
 		}
-		else if (tok->type != WORDS)
+		else
 		{
 			head = ft_analyse_token(head, tok);
 			tok = tok->next;

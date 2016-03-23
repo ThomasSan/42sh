@@ -31,31 +31,24 @@ typedef enum 		e_sym
 	// LESS_GREAT,
 	NUMBERS = 100,
 	WHITESPACE = 200,
+	COMMANDS = 300,
 	WORDS = -1
 }					t_sym;
 
 typedef	enum 		e_cmd
 {
 	CMD,
-	I_REDIR,
-	O_REDIR,
-	TUBES
+	LESS,
+	GREAT,
+	D_LESS,
+	D_GREAT,
+	L_AND,
+	G_AND,
+	TUBES,
+	AND_IF,
+	OR_IF,
+	END
 }					t_cmd;
-
-/*
-cmd = 0;
-< = 1;
-> = 2;
-<< = 3;
->> = 4;
-<& = 5;
-&> = 6;
->& = 7;
-pipe = 8;
-&& = 9;
-|| = 10;
-; = 11;
-*/
 
 typedef struct 		s_tree
 {
@@ -82,12 +75,17 @@ typedef struct		s_env
 	struct s_env	*next;
 }					t_env;
 
+typedef struct 		s_parse
+{
+	char			**arg;
+	int				type;
+	struct s_parse	*next;
+}					t_parse;
+
 int					ft_isspace(int c);
 char				*ft_catplus(char *s1, char *s2, char c);
 void				ft_start_cmd(char **cmd, t_env *env, int fd[2]);
 void				ft_start_cmd2(char **cmd, t_env *env, int fd[2]);
-char				*rules_for_strings(t_token *tok);
-char				*rules_for_semicol(char *s);
 t_token				*ft_checking_syntax(t_token *tok);
 t_token				*ft_tokeniser(char *s, t_token *head);
 t_tree				*tree_generator(t_tree *head, t_token *tok);
@@ -101,6 +99,9 @@ t_tree				*ft_push_input(t_tree *head);
 void				free_array(char **arr);
 int					ft_command_isvalid(t_token *tok);
 void				parse_error(char *s);
+t_token				*ft_tild_expand(t_token *tok);
+t_token				*pop_middle_token(t_token *tok);
+t_token				*ft_variable_expand(t_token *tok);
 /*
 **				Array of function pointer
 */

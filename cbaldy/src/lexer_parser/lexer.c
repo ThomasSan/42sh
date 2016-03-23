@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "lexer.h"
-#include "parser.h"
 
 int		is_word_or(char *s, int i)
 {

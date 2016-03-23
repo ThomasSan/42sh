@@ -69,9 +69,9 @@ t_tree	*ft_push_cmd(t_tree *head, t_token *tok)
 	}
 	else if (head->types == TUBES)
 		head->right = new;
-	else if (head->types == I_REDIR)
+	else if (head->types == LESS)
 		head->left = new;
-	else if (head->types == O_REDIR)
+	else if (head->types == GREAT)
 		head->right = new;
 	return (head);
 }
