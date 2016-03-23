@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 11:37:07 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/22 14:58:30 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/23 12:21:48 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 t_tree		*tree_new_elem(char **cmd, int type)
 {
 	t_tree	*new;
+
 	if ((new = (t_tree *)malloc(sizeof(t_tree))) == NULL)
 		return (NULL);
 	new->cmd = cmd;

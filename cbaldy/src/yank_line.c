@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 10:06:21 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/18 11:12:54 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/23 12:19:29 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static int	yank_begin_line(t_com_list **begin)
 
 	i = g_local->prompt;
 	tmp = *begin;
-
 	while (tmp != NULL && i++ < g_local->curs - 1)
 	{
 		tmp->op = 2;

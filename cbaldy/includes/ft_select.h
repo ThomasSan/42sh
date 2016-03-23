@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/17 17:00:59 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/23 10:04:57 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/23 15:23:12 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int							print_lines(int nb_row);
 int							move_cursor_one_down(int size, int col_nb);
 int							ft_notputs(char *str, int occ);
 int							move_cursor_up(int nb_row, int nb_tab);
-int							tab_select(t_param *debut, t_com_list *begin, char *word);
+int							tab_select(t_param *debut, t_com_list *begin);
 char						*com_list_string(t_com_list *begin);
 t_param						*list_param(char **argv);
 int							fputchar(int c);
