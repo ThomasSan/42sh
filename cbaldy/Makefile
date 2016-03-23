@@ -6,7 +6,7 @@
 #    By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/14 14:42:25 by cbaldy            #+#    #+#              #
-#    Updated: 2016/03/22 19:40:58 by cbaldy           ###   ########.fr        #
+#    Updated: 2016/03/23 09:46:54 by dbaldy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ SRC = main.c sh_set_term.c sh_read_prompt.c sh_command.c sh_builtin_cd.c \
 	  copy_end_mode.c com_list_ft2.c lex_finish_line.c sh_signal_handler.c \
 	  term_mv_cursor.c sh_minishell.c get_next_line.c change_hist.c yank_line.c \
 	  tab_mode.c tab_select.c tab_nb_col.c tab_nb_row.c tab_cursor_mvt.c \
-	  tab_supp.c hash_get_tab.c sh_builtin_hash.c sh_execute.c
+	  tab_supp.c hash_get_tab.c sh_builtin_hash.c sh_execute.c\
+	  tab_line_management.c
 
 LEX = lexer.c parser.c ft_token_recognition.c ft_free.c ft_syntaxical.c \
 	  ft_push_tree.c ft_misc.c pipe_grammar.c ft_great_grammar.c \
