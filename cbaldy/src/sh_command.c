@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/06 16:01:14 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/21 12:44:36 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/23 11:31:11 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ static char	*sh_explore_bin(char *list_path, char *bin)
 	if ((dirp = opendir(list_path)) != NULL)
 	{
 		while ((dp = readdir(dirp)) != NULL)
-			if (ft_strncmp(bin, dp->d_name, ft_strlen(dp->d_name)) == 0 &&
-					bin[ft_strlen(dp->d_name)] == '\0')
+			if (ft_strcmp(bin, dp->d_name) == 0)
 			{
 				exec = mod_strjoin(ft_strjoin(list_path, "/"), bin, 1);
 				break ;

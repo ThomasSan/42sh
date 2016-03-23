@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 19:17:28 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/22 19:39:32 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/23 12:03:59 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,10 @@ int			sh_execute(char **com)
 {
 	int		i;
 
+	if (com[0] == NULL)
+		return (0);
 	i = 0;
-	while (i < 5 && com[0] != NULL)
+	while (i < 5)
 	{
 		if (ft_strncmp(com[0], g_list_builtin[i].name,
 					ft_strlen(g_list_builtin[i].name)) == 0 &&
@@ -46,10 +48,8 @@ int			sh_execute(char **com)
 			return (g_list_builtin[i].f(com));
 		i++;
 	}
-	if (com[0] != NULL)
-		i = sh_command(com);
-	if (i != 0)
+	if ((i = sh_command(com)) > 1)
 		sh_error_msg(com, i);
 	ft_free_tab(com);
-	return (0);
+	return (i);
 }

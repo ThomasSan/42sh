@@ -128,8 +128,8 @@ t_token		*ft_checking_syntax(t_token *tok)
 	tok = check_minus(tok);
 	tok = ft_token_removal(tok, WHITESPACE);
 	tok = ft_token_removal(tok, QUOTES);
-	if (!ft_command_isvalid(tok))
-		return (NULL);
+	//if (!ft_command_isvalid(tok))
+	//	return (NULL);
 	// tok = ft_token_removal(tok, SEMICOL);
 	// tok = ft_token_redirection(tok);
 	// return_type_redirected(tok);

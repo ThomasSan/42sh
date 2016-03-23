@@ -6,11 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:12:49 by cbaldy            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2016/03/22 16:09:06 by dbaldy           ###   ########.fr       */
-=======
-/*   Updated: 2016/03/22 19:38:21 by cbaldy           ###   ########.fr       */
->>>>>>> 65f000298db208db404686136fb3d06c6600fc1f
+/*   Updated: 2016/03/23 12:11:38 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,13 +99,15 @@ int				parse_find_error(char *s);
 t_exec_list		*exec_list_new(char *str, int connect);
 int				exec_list_add(t_exec_list **begin, t_exec_list *new);
 int				exec_list_count(t_exec_list *begin);
-int				sh_exec_list(char *str);
+int				sh_exec_tree(char *str);
 int				sh_minishell(void);
 int				yank_line(char c, t_com_list **begin);
 int				tab_mode(t_com_list *begin);
 t_tree			*sh_lexer_parser(char *str);
 int				sh_execute(char **com);
+int				sh_interpret(t_tree *root);
 int				exec_cmd(t_tree *root);
 int				exec_pipe(t_tree *root);
+int				exec_redout(t_tree *root);
 
 #endif

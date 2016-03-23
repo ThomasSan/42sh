@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:36:22 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/22 16:08:44 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/23 12:06:40 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int			sh_prompt(void)
 	clear_hist(&modif_hist);
 	sh_reset_term();
 	signal(SIGINT, SIG_IGN);
-	sh_exec_list(str);
+	sh_exec_tree(str);
 	free(str);
 	return (0);
 }
