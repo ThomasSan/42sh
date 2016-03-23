@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:36:22 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/22 16:08:44 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/23 12:24:19 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	sh_print_prompt(void)
 	g_local->prompt = i;
 	g_local->curs = i + 1;
 	g_local->begin = NULL;
-	g_local->completion = 0;
+	g_curr_compl = NULL;
 	if (ioctl(STDIN_FILENO, TIOCGWINSZ, &w) < 0)
 		return (0);
 	g_local->nb_col = w.ws_col;
@@ -64,6 +64,8 @@ static int	sh_read_prompt(t_com_list **begin, t_hist_list **hist)
 
 	i = 0;
 	len = read(STDIN_FILENO, buf, 9);
+	if (buf[0] != 9 && buf[1] != 0 && g_curr_compl != NULL)
+		exit_completion(*begin);
 	if ((len != 1 || buf[0] < 31 || buf[0] > 127) &&
 			(len != 1 || buf[0] != 10))
 		i = term_edit_line(buf, len, begin, hist);

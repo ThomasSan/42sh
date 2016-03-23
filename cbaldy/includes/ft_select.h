@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/17 17:00:59 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/23 10:04:57 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/23 12:26:50 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,15 @@ typedef struct				s_arg_list
 	struct s_arg_list		*prev;
 }							t_param;
 
+typedef struct				s_list_compl
+{
+	char					*var;
+	t_param					*begin;
+}							t_compl;
+
+int							tab_complete_line(t_param *debut, t_com_list *begin,
+		char *word);
+int							clear_tparam(t_param **begin);
 int							place_cursor_to_completion(t_com_list *begin);
 int							go_back_to_selected_char(t_com_list *begin);
 int							iscommand(char *var);
@@ -75,10 +84,11 @@ int							print_lines(int nb_row);
 int							move_cursor_one_down(int size, int col_nb);
 int							ft_notputs(char *str, int occ);
 int							move_cursor_up(int nb_row, int nb_tab);
-int							tab_select(t_param *debut, t_com_list *begin, char *word);
+int							tab_select(t_param **debut, t_com_list *begin,
+		char *word);
 char						*com_list_string(t_com_list *begin);
 t_param						*list_param(char **argv);
 int							fputchar(int c);
-t_param						*g_debut;
+t_compl						*g_curr_compl;
 
 #endif

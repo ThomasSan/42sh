@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/19 10:02:21 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/23 10:05:37 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/23 12:43:40 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,23 +61,37 @@ static int			print_args(t_param *debut)
 	return (0);
 }
 
-int					tab_select(t_param *debut, t_com_list *begin, char *word)
+static int			init_compl(t_param *debut, char *word)
 {
-	return (0);	
-	debut = NULL;
-	begin = NULL;
-	word = NULL;
-	print_args(debut);
-/*	if (tab_complete_line(debut, begin, word) == 0)
-		return (0);
-	else
+	if ((g_curr_compl = (t_compl*)malloc(sizeof(t_compl))) == NULL)
+		return (-1);
+	g_curr_compl->begin = debut;
+	g_curr_compl->var = ft_strdup(word);
+	return (0);
+}
+
+int					tab_select(t_param **debut, t_com_list *begin, char *word)
+{
+	int		ret;
+	char	*param;
+	t_param	*list;
+
+	param = (g_curr_compl == NULL) ? word : g_curr_compl->var;
+	list = (g_curr_compl == NULL) ? *debut : g_curr_compl->begin;
+	if ((ret = tab_complete_line(list, begin, param)) == 0)
 	{
+		clear_tparam(debut);
+		return (0);
+	}
+	else if (ret == 1)
+	{
+		if (init_compl(*debut, word) == -1)
+			return (-1);
 		ft_notputs("vi", 1);
-		g_local->completion = 1;
 		place_cursor_to_completion(begin);
-		print_args(debut);
+		print_args(*debut);
 		go_back_to_selected_char(begin);
 		ft_notputs("ve", 1);
 	}
-	return (0);*/
+	return (0);
 }
