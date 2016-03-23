@@ -58,15 +58,43 @@ int			rules_for_less(t_token *tok)
 // Acceptable apres less :
 // WORDS (filename);
 // Acceptable avant less :
-// WORDS
 // RIEN (premier arg)
 // NUMBER (FD)
 
 // Acceptable apres great :
 // WORDS (filename);
-// NUMBER (FD);
 // Acceptable avant great :
-// WORDS (CMD);
 // RIEN (creee le fichier pointe a droite vide)
 // NUMBER (FD);
 // AMPERSAND
+
+// Acceptable apres dless :
+// WORD (QUOTES REMOVED)
+// Acceptable avant dless :
+// RIEN ?
+// WORD (CMD)
+
+// Acceptable apres dgreat :
+// WORD (FILENAME);
+// Acceptable avant dgreat :
+// NUMBER (FD)
+
+// Acceptable apres less_and :
+// DASH (moins)
+// NUMBER (FD)
+// Acceptable avant less_and :
+// NUMBER (FD)
+// RIEN
+
+// Acceptable apres great_and :
+// NUMBER (FD)
+// WORD (Filename)
+// Acceptable avant great_and :
+// RIEN
+// NUMBER (FD)
+
+// Acceptable apres and_great :
+// NUMBER OBLIGER 
+// MINUS OBLIGER
+// Acceptable avant and_great :
+//

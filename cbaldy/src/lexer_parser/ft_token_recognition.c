@@ -112,12 +112,13 @@ void		ft_display_tokens(t_token *tok)
 t_token		*ft_checking_syntax(t_token *tok)
 {
 	return_type_quoted(tok);
+	// function pour join les quoted;
 	// printf("QUOTES check\n");
 	tok = check_minus(tok);
 	// printf("MINUS check\n");
 	tok = ft_tild_expand(tok);
 	// printf("TILD check\n");
-	// ft_display_tokens(tok);
+	ft_display_tokens(tok);
 	// fonction pour chager les autres tokens en word et pop les inutiles
 	tok = ft_token_removal(tok, WHITESPACE);
 	// printf("SPACES check\n");

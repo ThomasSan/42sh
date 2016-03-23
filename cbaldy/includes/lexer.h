@@ -43,7 +43,6 @@ typedef	enum 		e_cmd
 	D_LESS,
 	D_GREAT,
 	L_AND,
-	AND_G,
 	G_AND,
 	TUBES,
 	AND_IF,
