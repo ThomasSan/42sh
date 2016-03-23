@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:12:49 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/22 16:59:31 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/22 19:38:21 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,5 +103,8 @@ int				sh_minishell(void);
 int				yank_line(char c, t_com_list **begin);
 int				tab_mode(t_com_list *begin);
 t_tree			*sh_lexer_parser(char *str);
+int				sh_execute(char **com);
+int				exec_cmd(t_tree *root);
+int				exec_pipe(t_tree *root);
 
 #endif

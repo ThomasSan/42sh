@@ -150,4 +150,8 @@ int		main(int ac, char **av, char **envp)
 		free(line);
 	}
 	return (0);
+			head = tree_generator(head, tok);
+			ft_display_tokens(head, env, 0, fd);
+			tok = free_token_list(tok);
+			head = delete_tree(head);
 }

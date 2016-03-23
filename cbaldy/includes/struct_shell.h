@@ -6,12 +6,14 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 12:18:39 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/22 15:42:40 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/22 19:36:56 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_SHELL_H
 # define STRUCT_SHELL_H
+
+# include "tree_build_cmd.h"
 
 typedef struct			s_edit_line
 {
@@ -54,10 +56,8 @@ typedef struct			s_hist_list
 
 typedef struct			s_exec_list
 {
-	char				**arg;
-	int					clog;
-	struct s_exec_list	*next;
-	struct s_exec_list	*previous;
+	int					id;
+	int					(*f)(t_tree *root);
 }						t_exec_list;
 
 char					**g_env;
