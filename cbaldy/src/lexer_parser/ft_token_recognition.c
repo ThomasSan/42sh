@@ -118,6 +118,7 @@ t_token		*ft_checking_syntax(t_token *tok)
 	tok = ft_tild_expand(tok);
 	// printf("TILD check\n");
 	// ft_display_tokens(tok);
+	// fonction pour chager les tokens en word et pop les inutiles 
 	tok = ft_token_removal(tok, WHITESPACE);
 	// printf("SPACES check\n");
 	tok = ft_token_removal(tok, QUOTES);

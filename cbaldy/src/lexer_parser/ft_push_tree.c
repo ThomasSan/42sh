@@ -11,7 +11,7 @@ t_tree	*ft_push_output(t_tree *head)
 	new->cmd[0] = ft_strdup("> or >>");
 	new->cmd[1] = NULL;
 	//changer new->cmd par NULL;
-	new->types = O_REDIR;
+	new->types = GREAT;
 	new->left = head;
 	new->right = NULL;
 	head = new;
@@ -29,7 +29,7 @@ t_tree	*ft_push_input(t_tree *head)
 	new->cmd[0] = ft_strdup("<");
 	new->cmd[1] = NULL;
 	//changer new->cmd par NULL;
-	new->types = I_REDIR;
+	new->types = LESS;
 	new->left = NULL;
 	new->right = head;
 	head = new;

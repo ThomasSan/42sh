@@ -38,22 +38,18 @@ typedef enum 		e_sym
 typedef	enum 		e_cmd
 {
 	CMD,
-	I_REDIR,
-	O_REDIR,
-	TUBES
+	LESS,
+	GREAT,
+	D_LESS,
+	D_GREAT,
+	L_AND,
+	AND_G,
+	G_AND,
+	TUBES,
+	AND_IF,
+	OR_IF,
+	END
 }					t_cmd;
-
-/*
-cmd = 0;
-pipe = 1;
-< = 2;
-> = 3;
-<< = 4;
->> = 5;
-&& = 6;
-|| = 7;
-; = 8;
-*/
 
 typedef struct 		s_tree
 {
@@ -79,6 +75,13 @@ typedef struct		s_env
 	char			*val;
 	struct s_env	*next;
 }					t_env;
+
+typedef struct 		s_parse
+{
+	char			**arg;
+	int				type;
+	struct s_parse	*next;
+}					t_parse;
 
 int					ft_isspace(int c);
 char				*ft_catplus(char *s1, char *s2, char c);
