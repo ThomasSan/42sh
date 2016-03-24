@@ -118,12 +118,12 @@ t_token		*ft_checking_syntax(t_token *tok)
 	// printf("MINUS check\n");
 	tok = ft_tild_expand(tok);
 	// printf("TILD check\n");
-	ft_display_tokens(tok);
 	// fonction pour chager les autres tokens en word et pop les inutiles
 	tok = ft_token_removal(tok, WHITESPACE);
 	// printf("SPACES check\n");
 	tok = ft_token_removal(tok, QUOTES);
 	// printf("QUOTES check\n");
+	// ft_display_tokens(tok);
 	if (!ft_command_isvalid(tok))
 		return (NULL);
 	return (tok);

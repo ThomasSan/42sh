@@ -34,6 +34,7 @@ int			main(int ac, char **av, char **env)
 		ft_dprintf(STDERR_FILENO, "shell: argument invalid: %s\n", av[1]);
 		return (0);
 	}
+	ft_array_fun();
 	sh_set_env(env);
 	if (sh_set_term() < 0 || sh_get_term_fildes() < 0)
 		return (main_alt());
