@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sh_builtin_exit.c                                  :+:      :+:    :+:   */
+/*   sh_builtin_echo.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/02/05 18:20:11 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/24 15:59:57 by cbaldy           ###   ########.fr       */
+/*   Created: 2016/03/24 14:46:08 by cbaldy            #+#    #+#             */
+/*   Updated: 2016/03/24 15:55:49 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-int		sh_builtin_exit(char **com)
+int			sh_builtin_echo(char **com)
 {
 	int		i;
 
-	i = 0;
-	if (com[1] != NULL)
-		i = ft_atoi(com[1]);
-	ft_free_tab(g_env);
-	sh_reset_term();
-	exit(i);
-	return (-1);
+	i = 1;
+	while (com[i] != NULL)
+	{
+		ft_putstr_fd(com[i], STDOUT_FILENO);
+		ft_putchar_fd(' ', STDOUT_FILENO);
+		i++;
+	}
+	ft_putchar_fd('\n', STDOUT_FILENO);
+	return (0);
 }
