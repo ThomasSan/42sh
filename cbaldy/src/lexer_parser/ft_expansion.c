@@ -30,10 +30,10 @@ t_token		*ft_tild_expand(t_token *tok)
 	{
 		if (tmp->type == TILD)
 		{
+			tmp->type = WORDS;
 			if ((i = sh_is_new_var("HOME")) >= 0)
 			{
 				str = tmp->content;
-				tmp->type = WORDS;
 				tmp->content = ft_strdup(&(ft_strchr(g_env[i], '=')[1]));
 				free(str);
 				if (check_next_token(tmp) == WORDS)

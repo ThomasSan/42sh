@@ -109,8 +109,11 @@ void		ft_display_tokens(t_token *tok)
 	}
 }
 
-t_token		*ft_checking_syntax(t_token *tok)
+t_parse		*ft_checking_syntax(t_token *tok)
 {
+	t_parse	*head;
+
+	head = NULL;
 	return_type_quoted(tok);
 	// function pour join les quoted;
 	// printf("QUOTES check\n");
@@ -124,7 +127,8 @@ t_token		*ft_checking_syntax(t_token *tok)
 	tok = ft_token_removal(tok, QUOTES);
 	// printf("QUOTES check\n");
 	// ft_display_tokens(tok);
-	if (!ft_command_isvalid(tok))
+	if (!(ft_command_isvalid(tok)))
 		return (NULL);
-	return (tok);
+	head = sh_preparse(tok);
+	return (head);
 }

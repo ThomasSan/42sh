@@ -28,10 +28,12 @@ typedef enum 		e_sym
 	MINUS,
 	LESS_AND,
 	GREAT_AND,
+	AND_GREAT,
 	// LESS_GREAT,
 	NUMBERS = 100,
 	WHITESPACE = 200,
 	COMMANDS = 300,
+	FILENAME = 400,
 	WORDS = -1
 }					t_sym;
 
@@ -44,6 +46,7 @@ typedef	enum 		e_cmd
 	D_GREAT,
 	L_AND,
 	G_AND,
+	AND_G,
 	TUBES,
 	AND_IF,
 	OR_IF,
@@ -68,11 +71,11 @@ typedef struct 		s_token
 	struct s_token	*prev;
 }					t_token;
 
-typedef struct		s_env
+typedef struct 		s_env
 {
-	char			*name;
-	char			*val;
-	struct s_env	*next;
+	char *val;
+	char *name;
+	struct s_env *next;
 }					t_env;
 
 typedef struct 		s_parse
@@ -86,22 +89,23 @@ int					ft_isspace(int c);
 char				*ft_catplus(char *s1, char *s2, char c);
 void				ft_start_cmd(char **cmd, t_env *env, int fd[2]);
 void				ft_start_cmd2(char **cmd, t_env *env, int fd[2]);
-t_token				*ft_checking_syntax(t_token *tok);
+t_parse				*ft_checking_syntax(t_token *tok);
 t_token				*ft_tokeniser(char *s, t_token *head);
 t_tree				*tree_generator(t_tree *head, t_token *tok);
-t_token				*ft_checking_syntax(t_token *tok);
 int					check_next_token(t_token *tok);
 int					check_prev_token(t_token *tok);
-t_tree				*ft_push_cmd(t_tree *head, t_token *tok);
-t_tree				*ft_analyse_token(t_tree *head, t_token *tok);
-t_tree				*ft_push_output(t_tree *head);
-t_tree				*ft_push_input(t_tree *head);
+t_parse				*ft_push_cmd(t_parse *head, t_token *tok);
+t_parse				*ft_analyse_token(t_parse *head, t_token *tok);
+t_parse				*ft_push_output(t_parse *head, t_token *tok);
+t_parse				*ft_push_input(t_parse *head, t_token *tok);
 void				free_array(char **arr);
 int					ft_command_isvalid(t_token *tok);
 void				parse_error(char *s);
 t_token				*ft_tild_expand(t_token *tok);
 t_token				*pop_middle_token(t_token *tok);
 t_token				*ft_variable_expand(t_token *tok);
+t_parse				*sh_preparse(t_token *tok);
+int					number_of_rows(t_token *tok);
 /*
 **				Array of function pointer
 */
@@ -109,5 +113,10 @@ int					(*g_f[20])(t_token*);
 void				ft_array_fun(void);
 int					rules_for_pipes(t_token *tok);
 int					rules_for_great(t_token *tok);
+int					rules_for_less(t_token *tok);
+int					rules_for_minus(t_token *tok);
+int					rules_for_great_and(t_token *tok);
+int					rules_for_less_and(t_token *tok);
+int					rules_for_and_great(t_token *tok);
 
 #endif

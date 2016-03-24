@@ -14,30 +14,45 @@
 #include "lexer.h"
 #include "tree_build_cmd.h"
 
+t_token	*free_token_list(t_token *tok)
+{
+	t_token	*tmp;
+
+	while (tok)
+	{
+		tmp = tok;
+		tok = tok->next;
+		free(tmp->content);
+		free(tmp);
+	}
+	return (tok);
+}
+
 t_tree		*sh_lexer_parser(char *str)
 {
 	t_token	*tok;
+	t_parse *head;
 
 	tok = NULL;
+	head = NULL;
 	tok = ft_tokeniser(str, tok);
-	if ((tok = ft_checking_syntax(tok)) == NULL)
+	if ((head = ft_checking_syntax(tok)) == NULL)
 		return (NULL);
 	return (tree_build_cmd(tok));
+	// while (head)
+	// {
+	// 	int i = 0;
+	// 	printf("type %d\n", head->type);
+	// 	while (head->arg[i])
+	// 	{
+	// 		printf("arg[%d] %s\n", i, head->arg[i]);
+	// 		i++;
+	// 	}
+	// 	head = head->next;
+	// }
+	// printf("exit\n");
+	// return (NULL);
 }
-
-// tab[0] = ls;
-// tab[1] = -la;
-// tab[3] = /;
-// tab[4] = NULL;
-// garder les seprators;
-// cd ~/work
-/*
-int		i;
-char 	*str;
-
-if ((i = sh_is_new_var("VAR_NAME")) >= 0)
-	str = ft_strdup(&(ft_strchr(g_env[i], '=')[1]));
-*/
 
 //Dans cet ordre :
 // 1/ tild expansion

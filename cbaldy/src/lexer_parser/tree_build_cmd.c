@@ -89,6 +89,7 @@ static int	tree_get_other(t_token *tok, t_tree **root)
 t_tree		*tree_build_cmd(t_token *tok)
 {
 	t_tree	*root;
+	//t_token *tmp; a rajouter pour free;
 	int		i;
 
 	root = NULL;
@@ -106,5 +107,6 @@ t_tree		*tree_build_cmd(t_token *tok)
 		}
 	}
 	tree_print(root);
+	//free_token_list(tmp);
 	return (root);
 }
