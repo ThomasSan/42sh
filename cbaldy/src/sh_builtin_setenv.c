@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/05 14:01:52 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/02/08 09:23:02 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/24 16:43:41 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int			sh_builtin_setenv(char **com)
 	if ((i[0] = setenv_check_av(com)) < 0)
 	{
 		ft_dprintf(STDERR_FILENO, "usage: setenv [NAME] [VALUE] ... \n");
-		return (ft_free_tab(com));
+		return (1);
 	}
 	i[1] = 0;
 	while (i[1] < i[0])
@@ -45,5 +45,5 @@ int			sh_builtin_setenv(char **com)
 			sh_add_var_env(com[2 * i[1] + 1], com[2 * i[1] + 2]);
 		i[1]++;
 	}
-	return (ft_free_tab(com));
+	return (0);
 }
