@@ -11,6 +11,8 @@ void	ft_array_fun(void)
 	g_f[GREAT_AND] = rules_for_great_and;
 	g_f[LESS_AND] = rules_for_less_and;
 	g_f[AND_GREAT] = rules_for_and_great;
+	g_f[D_PIPE] = rules_for_orandif;
+	g_f[D_SAND] = rules_for_orandif;
 }
 
 void		parse_error(char *s)

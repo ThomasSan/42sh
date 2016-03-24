@@ -13,7 +13,7 @@ t_parse	*ft_push_output(t_parse *head, t_token *tok)
 	if (tok->prev->type == NUMBERS)
 		new->arg[0] = ft_strdup(tok->prev->content);
 	else
-		new->arg[0] = ft_strdup("1"); // Demander a Christophe
+		new->arg[0] = ft_strdup("1");
 	new->arg[1] = ft_strdup(tok->next->content);
 	new->arg[2] = NULL;
 	new->type = tok->type == DIPLE_L ? GREAT: D_GREAT;
@@ -38,7 +38,7 @@ t_parse	*ft_push_input(t_parse *head, t_token *tok)
 	if (tok->prev->type == NUMBERS)
 		new->arg[1] = ft_strdup(tok->prev->content);
 	else
-		new->arg[1] = ft_strdup("0"); // Demander a Christophe
+		new->arg[1] = ft_strdup("0");
 	new->arg[2] = NULL;
 	new->type = tok->type == DIPLE_R ? LESS: D_LESS;
 	new->next = NULL;

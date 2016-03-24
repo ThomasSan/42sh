@@ -30,6 +30,8 @@ typedef enum 		e_sym
 	GREAT_AND,
 	AND_GREAT,
 	// LESS_GREAT,
+	D_PIPE,
+	D_SAND,
 	NUMBERS = 100,
 	WHITESPACE = 200,
 	COMMANDS = 300,
@@ -118,5 +120,6 @@ int					rules_for_minus(t_token *tok);
 int					rules_for_great_and(t_token *tok);
 int					rules_for_less_and(t_token *tok);
 int					rules_for_and_great(t_token *tok);
+int					rules_for_orandif(t_token *tok);
 
 #endif
