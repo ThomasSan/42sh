@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/06 11:38:34 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/02/12 12:26:06 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/24 16:11:05 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,26 @@ static int	unsetenv_find_var(char *name)
 int			sh_builtin_unsetenv(char **com)
 {
 	int		i;
+	int		ret;
 
 	i = 1;
+	ret = 0;
 	if (com[i] == NULL)
 	{
-		ft_dprintf(STDERR_FILENO, "unsetenv: not enough arguments\n");
-		ft_dprintf(STDERR_FILENO, "usage: unsetenv [NAME] ...\n");
-		return (ft_free_tab(com));
+		ft_dprintf(STDERR_FILENO, 
+				"unsetenv: not enough args\nusage: unsetenv [NAME] ...\n");
+		return (1);
 	}
 	while (com[i] != NULL)
 	{
 		if (unsetenv_find_var(com[i]) < 0)
-			ft_dprintf(STDERR_FILENO,
+			ret = ft_dprintf(STDERR_FILENO,
 					"unsetenv: variable name unknown: %s\n", com[i]);
 		else
 			sh_rm_var_env(com[i]);
 		i++;
 	}
-	return (ft_free_tab(com));
+	if (ret != 0)
+		return (1);
+	return (0);
 }

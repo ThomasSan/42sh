@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 15:51:04 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/24 14:44:14 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/24 15:55:35 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,22 +85,22 @@ int			sh_builtin_cd(char **com)
 	char	*old_path;
 	char	*new_path;
 	char	*print_path;
-	int		opt;
+	int		opt[2];
 
-	if ((opt = cd_read_opt(com)) < 0)
-		return (ft_free_tab(com));
-	if ((new_path = cd_get_path(com, opt)) == NULL)
-		return (ft_free_tab(com));
+	if ((opt[0] = cd_read_opt(com)) < 0)
+		return (1);
+	if ((new_path = cd_get_path(com, opt[0])) == NULL)
+		return (1);
 	old_path = cd_get_old_path();
-	if (chdir(new_path) != 0)
+	if ((opt[1] = chdir(new_path)) != 0)
 		cd_exist_error(new_path, com[1], 0);
 	else
-		cd_update_env(old_path, new_path, opt);
-	if ((print_path = cd_print_path(com, new_path, opt)) != NULL)
+		cd_update_env(old_path, new_path, opt[0]);
+	if ((print_path = cd_print_path(com, new_path, opt[0])) != NULL)
 		ft_dprintf(STDOUT_FILENO, "%s\n", print_path);
 	if (print_path != NULL)
 		free(print_path);
 	free(old_path);
 	free(new_path);
-	return (ft_free_tab(com));
+	return (-opt[1]);
 }

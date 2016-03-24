@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:12:49 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/24 14:07:50 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/24 14:55:06 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,6 @@ int				sh_interpret(t_tree *root);
 int				exec_pipe(t_tree *root);
 int				exec_redout(t_tree *root);
 char			*sh_get_exec_path(char *cmd);
+int				sh_builtin_echo(char **com);
 
 #endif
