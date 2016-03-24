@@ -73,13 +73,6 @@ typedef struct 		s_token
 	struct s_token	*prev;
 }					t_token;
 
-typedef struct 		s_env
-{
-	char *val;
-	char *name;
-	struct s_env *next;
-}					t_env;
-
 typedef struct 		s_parse
 {
 	char			**arg;
@@ -89,8 +82,6 @@ typedef struct 		s_parse
 
 int					ft_isspace(int c);
 char				*ft_catplus(char *s1, char *s2, char c);
-void				ft_start_cmd(char **cmd, t_env *env, int fd[2]);
-void				ft_start_cmd2(char **cmd, t_env *env, int fd[2]);
 t_parse				*ft_checking_syntax(t_token *tok);
 t_token				*ft_tokeniser(char *s, t_token *head);
 t_tree				*tree_generator(t_tree *head, t_token *tok);

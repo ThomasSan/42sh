@@ -26,7 +26,7 @@ SRC = main.c sh_set_term.c sh_read_prompt.c sh_command.c sh_builtin_cd.c \
 
 LEX = lexer.c parser.c ft_token_recognition.c ft_free.c ft_syntaxical.c \
 	  ft_push_tree.c ft_misc.c pipe_grammar.c ft_great_grammar.c \
-	  ft_input_correct.c ft_start_cmd.c tree_ft.c tree_build_cmd.c \
+	  ft_input_correct.c tree_ft.c tree_build_cmd.c \
 	  ft_isspace.c ft_catplus.c sh_lexer_parser.c ft_expansion.c \
 	  ft_variable_expand.c sh_preparse.c grammar.c
 
