@@ -2,6 +2,7 @@
 
 int		ft_command_isvalid(t_token *tok)
 {
+	// printf("s : %s t: %d\n", tok->content, tok->type);
 	if (tok->type == WORDS || tok->type >= NUMBERS|| tok->type == SEMICOL)
 	{
 		if (tok->next)

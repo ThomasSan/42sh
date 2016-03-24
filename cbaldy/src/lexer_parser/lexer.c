@@ -17,9 +17,15 @@ int		is_word_or(char *s, int i)
 	if (!ft_isdigit(s[i]))
 		return (0);
 	if (s[i + 1] != '\0' && s[i + 1] == '>')
-			return (1);
+	{
+		printf("oui\n");
+		return (1);
+	}
 	if (s[i - 1] && s[i - 1] == '&')
-			return (1);
+	{
+		printf("non\n");
+		return (1);
+	}
 	return (0);
 }
 
