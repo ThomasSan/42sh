@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 12:10:21 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/24 11:14:12 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/24 18:38:59 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		exec_pipe(t_tree *root)
 	{
 		close(fd[0]);
 		dup2(fd[1], STDOUT_FILENO);
-		ret = sh_interpret(root->left);
+		sh_interpret(root->left);
 		close(fd[1]);
 		exit(ret);
 	}
@@ -50,13 +50,14 @@ int		exec_redout(t_tree *root)
 
 	mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
 	opt = O_WRONLY | O_CREAT;
-	if (root->types == 4)
+	if (root->types == D_GREAT)
 		opt |= O_APPEND;
-	else if (root->types == 2)
+	else if (root->types == GREAT)
 		opt |= O_TRUNC;
 	open_fd = open(root->cmd[0], opt, mode);
 	dup2(open_fd, STDOUT_FILENO);
 	ret = sh_interpret(root->left);
+	close(STDOUT_FILENO);
 	close(open_fd);
 	return (ret);
 }

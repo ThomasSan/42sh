@@ -6,25 +6,18 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 12:05:44 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/24 16:01:53 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/24 18:28:41 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
 t_exec_list	g_exec_list[] = {
-	{2, &exec_redout},
-	{5, &exec_pipe},
+	{GREAT, &exec_redout},
+	{D_GREAT, &exec_redout},
+	{TUBES, &exec_pipe},
 	{-1, NULL},
 };
-
-static int	ft_free_tree(t_tree *root)
-{
-	if (root->cmd != NULL)
-		ft_free_tab(root->cmd);
-	free(root);
-	return (0);
-}
 
 int			sh_interpret(t_tree *root)
 {
@@ -41,7 +34,9 @@ int			sh_interpret(t_tree *root)
 			ret = g_exec_list[i].f(root);
 		i++;
 	}
-	ft_free_tree(root);
+	if (root->cmd != NULL)
+		ft_free_tab(root->cmd);
+	free(root);
 	return (ret);
 }
 

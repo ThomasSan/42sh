@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 16:53:20 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/23 19:07:51 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/24 17:52:48 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_tree		*sh_lexer_parser(char *str)
 	tok = ft_tokeniser(str, tok);
 	if ((head = ft_checking_syntax(tok)) == NULL)
 		return (NULL);
-	return (tree_build_cmd(tok));
+	return (tree_build_cmd(head));
 	// while (head)
 	// {
 	// 	int i = 0;
