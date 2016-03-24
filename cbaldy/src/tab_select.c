@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/19 10:02:21 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/23 16:58:45 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/24 19:13:02 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ int					tab_select(t_param **debut, t_com_list *begin, char *word)
 
 	param = (g_curr_compl == NULL) ? word : g_curr_compl->var;
 	list = (g_curr_compl == NULL) ? *debut : g_curr_compl->begin;
+	if (g_curr_compl != NULL)
+		clear_tparam(debut);
 	if ((ret = tab_complete_line(list, begin, param)) == 0)
 		return (0);
 	else if (ret == 1)
@@ -86,7 +88,7 @@ int					tab_select(t_param **debut, t_com_list *begin, char *word)
 			return (-1);
 		ft_notputs("vi", 1);
 		place_cursor_to_completion(begin);
-		print_args(*debut);
+		print_args(list);
 		go_back_to_selected_char(begin);
 		ft_notputs("ve", 1);
 	}

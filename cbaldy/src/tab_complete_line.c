@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 16:49:46 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/23 17:27:24 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/24 16:09:46 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	increase_line(t_com_list *begin, char *test)
 	int			i;
 	int			len_list;
 
-	i = 0;
+	i = g_local->prompt + 1;
 	buf = begin;
 	len_list = com_list_count(begin);
 	while (buf && i < g_local->curs)
@@ -78,7 +78,8 @@ int			tab_complete_line(t_param *debut, t_com_list *begin, char *word)
 	int			size_curr_word;
 
 	size_curr_word = ft_strlen(word) + 1;
-	if (size_curr_word == (int)ft_strlen(debut->var))
+	if (size_curr_word - 1 == (int)ft_strlen(debut->var) &&
+			debut->next->nb == 0)
 		return (0);
 	size_curr_word = get_compl_max(debut, size_curr_word);
 	if (size_curr_word == (int)(ft_strlen(word)))
@@ -91,6 +92,7 @@ int			tab_complete_line(t_param *debut, t_com_list *begin, char *word)
 			return (0);
 	}
 	else
-		test = ft_strsub(debut->var, ft_strlen(word), size_curr_word);
+		test = ft_strsub(debut->var, ft_strlen(word),
+				size_curr_word - ft_strlen(word));
 	return (increase_line(begin, test));
 }

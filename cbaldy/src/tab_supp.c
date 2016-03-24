@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 15:14:39 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/23 16:22:47 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/24 19:26:31 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,17 @@ char		*com_list_string(t_com_list *begin)
 
 int			iscommand(char *var)
 {
-	while (*var)
+	int		i;
+
+	i = 0;
+	while (var[i])
 	{
-		if (*var == ' ')
+		if (var[i] == ' ')
 			return (1);
-		var++;
+		i++;
 	}
+	if (i > 0 && var[i - 1] == '/')
+		return (1);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/17 17:00:59 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/23 15:49:32 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/24 19:23:19 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,11 @@ typedef struct				s_list_compl
 	t_param					*begin;
 }							t_compl;
 
+char						*file_suffix(char *str, char *path);
+t_param						*string_matches(char *var, char **buf);
+char						*path_to_tab(char *var);
+char						**list_path(char *var);
+int							clear_curr_compl(void);
 char						*tab_prepare_select(t_param *debut,
 		t_com_list *begin);
 int							tab_complete_line(t_param *debut, t_com_list *begin,
@@ -57,7 +62,6 @@ int							clear_tparam(t_param **begin);
 int							place_cursor_to_completion(t_com_list *begin);
 int							go_back_to_selected_char(t_com_list *begin);
 int							iscommand(char *var);
-t_param						*add_file(t_param *debut, char *str);
 int							reset_select(t_param *debut);
 int							suppr_char_list(t_line **line);
 int							increase_nb(t_line *elem);

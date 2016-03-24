@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:36:22 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/23 16:03:34 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/24 16:23:16 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ static int	sh_read_prompt(t_com_list **begin, t_hist_list **hist)
 
 	i = 0;
 	len = read(STDIN_FILENO, buf, 9);
-	if (buf[0] != 9 && buf[1] != 0 && g_curr_compl != NULL)
-		exit_completion(*begin);
+	if ((buf[0] != 9 || buf[1] != 0) && g_curr_compl != NULL)
+		clear_curr_compl();
 	if ((len != 1 || buf[0] < 31 || buf[0] > 127) &&
 			(len != 1 || buf[0] != 10))
 		i = term_edit_line(buf, len, begin, hist);
