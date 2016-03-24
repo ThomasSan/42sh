@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 19:17:28 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/23 12:03:59 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/24 14:09:56 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_builtin	g_list_builtin[] = {
 	{"exit", &sh_builtin_exit},
 	{"setenv", &sh_builtin_setenv},
 	{"unsetenv", &sh_builtin_unsetenv},
+	{NULL, NULL},
 };
 
 static int	sh_error_msg(char **com, int error)
@@ -37,10 +38,8 @@ int			sh_execute(char **com)
 {
 	int		i;
 
-	if (com[0] == NULL)
-		return (0);
 	i = 0;
-	while (i < 5)
+	while (g_list_builtin[i].name != NULL)
 	{
 		if (ft_strncmp(com[0], g_list_builtin[i].name,
 					ft_strlen(g_list_builtin[i].name)) == 0 &&
