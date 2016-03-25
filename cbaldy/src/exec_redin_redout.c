@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/25 11:50:44 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/25 11:50:55 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/25 12:59:34 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,14 @@ static char *exec_redin_get_path(t_tree *root)
 	if (access(path, F_OK) < 0)
 	{
 		ft_dprintf(STDERR_FILENO, "shell: %s: no such file or directory\n",
-				root->cmd[1]);
+				root->cmd[0]);
 		free(path);
 		return (NULL);
 	}
 	if (access(path, R_OK) < 0)
 	{
 		ft_dprintf(STDERR_FILENO, "shell: %s: permission denied\n",
-				root->cmd[1]);
+				root->cmd[0]);
 		free(path);
 		return (NULL);
 	}
@@ -90,7 +90,7 @@ int		exec_redin(t_tree *root)
 	if ((open_fd = open(path, O_RDONLY)) < 0)
 	{
 		ft_dprintf(STDERR_FILENO,
-				"shell: %s: cannot read from here\n", root->cmd[1]);
+				"shell: %s: cannot read from here\n", root->cmd[0]);
 		free(path);
 		return (1);
 	}

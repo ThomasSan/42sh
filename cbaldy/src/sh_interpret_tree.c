@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 12:05:44 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/25 12:23:35 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/25 13:47:19 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int			sh_interpret(t_tree *root)
 	int		ret;
 
 	ret = -1;
-	if (root->types == 0)
+	if (root->types == CMD)
 		ret = sh_execute(root->cmd);
 	i = 0;
 	while (g_exec_list[i].id != -1 && ret == -1)

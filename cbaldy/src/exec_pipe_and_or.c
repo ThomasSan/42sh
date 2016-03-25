@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/25 11:51:07 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/25 12:23:33 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/25 13:47:17 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ int		exec_pipe(t_tree *root)
 		close(fd[1]);
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);
-		ret = sh_interpret(root->right);
 		wait(&i);
+		ret = sh_interpret(root->right);
 	}
 	return (ret);
 }
