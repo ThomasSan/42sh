@@ -6,45 +6,96 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 16:49:46 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/22 19:46:56 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/25 12:55:21 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-int		increase_line_size(t_param *debut, t_com_list *begin, char *word)
+static int	increase_line(t_com_list *begin, char *test)
 {
-	int			i;
 	t_com_list	*buf;
+	int			i;
+	int			len_list;
 
-	while (
+	i = g_local->prompt + 1;
+	buf = begin;
+	len_list = com_list_count(begin);
+	while (buf && i < g_local->curs)
+	{
+		buf = buf->next;
+		i++;
+	}
+	while (buf && buf->c != ' ')
+	{
+		term_mv_horizontal(3, len_list);
+		buf = buf->next;
+	}
+	i = 0;
+	while (test[i])
+	{
+		term_write_line(&begin, test[i]);
+		i++;
+	}
+	free(test);
+	return (0);
 }
 
-int		tab_complete_line(t_param *debut, t_com_list *begin, char *word)
+static int	can_increase(t_param *debut, char *test, size_t size_curr_word)
 {
 	t_param		*buf;
-	char		*test;
-	size_t		size_curr_word;
-	int			size_min;
 
 	buf = debut;
-	test = NULL;
-	while (size_curr_word < size_min)
+	while (42)
 	{
-		if (test != NULL)
-			free(test);
+		if (ft_strncmp(buf->var, test, size_curr_word) != 0)
+			return (1);
+		buf = buf->next;
+		if (buf->nb == 0)
+			return (0);
+	}
+	return (0);
+}
+
+static int	get_compl_max(t_param *debut, int size_curr_word)
+{
+	char		*test;
+
+	while ((debut->var)[size_curr_word])
+	{
 		test = ft_strsub(debut->var, 0, size_curr_word);
-		while (42)
+		if (can_increase(debut, test, size_curr_word) != 0)
 		{
-			if (ft_strncmp(buf->var, test, size_curr_word) != 0)
-				break ;
-			buf = buf->next;
-			if (buf->nb == 0)
-				break ;
+			free(test);
+			return (size_curr_word - 1);
 		}
-		if (buf->nb != 0)
-			break ;
+		free(test);
 		size_curr_word++;
 	}
-	return (increase_line_size(debut, begin, test));
+	return (size_curr_word);
+}
+
+int			tab_complete_line(t_param *debut, t_com_list *begin, char *word)
+{
+	char		*test;
+	int			size_curr_word;
+
+	size_curr_word = ft_strlen(word) + 1;
+	if (size_curr_word - 1 == (int)ft_strlen(debut->var) &&
+			debut->next->nb == 0)
+		return (0);
+	size_curr_word = get_compl_max(debut, size_curr_word);
+	if (size_curr_word == (int)(ft_strlen(word)))
+	{
+		if (debut->next->nb != 0 && g_curr_compl == NULL)
+			return (1);
+		else if (debut->next->nb != 0)
+			test = tab_prepare_select(g_curr_compl->begin, begin);
+		else
+			return (0);
+	}
+	else
+		test = ft_strsub(debut->var, ft_strlen(word),
+				size_curr_word - ft_strlen(word));
+	return (increase_line(begin, test));
 }

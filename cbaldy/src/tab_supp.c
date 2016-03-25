@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 15:14:39 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/22 16:55:17 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/25 14:14:08 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_param		*add_file(t_param *debut, char *str)
 	}
 	else
 		new->nb = 0;
-	new->select = (buf == NULL) ? 1 : 0;
+	new->select = (buf == NULL) ? 2 : 0;
 	return (new);
 }
 
@@ -40,6 +40,7 @@ static char	*ft_strtrim2(char *s)
 {
 	size_t	i;
 	size_t	j;
+	char	*res;
 
 	i = 0;
 	j = ft_strlen(s) - 1;
@@ -49,7 +50,8 @@ static char	*ft_strtrim2(char *s)
 		j--;
 	if (i > j)
 		return (NULL);
-	return (ft_strsub(s, i, j - i + 1));
+	res = ft_strsub(s, i, j - i + 1);
+	return (res);
 }
 
 char		*com_list_string(t_com_list *begin)
@@ -57,24 +59,32 @@ char		*com_list_string(t_com_list *begin)
 	int			size;
 	char		*buf;
 	char		*new;
+	char		*res;
 
 	buf = com_list_retrieve(begin);
-	size = g_local->curs - g_local->prompt - 2;
+	size = g_local->curs - g_local->prompt - 1;
 	while (buf[size] && buf[size] != ' ')
 		size++;
 	new = (size <= 0) ? NULL : ft_strsub(buf, 0, size);
 	free(buf);
-	return (ft_strtrim2(new));
+	res = ft_strtrim2(new);
+	free(new);
+	return (res);
 }
 
 int			iscommand(char *var)
 {
-	while (*var)
+	int		i;
+
+	i = 0;
+	while (var[i])
 	{
-		if (*var == ' ')
+		if (var[i] == ' ')
 			return (1);
-		var++;
+		i++;
 	}
+	if (i > 0 && var[i - 1] == '/')
+		return (1);
 	return (0);
 }
 

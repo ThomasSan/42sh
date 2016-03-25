@@ -6,11 +6,46 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 17:53:59 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/22 16:10:29 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/25 11:37:09 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
+
+int			clear_tparam(t_param **begin)
+{
+	t_param		*buf;
+	t_param		*a;
+
+	buf = (*begin)->next;
+	while (buf->nb)
+	{
+		a = buf->next;
+		free(buf->var);
+		buf->next = NULL;
+		buf->prev = NULL;
+		free(buf);
+		buf = a;
+	}
+	free(buf->var);
+	buf->next = NULL;
+	buf->prev = NULL;
+	free(buf);
+	return (0);
+}
+
+int			clear_curr_compl(void)
+{
+	if (g_curr_compl != NULL)
+	{
+		clear_tparam(&(g_curr_compl->begin));
+		if (g_curr_compl->var != NULL)
+			free(g_curr_compl->var);
+		free(g_curr_compl);
+		g_curr_compl = NULL;
+	}
+	return (0);
+}
 
 int			exit_completion(t_com_list *begin)
 {
@@ -18,15 +53,13 @@ int			exit_completion(t_com_list *begin)
 	int		row_pos;
 	int		row_to_skip;
 
-	if (g_local->completion == 1)
-	{
-		size_list = com_list_count(begin);
-		row_pos = g_local->curs / g_local->nb_col;
-		row_to_skip = (size_list / g_local->nb_col) - row_pos;
-		ft_notputs("do", row_to_skip);
-		ft_notputs("cd", 1);
-		g_local->completion = 0;
-	}
+	size_list = com_list_count(begin);
+	row_pos = (g_local->curs + g_local->prompt) / g_local->nb_col;
+	row_to_skip = ((size_list + g_local->prompt) / g_local->nb_col) - row_pos;
+	ft_notputs("do", row_to_skip);
+	ft_notputs("cd", 1);
+	if (g_curr_compl != NULL)
+		clear_curr_compl();
 	return (0);
 }
 
