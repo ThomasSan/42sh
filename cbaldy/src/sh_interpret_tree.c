@@ -6,16 +6,20 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 12:05:44 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/24 18:28:41 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/25 12:23:35 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
 t_exec_list	g_exec_list[] = {
+	{LESS, &exec_redin},
 	{GREAT, &exec_redout},
+	{D_LESS, &exec_redin},
 	{D_GREAT, &exec_redout},
 	{TUBES, &exec_pipe},
+	{AND_IF, &exec_and},
+	{OR_IF, &exec_or},
 	{-1, NULL},
 };
 

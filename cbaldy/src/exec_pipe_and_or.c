@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sh_exec_tree.c                                     :+:      :+:    :+:   */
+/*   exec_pipe_and_or.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/23 12:10:21 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/24 18:38:59 by cbaldy           ###   ########.fr       */
+/*   Created: 2016/03/25 11:51:07 by cbaldy            #+#    #+#             */
+/*   Updated: 2016/03/25 12:23:33 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,23 +41,22 @@ int		exec_pipe(t_tree *root)
 	return (ret);
 }
 
-int		exec_redout(t_tree *root)
+int		exec_and(t_tree *root)
 {
-	int		open_fd;
-	mode_t	mode;
-	int		opt;
 	int		ret;
 
-	mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
-	opt = O_WRONLY | O_CREAT;
-	if (root->types == D_GREAT)
-		opt |= O_APPEND;
-	else if (root->types == GREAT)
-		opt |= O_TRUNC;
-	open_fd = open(root->cmd[0], opt, mode);
-	dup2(open_fd, STDOUT_FILENO);
-	ret = sh_interpret(root->left);
-	close(STDOUT_FILENO);
-	close(open_fd);
-	return (ret);
+	if ((ret = sh_interpret(root->left)) > 0)
+		return (ret);
+	else
+		return (sh_interpret(root->right));
+}
+
+int		exec_or(t_tree *root)
+{
+	int		ret;
+
+	if ((ret = sh_interpret(root->left)) == 0)
+		return (ret);
+	else
+		return (sh_interpret(root->right));
 }
