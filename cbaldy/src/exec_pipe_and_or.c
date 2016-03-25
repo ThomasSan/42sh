@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/25 11:51:07 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/25 16:01:23 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/25 16:21:05 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int		exec_end(t_tree *root)
 	char	*ret;
 	int		i;
 
-	i = sh_interpret(root);
+	i = sh_interpret(root->left);
 	ret = ft_itoa(i);
 	if ((sh_change_var_env("?", ret)) == -1)
 		sh_add_var_env("?", ret);

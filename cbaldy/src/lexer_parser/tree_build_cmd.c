@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 10:22:10 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/25 14:05:52 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/25 17:47:04 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ static int	tree_insert_elem(t_tree *new, t_tree **root)
 		return (tree_place_type_red(new, root));
 	else if (new->types < END)
 		return (tree_place_type_pipe(new, root));
-	return (0);
+	else
+		return (tree_place_type_end(new, root));
 }
 
 t_tree		*tree_build_cmd(t_parse *head)
@@ -63,6 +64,7 @@ t_tree		*tree_build_cmd(t_parse *head)
 		head = head->next;
 		free(tmp);
 	}
-	tree_print(root);
+	//tree_print(root);
 	return (root);
+	tree_print(root);
 }
