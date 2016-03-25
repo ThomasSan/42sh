@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 12:05:44 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/25 13:47:19 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/25 16:01:21 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,20 @@ t_exec_list	g_exec_list[] = {
 	{-1, NULL},
 };
 
+void		sh_save_std_fd(void)
+{
+	g_std_fd[0] = dup(STDIN_FILENO);
+	g_std_fd[1] = dup(STDOUT_FILENO);
+	g_std_fd[2] = dup(STDERR_FILENO);
+}
+
+void		sh_reset_std_fd(void)
+{
+	dup2(g_std_fd[0], STDIN_FILENO);
+	dup2(g_std_fd[1], STDOUT_FILENO);
+	dup2(g_std_fd[2], STDERR_FILENO);
+}
+
 int			sh_interpret(t_tree *root)
 {
 	int		i;
@@ -38,33 +52,28 @@ int			sh_interpret(t_tree *root)
 			ret = g_exec_list[i].f(root);
 		i++;
 	}
-	if (root->cmd != NULL)
+	if (root != NULL && root->cmd != NULL)
 		ft_free_tab(root->cmd);
-	free(root);
+	if (root != NULL)
+		free(root);
 	return (ret);
 }
 
 int			sh_exec_tree(char *str)
 {
 	t_tree		*root;
-	int			s[3];
 	char		*ret;
 
 	if ((root = sh_lexer_parser(str)) == NULL)
 		return (0);
-	s[0] = dup(STDIN_FILENO);
-	s[1] = dup(STDOUT_FILENO);
-	s[2] = dup(STDERR_FILENO);
+	sh_save_std_fd();
 	ret = ft_itoa(sh_interpret(root));
-	ft_printf("ret: %s\n", ret);
 	if ((sh_change_var_env("?", ret)) == -1)
 		sh_add_var_env("?", ret);
 	free(ret);
-	dup2(s[0], STDIN_FILENO);
-	dup2(s[1], STDOUT_FILENO);
-	dup2(s[2], STDERR_FILENO);
-	close(s[0]);
-	close(s[1]);
-	close(s[2]);
+	sh_reset_std_fd();
+	close(g_std_fd[0]);
+	close(g_std_fd[1]);
+	close(g_std_fd[2]);
 	return (0);
 }

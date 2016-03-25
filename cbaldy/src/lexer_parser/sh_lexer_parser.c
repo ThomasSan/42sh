@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 16:53:20 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/25 09:58:29 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/25 14:37:09 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,23 +35,26 @@ t_tree		*sh_lexer_parser(char *str)
 
 	tok = NULL;
 	head = NULL;
-	tok = ft_tokeniser(str, tok);
+	if ((tok = ft_tokeniser(str, tok)) == NULL)
+		return (NULL);
 	if ((head = ft_checking_syntax(tok)) == NULL)
 		return (NULL);
 	return (tree_build_cmd(head));
-	// while (head)
-	// {
-	// 	int i = 0;
-	// 	printf("type %d\n", head->type);
-	// 	while (head->arg[i])
-	// 	{
-	// 		printf("arg[%d] %s\n", i, head->arg[i]);
-	// 		i++;
-	// 	}
-	// 	head = head->next;
-	// }
-	// printf("exit\n");
-	// return (NULL);
+	/*
+	 while (head)
+	{
+	 	int i = 0;
+		printf("type %d\n", head->type);
+ 		while (head->arg[i])
+	 	{
+	 		printf("arg[%d] %s\n", i, head->arg[i]);
+	 		i++;
+	 	}
+	 	head = head->next;
+	 }
+	 printf("exit\n");
+	 return (NULL);
+	 */
 }
 
 //Dans cet ordre :
