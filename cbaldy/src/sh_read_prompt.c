@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:36:22 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/25 14:32:26 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/25 17:35:05 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,12 @@ static int	sh_print_prompt(void)
 	struct winsize	w;
 
 	i = 0;
-	if ((i = sh_is_new_var("USER")) != -1)
+	if ((i = sh_is_new_var("PS1")) != -1)
 		i = ft_dprintf(STDIN_FILENO, &(ft_strchr(g_env[i], '=')[1]));
-	if (i < 0)
-		i = 0;
-	i += ft_dprintf(STDIN_FILENO, "$> ");
+	else if ((i = sh_is_new_var("USER")) != -1)
+		i = ft_dprintf(STDIN_FILENO, "%s$> ", &(ft_strchr(g_env[i], '=')[1]));
+	else
+		i = ft_dprintf(STDIN_FILENO, "$> ");
 	g_local->prompt = i;
 	g_local->curs = i + 1;
 	g_local->begin = NULL;
@@ -65,7 +66,7 @@ static int	sh_read_prompt(t_com_list **begin, t_hist_list **hist)
 	i = 0;
 	len = read(STDIN_FILENO, buf, 10);
 	ft_bzero(&buf[len], 10 - len);
-	if (ft_strcmp(buf, "\x09") != 0 && g_curr_compl != NULL)
+	if (ft_strcmp(buf, "\x09") != 0)
 		clear_curr_compl();
 	if ((len != 1 || buf[0] < 31 || buf[0] > 127) &&
 			(len != 1 || buf[0] != 10))

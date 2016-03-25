@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 15:14:39 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/25 16:29:08 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/25 19:47:36 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,13 @@ t_param		*add_file(t_param *debut, char *str)
 int			iscommand(char *var)
 {
 	int		i;
+	int		curseur;
 
+	curseur = g_local->curs - g_local->prompt - 1;
 	i = 0;
-	while (var[i])
+	while (var[i] && i < curseur && var[i] <= ' ')
+		i++;	
+	while (var[i] && i < curseur)
 	{
 		if (var[i] == ' ')
 			return (1);
