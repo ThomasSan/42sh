@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:12:49 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/25 12:04:43 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/25 15:47:55 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,5 +113,7 @@ int				sh_builtin_echo(char **com);
 int				exec_redin(t_tree *root);
 int				exec_and(t_tree *root);
 int				exec_or(t_tree *root);
+void			sh_save_std_fd(void);
+void			sh_reset_std_fd(void);
 
 #endif

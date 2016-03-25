@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/25 11:51:07 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/25 13:47:17 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/25 16:01:23 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,10 @@ int		exec_and(t_tree *root)
 	if ((ret = sh_interpret(root->left)) > 0)
 		return (ret);
 	else
+	{
+		sh_reset_std_fd();
 		return (sh_interpret(root->right));
+	}
 }
 
 int		exec_or(t_tree *root)
@@ -58,5 +61,25 @@ int		exec_or(t_tree *root)
 	if ((ret = sh_interpret(root->left)) == 0)
 		return (ret);
 	else
+	{
+		sh_reset_std_fd();
 		return (sh_interpret(root->right));
+	}
+}
+
+int		exec_end(t_tree *root)
+{
+	char	*ret;
+	int		i;
+
+	i = sh_interpret(root);
+	ret = ft_itoa(i);
+	if ((sh_change_var_env("?", ret)) == -1)
+		sh_add_var_env("?", ret);
+	free(ret);
+	sh_reset_std_fd();
+	if (root->right != NULL)
+		return (sh_interpret(root->right));
+	else
+		return (i);
 }

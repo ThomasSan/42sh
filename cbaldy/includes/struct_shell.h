@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 12:18:39 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/23 09:41:14 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/25 16:02:03 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,6 @@ typedef struct			s_exec_list
 char					**g_env;
 struct s_local			*g_local;
 char					*g_paste;
+int						g_std_fd[3];
 
 #endif
