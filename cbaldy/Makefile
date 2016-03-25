@@ -6,7 +6,7 @@
 #    By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/14 14:42:25 by cbaldy            #+#    #+#              #
-#    Updated: 2016/03/25 14:34:56 by dbaldy           ###   ########.fr        #
+#    Updated: 2016/03/25 15:06:14 by dbaldy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,11 +20,12 @@ SRC = main.c sh_set_term.c sh_read_prompt.c sh_command.c sh_builtin_cd.c \
 	  term_write_line.c hist_list_ft.c print_command.c copy_mode.c \
 	  copy_end_mode.c com_list_ft2.c lex_finish_line.c sh_signal_handler.c \
 	  term_mv_cursor.c sh_minishell.c get_next_line.c change_hist.c yank_line.c \
-	  tab_mode.c tab_select.c tab_nb_col.c tab_nb_row.c tab_cursor_mvt.c \
-	  tab_supp.c hash_get_tab.c sh_builtin_hash.c sh_execute.c\
+      exec_redin_redout.c exec_pipe_and_or.c sh_get_exec_path.c \
+	  sh_builtin_echo.c hash_get_tab.c sh_builtin_hash.c sh_execute.c \
+
+TAB = tab_mode.c tab_select.c tab_nb_col.c tab_nb_row.c tab_cursor_mvt.c \
 	  tab_line_management.c tab_complete_line.c tab_prepare_select.c\
-	  tab_list_path.c tab_string_match.c sh_get_exec_path.c sh_builtin_echo.c \
-	  exec_redin_redout.c exec_pipe_and_or.c
+      tab_list_path.c tab_string_match.c tab_supp.c 
 
 LEX = lexer.c parser.c ft_token_recognition.c ft_free.c ft_syntaxical.c \
 	  ft_push_tree.c ft_misc.c pipe_grammar.c ft_great_grammar.c \
@@ -40,21 +41,23 @@ LIBRARIES = -L libft/ -L ft_printf -lft -lftprintf -ltermcap
 
 CFILES = $(addprefix src/, $(SRC))
 CLEX = $(addprefix src/lexer_parser/, $(LEX))
+CTAB = $(addprefix src/completion/, $(TAB))
 
 OBJ = $(SRC:.c=.o)
 OBJ2 = $(LEX:.c=.o)
+OBJ3 = $(TAB:.c=.o)
 
 all: $(NAME)
 
 $(NAME):
-	@gcc -c $(FLAG) $(INCLUDE) $(CFILES) $(CLEX)
+	@gcc -c $(FLAG) $(INCLUDE) $(CFILES) $(CLEX) $(CTAB)
 	@#@make -C libft/ fclean && make -C libft && make -C libft/ clean
 	@#@make -C ft_printf/ fclean && make -C ft_printf && make -C ft_printf/ clean
-	@gcc -o $(NAME) $(LIBRARIES) $(OBJ) $(OBJ2)
+	@gcc -o $(NAME) $(LIBRARIES) $(OBJ) $(OBJ2) $(OBJ3)
 	@echo "\x1b[32;02m$(NAME) ready\x1b[0;m"
 
 clean:
-	@/bin/rm -f $(OBJ) $(OBJ2)
+	@/bin/rm -f $(OBJ) $(OBJ2) $(OBJ3)
 	@echo "\x1b[0;01mclean\x1b[0;m"
 
 fclean: clean
