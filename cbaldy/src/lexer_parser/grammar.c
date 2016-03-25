@@ -19,3 +19,11 @@ int		rules_for_minus(t_token *tok)
 		return (1);
 	return (0);
 }
+
+int		rules_for_orandif(t_token *tok)
+{
+	if (check_prev_token(tok) == WORDS && check_next_token(tok))
+		return (1);
+	return (0);
+}
+

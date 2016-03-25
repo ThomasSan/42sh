@@ -20,7 +20,7 @@ t_parse	*ft_push_in_tab(t_parse *new, t_token *tok)
 	return (new);
 }
 
-t_parse	*ft_push_pipe(t_parse *head)
+t_parse	*ft_push_pipe(t_parse *head, t_token *tok)
 {
 	t_parse	*new;
 	t_parse	*tmp;
@@ -28,7 +28,10 @@ t_parse	*ft_push_pipe(t_parse *head)
 	if (!(new = (t_parse*)malloc(sizeof(t_parse))))
 		return (NULL);
 	new->arg = NULL;
-	new->type = TUBES;
+	if (tok->type == PIPE || tok->type == SEMICOL)
+		new->type = tok->type == PIPE ? TUBES : END;
+	if (tok->type == D_PIPE || tok->type == D_SAND)
+		new->type = tok->type == D_PIPE ? OR_IF : AND_IF;
 	new->next = NULL;
 	tmp = head;
 	while (tmp->next)
@@ -56,8 +59,9 @@ t_parse	*ft_push_redir(t_parse *head)
 
 t_parse	*ft_analyse_token(t_parse *head, t_token *tok)
 {
-	if (tok->type == PIPE)
-		head = ft_push_pipe(head);
+	if (tok->type == PIPE || tok->type == SEMICOL ||
+		tok->type == D_PIPE || tok->type == D_SAND)
+		head = ft_push_pipe(head, tok);
 	if (tok->type == DIPLE_L || tok->type == DOUBLE_L)
 		head = ft_push_input(head, tok);
 	if (tok->type == DIPLE_R || tok->type == DOUBLE_R)
