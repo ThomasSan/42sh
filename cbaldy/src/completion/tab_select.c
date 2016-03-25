@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/19 10:02:21 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/25 14:32:03 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/25 16:22:00 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,18 @@ static int			init_compl(t_param *debut, char *word)
 	return (0);
 }
 
+static int			not_enough_room(t_com_list *begin, t_param *debut)
+{
+	int		size_list;
+
+	print_lines(1);
+	size_list = get_size_list(debut);
+	ft_dprintf(STDERR_FILENO, "not enough room to print %d solutions", size_list);
+	ft_notputs("cr", 1);
+	go_back_to_selected_char(begin);
+	return (0);
+}
+
 int					tab_select(t_param **debut, t_com_list *begin, char *word)
 {
 	int		ret;
@@ -80,20 +92,17 @@ int					tab_select(t_param **debut, t_com_list *begin, char *word)
 	list = (g_curr_compl == NULL) ? *debut : g_curr_compl->begin;
 	if (g_curr_compl != NULL)
 		clear_tparam(debut);
-	if ((ret = tab_complete_line(list, begin, param)) == 0)
-	{
-		if (g_curr_compl == NULL)
+	if ((ret = tab_complete_line(list, begin, param)) == 0 &&
+			g_curr_compl == NULL)
 			clear_tparam(debut);
-		return (0);
-	}
 	else if (ret == 1)
 	{
-		if (init_compl(*debut, word) == -1)
-			return (-1);
 		ft_notputs("vi", 1);
 		place_cursor_to_completion(begin);
-		print_args(list);
-		go_back_to_selected_char(begin);
+		if (init_compl(*debut, word) == 0 && print_args(list) == 0)
+			go_back_to_selected_char(begin);
+		else
+			not_enough_room(begin, *debut);
 		ft_notputs("ve", 1);
 	}
 	return (0);
