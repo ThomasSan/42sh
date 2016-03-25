@@ -129,6 +129,5 @@ t_parse		*ft_checking_syntax(t_token *tok)
 	// ft_display_tokens(tok);
 	if (!(ft_command_isvalid(tok)))
 		return (NULL);
-	head = sh_preparse(tok);
-	return (head);
+	return (sh_preparse(tok));
 }

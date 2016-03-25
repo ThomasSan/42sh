@@ -40,11 +40,33 @@ t_parse	*ft_push_pipe(t_parse *head, t_token *tok)
 	return (head);
 }
 
-t_parse	*ft_push_redir(t_parse *head)
+int			*ft_parse_redir(t_parse **head, t_token *tok)
 {
-	t_parse	*new;
-	t_parse	*tmp;
+	int		i;
+	char	**arg;
 
+	i = 0;
+	if ((arg = (char **)malloc(sizeof(char *) * 2)) == NULL)
+		return (-1);
+	if (tok->type == NUMBER)
+	{
+		tok = tok->next;
+		i++;
+	}
+	if (tok->type == DIPLE_R || tok->type == DOUBLE_R)
+	{
+		arg[0] = ft_strdup((i > 0 ? tok->prev->content : "1"));
+		arg[1] = ft_strdup(tok->next->content);
+	}
+	else if (tok->type == DIPLE_L || tok->type == DOUBLE_L)
+	{
+		arg[1] = ft_strdup((i > 0 ? tok->prev->content : "0"));
+		arg[0] = ft_strdup(tok->next->content);
+	}
+	i += 2;
+	return (parse_list_pushback(parse_list_new(arg, tok->type - 2), head) + i);
+}
+/*
 	if (!(new = (t_parse*)malloc(sizeof(t_parse))))
 		return (NULL);
 	new->arg = NULL;
@@ -55,21 +77,9 @@ t_parse	*ft_push_redir(t_parse *head)
 		tmp = tmp->next;
 	tmp->next = new;
 	return (head);
-}
+}*/
 
-t_parse	*ft_analyse_token(t_parse *head, t_token *tok)
-{
-	if (tok->type == PIPE || tok->type == SEMICOL ||
-		tok->type == D_PIPE || tok->type == D_SAND)
-		head = ft_push_pipe(head, tok);
-	if (tok->type == DIPLE_L || tok->type == DOUBLE_L)
-		head = ft_push_input(head, tok);
-	if (tok->type == DIPLE_R || tok->type == DOUBLE_R)
-		head = ft_push_output(head, tok);
-	return (head);
-}
-
-t_parse		*ft_parse_cmd(t_parse *head, t_token *tok)
+int			*ft_parse_cmd(t_parse *head, t_token *tok)
 {
 	t_parse	*new;
 	t_parse	*tmp;
@@ -91,6 +101,20 @@ t_parse		*ft_parse_cmd(t_parse *head, t_token *tok)
 	return (head);
 }
 
+int			*ft_analyse_token(t_parse **head, t_token *tok)
+{
+	if (tok->type == WORDS)
+		return (ft_parse_cmd(head, tok));
+	else if (tok->type == PIPE || tok->type == SEMICOL ||
+		tok->type == D_PIPE || tok->type == D_SAND)
+		head = ft_push_pipe(head, tok);
+	else if (tok->type == DIPLE_L || tok->type == DOUBLE_L)
+		head = ft_push_input(head, tok);
+	else if (tok->type == DIPLE_R || tok->type == DOUBLE_R)
+		head = ft_push_output(head, tok);
+	return (head);
+}
+
 int			print_tok(t_token *tok)
 {
 	t_token	*tmp;
@@ -108,23 +132,23 @@ int			print_tok(t_token *tok)
 t_parse		*sh_preparse(t_token *tok)
 {
 	t_parse *head;
+	t_token	*tmp;
+	int		i;
 
 	head = NULL;
 	//print_tok(tok);
 	while (tok)
 	{
-		if (tok->type == WORDS)
+		if ((i = ft_analyse_token(&head, tok)) < 0)
+			return (NULL);
+		while (i > 0)
 		{
-			head = ft_parse_cmd(head, tok);
-			while (tok && tok->type == WORDS)
-				tok = tok->next;
-		}
-		else if (tok->type == NUMBERS || tok->type == FILENAME)
+			tmp = tok;
 			tok = tok->next;
-		else
-		{
-			head = ft_analyse_token(head, tok);
-			tok = tok->next;
+			if (tmp->content != NULL)
+				free(tmp->content);
+			free(tmp);
+			i--;
 		}
 	}
 	return (head);
