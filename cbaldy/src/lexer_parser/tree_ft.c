@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 11:37:07 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/22 14:58:30 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/25 14:05:50 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 t_tree		*tree_new_elem(char **cmd, int type)
 {
 	t_tree	*new;
+
 	if ((new = (t_tree *)malloc(sizeof(t_tree))) == NULL)
 		return (NULL);
 	new->cmd = cmd;
@@ -29,7 +30,7 @@ int			tree_place_type_pipe(t_tree *new, t_tree **root)
 	t_tree	*tmp;
 
 	tmp = *root;
-	if (tmp->types == 8)
+	if (tmp->types == END)
 	{
 		tmp = tmp->right;
 		(*root)->right = new;
@@ -58,7 +59,7 @@ int			tree_place_type_red(t_tree *new, t_tree **root)
 	else
 	{
 		tmp = *root;
-		while (tmp->right != NULL && tmp->right->types != 0)
+		while (tmp->right != NULL && tmp->right->types != CMD)
 			tmp = tmp->right;
 		tmp2 = tmp->right;
 		tmp->right = new;
@@ -79,6 +80,8 @@ int			tree_place_cmd(t_tree *new, t_tree **root)
 	tmp = *root;
 	while (tmp->right != NULL)
 		tmp = tmp->right;
+	if (tmp->types == CMD)
+		return (-1);
 	tmp->right = new;
 	return (0);
 }

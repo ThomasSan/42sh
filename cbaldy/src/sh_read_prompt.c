@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:36:22 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/25 12:06:09 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/25 14:32:26 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static int	sh_print_prompt(void)
 		return (0);
 	g_local->nb_col = w.ws_col;
 	sh_set_term();
+	ft_tputs("cd", 1, 0);
 	return (0);
 }
 
@@ -96,7 +97,7 @@ int			sh_prompt(void)
 	clear_hist(&modif_hist);
 	sh_reset_term();
 	signal(SIGINT, SIG_IGN);
-	sh_exec_list(str);
+	sh_exec_tree(str);
 	free(str);
 	return (0);
 }

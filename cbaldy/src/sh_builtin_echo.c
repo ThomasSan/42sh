@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tree_build_cmd.h                                   :+:      :+:    :+:   */
+/*   sh_builtin_echo.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/22 10:20:49 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/24 18:20:46 by cbaldy           ###   ########.fr       */
+/*   Created: 2016/03/24 14:46:08 by cbaldy            #+#    #+#             */
+/*   Updated: 2016/03/24 15:55:49 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TREE_BUILD_CMD_H
-# define TREE_BUILD_CMD_H
+#include "shell.h"
 
-# include "lexer.h"
+int			sh_builtin_echo(char **com)
+{
+	int		i;
 
-t_tree	*tree_build_cmd(t_parse *tok);
-int		tree_place_cmd(t_tree *new, t_tree **root);
-t_tree	*tree_new_elem(char **cmd, int type);
-int		tree_place_type_pipe(t_tree *new, t_tree **root);
-int		tree_place_type_red(t_tree *new, t_tree **root);
-
-#endif
+	i = 1;
+	while (com[i] != NULL)
+	{
+		ft_putstr_fd(com[i], STDOUT_FILENO);
+		ft_putchar_fd(' ', STDOUT_FILENO);
+		i++;
+	}
+	ft_putchar_fd('\n', STDOUT_FILENO);
+	return (0);
+}
