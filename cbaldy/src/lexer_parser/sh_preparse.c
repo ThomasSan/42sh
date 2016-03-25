@@ -91,11 +91,26 @@ t_parse		*ft_parse_cmd(t_parse *head, t_token *tok)
 	return (head);
 }
 
+int			print_tok(t_token *tok)
+{
+	t_token	*tmp;
+
+	tmp = tok;
+	while (tmp != NULL)
+	{
+		printf("%d -> ", tmp->type);
+		tmp = tmp->next;
+	}
+	printf("\n");
+	return (0);
+}
+
 t_parse		*sh_preparse(t_token *tok)
 {
 	t_parse *head;
 
 	head = NULL;
+	//print_tok(tok);
 	while (tok)
 	{
 		if (tok->type == WORDS)
