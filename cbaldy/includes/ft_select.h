@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/17 17:00:59 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/25 14:34:00 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/25 16:28:12 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ int							ft_notputs(char *str, int occ);
 int							move_cursor_up(int nb_row, int nb_tab);
 int							tab_select(t_param **debut, t_com_list *begin,
 		char *word);
-char						*com_list_string(t_com_list *begin);
 t_param						*list_param(char **argv);
 int							fputchar(int c);
 t_compl						*g_curr_compl;

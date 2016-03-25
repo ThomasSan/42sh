@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 15:14:39 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/25 14:14:08 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/25 16:29:08 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,42 +34,6 @@ t_param		*add_file(t_param *debut, char *str)
 		new->nb = 0;
 	new->select = (buf == NULL) ? 2 : 0;
 	return (new);
-}
-
-static char	*ft_strtrim2(char *s)
-{
-	size_t	i;
-	size_t	j;
-	char	*res;
-
-	i = 0;
-	j = ft_strlen(s) - 1;
-	while (s[i] == ' ' || s[i] == '\n' || s[i] == '\t')
-		i++;
-	while ((s[j] == ' ' || s[j] == '\n' || s[j] == '\t') && j > 0)
-		j--;
-	if (i > j)
-		return (NULL);
-	res = ft_strsub(s, i, j - i + 1);
-	return (res);
-}
-
-char		*com_list_string(t_com_list *begin)
-{
-	int			size;
-	char		*buf;
-	char		*new;
-	char		*res;
-
-	buf = com_list_retrieve(begin);
-	size = g_local->curs - g_local->prompt - 1;
-	while (buf[size] && buf[size] != ' ')
-		size++;
-	new = (size <= 0) ? NULL : ft_strsub(buf, 0, size);
-	free(buf);
-	res = ft_strtrim2(new);
-	free(new);
-	return (res);
 }
 
 int			iscommand(char *var)
