@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/19 10:02:21 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/24 19:13:02 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/25 12:37:56 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,11 @@ int					tab_select(t_param **debut, t_com_list *begin, char *word)
 	if (g_curr_compl != NULL)
 		clear_tparam(debut);
 	if ((ret = tab_complete_line(list, begin, param)) == 0)
+	{
+		if (g_curr_compl == NULL)
+			clear_tparam(debut);
 		return (0);
+	}
 	else if (ret == 1)
 	{
 		if (init_compl(*debut, word) == -1)

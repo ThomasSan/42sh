@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 13:40:47 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/24 19:56:29 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/25 14:21:19 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ int					tab_mode(t_com_list *begin)
 		return (0);
 	if (g_curr_compl != NULL)
 		return (tab_complete_line(g_curr_compl->begin, begin,
-					g_curr_compl->var));
-	if ((var = com_list_string(begin)) == NULL)
+			g_curr_compl->var));
+		if ((var = com_list_string(begin)) == NULL)
 		return (0);
 	table = (iscommand(var) == 0) ? hash_table(g_hash) : list_path(var);
 	if (table == NULL)

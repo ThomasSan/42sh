@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 16:49:46 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/24 16:09:46 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/25 12:55:21 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,13 @@ static int	increase_line(t_com_list *begin, char *test)
 		term_mv_horizontal(3, len_list);
 		buf = buf->next;
 	}
-	while (*test)
+	i = 0;
+	while (test[i])
 	{
-		term_write_line(&begin, *test);
-		test++;
+		term_write_line(&begin, test[i]);
+		i++;
 	}
+	free(test);
 	return (0);
 }
 
@@ -59,14 +61,15 @@ static int	get_compl_max(t_param *debut, int size_curr_word)
 {
 	char		*test;
 
-	test = NULL;
 	while ((debut->var)[size_curr_word])
 	{
 		test = ft_strsub(debut->var, 0, size_curr_word);
 		if (can_increase(debut, test, size_curr_word) != 0)
-			return (size_curr_word - 1);
-		if (test != NULL)
+		{
 			free(test);
+			return (size_curr_word - 1);
+		}
+		free(test);
 		size_curr_word++;
 	}
 	return (size_curr_word);

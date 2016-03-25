@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 15:38:55 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/24 19:29:04 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/25 14:19:45 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,18 +50,19 @@ char		*tab_prepare_select(t_param *debut, t_com_list *begin)
 char		*file_suffix(char *str, char *path)
 {
 	struct stat		*buf;
+	char			*aux;
 	char			*tmp;
 
-	tmp = ft_strjoin(path, str);
+	aux = ft_strjoin(path, str);
 	if ((buf = (struct stat*)malloc(sizeof(struct stat))) == NULL)
 		return (ft_strdup(str));
-	if (lstat(tmp, buf) == -1)
-	{
-		free(tmp);
-		return (ft_strdup(str));
-	}
-	free(tmp);
-	if (buf->st_mode & S_IFDIR)
-		return (ft_strjoin(str, "/"));
-	return (ft_strdup(str));
+	if (lstat(aux, buf) == -1)
+		tmp = ft_strdup(str);
+	else if (buf->st_mode & S_IFDIR)
+		tmp = ft_strjoin(str, "/");
+	else
+		tmp = ft_strdup(str);
+	free(buf);
+	free(aux);
+	return (tmp);
 }

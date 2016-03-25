@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 16:49:41 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/24 19:21:41 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/25 14:14:09 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,7 @@ char				*path_to_tab(char *var)
 	int			count;
 	char		*buf;
 
-	i = 0;
-	while (i < g_local->curs - 1)
-		i++;
+	i = g_local->curs - 1;
 	count = 0;
 	while (var[i + 1] && var[i + 1] != ' ')
 		i++;
@@ -84,6 +82,11 @@ char				*path_to_tab(char *var)
 	if (i >= 0 && var[i] == ' ')
 		i++;
 	buf = ft_strsub(var, i, count);
+	if (ft_strcmp(buf, "") == 0)
+	{
+		free(buf);
+		buf = ft_strdup("./");
+	}
 	return (buf);
 }
 

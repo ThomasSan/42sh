@@ -6,63 +6,40 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 18:06:35 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/24 20:00:35 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/25 14:21:17 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static int			invert(t_param **a, t_param **b)
+static int			revert_param(t_param *a, t_param *b)
 {
-	t_param	*bufb;
-	t_param	*bufa;
-	
-	bufb = (*b)->next;
-	bufa = (*a)->prev;
-	if (bufa != NULL)
-		bufa->next = *b;
-	(*b)->prev = bufa;
-	(*b)->next = *a;
-	(*a)->prev = (*b);
-	(*a)->next = bufb;
-	if (bufb != NULL)
-		bufb->prev = *a;
-	return (0);
-}
+	char	*buf;
 
-static int			revert_param(t_param **a, t_param **b, t_param **debut)
-{
-	t_param	*temp;
-
-	temp = *a;
-	while (ft_strcmp((*b)->var, (*a)->var) < 0)
+	while (a->nb > b->nb && ft_strcmp(b->var, a->var) < 0)
 	{
-		invert(a, b);
-		*debut = (ft_strcmp((*a)->var, (*debut)->var) == 0) ? *b : *debut;
-		*a = ((*b)->prev != NULL) ? (*b)->prev : *b;
-		*b = ((*b)->prev != NULL) ? *b : (*b)->next;
+		buf = b->var;
+		b->var = a->var;
+		a->var = buf;
+		b = b->prev;
+		a = a->prev;
 	}
-	*a = temp;
-	*b = (*a)->next;
 	return (0);
 }
 
-static t_param		*tab_class_lex(t_param **debut)
+static t_param		*tab_class_lex(t_param *debut)
 {
 	t_param		*a;
 	t_param		*b;
 
-	a = *debut;	
+	a = debut;
 	b = a->next;
-	while (b != NULL)
+	while (b->nb != 0)
 	{
 		if (ft_strcmp(b->var, a->var) < 0)
-			revert_param(&a, &b, debut);
-		else
-		{
-			b = b->next;
-			a = a->next;
-		}
+			revert_param(a, b);
+		b = b->next;
+		a = a->next;
 	}
 	return (a);
 }
@@ -104,18 +81,18 @@ t_param				*string_matches(char *var, char **buf)
 	i = 0;
 	while (buf[i])
 	{
-		if (ft_strncmp(var, buf[i], size) == 0 && buf[i][0] != '.')
+		if (ft_strcmp(var, "") != 0)
+			tmp = (ft_strncmp(var, buf[i], size) == 0 && buf[i][0] != '.') ?
+				add_file(debut, buf[i]) : tmp;
+		else if (buf[i][0] != '.')
 			tmp = add_file(debut, buf[i]);
-		if (tmp && tmp->nb == 0)
-			debut = tmp;
+		debut = (tmp && tmp->nb == 0) ? tmp : debut;
 		i++;
 	}
 	if (tmp == NULL)
 		return (NULL);
-	tmp = tab_class_lex(&debut);
 	debut->prev = tmp;
 	tmp->next = debut;
-	ft_dprintf(1, "%d\n", debut->nb);
+	tab_class_lex(debut);
 	return (debut);
-	tmp = tab_class_lex(&debut);
 }
