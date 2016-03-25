@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 12:05:44 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/25 16:01:21 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/25 16:17:24 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_exec_list	g_exec_list[] = {
 	{TUBES, &exec_pipe},
 	{AND_IF, &exec_and},
 	{OR_IF, &exec_or},
+	{END, &exec_end},
 	{-1, NULL},
 };
 

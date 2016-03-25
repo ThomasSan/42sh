@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:36:22 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/25 14:32:26 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/25 17:47:41 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,28 +34,6 @@ static int	sh_print_prompt(void)
 	return (0);
 }
 
-static char	*sh_get_line(t_com_list **begin, int end)
-{
-	t_com_list	*tmp;
-	char		*str;
-	
-	if (end == 3)
-		return (NULL);
-	if (g_local->begin != NULL)
-	{
-		tmp = g_local->begin;
-		while (tmp->next != NULL)
-			tmp = tmp->next;
-		tmp->next = *begin;
-		(*begin)->previous = tmp;
-		*begin = g_local->begin;
-	}
-	str = com_list_retrieve(*begin);
-	if (end == 4 && str[0] == '\0')
-		exit(sh_reset_term());
-	return (str);
-}
-
 static int	sh_read_prompt(t_com_list **begin, t_hist_list **hist)
 {
 	int			len;
@@ -65,7 +43,7 @@ static int	sh_read_prompt(t_com_list **begin, t_hist_list **hist)
 	i = 0;
 	len = read(STDIN_FILENO, buf, 10);
 	ft_bzero(&buf[len], 10 - len);
-	if (ft_strcmp(buf, "\x09") != 0 && g_curr_compl != NULL)
+	if (ft_strcmp(buf, "\x09") != 0)
 		clear_curr_compl();
 	if ((len != 1 || buf[0] < 31 || buf[0] > 127) &&
 			(len != 1 || buf[0] != 10))
@@ -90,9 +68,8 @@ int			sh_prompt(void)
 	modif_hist = copy_hist(hist);
 	while (i != 10 && i != 4 && i != -1 && i != 3)
 		i = sh_read_prompt(&begin, &modif_hist);
-	if ((str = sh_get_line(&begin, i)) == NULL)
+	if ((str = sh_retrieve_cmd_line(&begin, i, &hist)) == NULL)
 		return (0);
-	exit_completion(begin);
 	hist_add_elem(begin, &hist);
 	clear_hist(&modif_hist);
 	sh_reset_term();

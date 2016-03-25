@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 11:37:07 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/25 14:05:50 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/25 16:20:59 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,15 @@ int			tree_place_cmd(t_tree *new, t_tree **root)
 	if (tmp->types == CMD)
 		return (-1);
 	tmp->right = new;
+	return (0);
+}
+
+int			tree_place_type_end(t_tree *new, t_tree **root)
+{
+	t_tree	*tmp;
+
+	tmp = *root;
+	*root = new;
+	new->left = tmp;
 	return (0);
 }
