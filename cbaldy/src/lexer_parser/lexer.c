@@ -6,7 +6,7 @@
 /*   By: tsanzey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 11:05:40 by tsanzey           #+#    #+#             */
-/*   Updated: 2016/03/25 14:54:04 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/26 19:15:15 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ int		is_word_or(char *s, int i)
 
 int		ft_other_redirs(char *s, int i, int type)
 {
-	static const char	*token_types[] = {"\"", "\'", "`", ">", ">>", "<",
-	"<<", "|", ";", "&", "~", /*"/", */"\\", "$", "#", "-", "\0"};
+	static const char	*token_types[] = {"\"", "\'", "`", "<", ">", "<<",
+	">>", "|", ";", "&", "~", /*"/", */"\\", "$", "#", "-", "\0"};
 
 	if (s[i + 1] && type == DIPLE_R && s[i + 1] == s[i])
 		return (4);
@@ -56,8 +56,8 @@ int		ft_token_type(char *s, int i)
 {
 	int					type;
 	int					j;
-	static const char	*token_types[] = {"\"", "\'", "`", ">", ">>", "<",
-	"<<", "|", ";", "&", "~",/* "/", */"\\", "$", "#", "-", "\0"};
+	static const char	*token_types[] = {"\"", "\'", "`", "<", ">", "<<",
+	">>", "|", ";", "&", "~", /*"/", */"\\", "$", "#", "-", "\0"};
 
 	type = WORDS;
 	j = 0;
@@ -84,8 +84,8 @@ char	*tok_content(char *s, int start, int type)
 {
 	int					i;
 	char				*dst;
-	static const char	*token_types[] = {"\"", "\'", "`", ">", ">>", "<",
-	"<<", "|", ";", "&", "~",/* "/", */"\\", "$", "#", "-", "<&", ">&", "&>", "||", "&&", "\0"};
+	static const char	*token_types[] = {"\"", "\'", "`", "<", ">", "<<",
+	">>", "|", ";", "&", "~", /*"/", */"\\", "$", "#", "-", "\0"};
 
 	if (type == DOUBLE_R || type == DOUBLE_L || (type >= LESS_AND && type <= D_SAND))
 	{
