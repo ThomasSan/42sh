@@ -99,6 +99,7 @@ t_token				*pop_middle_token(t_token *tok);
 t_token				*ft_variable_expand(t_token *tok);
 t_parse				*sh_preparse(t_token *tok);
 int					number_of_rows(t_token *tok);
+t_token				*check_dollar(t_token *tok);
 /*
 **				Array of function pointer
 */

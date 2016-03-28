@@ -4,6 +4,7 @@
 t_token		*pop_middle_token(t_token *tok)
 {
 	t_token *tmp;
+
 	if (tok->prev)
 	{
 		tok->prev->next = tok->next;
@@ -53,8 +54,8 @@ void		return_type_quoted(t_token *tok)
 	{
 		if (tok->type == QUOTES)
 			is_quoted = is_quoted == 1 ? 0: 1;
-		if (is_quoted && tok->type == DOLLAR)
-			ft_variable_expand(tok);
+		// if (is_quoted && tok->type == DOLLAR)
+			// ft_variable_expand(tok);
 		if (is_quoted && tok->type != QUOTES)
 			tok->type = WORDS;
 		if (tok->type == BACKSLASH)
@@ -121,20 +122,34 @@ void		ft_display_tokens(t_token *tok)
 	}
 }
 
+int 		ft_edit_useless(t_token *tok)
+{
+	while (tok)
+	{
+		if (tok->type == AMPERSAND || tok->type == DOLLAR)
+			tok->type = WORDS;
+		tok = tok->next;
+	}
+	return (1);
+}
+
 t_parse		*ft_checking_syntax(t_token *tok)
 {
+	tok = check_dollar(tok);
+	printf("dollar check\n");
 	return_type_quoted(tok);
 	tok = join_quoted(tok);
-	// printf("QUOTES check\n");
+	printf("QUOTES check\n");
 	tok = check_minus(tok);
-	// printf("MINUS check\n");
+	printf("MINUS check\n");
 	tok = ft_tild_expand(tok);
-	// printf("TILD check\n");
+	printf("TILD check\n");
 	// fonction pour chager les autres tokens en word et pop les inutiles
+	ft_edit_useless(tok);
 	tok = ft_token_removal(tok, WHITESPACE);
-	// printf("SPACES check\n");
+	printf("SPACES check\n");
 	tok = ft_token_removal(tok, QUOTES);
-	// printf("QUOTES check\n");
+	printf("QUOTES check\n");
 	ft_display_tokens(tok);
 	if (!(ft_command_isvalid(tok)))
 		return (NULL);
