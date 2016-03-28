@@ -1,21 +1,5 @@
 #include "lexer.h"
 
-int		check_next_token(t_token *tok)
-{
-	if (tok->next)
-		return (tok->next->type);
-	else
-		return (-2);
-}
-
-int		check_prev_token(t_token *tok)
-{
-	if (tok->prev)
-		return (tok->prev->type);
-	else
-		return (-2);
-}
-
 t_token		*pop_middle_token(t_token *tok)
 {
 	t_token *tmp;
@@ -32,6 +16,33 @@ t_token		*pop_middle_token(t_token *tok)
 	return (tmp);
 }
 
+t_token		*join_quoted(t_token *tok)
+{
+	t_token	*tmp;
+	t_token	*tmp1;
+	char	*str;
+
+	tmp = tok;
+	while (tmp)
+	{
+		if (tmp->type == QUOTES)
+		{
+			tmp = tmp->next;
+			tmp1 = tmp;
+			tmp = tmp->next;
+			while (tmp && tmp->type == WORDS)
+			{
+				str = tmp1->content;
+				tmp1->content = ft_strjoin(tmp1->content, tmp->content);
+				tmp = pop_middle_token(tmp);
+				free(str);
+			}
+		}
+		tmp = tmp->next;
+	}
+	return (tok);
+}
+
 void		return_type_quoted(t_token *tok)
 {
 	int	is_quoted;
@@ -46,8 +57,8 @@ void		return_type_quoted(t_token *tok)
 		if (is_quoted && tok->type != QUOTES)
 			tok->type = WORDS;
 		if (tok->type == BACKSLASH)
-		{
-			if (check_next_token(tok) != -1)
+		{//je pense monter cette fonction en premier en cas de \" Et puis verifier si une cmd start avec : '\'
+			if (check_next_token(tok) != WORDS)
 			{
 				pop_middle_token(tok);
 				tok->next->type = WORDS;
@@ -115,6 +126,7 @@ t_parse		*ft_checking_syntax(t_token *tok)
 
 	head = NULL;
 	return_type_quoted(tok);
+	tok = join_quoted(tok);
 	// function pour join les quoted;
 	// printf("QUOTES check\n");
 	tok = check_minus(tok);
@@ -126,9 +138,10 @@ t_parse		*ft_checking_syntax(t_token *tok)
 	// printf("SPACES check\n");
 	tok = ft_token_removal(tok, QUOTES);
 	// printf("QUOTES check\n");
-	// ft_display_tokens(tok);
+	ft_display_tokens(tok);
 	if (!(ft_command_isvalid(tok)))
 		return (NULL);
+	// printf("cmd is valid\n");
 	head = sh_preparse(tok);
 	return (head);
 }

@@ -35,3 +35,19 @@ int		number_of_rows(t_token *tok)
 	}
 	return (i);
 }
+
+int		check_next_token(t_token *tok)
+{
+	if (tok->next)
+		return (tok->next->type);
+	else
+		return (-2);
+}
+
+int		check_prev_token(t_token *tok)
+{
+	if (tok->prev)
+		return (tok->prev->type);
+	else
+		return (-2);
+}

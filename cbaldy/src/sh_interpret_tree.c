@@ -67,6 +67,7 @@ int			sh_exec_tree(char *str)
 
 	if ((root = sh_lexer_parser(str)) == NULL)
 		return (0);
+	printf("Ok on est la\n");
 	sh_save_std_fd();
 	ret = ft_itoa(sh_interpret(root));
 	if ((sh_change_var_env("?", ret)) == -1)

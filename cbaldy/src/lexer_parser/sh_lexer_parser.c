@@ -41,16 +41,18 @@ t_tree		*sh_lexer_parser(char *str)
 		return (NULL);
 	return (tree_build_cmd(head));
 	/*
-	 while (head)
+	t_parse *tail;
+	tail = head;
+	 while (tail)
 	{
 	 	int i = 0;
-		printf("type %d\n", head->type);
- 		while (head->arg[i])
+		printf("type %d\n", tail->type);
+ 		while (tail->arg[i])
 	 	{
-	 		printf("arg[%d] %s\n", i, head->arg[i]);
+	 		printf("arg[%d] %s\n", i, tail->arg[i]);
 	 		i++;
 	 	}
-	 	head = head->next;
+	 	tail = tail->next;
 	 }
 	 printf("exit\n");
 	 return (NULL);

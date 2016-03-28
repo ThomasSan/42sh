@@ -110,7 +110,7 @@ t_parse		*sh_preparse(t_token *tok)
 	t_parse *head;
 
 	head = NULL;
-	//print_tok(tok);
+	// print_tok(tok);
 	while (tok)
 	{
 		if (tok->type == WORDS)
