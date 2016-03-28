@@ -1,4 +1,5 @@
 #include "lexer.h"
+#include "parse_build_list.h"
 
 t_token		*pop_middle_token(t_token *tok)
 {
@@ -122,9 +123,6 @@ void		ft_display_tokens(t_token *tok)
 
 t_parse		*ft_checking_syntax(t_token *tok)
 {
-	t_parse	*head;
-
-	head = NULL;
 	return_type_quoted(tok);
 	tok = join_quoted(tok);
 	// function pour join les quoted;
@@ -141,7 +139,5 @@ t_parse		*ft_checking_syntax(t_token *tok)
 	ft_display_tokens(tok);
 	if (!(ft_command_isvalid(tok)))
 		return (NULL);
-	// printf("cmd is valid\n");
-	head = sh_preparse(tok);
-	return (head);
+	return (parse_build_list(tok));
 }
