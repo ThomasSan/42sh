@@ -6,7 +6,7 @@
 /*   By: tsanzey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 15:12:24 by tsanzey           #+#    #+#             */
-/*   Updated: 2016/03/28 15:12:34 by tsanzey          ###   ########.fr       */
+/*   Updated: 2016/03/28 16:57:49 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,9 @@ t_parse		*ft_checking_syntax(t_token *tok)
 	ft_edit_useless(tok);
 	tok = ft_token_removal(tok, WHITESPACE);
 	tok = ft_token_removal(tok, QUOTES);
-	ft_display_tokens(tok);
+	//ft_display_tokens(tok);
 	if (!(ft_command_isvalid(tok)))
 		return (NULL);
 	return (parse_build_list(tok));
+	ft_display_tokens(tok);
 }

@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:12:49 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/26 15:23:35 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/28 19:41:04 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,5 +119,6 @@ void			sh_save_std_fd(void);
 void			sh_reset_std_fd(void);
 char			*sh_retrieve_cmd_line(t_com_list **begin, int end,
 				t_hist_list **hist);
+char			*cd_get_path2(char *com);
 
 #endif
