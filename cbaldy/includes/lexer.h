@@ -11,20 +11,20 @@
 typedef enum 		e_sym
 {
 	QUOTES,
-	SINGLE_QUOTES,
-	BACK_QUOTES,
-	DIPLE_R,
+	SINGLE_QUOTES,// a remove
+	BACK_QUOTES,// a gerer?
+	DIPLE_R, 
 	DOUBLE_R,
 	DIPLE_L,
 	DOUBLE_L,
 	PIPE,
 	SEMICOL,
-	AMPERSAND,
+	AMPERSAND,//a implementer ou a changer en WORD after
 	TILD,
 	// SLASH,
 	BACKSLASH,
-	DOLLAR,
-	HASHTAG,
+	DOLLAR,// a gerer dans le cas ou $ n'est pas dans ""
+	// HASHTAG,//a implementer
 	MINUS,
 	LESS_AND,
 	GREAT_AND,
@@ -99,6 +99,7 @@ t_token				*pop_middle_token(t_token *tok);
 t_token				*ft_variable_expand(t_token *tok);
 t_parse				*sh_preparse(t_token *tok);
 int					number_of_rows(t_token *tok);
+t_token				*check_dollar(t_token *tok);
 /*
 **				Array of function pointer
 */
@@ -112,5 +113,14 @@ int					rules_for_great_and(t_token *tok);
 int					rules_for_less_and(t_token *tok);
 int					rules_for_and_great(t_token *tok);
 int					rules_for_orandif(t_token *tok);
+/*
+**
+*/
+t_token				*ft_token_removal(t_token *tok, t_sym sym);
+void				ft_display_tokens(t_token *tok);
+int					ft_edit_useless(t_token *tok);
+int					ft_next_token(char *s, int start, int type);
+int					is_word_or(char *s, int i);
+int					ft_token_type(char *s, int i);
 
 #endif

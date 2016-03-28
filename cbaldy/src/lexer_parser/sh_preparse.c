@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sh_preparse.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tsanzey <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/03/28 15:04:31 by tsanzey           #+#    #+#             */
+/*   Updated: 2016/03/28 15:04:34 by tsanzey          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lexer.h"
 
-t_parse	*ft_push_in_tab(t_parse *new, t_token *tok)
+t_parse		*ft_push_in_tab(t_parse *new, t_token *tok)
 {
 	int		rows;
 	int		i;
@@ -20,7 +32,7 @@ t_parse	*ft_push_in_tab(t_parse *new, t_token *tok)
 	return (new);
 }
 
-t_parse	*ft_push_pipe(t_parse *head, t_token *tok)
+t_parse		*ft_push_pipe(t_parse *head, t_token *tok)
 {
 	t_parse	*new;
 	t_parse	*tmp;
@@ -40,7 +52,7 @@ t_parse	*ft_push_pipe(t_parse *head, t_token *tok)
 	return (head);
 }
 
-t_parse	*ft_push_redir(t_parse *head)
+t_parse		*ft_push_redir(t_parse *head)
 {
 	t_parse	*new;
 	t_parse	*tmp;
@@ -57,7 +69,7 @@ t_parse	*ft_push_redir(t_parse *head)
 	return (head);
 }
 
-t_parse	*ft_analyse_token(t_parse *head, t_token *tok)
+t_parse		*ft_analyse_token(t_parse *head, t_token *tok)
 {
 	if (tok->type == PIPE || tok->type == SEMICOL ||
 		tok->type == D_PIPE || tok->type == D_SAND)
@@ -110,7 +122,7 @@ t_parse		*sh_preparse(t_token *tok)
 	t_parse *head;
 
 	head = NULL;
-	print_tok(tok);
+	// print_tok(tok);
 	while (tok)
 	{
 		if (tok->type == WORDS)

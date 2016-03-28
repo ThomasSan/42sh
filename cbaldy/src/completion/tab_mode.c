@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 13:40:47 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/25 16:28:42 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/26 18:16:54 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,9 @@ static char			*word_to_tab(char *var)
 	char		*buf;
 
 	res = path_to_tab(var);
-	buf = (ft_strrchr(res, '/') != NULL) ? ft_strrchr(res, '/') + 1 : res;
-	free(res);
-	res = ft_strdup(buf);
-	return (res);
+	buf = (ft_strrchr(res, '/') != NULL) ? ft_strdup(ft_strrchr(res, '/') + 1)
+		: ft_strdup(res);
+	return (buf);
 }
 
 int					tab_mode(t_com_list *begin)

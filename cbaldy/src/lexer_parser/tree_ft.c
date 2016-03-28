@@ -49,7 +49,7 @@ int			tree_place_type_red(t_tree *new, t_tree **root)
 {
 	t_tree	*tmp;
 	t_tree	*tmp2;
-	
+
 	if ((*root)->right == NULL)
 	{
 		tmp = *root;

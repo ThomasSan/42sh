@@ -38,4 +38,4 @@ int		parse_list_pushback(t_parse *new, t_parse **head)
 		tmp->next = new;
 	}
 	return (0);
-}	
+}
