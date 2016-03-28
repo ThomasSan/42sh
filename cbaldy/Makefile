@@ -6,7 +6,7 @@
 #    By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/14 14:42:25 by cbaldy            #+#    #+#              #
-#    Updated: 2016/03/25 17:50:34 by cbaldy           ###   ########.fr        #
+#    Updated: 2016/03/26 18:06:03 by cbaldy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,8 @@ LEX = lexer.c parser.c ft_token_recognition.c ft_free.c ft_syntaxical.c \
 	  ft_push_tree.c ft_misc.c pipe_grammar.c ft_great_grammar.c \
 	  ft_input_correct.c tree_ft.c tree_build_cmd.c \
 	  ft_isspace.c ft_catplus.c sh_lexer_parser.c ft_expansion.c \
-	  ft_variable_expand.c sh_preparse.c grammar.c
+	  ft_variable_expand.c sh_preparse.c grammar.c \
+	  parse_build_list.c parse_list_ft.c parse_get_cmd.c parse_get_redir.c
 
 INCLUDE = -I includes/
 

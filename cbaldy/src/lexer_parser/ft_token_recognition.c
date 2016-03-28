@@ -1,4 +1,5 @@
 #include "lexer.h"
+#include "parse_build_list.h"
 
 int		check_next_token(t_token *tok)
 {
@@ -129,6 +130,5 @@ t_parse		*ft_checking_syntax(t_token *tok)
 	// ft_display_tokens(tok);
 	if (!(ft_command_isvalid(tok)))
 		return (NULL);
-	head = sh_preparse(tok);
-	return (head);
+	return (parse_build_list(tok));
 }

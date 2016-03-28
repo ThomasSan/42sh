@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 10:22:10 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/25 17:47:04 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/27 19:11:09 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,12 @@ static int	tree_print(t_tree *root)
 
 static int	tree_insert_elem(t_tree *new, t_tree **root)
 {
-	if (new->types == CMD)
+	if (*root == NULL)
+	{
+		*root = new;
+		return (0);
+	}
+	else if (new->types == CMD)
 		return (tree_place_cmd(new, root));
 	else if (new->types < TUBES)
 		return (tree_place_type_red(new, root));
