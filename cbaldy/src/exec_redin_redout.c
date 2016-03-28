@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/25 11:50:44 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/28 16:50:36 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/28 19:40:59 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,8 @@ static int exec_redout_get_fd(t_tree *root)
 	int		open_fd;
 	int		opt;
 
-	ft_putendl("not good");
-	if ((path = getcwd(NULL, 0)) == NULL)
+	if ((path = cd_get_path2(root->cmd[1])) == NULL)
 		return (-1);
-	path = mod_strjoin(mod_strjoin(path, "/", 1), root->cmd[1], 1);
 	if (access(path, F_OK) == 0 && access(path, W_OK) < 0)
 	{
 		ft_dprintf(STDERR_FILENO, "shell: %s: permission denied\n",
@@ -29,8 +27,7 @@ static int exec_redout_get_fd(t_tree *root)
 		free(path);
 		return (-1);
 	}
-	opt = O_WRONLY | O_CREAT;
-	opt |= (root->types == D_GREAT ? O_APPEND : O_TRUNC);
+	opt = O_WRONLY | O_CREAT | (root->types == D_GREAT ? O_APPEND : O_TRUNC);
 	if ((open_fd = open(path, opt, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)) < 0)
 		ft_dprintf(STDERR_FILENO, "shell: %s: cannot write on this\n",
 				root->cmd[1]);
@@ -45,20 +42,16 @@ int		exec_redout(t_tree *root)
 	int		out_fd;
 
 	if (root->types == G_AND && root->cmd[1][0] > 48 && root->cmd[1][0] < 58)
-	{
-		ft_putendl("ok");
 		open_fd = ft_atoi(root->cmd[1]);
-	}
 	else if ((open_fd = exec_redout_get_fd(root)) < 0)
 		return (1);
-	ft_printf("%d\n", open_fd);
 	out_fd = ft_atoi(root->cmd[0]);
 	if (out_fd >= g_std_fd[0] && out_fd <= g_std_fd[2])
 		out_fd = STDOUT_FILENO;
 	if (root->types == AND_G)
 		dup2(open_fd, STDERR_FILENO);
 	dup2(open_fd, out_fd);
-	ret = sh_interpret(root->left);
+	ret = sh_interpret(root->right);
 	close(open_fd);
 	return (ret);
 }
@@ -103,7 +96,7 @@ int		exec_redin(t_tree *root)
 		return (1);
 	}
 	dup2(open_fd, STDIN_FILENO);
-	ret = sh_interpret(root->left);
+	ret = sh_interpret(root->right);
 	close(STDIN_FILENO);
 	close(open_fd);
 	free(path);

@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 12:05:44 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/28 13:19:41 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/28 18:56:02 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_exec_list	g_exec_list[] = {
 	{D_LESS, &exec_redin},
 	{D_GREAT, &exec_redout},
 	{G_AND, &exec_redout},
-	{AND_G, &exec_spe_redir},
+	{AND_G, &exec_redout},
 	{TUBES, &exec_pipe},
 	{AND_IF, &exec_and},
 	{OR_IF, &exec_or},
@@ -71,7 +71,7 @@ int			sh_exec_tree(char *str)
 
 	if ((root = sh_lexer_parser(str)) == NULL)
 		return (0);
-	printf("Ok on est la\n");
+	//printf("Ok on est la\n");
 	sh_save_std_fd();
 	ret = ft_itoa(sh_interpret(root));
 	if ((sh_change_var_env("?", ret)) == -1)

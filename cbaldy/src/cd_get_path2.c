@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_spe_redir.c                                   :+:      :+:    :+:   */
+/*   cd_get_path2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/28 11:59:03 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/28 13:16:09 by cbaldy           ###   ########.fr       */
+/*   Created: 2016/03/28 19:08:59 by cbaldy            #+#    #+#             */
+/*   Updated: 2016/03/28 19:26:49 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-int		exec_spe_redir(t_tree *root)
+char		*cd_get_path2(char *com)
 {
-	if (root->types == AND_G)
-	{
-		ft_putendl("ok");
-		return (exec_redout(root));
-	}
-	return (0);
+	char	*path;
+
+	if (com[0] == '/')
+		return (ft_strdup(com));
+	else if ((path = getcwd(NULL, 0)) == NULL)
+		return (NULL);
+	path = mod_strjoin(mod_strjoin(path, "/", 1), com, 1);
+	return (path);
 }
