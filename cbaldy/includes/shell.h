@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:12:49 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/25 17:47:56 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/28 17:50:19 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,10 @@
 # include <term.h>
 # include <sys/ioctl.h>
 
-# define HIST_SIZE 20
+# define HIST_SIZE 5
 
+int				sh_builtin_history(char **com);
+t_hist_list		*retrieve_history(int flag, t_com_list *begin);
 int				exit_completion(t_com_list *begin);
 char			*cd_var_env(char *name);
 void			clear_hist(t_hist_list **hist);
