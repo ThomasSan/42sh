@@ -136,20 +136,20 @@ int 		ft_edit_useless(t_token *tok)
 t_parse		*ft_checking_syntax(t_token *tok)
 {
 	tok = check_dollar(tok);
-	printf("dollar check\n");
+	// printf("dollar check\n");
 	return_type_quoted(tok);
 	tok = join_quoted(tok);
-	printf("QUOTES check\n");
+	// printf("QUOTES check\n");
 	tok = check_minus(tok);
-	printf("MINUS check\n");
+	// printf("MINUS check\n");
 	tok = ft_tild_expand(tok);
-	printf("TILD check\n");
+	// printf("TILD check\n");
 	// fonction pour chager les autres tokens en word et pop les inutiles
 	ft_edit_useless(tok);
 	tok = ft_token_removal(tok, WHITESPACE);
-	printf("SPACES check\n");
+	// printf("SPACES check\n");
 	tok = ft_token_removal(tok, QUOTES);
-	printf("QUOTES check\n");
+	// printf("QUOTES check\n");
 	ft_display_tokens(tok);
 	if (!(ft_command_isvalid(tok)))
 		return (NULL);
