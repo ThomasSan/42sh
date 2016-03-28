@@ -12,7 +12,7 @@
 
 #include "parse_build_list.h"
 
-static int	parse_sort_type(int	type)
+static int	parse_sort_type(int type)
 {
 	if (type == DIPLE_R)
 		return (GREAT);

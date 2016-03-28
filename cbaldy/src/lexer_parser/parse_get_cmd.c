@@ -29,7 +29,7 @@ static char	**parse_cpy_arg(t_parse *com, int len)
 {
 	char	**new_arg;
 	int		i;
-	
+
 	if ((new_arg = (char **)malloc(sizeof(char *) * (len + 1))) == NULL)
 		return (NULL);
 	i = 0;

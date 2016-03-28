@@ -12,7 +12,7 @@
 
 #include "parse_build_list.h"
 
-int	parse_print(t_parse *head)
+int			parse_print(t_parse *head)
 {
 	int		i;
 
@@ -39,7 +39,7 @@ static int	parse_get_pipe_type(t_parse **head, t_token *tok)
 	else if (tok->type == SEMICOL)
 		op = END;
 	else if (tok->type == D_PIPE)
-	   op = OR_IF;
+		op = OR_IF;
 	else
 		op = AND_IF;
 	return (parse_list_pushback(parse_list_new(NULL, op), head) + 1);
@@ -80,7 +80,6 @@ t_parse		*parse_build_list(t_token *tok)
 			i--;
 		}
 	}
-	//parse_print(head);
 	return (head);
 	parse_print(head);
 }

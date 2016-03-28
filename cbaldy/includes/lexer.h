@@ -113,5 +113,14 @@ int					rules_for_great_and(t_token *tok);
 int					rules_for_less_and(t_token *tok);
 int					rules_for_and_great(t_token *tok);
 int					rules_for_orandif(t_token *tok);
+/*
+**
+*/
+t_token				*ft_token_removal(t_token *tok, t_sym sym);
+void				ft_display_tokens(t_token *tok);
+int					ft_edit_useless(t_token *tok);
+int					ft_next_token(char *s, int start, int type);
+int					is_word_or(char *s, int i);
+int					ft_token_type(char *s, int i);
 
 #endif

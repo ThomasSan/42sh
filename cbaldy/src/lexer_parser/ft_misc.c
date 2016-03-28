@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_misc.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tsanzey <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/03/28 15:17:30 by tsanzey           #+#    #+#             */
+/*   Updated: 2016/03/28 15:17:52 by tsanzey          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lexer.h"
 
-void	ft_array_fun(void)
+void		ft_array_fun(void)
 {
 	g_f[DIPLE_R] = rules_for_great;
 	g_f[DOUBLE_R] = rules_for_great;
@@ -21,7 +33,7 @@ void		parse_error(char *s)
 	ft_putendl(s);
 }
 
-int		number_of_rows(t_token *tok)
+int			number_of_rows(t_token *tok)
 {
 	t_token	*tmp;
 	int		i;
@@ -36,7 +48,7 @@ int		number_of_rows(t_token *tok)
 	return (i);
 }
 
-int		check_next_token(t_token *tok)
+int			check_next_token(t_token *tok)
 {
 	if (tok->next)
 		return (tok->next->type);
@@ -44,7 +56,7 @@ int		check_next_token(t_token *tok)
 		return (-2);
 }
 
-int		check_prev_token(t_token *tok)
+int			check_prev_token(t_token *tok)
 {
 	if (tok->prev)
 		return (tok->prev->type);

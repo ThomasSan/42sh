@@ -12,23 +12,10 @@
 
 #include "lexer.h"
 
-int		is_word_or(char *s, int i)
-{
-	if (!ft_isdigit(s[i]))
-		return (0);
-	if (s[i + 1] != '\0' && (s[i + 1] == '>' || s[i + 1] == '<'))
-		return (1);
-	if (s[i - 1] && s[i - 1] == '&')
-		return (1);
-	if (s[i + i] != '\0' && ft_isdigit(s[i + 1]))
-		return (1);
-	return (0);
-}
-
 int		ft_other_redirs(char *s, int i, int type)
 {
 	static const char	*token_types[] = {"\"", "\'", "`", ">", ">>", "<",
-	"<<", "|", ";", "&", "~", /*"/", */"\\", "$",/* "#", */"-", "\0"};
+	"<<", "|", ";", "&", "~", "\\", "$", "-", "\0"};
 
 	if (s[i + 1] && type == DIPLE_R && s[i + 1] == s[i])
 		return (4);
@@ -44,8 +31,6 @@ int		ft_other_redirs(char *s, int i, int type)
 		return (D_SAND);
 	if (s[i + 1] && type == PIPE && s[i + 1] == *token_types[PIPE])
 		return (D_PIPE);
-	// if (s[i + 1] && type == DIPLE_L && s[i + 1] == *token_types[DIPLE_R])
-	// 	return (LESS_GREAT);
 	return (type);
 }
 
@@ -54,7 +39,7 @@ int		ft_token_type(char *s, int i)
 	int					type;
 	int					j;
 	static const char	*token_types[] = {"\"", "\'", "`", ">", ">>", "<",
-	"<<", "|", ";", "&", "~",/* "/", */"\\", "$",/* "#", */"-", "\0"};
+	"<<", "|", ";", "&", "~", "\\", "$", "-", "\0"};
 
 	type = WORDS;
 	j = 0;
@@ -82,9 +67,11 @@ char	*tok_content(char *s, int start, int type)
 	int					i;
 	char				*dst;
 	static const char	*token_types[] = {"\"", "\'", "`", ">", ">>", "<",
-	"<<", "|", ";", "&", "~",/* "/", */"\\", "$",/* "#", */"-", "<&", ">&", "&>", "||", "&&", "\0"};
+	"<<", "|", ";", "&", "~", "\\", "$", "-", "<&", ">&", "&>", "||",
+	"&&", "\0"};
 
-	if (type == DOUBLE_R || type == DOUBLE_L || (type >= LESS_AND && type <= D_SAND))
+	if (type == DOUBLE_R || type == DOUBLE_L ||
+		(type >= LESS_AND && type <= D_SAND))
 	{
 		dst = ft_strdup(token_types[type]);
 		return (dst);
@@ -101,16 +88,6 @@ char	*tok_content(char *s, int start, int type)
 	i = i == 0 ? 1 : i;
 	dst = ft_strsub(s, start, i);
 	return (dst);
-}
-
-int		ft_next_token(char *s, int start, int type)
-{
-	int i;
-
-	i = 0;
-	while (s[start + i] && ft_token_type(s, start + i) == type)
-		i++;
-	return (start + i);
 }
 
 t_token	*ft_push_token(t_token *head, t_token *new)

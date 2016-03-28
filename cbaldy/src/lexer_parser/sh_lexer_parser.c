@@ -14,7 +14,7 @@
 #include "lexer.h"
 #include "tree_build_cmd.h"
 
-t_token	*free_token_list(t_token *tok)
+t_token		*free_token_list(t_token *tok)
 {
 	t_token	*tmp;
 
@@ -40,27 +40,20 @@ t_tree		*sh_lexer_parser(char *str)
 	if ((head = ft_checking_syntax(tok)) == NULL)
 		return (NULL);
 	return (tree_build_cmd(head));
-	/*
-	t_parse *tail;
-	tail = head;
-	 while (tail)
-	{
-	 	int i = 0;
-		printf("type %d\n", tail->type);
- 		while (tail->arg[i])
-	 	{
-	 		printf("arg[%d] %s\n", i, tail->arg[i]);
-	 		i++;
-	 	}
-	 	tail = tail->next;
-	 }
-	 printf("exit\n");
-	 return (NULL);
-	 */
 }
 
-//Dans cet ordre :
-// 1/ tild expansion
-// 2/ changer var $""
-// 3/ remove spaces
-// 4/ remove quotes
+/*
+**	t_parse *tail;
+**	tail = head;
+**	 while (tail)
+**	{
+**	 	int i = 0;
+**		printf("type %d\n", tail->type);
+**		while (tail->arg[i])
+**	 	{
+**	 		printf("arg[%d] %s\n", i, tail->arg[i]);
+**	 		i++;
+**	 	}
+**	 	tail = tail->next;
+**	 }
+*/
