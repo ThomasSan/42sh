@@ -17,20 +17,18 @@ int		is_word_or(char *s, int i)
 	if (!ft_isdigit(s[i]))
 		return (0);
 	if (s[i + 1] != '\0' && (s[i + 1] == '>' || s[i + 1] == '<'))
-	{
 		return (1);
-	}
 	if (s[i - 1] && s[i - 1] == '&')
-	{
 		return (1);
-	}
+	if (s[i + i] != '\0' && ft_isdigit(s[i + 1]))
+		return (1);
 	return (0);
 }
 
 int		ft_other_redirs(char *s, int i, int type)
 {
 	static const char	*token_types[] = {"\"", "\'", "`", ">", ">>", "<",
-	"<<", "|", ";", "&", "~", /*"/", */"\\", "$", "#", "-", "\0"};
+	"<<", "|", ";", "&", "~", /*"/", */"\\", "$",/* "#", */"-", "\0"};
 
 	if (s[i + 1] && type == DIPLE_R && s[i + 1] == s[i])
 		return (4);
@@ -56,7 +54,7 @@ int		ft_token_type(char *s, int i)
 	int					type;
 	int					j;
 	static const char	*token_types[] = {"\"", "\'", "`", ">", ">>", "<",
-	"<<", "|", ";", "&", "~",/* "/", */"\\", "$", "#", "-", "\0"};
+	"<<", "|", ";", "&", "~",/* "/", */"\\", "$",/* "#", */"-", "\0"};
 
 	type = WORDS;
 	j = 0;
@@ -84,7 +82,7 @@ char	*tok_content(char *s, int start, int type)
 	int					i;
 	char				*dst;
 	static const char	*token_types[] = {"\"", "\'", "`", ">", ">>", "<",
-	"<<", "|", ";", "&", "~",/* "/", */"\\", "$", "#", "-", "<&", ">&", "&>", "||", "&&", "\0"};
+	"<<", "|", ";", "&", "~",/* "/", */"\\", "$",/* "#", */"-", "<&", ">&", "&>", "||", "&&", "\0"};
 
 	if (type == DOUBLE_R || type == DOUBLE_L || (type >= LESS_AND && type <= D_SAND))
 	{
@@ -92,24 +90,25 @@ char	*tok_content(char *s, int start, int type)
 		return (dst);
 	}
 	i = 0;
-	while (s[start + i] && ft_token_type(s, start + i) == -1)
-		i++;
+	if (type == WORDS)
+	{
+		while (s[start + i] && ft_token_type(s, start + i) == WORDS)
+			i++;
+	}
+	else if (type == NUMBERS)
+		while (s[start + i] && ft_token_type(s, start + i) == NUMBERS)
+			i++;
 	i = i == 0 ? 1 : i;
-	if (!(dst = (char *)malloc(sizeof(char) * i + 1)))
-		return (NULL);
-	ft_bzero(dst, i);
-	dst[i] = '\0';
-	while (i--)
-		dst[i] = s[start + i];
+	dst = ft_strsub(s, start, i);
 	return (dst);
 }
 
-int		ft_next_token(char *s, int start)
+int		ft_next_token(char *s, int start, int type)
 {
 	int i;
 
 	i = 0;
-	while (s[start + i] && ft_token_type(s, start + i) == -1)
+	while (s[start + i] && ft_token_type(s, start + i) == type)
 		i++;
 	return (start + i);
 }
@@ -149,8 +148,10 @@ t_token	*ft_tokeniser(char *s, t_token *head)
 		if (new->type == DOUBLE_R || new->type == DOUBLE_L ||
 			(new->type >= LESS_AND && new->type <= D_SAND))
 			i++;
-		if (ft_token_type(s, i) == -1)
-			i = ft_next_token(s, i);
+		if (ft_token_type(s, i) == WORDS)
+			i = ft_next_token(s, i, WORDS);
+		else if (ft_token_type(s, i) == NUMBERS)
+			i = ft_next_token(s, i, NUMBERS);
 		else
 			i++;
 		head = ft_push_token(head, new);

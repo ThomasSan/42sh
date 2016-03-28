@@ -125,7 +125,6 @@ t_parse		*ft_checking_syntax(t_token *tok)
 {
 	return_type_quoted(tok);
 	tok = join_quoted(tok);
-	// function pour join les quoted;
 	// printf("QUOTES check\n");
 	tok = check_minus(tok);
 	// printf("MINUS check\n");

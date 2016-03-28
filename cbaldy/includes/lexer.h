@@ -11,20 +11,20 @@
 typedef enum 		e_sym
 {
 	QUOTES,
-	SINGLE_QUOTES,
-	BACK_QUOTES,
-	DIPLE_R,
+	SINGLE_QUOTES,// a remove
+	BACK_QUOTES,// a gerer?
+	DIPLE_R, 
 	DOUBLE_R,
 	DIPLE_L,
 	DOUBLE_L,
 	PIPE,
 	SEMICOL,
-	AMPERSAND,
+	AMPERSAND,//a implementer ou a changer en WORD after
 	TILD,
 	// SLASH,
 	BACKSLASH,
-	DOLLAR,
-	HASHTAG,
+	DOLLAR,// a gerer dans le cas ou $ n'est pas dans ""
+	// HASHTAG,//a implementer
 	MINUS,
 	LESS_AND,
 	GREAT_AND,
