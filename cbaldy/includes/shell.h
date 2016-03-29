@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:12:49 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/29 10:01:05 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/29 12:17:21 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,10 @@
 # include <term.h>
 # include <sys/ioctl.h>
 
-# define HIST_SIZE 5
+# define HIST_SIZE 128
 
+int				hist_print_line(char *s);
+int				search_history(t_com_list *begin);
 int				sh_builtin_history(char **com);
 t_hist_list		*retrieve_history(int flag, t_com_list *begin);
 int				exit_completion(t_com_list *begin);
