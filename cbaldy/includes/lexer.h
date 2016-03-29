@@ -103,7 +103,7 @@ t_token				*check_dollar(t_token *tok);
 /*
 **				Array of function pointer
 */
-int					(*g_f[20])(t_token*);
+int					(*g_f[101])(t_token*);
 void				ft_array_fun(void);
 int					rules_for_pipes(t_token *tok);
 int					rules_for_great(t_token *tok);
@@ -113,6 +113,7 @@ int					rules_for_great_and(t_token *tok);
 int					rules_for_less_and(t_token *tok);
 int					rules_for_and_great(t_token *tok);
 int					rules_for_orandif(t_token *tok);
+int					rules_for_numbers(t_token *tok);
 /*
 **
 */

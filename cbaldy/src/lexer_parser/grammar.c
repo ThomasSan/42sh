@@ -31,3 +31,17 @@ int		rules_for_orandif(t_token *tok)
 		return (1);
 	return (0);
 }
+
+int		rules_for_numbers(t_token *tok)
+{
+	t_sym next;
+	t_sym prev;
+
+	next = check_next_token(tok);
+	prev = check_prev_token(tok);
+	if (next == DIPLE_R || next == DOUBLE_R || next == GREAT_AND ||
+		prev == AND_GREAT)
+		return (1);
+	tok->type = WORDS;
+	return (1);
+}

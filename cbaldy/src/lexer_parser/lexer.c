@@ -18,9 +18,9 @@ int		ft_other_redirs(char *s, int i, int type)
 	"<<", "|", ";", "&", "~", "\\", "$", "-", "\0"};
 
 	if (s[i + 1] && type == DIPLE_R && s[i + 1] == s[i])
-		return (4);
+		return (DOUBLE_R);
 	if (s[i + 1] && type == DIPLE_L && s[i + 1] == s[i])
-		return (6);
+		return (DOUBLE_L);
 	if (s[i + 1] && type == DIPLE_R && s[i + 1] == *token_types[AMPERSAND])
 		return (GREAT_AND);
 	if (s[i + 1] && type == DIPLE_L && s[i + 1] == *token_types[AMPERSAND])
