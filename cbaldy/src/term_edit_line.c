@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 12:51:22 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/28 13:12:21 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/29 17:01:05 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ t_edit_line	g_edit_line[] = {
 	{"\x3", 1},
 	{"\x9", 1},
 	{"\x4", 1},
+	{"\x12", 1},
 	{"\x15", 7},
 	{"\x0b", 7},
 	{"\x19", 7},
@@ -36,7 +37,7 @@ t_edit_line	g_edit_line[] = {
 	{NULL, 0},
 };
 
-static int	term_spec_char(char buf, t_com_list *begin)
+static int	term_spec_char(char buf, t_com_list **begin, t_hist_list **hist)
 {
 	if (buf == 28)
 	{
@@ -48,15 +49,18 @@ static int	term_spec_char(char buf, t_com_list *begin)
 	if (buf == 3)
 		ft_dprintf(STDOUT_FILENO, "\n");
 	if (buf == 9)
-		return (tab_mode(begin));
-	return (buf);
+		return (tab_mode(*begin));
+/*	if (buf == 18)
+		return (search_history(begin, hist));
+*/	return (buf);
+	*hist = NULL;
 }
 
 static int	term_tree_choice(char *buf, int *arr, t_com_list **begin,
 		t_hist_list **hist)
 {
 	if (arr[1] == 1)
-		return (term_spec_char(buf[0], *begin));
+		return (term_spec_char(buf[0], begin, hist));
 	else if (arr[1] == 2)
 		copy_cut_mode(begin, buf[0]);
 	else if (arr[1] == 3)

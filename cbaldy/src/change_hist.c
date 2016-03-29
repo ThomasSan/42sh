@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 11:57:11 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/28 17:48:12 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/29 14:55:05 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int			*hist_list_new(t_hist_list **hist)
 	return (0);
 }
 
-static int	hist_print_line(char *s)
+int			hist_print_line(char *s)
 {
 	int		i;
 
