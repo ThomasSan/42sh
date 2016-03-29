@@ -6,7 +6,7 @@
 /*   By: tsanzey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 10:20:52 by tsanzey           #+#    #+#             */
-/*   Updated: 2016/03/28 10:21:46 by tsanzey          ###   ########.fr       */
+/*   Updated: 2016/03/29 17:59:49 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		ft_command_isvalid(t_token *tok)
 {
-	printf("cmd-> %s, type %d\n", tok->content, tok->type);
+	//printf("cmd-> %s, type %d\n", tok->content, tok->type);
 	if (tok->type == WORDS || tok->type == SEMICOL
 		|| tok->type == AMPERSAND || tok->type == FILENAME)
 	{
