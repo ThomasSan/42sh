@@ -118,7 +118,7 @@ t_parse		*ft_checking_syntax(t_token *tok)
 	tok = ft_token_removal(tok, WHITESPACE);
 	tok = ft_token_removal(tok, QUOTES);
 	tok = ft_token_removal(tok, SINGLE_QUOTES);
-	ft_display_tokens(tok);
+	// ft_display_tokens(tok);
 	if (tok && !(ft_command_isvalid(tok)))
 		return (NULL);
 	return (parse_build_list(tok));

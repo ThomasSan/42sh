@@ -11,7 +11,7 @@
 typedef enum 		e_sym
 {
 	QUOTES,
-	SINGLE_QUOTES,// a remove
+	SINGLE_QUOTES,
 	// BACK_QUOTES,// a gerer?
 	DIPLE_R, 
 	DOUBLE_R,
@@ -19,12 +19,12 @@ typedef enum 		e_sym
 	DOUBLE_L,
 	PIPE,
 	SEMICOL,
-	AMPERSAND,//a implementer ou a changer en WORD after
+	AMPERSAND,
 	TILD,
 	// SLASH,
 	BACKSLASH,
-	DOLLAR,// a gerer dans le cas ou $ n'est pas dans ""
-	// HASHTAG,//a implementer
+	DOLLAR,
+	// HASHTAG,
 	MINUS,
 	LESS_AND,
 	GREAT_AND,
