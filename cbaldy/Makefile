@@ -57,11 +57,11 @@ $(NAME):
 	@#@make -C libft/ fclean && make -C libft && make -C libft/ clean
 	@#@make -C ft_printf/ fclean && make -C ft_printf && make -C ft_printf/ clean
 	@gcc -o $(NAME) $(LIBRARIES) $(OBJ) $(OBJ2) $(OBJ3)
-	@mkdir obj && mv *.o obj
+	# @mkdir obj && mv *.o obj
 	@echo "\x1b[32;02m$(NAME) ready\x1b[0;m"
 
 clean:
-	@/bin/rm -rf obj
+	@/bin/rm *.o
 	@echo "\x1b[0;01mclean\x1b[0;m"
 
 fclean: clean

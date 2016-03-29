@@ -71,7 +71,6 @@ static int	sh_exec_tree(char *str)
 
 	if ((root = sh_lexer_parser(str)) == NULL)
 		return (1);
-	//printf("Ok on est la\n");
 	sh_save_std_fd();
 	ret = sh_interpret(root);
 	sh_reset_std_fd();

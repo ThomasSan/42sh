@@ -57,17 +57,26 @@ t_token		*join_quoted(t_token *tok, t_sym sym)
 	return (tok);
 }
 
-void		return_type_quoted(t_token *tok, t_sym sym)
+void		return_type_quoted(t_token *tok)
 {
-	int	is_quoted;
+	int		is_quoted;
+	t_sym	sym;
 
 	is_quoted = 0;
+	sym = -2;
 	while (tok)
 	{
-		if (tok->type == sym)
-			is_quoted = is_quoted == 1 ? 0 : 1;
+		if (is_quoted == 0 &&
+			(tok->type == QUOTES || tok->type == SINGLE_QUOTES))
+		{
+			sym = tok->type;
+			is_quoted = 1;
+			tok = tok->next;
+		}
 		if (is_quoted && tok->type != sym)
 			tok->type = WORDS;
+		if (is_quoted && tok->type == sym)
+			is_quoted = 0;
 		if (tok->type == BACKSLASH)
 		{
 			if (check_next_token(tok) != WORDS)
@@ -107,8 +116,7 @@ t_token		*check_minus(t_token *tok)
 t_parse		*ft_checking_syntax(t_token *tok)
 {
 	tok = check_dollar(tok);
-	return_type_quoted(tok, QUOTES);
-	return_type_quoted(tok, SINGLE_QUOTES);
+	return_type_quoted(tok);
 	tok = join_quoted(tok, QUOTES);
 	tok = join_quoted(tok, SINGLE_QUOTES);
 	tok = check_minus(tok);
