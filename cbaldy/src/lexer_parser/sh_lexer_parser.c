@@ -35,7 +35,6 @@ t_tree		*sh_lexer_parser(char *str)
 
 	tok = NULL;
 	head = NULL;
-	printf("je suis ds le sh_lexer_parser\n");
 	if ((tok = ft_tokeniser(str, tok)) == NULL)
 		return (NULL);
 	if ((head = ft_checking_syntax(tok)) == NULL)
