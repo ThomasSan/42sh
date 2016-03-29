@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/26 15:13:17 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/29 11:38:03 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/29 14:53:03 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ t_parse		*parse_build_list(t_token *tok)
 			i--;
 		}
 	}
+	//parse_print(head);
 	return (head);
 	parse_print(head);
 }

@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 12:05:44 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/29 12:29:28 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/29 14:40:09 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ t_exec_list	g_exec_list[] = {
 	{GREAT, &exec_redout},
 	{D_LESS, &exec_redin},
 	{D_GREAT, &exec_redout},
+	{L_AND, &exec_redin},
 	{G_AND, &exec_redout},
 	{AND_G, &exec_redout},
 	{TUBES, &exec_pipe},

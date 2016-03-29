@@ -6,55 +6,76 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/29 12:10:32 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/29 12:10:42 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/29 14:53:01 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static char	*exec_redin_get_path(t_tree *root)
+static int	exec_redin_get_path(t_tree *root)
 {
 	char	*path;
+	int		open_fd;
 
-	if ((path = getcwd(NULL, 0)) == NULL)
-		return (NULL);
-	path = mod_strjoin(mod_strjoin(path, "/", 1), root->cmd[0], 1);
+	if ((path = cd_get_path2(root->cmd[0])) == NULL)
+		return (-1);
 	if (access(path, F_OK) < 0)
 	{
 		ft_dprintf(STDERR_FILENO, "shell: %s: no such file or directory\n",
 				root->cmd[0]);
 		free(path);
-		return (NULL);
+		return (-1);
 	}
 	if (access(path, R_OK) < 0)
 	{
 		ft_dprintf(STDERR_FILENO, "shell: %s: permission denied\n",
 				root->cmd[0]);
 		free(path);
-		return (NULL);
+		return (-1);
 	}
-	return (path);
+	if ((open_fd = open(path, O_RDONLY)) < 0)
+		ft_dprintf(STDERR_FILENO,
+				"shell: %s: cannot read from here\n", root->cmd[0]);
+	free(path);
+	return (open_fd);
+}
+
+static int	exec_redin_l_and(t_tree *root)
+{
+	int		open_fd;
+
+	if (root->types == L_AND)
+	{
+		if (root->cmd[0][0] > 48 && root->cmd[1][0] < 58)
+		{
+			if ((open_fd = ft_atoi(root->cmd[0])) > STDERR_FILENO)
+			{
+				ft_dprintf(STDERR_FILENO, "shell: %d: bad file descriptor\n",
+						open_fd);
+				return (-1);
+			}
+			else
+				return (open_fd);
+		}
+	}
+	return (exec_redin_get_path(root));
 }
 
 int			exec_redin(t_tree *root)
 {
-	int		open_fd;
 	int		ret;
-	char	*path;
+	int		fd[2];
 
-	if ((path = exec_redin_get_path(root)) == NULL)
-		return (1);
-	if ((open_fd = open(path, O_RDONLY)) < 0)
+	if (root->types == L_AND && root->cmd[0][0] == '-')
 	{
-		ft_dprintf(STDERR_FILENO,
-				"shell: %s: cannot read from here\n", root->cmd[0]);
-		free(path);
-		return (1);
+		close(ft_atoi(root->cmd[1]));
+		return (sh_interpret(root->right));
 	}
-	dup2(open_fd, STDIN_FILENO);
+	if ((fd[0] = exec_redin_l_and(root)) < 0)
+		return (1);
+	fd[1] = ft_atoi(root->cmd[1]);
+	dup2(fd[0], fd[1]);
 	ret = sh_interpret(root->right);
-	close(STDIN_FILENO);
-	close(open_fd);
-	free(path);
+	close(fd[0]);
 	return (ret);
 }
