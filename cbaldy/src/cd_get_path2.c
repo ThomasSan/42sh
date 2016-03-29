@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe_grammar.c                                     :+:      :+:    :+:   */
+/*   cd_get_path2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsanzey <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/28 15:11:53 by tsanzey           #+#    #+#             */
-/*   Updated: 2016/03/28 15:12:02 by tsanzey          ###   ########.fr       */
+/*   Created: 2016/03/28 19:08:59 by cbaldy            #+#    #+#             */
+/*   Updated: 2016/03/28 19:26:49 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "shell.h"
 
-int					rules_for_pipes(t_token *tok)
+char		*cd_get_path2(char *com)
 {
-	if (check_next_token(tok) == WORDS &&
-		(check_prev_token(tok) == WORDS || check_prev_token(tok) == FILENAME))
-		return (1);
-	return (0);
+	char	*path;
+
+	if (com[0] == '/')
+		return (ft_strdup(com));
+	else if ((path = getcwd(NULL, 0)) == NULL)
+		return (NULL);
+	path = mod_strjoin(mod_strjoin(path, "/", 1), com, 1);
+	return (path);
 }

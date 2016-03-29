@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:12:49 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/28 17:50:19 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/29 10:01:05 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "ft_select.h"
 # include "hash.h"
 # include "lexer.h"
+# include "parse_build_list.h"
 
 # include <stdio.h>
 # include <unistd.h>
@@ -120,5 +121,6 @@ void			sh_save_std_fd(void);
 void			sh_reset_std_fd(void);
 char			*sh_retrieve_cmd_line(t_com_list **begin, int end,
 				t_hist_list **hist);
+char			*cd_get_path2(char *com);
 
 #endif
