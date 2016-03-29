@@ -6,7 +6,7 @@
 #    By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/14 14:42:25 by cbaldy            #+#    #+#              #
-#    Updated: 2016/03/29 12:10:16 by cbaldy           ###   ########.fr        #
+#    Updated: 2016/03/29 16:04:36 by cbaldy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,13 +22,13 @@ SRC = main.c sh_set_term.c sh_read_prompt.c sh_command.c sh_builtin_cd.c \
 	  term_mv_cursor.c sh_minishell.c get_next_line.c change_hist.c yank_line.c \
       exec_redout.c exec_redin.c exec_pipe_and_or.c sh_get_exec_path.c \
 	  sh_builtin_echo.c hash_get_tab.c sh_builtin_hash.c sh_execute.c \
-	  sh_retrieve_cmd_line.c cd_get_path2.c
+	  sh_retrieve_cmd_line.c cd_get_path2.c sh_builtin_history.c
 
 TAB = tab_mode.c tab_select.c tab_nb_col.c tab_nb_row.c tab_cursor_mvt.c \
 	  tab_line_management.c tab_complete_line.c tab_prepare_select.c\
       tab_list_path.c tab_string_match.c tab_supp.c 
 
-LEX = lexer.c parser.c ft_token_recognition.c ft_free.c \
+LEX = lexer.c ft_token_recognition.c ft_free.c \
 	  ft_push_tree.c ft_misc.c pipe_grammar.c ft_great_grammar.c \
 	  ft_input_correct.c tree_ft.c tree_build_cmd.c \
 	  ft_isspace.c ft_catplus.c sh_lexer_parser.c ft_expansion.c \

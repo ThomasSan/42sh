@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/29 18:41:27 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/16 12:03:23 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/28 17:37:33 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ t_hist_list			*copy_hist(t_hist_list *hist)
 	t_hist_list		*buf;
 	t_hist_list		*a;
 
+	if (hist == NULL)
+		return (NULL);
 	a = NULL;
 	buf = hist;
 	while (buf)
@@ -49,6 +51,8 @@ void				clear_hist(t_hist_list **hist)
 	t_hist_list		*buf;
 	t_hist_list		*a;
 
+	if (*hist == NULL)
+		return ;
 	buf = *hist;
 	a = buf->next;
 	while (buf)

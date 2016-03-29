@@ -11,20 +11,20 @@
 typedef enum 		e_sym
 {
 	QUOTES,
-	SINGLE_QUOTES,// a remove
-	BACK_QUOTES,// a gerer?
+	SINGLE_QUOTES,
+	// BACK_QUOTES,// a gerer?
 	DIPLE_R, 
 	DOUBLE_R,
 	DIPLE_L,
 	DOUBLE_L,
 	PIPE,
 	SEMICOL,
-	AMPERSAND,//a implementer ou a changer en WORD after
+	AMPERSAND,
 	TILD,
 	// SLASH,
 	BACKSLASH,
-	DOLLAR,// a gerer dans le cas ou $ n'est pas dans ""
-	// HASHTAG,//a implementer
+	DOLLAR,
+	// HASHTAG,
 	MINUS,
 	LESS_AND,
 	GREAT_AND,
@@ -103,7 +103,7 @@ t_token				*check_dollar(t_token *tok);
 /*
 **				Array of function pointer
 */
-int					(*g_f[20])(t_token*);
+int					(*g_f[101])(t_token*);
 void				ft_array_fun(void);
 int					rules_for_pipes(t_token *tok);
 int					rules_for_great(t_token *tok);
@@ -113,6 +113,7 @@ int					rules_for_great_and(t_token *tok);
 int					rules_for_less_and(t_token *tok);
 int					rules_for_and_great(t_token *tok);
 int					rules_for_orandif(t_token *tok);
+int					rules_for_numbers(t_token *tok);
 /*
 **
 */

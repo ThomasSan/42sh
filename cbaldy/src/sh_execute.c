@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 19:17:28 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/29 11:55:09 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/29 16:02:53 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_builtin	g_list_builtin[] = {
 	{"hash", &sh_builtin_hash},
 	{"setenv", &sh_builtin_setenv},
 	{"unsetenv", &sh_builtin_unsetenv},
+	{"history", &sh_builtin_history},
 	{NULL, NULL},
 };
 
