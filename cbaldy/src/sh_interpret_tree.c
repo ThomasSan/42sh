@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 12:05:44 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/28 18:56:02 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/29 14:40:09 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ t_exec_list	g_exec_list[] = {
 	{GREAT, &exec_redout},
 	{D_LESS, &exec_redin},
 	{D_GREAT, &exec_redout},
+	{L_AND, &exec_redin},
 	{G_AND, &exec_redout},
 	{AND_G, &exec_redout},
 	{TUBES, &exec_pipe},
@@ -57,29 +58,36 @@ int			sh_interpret(t_tree *root)
 			ret = g_exec_list[i].f(root);
 		i++;
 	}
-	if (root != NULL && root->cmd != NULL)
+	if (root->cmd != NULL)
 		ft_free_tab(root->cmd);
-	if (root != NULL)
-		free(root);
+	free(root);
 	return (ret);
 }
 
-int			sh_exec_tree(char *str)
+static int	sh_exec_tree(char *str)
 {
 	t_tree		*root;
-	char		*ret;
+	int			ret;
 
 	if ((root = sh_lexer_parser(str)) == NULL)
-		return (0);
+		return (1);
 	//printf("Ok on est la\n");
 	sh_save_std_fd();
-	ret = ft_itoa(sh_interpret(root));
-	if ((sh_change_var_env("?", ret)) == -1)
-		sh_add_var_env("?", ret);
-	free(ret);
+	ret = sh_interpret(root);
 	sh_reset_std_fd();
 	close(g_std_fd[0]);
 	close(g_std_fd[1]);
 	close(g_std_fd[2]);
+	return (ret);
+}
+
+int			sh_exec_control(char *str)
+{
+	char	*ret;
+	
+	ret = ft_itoa(sh_exec_tree(str));
+	if ((sh_change_var_env("?", ret)) == -1)
+		sh_add_var_env("?", ret);
+	free(ret);
 	return (0);
 }
