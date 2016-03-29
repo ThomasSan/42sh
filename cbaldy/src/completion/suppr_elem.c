@@ -6,12 +6,50 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/04 13:59:00 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/29 14:55:06 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/29 18:54:09 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
+int				print_line(t_line *line)
+{
+	t_line	*buf;
+
+	buf = line;
+	while (buf)
+	{
+		if (buf->select == 1)
+			ft_notputs("us", 1);
+		ft_dprintf(STDOUT_FILENO, "%c", buf->c);
+		if (buf->select == 1)
+			ft_notputs("ue", 1);
+		buf = buf->next;
+	}
+	return (0);
+}
+
+int				clear_tline(t_line **elem)
+{
+	t_line	*buf;
+	t_line	*a;
+
+	if (*elem == NULL)
+		return (0);
+	buf = *elem;
+	if (buf->prev != NULL)
+		buf->prev->next = NULL;
+	while (buf)
+	{
+		a = buf->next;
+		buf->next = NULL;
+		buf->prev = NULL;
+		free(buf);
+		buf = a;
+	}
+	*elem = NULL;
+	return (0);
+}
 int				line_of_command(t_line *debut, char **str)
 {
 	t_line	*buf;
