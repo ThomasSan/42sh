@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 16:53:20 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/28 16:56:13 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/29 11:00:39 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ t_tree		*sh_lexer_parser(char *str)
 
 	tok = NULL;
 	head = NULL;
+	printf("je suis ds le sh_lexer_parser\n");
 	if ((tok = ft_tokeniser(str, tok)) == NULL)
 		return (NULL);
 	if ((head = ft_checking_syntax(tok)) == NULL)

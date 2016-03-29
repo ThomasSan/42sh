@@ -6,7 +6,7 @@
 /*   By: tsanzey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 15:12:24 by tsanzey           #+#    #+#             */
-/*   Updated: 2016/03/29 10:02:41 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/29 16:03:42 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,3 +120,5 @@ t_parse		*ft_checking_syntax(t_token *tok)
 	return (parse_build_list(tok));
 	ft_display_tokens(tok);
 }
+
+//$ cat
