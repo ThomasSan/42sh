@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:12:49 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/28 19:41:04 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/29 12:29:32 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int				parse_find_error(char *s);
 t_exec_list		*exec_list_new(char *str, int connect);
 int				exec_list_add(t_exec_list **begin, t_exec_list *new);
 int				exec_list_count(t_exec_list *begin);
-int				sh_exec_tree(char *str);
+int				sh_exec_control(char *str);
 int				sh_minishell(void);
 int				yank_line(char c, t_com_list **begin);
 int				tab_mode(t_com_list *begin);

@@ -6,7 +6,7 @@
 #    By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/14 14:42:25 by cbaldy            #+#    #+#              #
-#    Updated: 2016/03/28 19:21:13 by cbaldy           ###   ########.fr        #
+#    Updated: 2016/03/29 12:10:16 by cbaldy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRC = main.c sh_set_term.c sh_read_prompt.c sh_command.c sh_builtin_cd.c \
 	  term_write_line.c hist_list_ft.c print_command.c copy_mode.c \
 	  copy_end_mode.c com_list_ft2.c lex_finish_line.c sh_signal_handler.c \
 	  term_mv_cursor.c sh_minishell.c get_next_line.c change_hist.c yank_line.c \
-      exec_redin_redout.c exec_pipe_and_or.c sh_get_exec_path.c \
+      exec_redout.c exec_redin.c exec_pipe_and_or.c sh_get_exec_path.c \
 	  sh_builtin_echo.c hash_get_tab.c sh_builtin_hash.c sh_execute.c \
 	  sh_retrieve_cmd_line.c cd_get_path2.c
 
@@ -57,10 +57,11 @@ $(NAME):
 	@#@make -C libft/ fclean && make -C libft && make -C libft/ clean
 	@#@make -C ft_printf/ fclean && make -C ft_printf && make -C ft_printf/ clean
 	@gcc -o $(NAME) $(LIBRARIES) $(OBJ) $(OBJ2) $(OBJ3)
+	@mkdir obj && mv *.o obj
 	@echo "\x1b[32;02m$(NAME) ready\x1b[0;m"
 
 clean:
-	@/bin/rm -f $(OBJ) $(OBJ2) $(OBJ3)
+	@/bin/rm -rf obj
 	@echo "\x1b[0;01mclean\x1b[0;m"
 
 fclean: clean

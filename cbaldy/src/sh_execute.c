@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 19:17:28 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/24 18:26:15 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/29 11:55:09 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int			sh_execute(char **com)
 	int		i;
 
 	i = 0;
+	if (com[0] == NULL)
+		return (0);
 	while (g_list_builtin[i].name != NULL)
 	{
 		if (ft_strncmp(com[0], g_list_builtin[i].name,
