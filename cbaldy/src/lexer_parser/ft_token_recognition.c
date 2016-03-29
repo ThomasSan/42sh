@@ -30,7 +30,7 @@ t_token		*pop_middle_token(t_token *tok)
 	return (tmp);
 }
 
-t_token		*join_quoted(t_token *tok)
+t_token		*join_quoted(t_token *tok, t_sym sym)
 {
 	t_token	*tmp;
 	t_token	*tmp1;
@@ -39,7 +39,7 @@ t_token		*join_quoted(t_token *tok)
 	tmp = tok;
 	while (tmp)
 	{
-		if (tmp->type == QUOTES)
+		if (tmp->type == sym)
 		{
 			tmp = tmp->next;
 			tmp1 = tmp;
@@ -52,21 +52,22 @@ t_token		*join_quoted(t_token *tok)
 				free(str);
 			}
 		}
-		tmp = tmp->next;
+		if (tmp)
+			tmp = tmp->next;
 	}
 	return (tok);
 }
 
-void		return_type_quoted(t_token *tok)
+void		return_type_quoted(t_token *tok, t_sym sym)
 {
 	int	is_quoted;
 
 	is_quoted = 0;
 	while (tok)
 	{
-		if (tok->type == QUOTES)
+		if (tok->type == sym)
 			is_quoted = is_quoted == 1 ? 0 : 1;
-		if (is_quoted && tok->type != QUOTES)
+		if (is_quoted && tok->type != sym)
 			tok->type = WORDS;
 		if (tok->type == BACKSLASH)
 		{
@@ -107,16 +108,18 @@ t_token		*check_minus(t_token *tok)
 t_parse		*ft_checking_syntax(t_token *tok)
 {
 	tok = check_dollar(tok);
-	return_type_quoted(tok);
-	tok = join_quoted(tok);
+	return_type_quoted(tok, QUOTES);
+	return_type_quoted(tok, SINGLE_QUOTES);
+	tok = join_quoted(tok, QUOTES);
+	tok = join_quoted(tok, SINGLE_QUOTES);
 	tok = check_minus(tok);
 	tok = ft_tild_expand(tok);
 	ft_edit_useless(tok);
 	tok = ft_token_removal(tok, WHITESPACE);
 	tok = ft_token_removal(tok, QUOTES);
-	// ft_display_tokens(tok);
-	if (!(ft_command_isvalid(tok)))
+	tok = ft_token_removal(tok, SINGLE_QUOTES);
+	ft_display_tokens(tok);
+	if (tok && !(ft_command_isvalid(tok)))
 		return (NULL);
 	return (parse_build_list(tok));
-	ft_display_tokens(tok);
 }

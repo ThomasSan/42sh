@@ -12,7 +12,7 @@ typedef enum 		e_sym
 {
 	QUOTES,
 	SINGLE_QUOTES,// a remove
-	BACK_QUOTES,// a gerer?
+	// BACK_QUOTES,// a gerer?
 	DIPLE_R, 
 	DOUBLE_R,
 	DIPLE_L,
