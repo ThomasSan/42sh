@@ -111,10 +111,10 @@ t_parse		*ft_checking_syntax(t_token *tok)
 	tok = join_quoted(tok);
 	tok = check_minus(tok);
 	tok = ft_tild_expand(tok);
-	// ft_edit_useless(tok);
+	ft_edit_useless(tok);
 	tok = ft_token_removal(tok, WHITESPACE);
 	tok = ft_token_removal(tok, QUOTES);
-	//ft_display_tokens(tok);
+	// ft_display_tokens(tok);
 	if (!(ft_command_isvalid(tok)))
 		return (NULL);
 	return (parse_build_list(tok));

@@ -22,7 +22,8 @@ int		rules_for_minus(t_token *tok)
 
 int		rules_for_orandif(t_token *tok)
 {
-	if (check_prev_token(tok) == WORDS && check_next_token(tok))
+	if (check_prev_token(tok) == WORDS && check_next_token(tok) == WORDS)
 		return (1);
 	return (0);
 }
+
