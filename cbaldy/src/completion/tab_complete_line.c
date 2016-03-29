@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 16:49:46 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/26 13:25:52 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/28 19:45:17 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	can_increase(t_param *debut, char *test, size_t size_curr_word)
 	buf = debut;
 	while (42)
 	{
-		if (ft_strncmp(buf->var, test, size_curr_word) != 0)
+		if (ft_strncmp(buf->var, test, size_curr_word + 1) != 0)
 			return (1);
 		buf = buf->next;
 		if (buf->nb == 0)
@@ -63,11 +63,11 @@ static int	get_compl_max(t_param *debut, int size_curr_word)
 
 	while ((debut->var)[size_curr_word])
 	{
-		test = ft_strsub(debut->var, 0, size_curr_word);
+		test = ft_strsub(debut->var, 0, size_curr_word + 1);
 		if (can_increase(debut, test, size_curr_word) != 0)
 		{
 			free(test);
-			return (size_curr_word - 1);
+			return (size_curr_word);
 		}
 		free(test);
 		size_curr_word++;
@@ -80,8 +80,8 @@ int			tab_complete_line(t_param *debut, t_com_list *begin, char *word)
 	char		*test;
 	int			size_curr_word;
 
-	size_curr_word = ft_strlen(word) + 1;
-	if (size_curr_word - 1 == (int)ft_strlen(debut->var) &&
+	size_curr_word = ft_strlen(word);
+	if (size_curr_word == (int)ft_strlen(debut->var) &&
 			debut->next->nb == 0)
 		return (0);
 	size_curr_word = get_compl_max(debut, size_curr_word);

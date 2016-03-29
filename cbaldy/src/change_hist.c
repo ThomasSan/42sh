@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 11:57:11 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/16 12:02:19 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/28 17:48:12 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,13 @@
 int			*hist_list_new(t_hist_list **hist)
 {
 	t_hist_list	*new;
-	static int	i;
 
-	i++;
 	if ((new = (t_hist_list *)malloc(sizeof(t_hist_list))) == NULL)
 		return (NULL);
 	new->old = NULL;
-	new->next = (*hist != NULL) ? (*hist): NULL;
+	new->next = (*hist != NULL) ? (*hist) : NULL;
 	new->previous = NULL;
-	new->nb = i;
+	new->nb = (*hist != NULL) ? (*hist)->nb + 1 : 1;
 	if ((*hist) != NULL)
 		(*hist)->previous = new;
 	*hist = new;

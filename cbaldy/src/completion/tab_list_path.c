@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 16:49:41 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/26 18:26:49 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/28 19:46:31 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,45 @@ static char			*path_aliases_compl(char *buf)
 		res = ft_strjoin(home, &(res[1]));
 		free(home);
 	}
+	if (ft_strchr(res, '/') == NULL)
+	{
+		free(res);
+		res = ft_strdup("./");
+	}
+	else
+	{
+		home = ft_strtrunc(res, '/');
+		free(res);
+		res = home;
+		home = ft_strjoin(res, "/");
+		free(res);
+		res = home;
+	}
 	return (res);
+}
+
+static char			*path_empty_curs(char *var, int i)
+{
+	int			count;
+
+	if (var[i - 1] == ' ')
+	{
+		while (i > 0)
+		{
+			if (var[i] != ' ')
+				return (ft_strdup("./"));
+			i--;
+		}
+		return (NULL);
+	}
+	i--;
+	count = 1;
+	while (var[i - 1] != ' ' && i > 0)
+	{
+		i--;
+		count++;
+	}
+	return (ft_strsub(var, i, count));
 }
 
 char				*path_to_tab(char *var)
@@ -62,22 +100,22 @@ char				*path_to_tab(char *var)
 	char		*buf;
 
 	i = g_local->curs - g_local->prompt - 1;
-	if (i == 0)
+	count = 1;
+	if (i < 0 || (i == 0 && var[i] <= 32))
 		return (NULL);
-	if ((var[i - 1] == ' ' && var[i] == '\0') || (var[i] == ' ' &&
-				var[i + 1] == ' '))
-		return (ft_strdup("./"));
-	count = 0;
-	while (var[i] && var[i] != ' ' && var[i + 1] && var[i + 1] != ' ')
-		i++;
-	while (var[i] != ' ' && i > 0)
+	if (var[i] != ' ')
 	{
-		count++;
-		i--;
+		while (var[i + 1] && var[i + 1] != ' ')
+			i++;
+		while (var[i - 1] != ' ' && i > 0)
+		{
+			count++;
+			i--;
+		}
+		buf = ft_strsub(var, i, count);
 	}
-	if (i >= 0 && var[i] == ' ')
-		i++;
-	buf = ft_strsub(var, i, count);
+	else
+		buf = path_empty_curs(var, i);
 	return (buf);
 }
 
