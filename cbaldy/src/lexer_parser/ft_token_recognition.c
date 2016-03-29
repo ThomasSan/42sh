@@ -123,3 +123,5 @@ t_parse		*ft_checking_syntax(t_token *tok)
 		return (NULL);
 	return (parse_build_list(tok));
 }
+
+//$ cat
