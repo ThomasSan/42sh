@@ -6,7 +6,7 @@
 /*   By: tsanzey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 15:23:00 by tsanzey           #+#    #+#             */
-/*   Updated: 2016/03/28 15:23:21 by tsanzey          ###   ########.fr       */
+/*   Updated: 2016/03/30 12:11:33 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,13 @@ int			ft_next_token(char *s, int start, int type)
 t_token		*ft_token_removal(t_token *tok, t_sym sym)
 {
 	t_token *tmp;
+	int		i;
 
+	i = 0;
 	tmp = tok;
 	while (tmp)
 	{
+		i++;
 		if (tmp->type == sym)
 		{
 			if (tok == tmp)

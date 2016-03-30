@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 11:57:11 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/29 19:26:44 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/30 10:54:30 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ int			*hist_list_new(t_hist_list **hist)
 	new->nb = (*hist != NULL) ? (*hist)->nb + 1 : 1;
 	if ((*hist) != NULL)
 		(*hist)->previous = new;
-	else
-		*hist = new;
+	*hist = new;
 	return (0);
 }
 

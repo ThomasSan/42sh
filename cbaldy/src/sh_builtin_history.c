@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/26 19:22:58 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/29 19:26:45 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/30 10:54:29 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_hist_list		*retrieve_history(int flag, t_com_list *begin)
 	else
 	{
 		hist_list_new(&hist);
-		hist_add_elem(begin, &hist);
+		hist->old = begin;
 	}
 	return (NULL);
 }

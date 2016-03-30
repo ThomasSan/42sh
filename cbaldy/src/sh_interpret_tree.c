@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 12:05:44 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/29 14:40:09 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/30 12:06:36 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ static int	sh_exec_tree(char *str)
 
 	if ((root = sh_lexer_parser(str)) == NULL)
 		return (1);
-	//printf("Ok on est la\n");
 	sh_save_std_fd();
 	ret = sh_interpret(root);
 	sh_reset_std_fd();

@@ -6,7 +6,7 @@
 /*   By: tsanzey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 15:12:24 by tsanzey           #+#    #+#             */
-/*   Updated: 2016/03/29 16:03:42 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/30 12:11:36 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,12 @@ t_token		*pop_middle_token(t_token *tok)
 	t_token *tmp;
 
 	if (tok->prev)
-	{
 		tok->prev->next = tok->next;
-		if (tok->next)
-			tok->next->prev = tok->prev;
-	}
+	if (tok->next)
+		tok->next->prev = tok->prev;
+	tmp = tok->next;
 	free(tok->content);
 	free(tok);
-	tmp = tok->next;
 	tok = NULL;
 	return (tmp);
 }
@@ -112,8 +110,10 @@ t_parse		*ft_checking_syntax(t_token *tok)
 	tok = check_minus(tok);
 	tok = ft_tild_expand(tok);
 	ft_edit_useless(tok);
-	tok = ft_token_removal(tok, WHITESPACE);
-	tok = ft_token_removal(tok, QUOTES);
+	if ((tok = ft_token_removal(tok, WHITESPACE)) == NULL)
+		return (NULL);
+	if ((tok = ft_token_removal(tok, QUOTES)) == NULL)
+		return (NULL);
 	//ft_display_tokens(tok);
 	if (!(ft_command_isvalid(tok)))
 		return (NULL);
