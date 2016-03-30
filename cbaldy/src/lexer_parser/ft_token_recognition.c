@@ -6,7 +6,11 @@
 /*   By: tsanzey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 15:12:24 by tsanzey           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2016/03/30 12:11:36 by dbaldy           ###   ########.fr       */
+=======
+/*   Updated: 2016/03/29 17:27:56 by cbaldy           ###   ########.fr       */
+>>>>>>> e9ce6ad5db0fdc63c36ad01bce3bb1a4f16fae04
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +32,7 @@ t_token		*pop_middle_token(t_token *tok)
 	return (tmp);
 }
 
-t_token		*join_quoted(t_token *tok)
+t_token		*join_quoted(t_token *tok, t_sym sym)
 {
 	t_token	*tmp;
 	t_token	*tmp1;
@@ -37,7 +41,7 @@ t_token		*join_quoted(t_token *tok)
 	tmp = tok;
 	while (tmp)
 	{
-		if (tmp->type == QUOTES)
+		if (tmp->type == sym)
 		{
 			tmp = tmp->next;
 			tmp1 = tmp;
@@ -57,15 +61,24 @@ t_token		*join_quoted(t_token *tok)
 
 void		return_type_quoted(t_token *tok)
 {
-	int	is_quoted;
+	int		is_quoted;
+	t_sym	sym;
 
 	is_quoted = 0;
+	sym = -2;
 	while (tok)
 	{
-		if (tok->type == QUOTES)
-			is_quoted = is_quoted == 1 ? 0 : 1;
-		if (is_quoted && tok->type != QUOTES)
+		if (is_quoted == 0 &&
+			(tok->type == QUOTES || tok->type == SINGLE_QUOTES))
+		{
+			sym = tok->type;
+			is_quoted = 1;
+			tok = tok->next;
+		}
+		if (is_quoted && tok->type != sym)
 			tok->type = WORDS;
+		if (is_quoted && tok->type == sym)
+			is_quoted = 0;
 		if (tok->type == BACKSLASH)
 		{
 			if (check_next_token(tok) != WORDS)
@@ -106,7 +119,8 @@ t_parse		*ft_checking_syntax(t_token *tok)
 {
 	tok = check_dollar(tok);
 	return_type_quoted(tok);
-	tok = join_quoted(tok);
+	tok = join_quoted(tok, QUOTES);
+	tok = join_quoted(tok, SINGLE_QUOTES);
 	tok = check_minus(tok);
 	tok = ft_tild_expand(tok);
 	ft_edit_useless(tok);
@@ -114,7 +128,11 @@ t_parse		*ft_checking_syntax(t_token *tok)
 		return (NULL);
 	if ((tok = ft_token_removal(tok, QUOTES)) == NULL)
 		return (NULL);
-	//ft_display_tokens(tok);
+	if ((tok = ft_token_removal(tok, SINGLE_QUOTES)) == NULL)
+		return (NULL);
+	ft_display_tokens(tok);
+	if (!tok)
+		return (NULL);
 	if (!(ft_command_isvalid(tok)))
 		return (NULL);
 	return (parse_build_list(tok));

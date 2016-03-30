@@ -6,7 +6,7 @@
 #    By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/14 14:42:25 by cbaldy            #+#    #+#              #
-#    Updated: 2016/03/29 18:53:06 by dbaldy           ###   ########.fr        #
+#    Updated: 2016/03/30 12:15:12 by dbaldy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ $(NAME):
 	@#@make -C libft/ fclean && make -C libft && make -C libft/ clean
 	@#@make -C ft_printf/ fclean && make -C ft_printf && make -C ft_printf/ clean
 	@gcc -o $(NAME) $(LIBRARIES) $(OBJ) $(OBJ2) $(OBJ3)
-	@mkdir obj && mv *.o obj
+	@mkdir obj && mv $(OBJ) $(OBJ2) $(OBJ3) obj
 	@echo "\x1b[32;02m$(NAME) ready\x1b[0;m"
 
 clean:

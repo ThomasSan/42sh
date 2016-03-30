@@ -25,6 +25,16 @@ t_token		*ft_variable_expand(t_token *tok)
 		pop_middle_token(tok->next);
 		free(str);
 	}
+	else
+	{
+		if (check_next_token(tok) == WORDS)
+		{
+			str = tok->content;
+			tok->content = ft_strjoin(tok->content, tok->next->content);
+			pop_middle_token(tok->next);
+			free(str);
+		}
+	}
 	tok->type = WORDS;
 	return (tok);
 }

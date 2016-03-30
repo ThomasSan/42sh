@@ -6,7 +6,7 @@
 /*   By: tsanzey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 11:05:12 by tsanzey           #+#    #+#             */
-/*   Updated: 2016/03/28 15:17:23 by tsanzey          ###   ########.fr       */
+/*   Updated: 2016/03/29 18:01:38 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		rules_for_numbers(t_token *tok)
 	next = check_next_token(tok);
 	prev = check_prev_token(tok);
 	if (next == DIPLE_R || next == DOUBLE_R || next == GREAT_AND ||
-		prev == AND_GREAT)
+		prev == AND_GREAT || next == LESS_AND)
 		return (1);
 	tok->type = WORDS;
 	return (1);
