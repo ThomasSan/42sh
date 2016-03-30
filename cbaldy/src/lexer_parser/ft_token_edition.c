@@ -6,11 +6,12 @@
 /*   By: tsanzey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 15:23:00 by tsanzey           #+#    #+#             */
-/*   Updated: 2016/03/28 15:23:21 by tsanzey          ###   ########.fr       */
+/*   Updated: 2016/03/30 12:12:34 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
+#include "shell.h"
 
 int			is_word_or(char *s, int i)
 {

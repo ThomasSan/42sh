@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/26 15:28:36 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/29 17:55:30 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/30 10:58:30 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ static int	parse_concat_cmd(t_parse **head, t_token *tok)
 		return (-1);
 	while ((tmp[0])->next != NULL)
 	{
-		tmp[1] = tmp[0];
+		if (tmp[0]->type == CMD)
+			tmp[1] = tmp[0];
 		tmp[0] = tmp[0]->next;
 	}
 	if ((tmp[0])->type > CMD && (tmp[0])->type < TUBES && tmp[1] != NULL
