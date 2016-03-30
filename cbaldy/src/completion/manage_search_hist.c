@@ -1,34 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   change_hist.c                                      :+:      :+:    :+:   */
+/*   manage_search_hist.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/18 14:51:22 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/29 14:55:13 by dbaldy           ###   ########.fr       */
+/*   Created: 2016/03/29 18:26:54 by dbaldy            #+#    #+#             */
+/*   Updated: 2016/03/29 19:07:09 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_select.h"
+#include "shell.h"
 
-static int		clear_tline(t_line **elem)
+static int		increase_nb(t_line *buf)
 {
-	t_line	*buf;
-	t_line	*a;
-
-	buf = *elem;
-	if (buf->prev != NULL)
-		buf->prev->next = NULL;
 	while (buf)
 	{
-		a = buf->next;
-		buf->next = NULL;
-		buf->prev = NULL;
-		free(buf);
-		buf = a;
+		buf->nb += 1;
+		buf = buf->next;
 	}
-	*elem = NULL;
 	return (0);
 }
 
@@ -67,30 +57,32 @@ static int		new_char_chaine(char n_c, t_line **chaine)
 	return (0);
 }
 
-static int		reprint_line(t_line *line, int match, int nb_row)
+static int		reprint_line(t_line *line, t_com_list *begin, int match)
 {
-	ft_tputs("do", nb_row);
-	ft_tputs("cd", 1);
+	ft_notputs("sf", 1);
+	ft_notputs("cr", 1);
+	ft_notputs("cd", 1);
 	if (match == 1)
 		ft_putstr_fd("bck-i-search: ", STDOUT_FILENO);
 	else
 		ft_putstr_fd("failing bck-i-search: ", STDOUT_FILENO);
 	print_line(line);
-	change_line(begin);
-	ft_tputs("up", nb_row);
-	ft_tputs("cr", 1);
+	ft_notputs("cr", 1);
+	go_back_to_selected_char(begin);
 	return (0);
 }
 
-int				manage_search_hist(char *buf, t_param *debut, int nb_row, int check)
+int				manage_search_hist(char *buf, t_com_list **begin,
+		t_hist_list **hist, int check)
 {
 	static t_line		*line;
 
-	if (line == NULL)
+	if (line == NULL && check == 0)
 		init_debut(&line);
+	if (check == 1)
+		return ((line == NULL) ? 0 : 1); 
 	if (check == 2)
 	{
-		reset_select(debut);
 		clear_tline(&line);
 		return (0);
 	}
@@ -101,8 +93,9 @@ int				manage_search_hist(char *buf, t_param *debut, int nb_row, int check)
 		else
 			new_char_chaine(buf[0], &line);
 	}
-	reprint_line(line, debut, nb_row);
-	if (buf[0] == 32 && buf[1] == 0)
-		multi_select(debut, line);
+	if (search_bar_history(begin, hist, line) == 0)
+		reprint_line(line, *begin, 0);
+	else
+		reprint_line(line, *begin, 1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 12:51:22 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/29 17:01:05 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/29 19:00:08 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ static int	term_spec_char(char buf, t_com_list **begin, t_hist_list **hist)
 		ft_dprintf(STDOUT_FILENO, "\n");
 	if (buf == 9)
 		return (tab_mode(*begin));
-/*	if (buf == 18)
-		return (search_history(begin, hist));
-*/	return (buf);
+	if (buf == 18)
+		return (manage_search_hist("", begin, hist, 0));
+	return (buf);
 	*hist = NULL;
 }
 

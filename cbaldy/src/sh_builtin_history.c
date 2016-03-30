@@ -6,11 +6,26 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/26 19:22:58 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/30 10:34:40 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/30 12:32:51 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+static int		non_empty(t_com_list *begin)
+{
+	t_com_list	*buf;
+
+	buf = begin;
+	while (buf)
+	{
+		if (buf->c != ' ' && buf->c != '\0')
+			return (0);
+		else
+			buf = buf->next;
+	}
+	return (1);
+}
 
 t_hist_list		*retrieve_history(int flag, t_com_list *begin)
 {
@@ -28,10 +43,10 @@ t_hist_list		*retrieve_history(int flag, t_com_list *begin)
 	}
 	else if (flag == 2)
 		return (copy_hist(hist));
-	else
+	else if (non_empty(begin) == 0)
 	{
 		hist_list_new(&hist);
-		hist_add_elem(begin, &hist);
+		hist->old = begin;
 	}
 	return (NULL);
 }

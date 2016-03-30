@@ -6,7 +6,11 @@
 /*   By: tsanzey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 11:05:40 by tsanzey           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2016/03/30 11:41:46 by cbaldy           ###   ########.fr       */
+=======
+/*   Updated: 2016/03/30 12:11:32 by dbaldy           ###   ########.fr       */
+>>>>>>> 09387ff8170db45fdc0b34bee20ea2b26f57b142
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +122,7 @@ t_token	*ft_tokeniser(char *s, t_token *head)
 	i = 0;
 	while (s[i])
 	{
+
 		if (!(new = (t_token*)malloc(sizeof(t_token))))
 			return (NULL);
 		new->type = ft_token_type(s, i);

@@ -6,12 +6,22 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 13:33:15 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/29 14:55:12 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/29 18:47:41 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 #include <string.h>
+
+int			increase_nb(t_line *buf)
+{
+	while (buf)
+	{
+		buf->nb += 1;
+		buf = buf->next;
+	}
+	return (0);
+}
 
 static int		line_of_command(t_line *debut, char **str)
 {
