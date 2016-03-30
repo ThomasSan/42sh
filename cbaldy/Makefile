@@ -6,7 +6,7 @@
 #    By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/14 14:42:25 by cbaldy            #+#    #+#              #
-#    Updated: 2016/03/30 12:15:12 by dbaldy           ###   ########.fr        #
+#    Updated: 2016/03/30 12:34:47 by cbaldy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ LEX = lexer.c ft_token_recognition.c ft_free.c \
 
 INCLUDE = -I includes/
 
-FLAG = -Wall -Werror -Wextra
+FLAG = -Wall -Werror -Wextra -g
 
 LIBRARIES = -L libft/ -L ft_printf -lft -lftprintf -ltermcap
 

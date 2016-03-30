@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/29 18:41:27 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/30 10:54:31 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/30 12:34:15 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static t_hist_list	*create_new_hist(t_hist_list *a, t_hist_list *buf)
 {
 	t_hist_list		*new;
-	
+
 	if ((new = (t_hist_list*)malloc(sizeof(t_hist_list))) == NULL)
 		return (NULL);
 	new->old = com_list_dup(buf->old);
@@ -70,7 +70,7 @@ void				clear_hist(t_hist_list **hist)
 	(*hist) = NULL;
 }
 
-static int	hist_control_size(t_hist_list **hist)
+static int			hist_control_size(t_hist_list **hist)
 {
 	int			i;
 	t_hist_list *tmp[2];
@@ -93,7 +93,7 @@ static int	hist_control_size(t_hist_list **hist)
 	return (0);
 }
 
-int			hist_add_elem(t_com_list *begin, t_hist_list **hist)
+int					hist_add_elem(t_com_list *begin, t_hist_list **hist)
 {
 	while ((*hist)->previous != NULL)
 		*hist = (*hist)->previous;
