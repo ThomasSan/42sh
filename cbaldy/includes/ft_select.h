@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/17 17:00:59 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/25 16:28:12 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/29 18:51:46 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ typedef struct				s_list_compl
 	t_param					*begin;
 }							t_compl;
 
+int				search_bar_history(t_com_list **begin, t_hist_list **hist,
+		t_line *line);
 char						*file_suffix(char *str, char *path);
 t_param						*string_matches(char *var, char **buf);
 char						*path_to_tab(char *var);
@@ -64,7 +66,6 @@ int							go_back_to_selected_char(t_com_list *begin);
 int							iscommand(char *var);
 int							reset_select(t_param *debut);
 int							suppr_char_list(t_line **line);
-int							increase_nb(t_line *elem);
 int							clear_tline(t_line **elem);
 int							multi_select(t_param *debut, t_line *line);
 int							manage_hist(char *buf, t_param *debut, int nb_row,

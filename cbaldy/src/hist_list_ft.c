@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/29 18:41:27 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/28 17:37:33 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/30 10:54:31 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void				clear_hist(t_hist_list **hist)
 
 	if (*hist == NULL)
 		return ;
+	while ((*hist)->previous)
+		*hist = (*hist)->previous;
 	buf = *hist;
 	a = buf->next;
 	while (buf)

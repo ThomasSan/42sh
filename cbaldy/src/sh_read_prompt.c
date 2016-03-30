@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:36:22 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/29 16:06:13 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/30 12:11:28 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,13 @@ static int	sh_read_prompt(t_com_list **begin, t_hist_list **hist)
 	ft_bzero(&buf[len], 10 - len);
 	if (ft_strcmp(buf, "\x09") != 0)
 		clear_curr_compl();
-	if ((len != 1 || buf[0] < 31 || buf[0] > 127) &&
+	if  (manage_search_hist(buf, begin, hist, 1) != 0 &&
+			buf[0] <= 32 && buf[1] == 0)
+		exit_search_hist(begin);
+	if (manage_search_hist(buf, begin, hist, 1) != 0 && buf[0] > 32 &&
+			buf[0] <= 127 && buf[1] == 0)
+		i = manage_search_hist(buf, begin, hist, 0);
+	else if ((len != 1 || buf[0] < 31 || buf[0] > 127) &&
 			(len != 1 || buf[0] != 10))
 		i = term_edit_line(buf, len, begin, hist);
 	else if (len == 1)

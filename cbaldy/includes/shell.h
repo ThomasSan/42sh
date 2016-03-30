@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:12:49 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/29 17:16:05 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/29 18:45:41 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@
 
 # define HIST_SIZE 128
 
+int				manage_search_hist(char *buf, t_com_list **begin,
+		t_hist_list **hist, int check);
+int				exit_search_hist(t_com_list **begin);
 int				hist_print_line(char *s);
 int				search_history(t_com_list *begin);
 int				sh_builtin_history(char **com);
