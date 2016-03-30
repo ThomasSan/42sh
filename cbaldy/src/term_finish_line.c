@@ -1,34 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lex_finish_line.c                                  :+:      :+:    :+:   */
+/*   term_finish_line.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/05 19:12:16 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/18 13:51:06 by cbaldy           ###   ########.fr       */
+/*   Created: 2016/03/30 18:32:23 by cbaldy            #+#    #+#             */
+/*   Updated: 2016/03/30 20:38:42 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-
-static char	*lex_finish_line_join(t_com_list *begin)
-{
-	char	*str[3];
-
-	str[0] = "";
-	str[1] = "";
-	if (g_local->begin != NULL)
-		str[0] = com_list_retrieve(g_local->begin);
-	if (begin != NULL)
-		str[1] = com_list_retrieve(begin);
-	str[2] = ft_strjoin(str[0], str[1]);
-	if (str[0][0] != '\0')
-		free(str[0]);
-	if (str[1][0] != '\0')
-		free(str[1]);
-	return (str[2]);
-}
 
 static int	*finish_line_init_tab(void)
 {
@@ -83,13 +65,15 @@ static int	lex_return_value(int *arr)
 	return (i[1]);
 }
 
-int			lex_finish_line(t_com_list *begin)
+int			term_finish_line(t_line_list *first)
 {
 	char	*str;
 	int		*arr;
 	int		i[2];
 
-	str = lex_finish_line_join(begin);
+	while (first->previous != NULL)
+		first = first->previous;
+	str = line_list_retrieve(first);
 	arr = finish_line_init_tab();
 	i[0] = 0;
 	while (str[i[0]] != '\0')

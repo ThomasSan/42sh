@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 12:18:39 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/30 12:23:04 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/30 21:00:26 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,19 @@ typedef struct			s_com_list
 	struct s_com_list	*previous;
 }						t_com_list;
 
+typedef struct			s_line_list
+{
+	struct s_com_list	*begin;
+	int					marge;
+	struct s_line_list	*next;
+	struct s_line_list	*previous;
+}						t_line_list;
+
 typedef struct			s_local
 {
 	int					completion;
 	int					prompt;
 	int					curs;
-	int					exit_value;
 	int					nb_col;
 	int					le_mode;
 	t_com_list			*begin;

@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 12:47:39 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/26 19:46:56 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/30 20:53:42 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,68 +23,64 @@ static int	ed_add_char(t_com_list **begin, char buf)
 	return (buf);
 }
 
-static int	ed_delete_char(t_com_list **begin)
+static int	ed_delete_char(t_line_list **first)
 {
 	t_com_list	*tmp;
 	int			i;
 
-	i = 0;
-	tmp = *begin;
-	if (g_local->curs == g_local->prompt + 1 || com_list_count(*begin) == 0)
-		return (0);
-	while (tmp->next != NULL && i < g_local->curs - g_local->prompt - 2)
+	if ((*first)->marge > 0)
 	{
-		tmp = tmp->next;
-		i++;
+		i = 0;
+		tmp = (*first)->begin;
+		if (g_local->curs == (*first)->marge + 1 ||
+				com_list_count((*first)->begin) == 0)
+			return (0);
+		while (tmp->next != NULL && i < g_local->curs - g_local->prompt - 2)
+		{
+			tmp = tmp->next;
+			i++;
+		}
+		print_command(tmp->next, 127);
+		com_list_remove(tmp, &((*first)->begin));
 	}
-	print_command(tmp->next, 127);
-	com_list_remove(tmp, begin);
 	return (0);
 }
 
-static int	ed_save_line(t_com_list **begin)
+static int	ed_finish_line(t_line_list **first)
 {
-	t_com_list	*tmp;
+	int			i;
+	int			k;
+	t_line_list	*second;
 
-	tmp = g_local->begin;
-	if (tmp == NULL)
-		g_local->begin = *begin;
+	if ((i = term_finish_line(*first)) < 0)
+	{
+		ed_add_char(&((*first)->begin), '\n');
+		second = line_list_new(ft_dprintf(STDIN_FILENO, "new_line> "));
+		second->previous = *first;
+		(*first)->next = second;
+		*first = second;
+		g_local->prompt = 10;
+		g_local->curs = 11;
+		return (0);
+	}
 	else
 	{
-		while (tmp->next != NULL)
-			tmp = tmp->next;
-		tmp->next = *begin;
-		(*begin)->previous = tmp;
+		//k = com_list_count((*first)->begin);
+		//while (term_mv_horizontal(3, k) != -1)
+		//	;
+		ed_add_char(&((*first)->begin), '\n');
 	}
-	*begin = NULL;
-	return (0);
-}
-
-static int	ed_finish_line(t_com_list **begin)
-{
-	int		i;
-
-	if ((i = lex_finish_line(*begin)) < 0)
-		ed_add_char(begin, ' ');
-	if (i < 0)
-	{
-		ft_dprintf(STDIN_FILENO, "\nline>");
-		g_local->prompt = 5;
-		g_local->curs = g_local->prompt + 1;
-		ed_save_line(begin);
-		return (0);
-	}
-	ft_dprintf(STDIN_FILENO, "\n");
 	return (10);
+	k = 0;
 }
 
-int			term_write_line(t_com_list **begin, char buf)
+int			term_write_line(t_line_list **first, char buf)
 {
 	if (buf == 127)
-		return (ed_delete_char(begin));
+		return (ed_delete_char(first));
 	else if (buf == 10)
-		return (ed_finish_line(begin));
+		return (ed_finish_line(first));
 	else if (buf > 31 && buf < 127)
-		return (ed_add_char(begin, buf));
+		return (ed_add_char(&((*first)->begin), buf));
 	return (0);
 }
