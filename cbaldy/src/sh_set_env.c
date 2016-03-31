@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/12 15:48:41 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/21 11:01:46 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/31 12:12:07 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,9 @@ static int	sh_set_local_env(void)
 {
 	if ((g_local = (t_local *)malloc(sizeof(t_local))) == NULL)
 		return (-1);
-	g_local->prompt = 0;
 	g_local->curs = 0;
-	g_local->exit_value = 0;
 	g_local->le_mode = 0;
+	g_local->exit_value = 0;
 	g_paste = NULL;
 	return (0);
 }

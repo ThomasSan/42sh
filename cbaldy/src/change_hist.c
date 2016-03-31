@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 11:57:11 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/30 12:34:27 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/31 16:50:37 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int			hist_print_line(char *s)
 }
 
 
-static int	move_hist(int move, t_hist_list **hist, t_com_list **begin)
+static int	move_hist(int move, t_hist_list **hist, t_line_list **first)
 {
 	t_hist_list		*buf;
 
@@ -56,26 +56,26 @@ static int	move_hist(int move, t_hist_list **hist, t_com_list **begin)
 		buf = (*hist)->previous;
 	else
 		return (-1);
-	com_list_free((*hist)->old);
-	(*hist)->old = com_list_dup(*begin);
-	com_list_free(*begin);
+	line_list_free((*hist)->old);
+	(*hist)->old = line_list_dup(*first);
+	line_list_free(*first);
 	(*hist) = buf;
 	return (0);
 }
 
-int			hist_change(int move, t_hist_list **hist, t_com_list **begin)
+int			hist_change(int move, t_hist_list **hist, t_line_list **first)
 {
 	char	*str;
 	
-	if (move_hist(move, hist, begin) == -1)
+	if (move_hist(move, hist, first) == -1)
 		return (0);
-	while (term_mv_horizontal(4, 0) != -1)
+	while (term_mv_horizontal(4, first) != -1)
 		;
 	ft_tputs("cd", 1, 0);
-	*begin = com_list_dup((*hist)->old);
-	str = com_list_retrieve(*begin);
+	*first = line_list_dup((*hist)->old);
+	str = line_list_retrieve(*first);
 	hist_print_line(str);
-	g_local->curs = g_local->prompt + 1 + (int)ft_strlen(str);
+	g_local->curs = (*first)->marge + 1 + (int)ft_strlen(str);
 	free(str);
 	return (0);
 }

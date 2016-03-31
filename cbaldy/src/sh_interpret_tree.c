@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 12:05:44 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/30 12:32:29 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/30 17:40:22 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,9 @@ static int	sh_exec_tree(char *str)
 int			sh_exec_control(char *str)
 {
 	char	*ret;
-	
+
+	sh_reset_term();
+	signal(SIGINT, SIG_IGN);
 	ret = ft_itoa(sh_exec_tree(str));
 	if ((sh_change_var_env("?", ret)) == -1)
 		sh_add_var_env("?", ret);
