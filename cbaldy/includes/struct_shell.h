@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 12:18:39 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/31 14:55:45 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/31 15:12:53 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct			s_local
 typedef struct			s_hist_list
 {
 	int					nb;
-	struct s_line_list	*old;
+	struct s_com_list	*old;
 	struct s_hist_list	*next;
 	struct s_hist_list	*previous;
 }						t_hist_list;
