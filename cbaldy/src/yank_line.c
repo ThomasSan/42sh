@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 10:06:21 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/23 12:19:29 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/31 11:52:08 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ static int	yank_begin_line(t_com_list **begin)
 	return (0);
 }
 
-int			yank_line(char c, t_com_list **begin)
+int			yank_line(char c, t_line_list **first)
 {
 	t_com_list	*tmp;
 	int			i;
 
 	if (c == 25)
-		return (copy_paste(begin));
+		return (copy_paste(&((*first)->begin));
 	i = g_local->prompt;
 	tmp = *begin;
 	if (c == 21)

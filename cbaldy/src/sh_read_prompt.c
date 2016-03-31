@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:36:22 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/30 20:49:50 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/31 12:28:44 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static int	sh_print_prompt(void)
 		i = ft_dprintf(STDIN_FILENO, "%s$> ", &(ft_strchr(g_env[i], '=')[1]));
 	else
 		i = ft_dprintf(STDIN_FILENO, "$> ");
-	g_local->prompt = i;
 	g_local->curs = i + 1;
 	if (ioctl(STDIN_FILENO, TIOCGWINSZ, &w) < 0)
 		return (0);
@@ -51,13 +50,12 @@ static int	sh_read_prompt(t_line_list **first, t_hist_list **hist)
 	//if (manage_search_hist(buf, begin, hist, 1) != 0 && buf[0] > 32 &&
 	//		buf[0] <= 127 && buf[1] == 0)
 	//	i = manage_search_hist(buf, begin, hist, 0);
-	//if ((len != 1 || buf[0] < 31 || buf[0] > 127) &&
-	//		(len != 1 || buf[0] != 10))
-	//	i = term_edit_line(buf, len, &((*first)->begin), hist);
+	if ((len != 1 || buf[0] < 31 || buf[0] > 127) &&
+			(len != 1 || buf[0] != 10))
+		i = term_edit_line(buf, len, first, hist);
 	if (len == 1)
 		i = term_write_line(first, buf[0]);
 	return (i);
-	*hist = NULL;
 }
 
 int			sh_prompt(void)

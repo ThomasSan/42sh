@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 17:26:00 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/30 20:22:39 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/31 12:27:57 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int			line_list_free(t_line_list *first)
 	{
 		tmp = first->next;
 		com_list_free(first->begin);
-		free(first->marge);
 		free(first);
 		first = tmp;
 	}

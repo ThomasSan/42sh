@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:12:49 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/30 21:00:28 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/31 12:28:53 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,15 +90,15 @@ int				com_list_free(t_com_list *begin);
 t_com_list		*com_list_dup(t_com_list *begin);
 int				hist_change(int move, t_hist_list **hist, t_com_list **begin);
 int				hist_add_elem(t_com_list *begin, t_hist_list **hist);
-int				print_command(t_com_list *new, char buf);
+int				print_command(t_com_list *new, char buf, t_line_list *first);
 int				term_mv_horizontal(int move, t_line_list **first);
-int				copy_cut_mode(t_com_list **begin, int mode);
-int				copy_end_mode(t_com_list **begin);
-int				copy_paste(t_com_list **begin);
+int				copy_cut_mode(t_line_list **first, int mode);
+int				copy_end_mode(t_line_list **first);
+int				copy_paste(t_line_list **first);
 t_com_list		*com_list_reconstruct(char *s);
 int				com_list_remove(t_com_list *del, t_com_list **begin);
 int				term_finish_line(t_line_list *first);
-int				com_list_add(t_com_list **begin, t_com_list *new);
+int				com_list_add(t_com_list **begin, t_com_list *new, int marge);
 char			*com_list_join(t_com_list *begin);
 void			signal_handler(int signum);
 int				term_mv_cursor(char buf, t_line_list **first);
@@ -109,7 +109,7 @@ int				exec_list_add(t_exec_list **begin, t_exec_list *new);
 int				exec_list_count(t_exec_list *begin);
 int				sh_exec_control(char *str);
 int				sh_minishell(void);
-int				yank_line(char c, t_com_list **begin);
+int				yank_line(char c, t_line_list **first);
 int				tab_mode(t_com_list *begin);
 t_tree			*sh_lexer_parser(char *str);
 int				sh_execute(char **com);

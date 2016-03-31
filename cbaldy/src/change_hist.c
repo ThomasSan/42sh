@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 11:57:11 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/30 12:34:27 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/31 12:28:48 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int			hist_change(int move, t_hist_list **hist, t_com_list **begin)
 	*begin = com_list_dup((*hist)->old);
 	str = com_list_retrieve(*begin);
 	hist_print_line(str);
-	g_local->curs = g_local->prompt + 1 + (int)ft_strlen(str);
+	g_local->curs = 0 + 1 + (int)ft_strlen(str);
 	free(str);
 	return (0);
 }
