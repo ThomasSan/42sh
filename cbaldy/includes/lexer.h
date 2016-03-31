@@ -52,7 +52,8 @@ typedef	enum 		e_cmd
 	TUBES,
 	AND_IF,
 	OR_IF,
-	END
+	END,
+	B_QUOTES
 }					t_cmd;
 
 typedef struct 		s_tree

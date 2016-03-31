@@ -17,7 +17,7 @@ int		ft_command_isvalid(t_token *tok)
 	// printf("cmd-> %s, type %d\n", tok->content, tok->type);
 	if (tok->type == WORDS || tok->type == SEMICOL
 		|| tok->type == AMPERSAND || tok->type == FILENAME
-		|| tok->type == COMMANDS)
+		|| tok->type == BACK_QUOTES)
 	{
 		if (tok->next)
 			return (ft_command_isvalid(tok->next));

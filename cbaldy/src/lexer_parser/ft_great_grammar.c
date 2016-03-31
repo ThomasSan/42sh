@@ -22,7 +22,7 @@ int			rules_for_great(t_token *tok)
 		tok->next->type = FILENAME;
 		return (1);
 	}
-	if (sym == COMMANDS)
+	if (sym == BACK_QUOTES)
 		return (1);
 	return (0);
 }
@@ -37,7 +37,7 @@ int			rules_for_less(t_token *tok)
 		tok->next->type = FILENAME;
 		return (1);
 	}
-	if (sym == COMMANDS)
+	if (sym == BACK_QUOTES)
 		return (1);
 	return (0);
 }
@@ -48,7 +48,7 @@ int			rules_for_great_and(t_token *tok)
 
 	sym = check_next_token(tok);
 	if (sym == WORDS || sym == MINUS
-		|| sym == NUMBERS || sym == COMMANDS)
+		|| sym == NUMBERS || sym == BACK_QUOTES)
 		return (1);
 	return (0);
 }
@@ -68,7 +68,7 @@ int			rules_for_and_great(t_token *tok)
 	t_sym sym;
 
 	sym = check_next_token(tok);
-	if (sym == WORDS || sym == COMMANDS)
+	if (sym == WORDS || sym == BACK_QUOTES)
 		return (1);
 	return (0);
 }
