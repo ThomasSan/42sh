@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 12:47:39 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/31 12:48:35 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/31 16:22:25 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ static int	ed_finish_line(t_line_list **first)
 	k = com_list_count((*first)->begin);
 	while (term_mv_horizontal(3, first) != -1)
 		;
-	ed_add_char(first, '\n');
 	if ((i = term_finish_line(*first)) < 0)
 	{
+		ed_add_char(first, '\n');
 		second = line_list_new(ft_dprintf(STDIN_FILENO, "new_line> "));
 		second->previous = *first;
 		(*first)->next = second;
@@ -65,6 +65,7 @@ static int	ed_finish_line(t_line_list **first)
 		g_local->curs = 11;
 		return (0);
 	}
+	ft_putchar('\n');
 	return (10);
 }
 

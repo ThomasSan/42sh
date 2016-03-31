@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 11:57:11 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/31 16:03:36 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/31 17:13:47 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,10 @@ int			hist_print_line(char *s)
 	i = 0;
 	while (s[i] != '\0')
 	{
-		if (s[i] == '\n')
-			ft_dprintf(STDIN_FILENO, " ");
-		else
-			ft_dprintf(STDIN_FILENO, "%c", s[i]);
+		ft_dprintf(STDIN_FILENO, "%c", s[i]);
 		i++;
 	}
-	ft_tputs("cd", 1, 0);
+	ft_tputs("ce", 1, 0);
 	return (0);
 }
 
@@ -75,7 +72,9 @@ int			hist_change(int move, t_hist_list **hist, t_line_list **first)
 	*first = line_list_dup((*hist)->old);
 	str = line_list_retrieve(*first);
 	hist_print_line(str);
-	g_local->curs = (*first)->marge + 1 + (int)ft_strlen(str);
+	while ((*first)->next != NULL)
+		*first = (*first)->next;
+	g_local->curs = (*first)->marge + 1 + com_list_count((*first)->begin);
 	free(str);
 	return (0);
 }

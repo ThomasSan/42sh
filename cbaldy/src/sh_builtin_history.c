@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/26 19:22:58 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/31 15:38:24 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/31 16:12:14 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ t_hist_list		*retrieve_history(int flag, t_line_list *first)
 	else if (non_empty(first) == 0)
 	{
 		hist_list_new(&hist);
+		while (first->previous != NULL)
+			first = first->previous;
 		hist->old = first;
 	}
 	return (NULL);
