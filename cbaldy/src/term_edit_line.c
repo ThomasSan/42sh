@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 12:51:22 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/31 12:25:52 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/31 14:57:28 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_edit_line	g_edit_line[] = {
 	{NULL, 0},
 };
 
-static int	term_spec_char(char buf, t_com_list **begin, t_hist_list **hist)
+static int	term_spec_char(char buf, t_line_list **first, t_hist_list **hist)
 {
 	if (buf == 28)
 	{
@@ -49,25 +49,25 @@ static int	term_spec_char(char buf, t_com_list **begin, t_hist_list **hist)
 	if (buf == 3)
 		ft_dprintf(STDOUT_FILENO, "\n");
 	//if (buf == 9)
-	//	return (tab_mode(*begin));
+	//	return (tab_mode((*first)->begin);
 	//if (buf == 18)
-	//	return (manage_search_hist("", begin, hist, 0));
+	//	return (manage_search_hist("", (*first)->begin, hist, 0));
 	return (buf);
 	*hist = NULL;
-	*begin = NULL;
+	*first = NULL;
 }
 
 static int	term_tree_choice(char *buf, int *arr, t_line_list **first,
 		t_hist_list **hist)
 {
 	if (arr[1] == 1)
-		return (term_spec_char(buf[0], &((*first)->begin), hist));
+		return (term_spec_char(buf[0], first, hist));
 	//else if (arr[1] == 2)
 	//	copy_cut_mode(first, buf[0]);
 	//else if (arr[1] == 3)
 	//	copy_paste(first);
 	else if (arr[1] == 4)
-		return (hist_change(buf[arr[0] - 1] - 64, hist, &((*first)->begin)));
+		return (hist_change(buf[arr[0] - 1] - 64, hist, first));
 	else if (arr[1] == 5)
 		term_mv_horizontal(buf[arr[0] -1] - 64, first);
 	else if (arr[1] == 6)
