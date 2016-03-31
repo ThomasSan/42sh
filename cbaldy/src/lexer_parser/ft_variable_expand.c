@@ -53,3 +53,23 @@ t_token		*check_dollar(t_token *tok)
 	}
 	return (tok);
 }
+
+void		check_back_quotes(t_token *tok)
+{
+	int is_open;
+
+	is_open = 0;
+	while (tok)
+	{
+		if (is_open == 0 && tok->type == BACK_QUOTES)
+		{
+			is_open = 1;
+			tok = tok->next;
+		}
+		if (is_open && tok->type != BACK_QUOTES)
+			tok->type = COMMANDS;
+		if (is_open && tok->type == BACK_QUOTES)
+			is_open = 0;
+		tok = tok->next;
+	}
+}

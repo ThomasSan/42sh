@@ -14,8 +14,11 @@
 
 int		rules_for_minus(t_token *tok)
 {
-	if (check_prev_token(tok) == DOUBLE_L || check_prev_token(tok) == LESS_AND
-		|| check_prev_token(tok) == GREAT_AND)
+	t_sym prev;
+
+	prev = check_prev_token(tok);
+	if (prev == DOUBLE_L || prev == LESS_AND
+		|| prev == GREAT_AND)
 		return (1);
 	tok->type = WORDS;
 	return (1);
@@ -23,7 +26,13 @@ int		rules_for_minus(t_token *tok)
 
 int		rules_for_orandif(t_token *tok)
 {
-	if (check_prev_token(tok) == WORDS && check_next_token(tok) == WORDS)
+	t_sym prev;
+	t_sym next;
+
+	prev = check_prev_token(tok);
+	next = check_next_token(tok);
+	if ((prev == WORDS && next == WORDS) ||
+		(prev == BACK_QUOTES && next == BACK_QUOTES))
 		return (1);
 	return (0);
 }

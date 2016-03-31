@@ -73,6 +73,11 @@ int			tree_place_cmd(t_tree *new, t_tree **root)
 	t_tree	*tmp;
 
 	tmp = *root;
+	if (tmp->types == B_QUOTES)
+	{
+		tmp->left = new;
+		return (0);
+	}
 	while (tmp->right != NULL)
 		tmp = tmp->right;
 	if (tmp->types == CMD)

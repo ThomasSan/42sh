@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:36:22 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/31 16:21:16 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/31 17:45:01 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int			sh_prompt(void)
 	t_line_list			*first;
 	char				*str;
 	int					i;
-	t_hist_list			*modif_hist = NULL;
+	t_hist_list			*modif_hist;
 
 	if ((first = line_list_new(sh_print_prompt())) == NULL)
 		return (0);

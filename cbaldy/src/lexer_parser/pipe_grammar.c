@@ -14,8 +14,13 @@
 
 int					rules_for_pipes(t_token *tok)
 {
-	if (check_next_token(tok) == WORDS &&
-		(check_prev_token(tok) == WORDS || check_prev_token(tok) == FILENAME))
+	t_sym prev;
+	t_sym next;
+
+	prev = check_prev_token(tok);
+	next = check_next_token(tok);
+	if ((next == WORDS || next == BACK_QUOTES) &&
+		(prev == WORDS || prev == FILENAME || prev == BACK_QUOTES))
 		return (1);
 	return (0);
 }

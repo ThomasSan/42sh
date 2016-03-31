@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/26 19:22:58 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/31 17:43:20 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/31 17:45:34 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,22 @@ static int		non_empty(t_line_list *begin)
 	return (1);
 }
 
+static int		new_elem_hist(t_hist_list *hist, t_line_list *first)
+{
+	t_line_list	*tmp;
+
+	tmp = first;
+	while (tmp->next)
+		tmp = tmp->next;
+	while (tmp->previous)
+	{
+		tmp->marge = 0;
+		tmp = tmp->previous;
+	}
+	hist->old = tmp;
+	return (0);
+}
+
 t_hist_list		*retrieve_history(int flag, t_line_list *first)
 {
 	static t_hist_list	*hist;
@@ -50,9 +66,7 @@ t_hist_list		*retrieve_history(int flag, t_line_list *first)
 	else if (non_empty(first) == 0)
 	{
 		hist_list_new(&hist);
-		while (first->previous != NULL)
-			first = first->previous;
-		hist->old = first;
+		new_elem_hist(hist, first);
 	}
 	return (NULL);
 }

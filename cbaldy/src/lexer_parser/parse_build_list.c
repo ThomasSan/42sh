@@ -40,8 +40,10 @@ static int	parse_get_pipe_type(t_parse **head, t_token *tok)
 		op = END;
 	else if (tok->type == D_PIPE)
 		op = OR_IF;
-	else
+	else if (tok->type == D_SAND)
 		op = AND_IF;
+	else
+		op = B_QUOTES;
 	return (parse_list_pushback(parse_list_new(NULL, op), head) + 1);
 }
 
@@ -54,7 +56,8 @@ static int	parse_analyse_token(t_parse **head, t_token *tok)
 				<= AND_GREAT))
 		return (parse_get_redir(head, tok));
 	else if (tok->type == PIPE || tok->type == SEMICOL ||
-		tok->type == D_PIPE || tok->type == D_SAND)
+		tok->type == D_PIPE || tok->type == D_SAND 
+		|| tok->type == BACK_QUOTES)
 		return (parse_get_pipe_type(head, tok));
 	return (1);
 }
