@@ -60,6 +60,9 @@ t_token		*ft_token_removal(t_token *tok, t_sym sym)
 	return (tok);
 }
 
+/*
+** ft_display_tokens a virer avant de push
+*/
 void		ft_display_tokens(t_token *tok)
 {
 	while (tok)
@@ -68,6 +71,9 @@ void		ft_display_tokens(t_token *tok)
 		tok = tok->next;
 	}
 }
+/*
+**
+*/
 
 int			ft_edit_useless(t_token *tok)
 {

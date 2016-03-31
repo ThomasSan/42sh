@@ -42,7 +42,7 @@ t_token		*join_quoted(t_token *tok, t_sym sym)
 			tmp = tmp->next;
 			tmp1 = tmp;
 			tmp = tmp->next;
-			while (tmp && tmp->type == WORDS)
+			while (tmp && tmp->type != sym)
 			{
 				str = tmp1->content;
 				tmp1->content = ft_strjoin(tmp1->content, tmp->content);
@@ -115,8 +115,10 @@ t_parse		*ft_checking_syntax(t_token *tok)
 {
 	tok = check_dollar(tok);
 	return_type_quoted(tok);
+	check_back_quotes(tok);
 	tok = join_quoted(tok, QUOTES);
 	tok = join_quoted(tok, SINGLE_QUOTES);
+	tok = join_quoted(tok, BACK_QUOTES);
 	tok = check_minus(tok);
 	tok = ft_tild_expand(tok);
 	ft_edit_useless(tok);
@@ -126,13 +128,14 @@ t_parse		*ft_checking_syntax(t_token *tok)
 		return (NULL);
 	if ((tok = ft_token_removal(tok, SINGLE_QUOTES)) == NULL)
 		return (NULL);
-	//ft_display_tokens(tok);
+	if ((tok = ft_token_removal(tok, BACK_QUOTES)) == NULL)
+		return (NULL);
 	if (!tok)
 		return (NULL);
 	if (!(ft_command_isvalid(tok)))
 		return (NULL);
-	return (parse_build_list(tok));
 	ft_display_tokens(tok);
+	return (parse_build_list(tok));
 }
 
 //$ cat

@@ -12,7 +12,7 @@ typedef enum 		e_sym
 {
 	QUOTES,
 	SINGLE_QUOTES,
-	// BACK_QUOTES,// a gerer?
+	BACK_QUOTES,
 	DIPLE_R, 
 	DOUBLE_R,
 	DIPLE_L,
@@ -117,6 +117,8 @@ int					rules_for_numbers(t_token *tok);
 /*
 **
 */
+
+void				check_back_quotes(t_token *tok);
 t_token				*ft_token_removal(t_token *tok, t_sym sym);
 void				ft_display_tokens(t_token *tok);
 int					ft_edit_useless(t_token *tok);
