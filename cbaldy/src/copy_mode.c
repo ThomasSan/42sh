@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/04 14:35:13 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/18 10:36:56 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/31 12:11:05 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,12 @@ static int	copy_print_char(char c, int flag)
 	return (0);
 }
 
-static int	copy_mv_cursor(int *arr, char *buf, t_com_list *tmp)
+static int	copy_mv_cursor(int *arr, char *buf, t_com_list *tmp,
+		t_line_list **first)
 {
 	if (g_local->curs <= arr[1] && buf[2] == 68)
 		return (0);
-	if (term_mv_horizontal(buf[2] - 64, arr[0] - 1) == -1)
+	if (term_mv_horizontal(buf[2] - 64, first) == -1)
 		return (0);
 	if (buf[2] == 67 && tmp->next != NULL)
 	{
@@ -56,13 +57,13 @@ static int	copy_interpret(int *arr, char *buf, t_com_list *tmp)
 	return (0);
 }
 
-static int	copy_read(t_com_list *begin, int *arr)
+static int	copy_read(t_line_list **first, int *arr)
 {
 	int			i[2];
 	char		buf[10];
 	t_com_list	*tmp;
 
-	i[1] = g_local->prompt;
+	i[1] = (*first)->marge;
 	tmp = begin;
 	while (i[1]++ != g_local->curs - 1 && tmp->next != NULL)
 		tmp = tmp->next;
@@ -71,13 +72,13 @@ static int	copy_read(t_com_list *begin, int *arr)
 	return (i[0]);
 }
 
-int			copy_cut_mode(t_com_list **begin, int mode)
+int			copy_cut_mode(t_line_list **first, int mode)
 {
 	int			arr[3];
 	t_com_list	*tmp;
 
-	arr[0] = com_list_count(*begin);
-	arr[1] = g_local->prompt;
+	arr[0] = com_list_count((*first)->begin);
+	arr[1] = (*first)->marge;
 	arr[2] = (mode == -30 ? 2 : 1);
 	tmp = *begin;
 	while (arr[1]++ != g_local->curs - 1 && tmp != NULL)
@@ -88,8 +89,8 @@ int			copy_cut_mode(t_com_list **begin, int mode)
 	copy_print_char(tmp->c, tmp->op);
 	while (42)
 	{
-		if (copy_read(*begin, arr) != 0)
-			return (copy_end_mode(begin));
+		if (copy_read(first, arr) != 0)
+			return (copy_end_mode(first));
 	}
 	return (0);
 }

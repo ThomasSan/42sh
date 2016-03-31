@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/04 17:18:32 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/23 12:18:57 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/31 14:29:59 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,12 @@ int			com_list_remove(t_com_list *del, t_com_list **begin)
 	return (0);
 }
 
-static int	com_list_insert(t_com_list **begin, t_com_list *new)
+static int	com_list_insert(t_com_list **begin, t_com_list *new, int marge)
 {
 	t_com_list	*tmp[2];
 	int			i;
 
-	i = g_local->prompt;
+	i = marge;
 	tmp[0] = *begin;
 	while (tmp[0]->next != NULL && i < g_local->curs - 2)
 	{
@@ -81,7 +81,7 @@ static int	com_list_insert(t_com_list **begin, t_com_list *new)
 	return (0);
 }
 
-int			com_list_add(t_com_list **begin, t_com_list *new)
+int			com_list_add(t_com_list **begin, t_com_list *new, int marge)
 {
 	t_com_list	*tmp;
 
@@ -89,7 +89,7 @@ int			com_list_add(t_com_list **begin, t_com_list *new)
 		return (0);
 	if (*begin == NULL)
 		*begin = new;
-	else if (g_local->curs - g_local->prompt == 1)
+	else if (g_local->curs - marge == 1)
 	{
 		tmp = *begin;
 		*begin = new;
@@ -99,7 +99,7 @@ int			com_list_add(t_com_list **begin, t_com_list *new)
 		tmp->previous = new;
 	}
 	else
-		com_list_insert(begin, new);
+		com_list_insert(begin, new, marge);
 	return (0);
 }
 

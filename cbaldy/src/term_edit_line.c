@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 12:51:22 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/29 19:00:08 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/31 15:38:02 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_edit_line	g_edit_line[] = {
 	{NULL, 0},
 };
 
-static int	term_spec_char(char buf, t_com_list **begin, t_hist_list **hist)
+static int	term_spec_char(char buf, t_line_list **first, t_hist_list **hist)
 {
 	if (buf == 28)
 	{
@@ -48,35 +48,36 @@ static int	term_spec_char(char buf, t_com_list **begin, t_hist_list **hist)
 	}
 	if (buf == 3)
 		ft_dprintf(STDOUT_FILENO, "\n");
-	if (buf == 9)
-		return (tab_mode(*begin));
-	if (buf == 18)
-		return (manage_search_hist("", begin, hist, 0));
+	//if (buf == 9)
+	//	return (tab_mode((*first)->begin);
+	//if (buf == 18)
+	//	return (manage_search_hist("", (*first)->begin, hist, 0));
 	return (buf);
 	*hist = NULL;
+	*first = NULL;
 }
 
-static int	term_tree_choice(char *buf, int *arr, t_com_list **begin,
+static int	term_tree_choice(char *buf, int *arr, t_line_list **first,
 		t_hist_list **hist)
 {
 	if (arr[1] == 1)
-		return (term_spec_char(buf[0], begin, hist));
-	else if (arr[1] == 2)
-		copy_cut_mode(begin, buf[0]);
-	else if (arr[1] == 3)
-		copy_paste(begin);
+		return (term_spec_char(buf[0], first, hist));
+	//else if (arr[1] == 2)
+	//	copy_cut_mode(first, buf[0]);
+	//else if (arr[1] == 3)
+	//	copy_paste(first);
 	else if (arr[1] == 4)
-		return (hist_change(buf[arr[0] - 1] - 64, hist, begin));
+		return (hist_change(buf[arr[0] - 1] - 64, hist, first));
 	else if (arr[1] == 5)
-		term_mv_horizontal(buf[arr[0] -1] - 64, com_list_count(*begin));
+		term_mv_horizontal(buf[arr[0] -1] - 64, first);
 	else if (arr[1] == 6)
-		term_mv_cursor(buf[arr[0] - 1], com_list_count(*begin), *begin);
+		term_mv_cursor(buf[arr[0] - 1], first);
 	else if (arr[1] == 7)
-		return (yank_line(buf[0], begin));
+		return (yank_line(buf[0], first));
 	return (buf[0]);
 }
 
-int			term_edit_line(char *buf, int len, t_com_list **begin,
+int			term_edit_line(char *buf, int len, t_line_list **first,
 		t_hist_list **hist)
 {
 	int		i;
@@ -90,5 +91,5 @@ int			term_edit_line(char *buf, int len, t_com_list **begin,
 		return (0);
 	arr[0] = len;
 	arr[1] = g_edit_line[i].ret;
-	return (term_tree_choice(buf, arr, begin, hist));
+	return (term_tree_choice(buf, arr, first, hist));
 }

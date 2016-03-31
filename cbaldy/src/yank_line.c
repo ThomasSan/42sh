@@ -6,19 +6,19 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 10:06:21 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/23 12:19:29 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/31 15:01:13 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static int	yank_end_line(t_com_list **begin)
+static int	yank_end_line(t_line_list **first)
 {
 	t_com_list	*tmp;
 	int			i;
 
-	i = g_local->prompt;
-	tmp = *begin;
+	tmp = (*first)->begin;
+	i = (*first)->marge;
 	while (tmp != NULL && i++ < g_local->curs - 1)
 		tmp = tmp->next;
 	while (tmp != NULL)
@@ -26,42 +26,42 @@ static int	yank_end_line(t_com_list **begin)
 		tmp->op = 2;
 		tmp = tmp->next;
 	}
-	copy_end_mode(begin);
-	while (term_mv_horizontal(3, com_list_count(*begin)) == 0)
+	copy_end_mode(first);
+	while (term_mv_horizontal(3, first) == 0)
 		;
 	return (0);
 }
 
-static int	yank_begin_line(t_com_list **begin)
+static int	yank_begin_line(t_line_list **first)
 {
 	t_com_list	*tmp;
 	int			i;
 
-	i = g_local->prompt;
-	tmp = *begin;
+	i = (*first)->marge;
+	tmp = (*first)->begin;
 	while (tmp != NULL && i++ < g_local->curs - 1)
 	{
 		tmp->op = 2;
 		tmp = tmp->next;
 	}
-	copy_end_mode(begin);
-	while (term_mv_horizontal(4, 0) == 0)
+	copy_end_mode(first);
+	while (term_mv_horizontal(4, first) == 0)
 		;
 	return (0);
 }
 
-int			yank_line(char c, t_com_list **begin)
+int			yank_line(char c, t_line_list **first)
 {
 	t_com_list	*tmp;
 	int			i;
 
 	if (c == 25)
-		return (copy_paste(begin));
-	i = g_local->prompt;
-	tmp = *begin;
+		return (copy_paste(first));
+	i = (*first)->marge;
+	tmp = (*first)->begin;
 	if (c == 21)
-		return (yank_end_line(begin));
+		return (yank_end_line(first));
 	else if (c == 11)
-		return (yank_begin_line(begin));
+		return (yank_begin_line(first));
 	return (0);
 }

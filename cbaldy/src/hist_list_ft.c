@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/29 18:41:27 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/30 12:34:15 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/31 15:39:02 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static t_hist_list	*create_new_hist(t_hist_list *a, t_hist_list *buf)
 
 	if ((new = (t_hist_list*)malloc(sizeof(t_hist_list))) == NULL)
 		return (NULL);
-	new->old = com_list_dup(buf->old);
+	new->old = line_list_dup(buf->old);
 	new->next = NULL;
 	new->nb = buf->nb;
 	if (a != NULL)
@@ -61,7 +61,7 @@ void				clear_hist(t_hist_list **hist)
 	{
 		buf->next = NULL;
 		buf->previous = NULL;
-		com_list_free(buf->old);
+		line_list_free(buf->old);
 		free(buf);
 		buf = a;
 		if (a != NULL)
@@ -87,22 +87,22 @@ static int			hist_control_size(t_hist_list **hist)
 	{
 		tmp[0] = tmp[1]->previous;
 		tmp[0]->next = NULL;
-		com_list_free(tmp[1]->old);
+		line_list_free(tmp[1]->old);
 		free(tmp[1]);
 	}
 	return (0);
 }
 
-int					hist_add_elem(t_com_list *begin, t_hist_list **hist)
+int					hist_add_elem(t_line_list *first, t_hist_list **hist)
 {
 	while ((*hist)->previous != NULL)
 		*hist = (*hist)->previous;
-	if (begin != NULL)
+	if (first != NULL)
 	{
-		if (begin->c != 0)
-			(*hist)->old = begin;
+		if (first->begin->c != 0)
+			(*hist)->old = first;
 		else
-			free(begin);
+			free(first);
 	}
 	else if ((*hist)->next != 0)
 	{
