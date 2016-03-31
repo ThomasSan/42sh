@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 11:57:11 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/31 14:54:30 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/31 16:03:36 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int			hist_change(int move, t_hist_list **hist, t_line_list **first)
 	*first = line_list_dup((*hist)->old);
 	str = line_list_retrieve(*first);
 	hist_print_line(str);
-	g_local->curs = 0 + 1 + (int)ft_strlen(str);
+	g_local->curs = (*first)->marge + 1 + (int)ft_strlen(str);
 	free(str);
 	return (0);
 }
