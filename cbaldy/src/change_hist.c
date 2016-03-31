@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 11:57:11 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/31 16:50:37 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/31 18:04:52 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,10 @@ int			hist_print_line(char *s)
 	i = 0;
 	while (s[i] != '\0')
 	{
-		if (s[i] == '\n')
-			ft_dprintf(STDIN_FILENO, " ");
-		else
-			ft_dprintf(STDIN_FILENO, "%c", s[i]);
+		ft_dprintf(STDIN_FILENO, "%c", s[i]);
 		i++;
 	}
-	ft_tputs("cd", 1, 0);
+	ft_tputs("ce", 1, 0);
 	return (0);
 }
 
@@ -56,6 +53,8 @@ static int	move_hist(int move, t_hist_list **hist, t_line_list **first)
 		buf = (*hist)->previous;
 	else
 		return (-1);
+	while (term_mv_horizontal(4, first) != -1)
+		;
 	line_list_free((*hist)->old);
 	(*hist)->old = line_list_dup(*first);
 	line_list_free(*first);
@@ -66,16 +65,19 @@ static int	move_hist(int move, t_hist_list **hist, t_line_list **first)
 int			hist_change(int move, t_hist_list **hist, t_line_list **first)
 {
 	char	*str;
+	int		save;
 	
+	save = (*first)->marge;
 	if (move_hist(move, hist, first) == -1)
 		return (0);
-	while (term_mv_horizontal(4, first) != -1)
-		;
 	ft_tputs("cd", 1, 0);
 	*first = line_list_dup((*hist)->old);
 	str = line_list_retrieve(*first);
 	hist_print_line(str);
-	g_local->curs = (*first)->marge + 1 + (int)ft_strlen(str);
+	(*first)->marge = save;
+	while ((*first)->next != NULL)
+		*first = (*first)->next;
+	g_local->curs = (*first)->marge + 1 + com_list_count((*first)->begin);
 	free(str);
 	return (0);
 }
