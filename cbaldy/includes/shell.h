@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:12:49 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/31 12:48:43 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/31 15:34:28 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int				exit_search_hist(t_com_list **begin);
 int				hist_print_line(char *s);
 int				search_history(t_com_list *begin);
 int				sh_builtin_history(char **com);
-t_hist_list		*retrieve_history(int flag, t_com_list *begin);
+t_hist_list		*retrieve_history(int flag, t_line_list *first);
 int				exit_completion(t_com_list *begin);
 char			*cd_var_env(char *name);
 void			clear_hist(t_hist_list **hist);
@@ -88,8 +88,8 @@ char			*com_list_retrieve(t_com_list *begin);
 int				*hist_list_new(t_hist_list **hist);
 int				com_list_free(t_com_list *begin);
 t_com_list		*com_list_dup(t_com_list *begin);
-int				hist_change(int move, t_hist_list **hist, t_com_list **begin);
-int				hist_add_elem(t_com_list *begin, t_hist_list **hist);
+int				hist_change(int move, t_hist_list **hist, t_line_list **first);
+int				hist_add_elem(t_line_list *begin, t_hist_list **hist);
 int				print_command(t_com_list *new, char buf, t_line_list *first);
 int				term_mv_horizontal(int move, t_line_list **first);
 int				copy_cut_mode(t_line_list **first, int mode);
@@ -129,5 +129,7 @@ char			*sh_retrieve_cmd_line(t_line_list *first, int end,
 char			*cd_get_path2(char *com);
 t_line_list		*line_list_new(int marge);
 char			*line_list_retrieve(t_line_list *first);
+t_line_list		*line_list_dup(t_line_list *var);
+int				line_list_free(t_line_list *first);
 
 #endif

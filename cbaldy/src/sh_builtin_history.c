@@ -6,28 +6,32 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/26 19:22:58 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/30 12:32:51 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/31 15:36:33 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static int		non_empty(t_com_list *begin)
+static int		non_empty(t_line_list *begin)
 {
-	t_com_list	*buf;
+	char	*buf;
+	int		i;
 
-	buf = begin;
-	while (buf)
+	i = 0;
+	buf = line_list_retrieve(begin);
+	while (buf[i])
 	{
-		if (buf->c != ' ' && buf->c != '\0')
+		if (buf[i] != ' ' && buf[i] != '\0')
+		{
+			free(buf);
 			return (0);
-		else
-			buf = buf->next;
+		}
+		i++;
 	}
 	return (1);
 }
 
-t_hist_list		*retrieve_history(int flag, t_com_list *begin)
+t_hist_list		*retrieve_history(int flag, t_line_list *first)
 {
 	static t_hist_list	*hist;
 	t_hist_list			*buf;
@@ -43,10 +47,10 @@ t_hist_list		*retrieve_history(int flag, t_com_list *begin)
 	}
 	else if (flag == 2)
 		return (copy_hist(hist));
-	else if (non_empty(begin) == 0)
+	else if (non_empty(first) == 0)
 	{
 		hist_list_new(&hist);
-		hist->old = begin;
+		hist->old = first;
 	}
 	return (NULL);
 }
@@ -87,7 +91,7 @@ int				sh_builtin_history(char **com)
 		buf = buf->next;
 	while (buf)
 	{
-		str = com_list_retrieve(buf->old);
+		str = line_list_retrieve(buf->old);
 		ft_dprintf(STDOUT_FILENO, "%4d  %s\n", buf->nb, str);
 		free(str);
 		buf = buf->previous;
