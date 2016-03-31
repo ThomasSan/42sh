@@ -6,7 +6,7 @@
 #    By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/14 14:42:25 by cbaldy            #+#    #+#              #
-#    Updated: 2016/03/31 15:36:46 by cbaldy           ###   ########.fr        #
+#    Updated: 2016/03/31 15:41:04 by cbaldy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,6 +66,7 @@ $(NAME):
 
 clean:
 	@/bin/rm -rf obj
+	@/bin/rm -rf $(OBJ) $(OBJ2)
 	@echo "\x1b[0;01mclean\x1b[0;m"
 
 fclean: clean
