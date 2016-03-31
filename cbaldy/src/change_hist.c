@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 11:57:11 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/31 17:13:47 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/31 17:43:22 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,9 @@ static int	move_hist(int move, t_hist_list **hist, t_line_list **first)
 int			hist_change(int move, t_hist_list **hist, t_line_list **first)
 {
 	char	*str;
+	int		save;
 	
+	save = (*first)->marge;
 	if (move_hist(move, hist, first) == -1)
 		return (0);
 	while (term_mv_horizontal(4, first) != -1)
@@ -72,6 +74,7 @@ int			hist_change(int move, t_hist_list **hist, t_line_list **first)
 	*first = line_list_dup((*hist)->old);
 	str = line_list_retrieve(*first);
 	hist_print_line(str);
+	(*first)->marge = save;
 	while ((*first)->next != NULL)
 		*first = (*first)->next;
 	g_local->curs = (*first)->marge + 1 + com_list_count((*first)->begin);

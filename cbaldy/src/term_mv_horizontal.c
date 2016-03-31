@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 20:03:13 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/31 17:13:45 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/03/31 17:42:16 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@ static int	term_mv_left(t_line_list **first)
 	{
 		*first = (*first)->previous;
 		ft_tputs("UP", 1, 1);
-		ft_tputs("RI", 1, (com_list_count((*first)->begin) % g_local->nb_col));
-		g_local->curs = com_list_count((*first)->begin) + 1;
+		ft_tputs("RI", 1, ((com_list_count((*first)->begin) + (*first)->marge)
+					% g_local->nb_col));
+		g_local->curs = com_list_count((*first)->begin) + 1 + (*first)->marge;
 	}
 	if ((*first)->begin > 0 && g_local->curs % g_local->nb_col == 1)
 	{
