@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:12:49 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/31 15:39:31 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/01 13:06:21 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,5 +133,6 @@ t_line_list		*line_list_new(int marge);
 char			*line_list_retrieve(t_line_list *first);
 t_line_list		*line_list_dup(t_line_list *var);
 int				line_list_free(t_line_list *first);
+int				line_list_get_marge(t_line_list *first);
 
 #endif

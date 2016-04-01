@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 20:03:13 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/31 18:04:51 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/01 14:36:27 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,14 @@ static int	term_mv_left(t_line_list **first)
 	return (0);
 }
 
+static int	term_mv_right_change(t_line_list **first)
+{
+	ft_tputs("sf", 1, 0);
+	*first = (*first)->next;
+	g_local->curs = (*first)->marge + 1;
+	return (0);
+}
+
 static int	term_mv_right_same(t_line_list **first)
 {
 	if (g_local->curs % g_local->nb_col == 0)
@@ -40,15 +48,9 @@ static int	term_mv_right_same(t_line_list **first)
 	else
 		ft_tputs("nd", 1, 0);
 	g_local->curs += 1;
-	return (0);
-	*first = NULL;
-}
-
-static int	term_mv_right_change(t_line_list **first)
-{
-	ft_tputs("sf", 1, 0);
-	*first = (*first)->next;
-	g_local->curs = (*first)->marge + 1;
+	if (com_list_count((*first)->begin) == g_local->curs -
+				(*first)->marge - 1 && (*first)->next != NULL)
+		term_mv_right_change(first);
 	return (0);
 }
 

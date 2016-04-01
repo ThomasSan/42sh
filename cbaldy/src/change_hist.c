@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 11:57:11 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/31 18:04:52 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/01 12:47:18 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ int			hist_change(int move, t_hist_list **hist, t_line_list **first)
 {
 	char	*str;
 	int		save;
-	
-	save = (*first)->marge;
+
+	save = line_list_get_marge(*first);
 	if (move_hist(move, hist, first) == -1)
 		return (0);
 	ft_tputs("cd", 1, 0);
