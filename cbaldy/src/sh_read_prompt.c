@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:36:22 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/02 15:16:45 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/02 18:34:16 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,19 @@ static int	sh_read_prompt(t_line_list **first, t_hist_list **hist)
 	i = 0;
 	len = read(STDIN_FILENO, buf, 10);
 	ft_bzero(&buf[len], 10 - len);
-	//if (ft_strcmp(buf, "\x09") != 0)
-	//	clear_curr_compl();
-	//if  (manage_search_hist(buf, begin, hist, 1) != 0 &&
-	//		buf[0] <= 32 && buf[1] == 0)
-	//	exit_search_hist(begin);
-	//if (manage_search_hist(buf, begin, hist, 1) != 0 && buf[0] > 32 &&
-	//		buf[0] <= 127 && buf[1] == 0)
-	//	i = manage_search_hist(buf, begin, hist, 0);
-	if ((len != 1 || buf[0] < 31 || buf[0] > 127) &&
+	if (ft_strcmp(buf, "\x09") != 0)
+		clear_curr_compl();
+	if  (manage_search_hist(buf, first, hist, 1) != 0 &&
+			buf[0] <= 32 && buf[1] == 0)
+		exit_search_hist(first);
+	if (manage_search_hist(buf, first, hist, 1) != 0 && buf[0] > 32 &&
+			buf[0] <= 127 && buf[1] == 0)
+		i = manage_search_hist(buf, first, hist, 0);
+	else if ((len != 1 || buf[0] < 31 || buf[0] > 127) &&
 			(len != 1 || buf[0] != 10))
 		i = term_edit_line(buf, len, first, hist);
-	if (len == 1)
-		i = term_write_line(first, buf[0]);
+	else if (len == 1)
+		i = term_write_line(first, buf[0], hist);
 	return (i);
 }
 

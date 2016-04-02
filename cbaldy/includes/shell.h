@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:12:49 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/01 13:06:21 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/02 18:31:11 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@
 
 t_line_list		*line_list_dup(t_line_list *var);
 int				line_list_free(t_line_list *first);
-int				manage_search_hist(char *buf, t_com_list **begin,
+int				manage_search_hist(char *buf, t_line_list **first,
 		t_hist_list **hist, int check);
-int				exit_search_hist(t_com_list **begin);
+int				exit_search_hist(t_line_list **first);
 int				hist_print_line(char *s);
 int				search_history(t_com_list *begin);
 int				sh_builtin_history(char **com);
 t_hist_list		*retrieve_history(int flag, t_line_list *first);
-int				exit_completion(t_com_list *begin);
+int				exit_completion(t_line_list *begin);
 char			*cd_var_env(char *name);
 void			clear_hist(t_hist_list **hist);
 t_hist_list		*copy_hist(t_hist_list *hist);
@@ -85,7 +85,7 @@ int				ft_tputs(char *s, int nb_l, int flag);
 int				term_edit_line(char *buf, int len, t_line_list **first, t_hist_list **hist);
 t_com_list		*com_list_new(char value);
 int				com_list_count(t_com_list *begin);
-int				term_write_line(t_line_list **first, char buf);
+int				term_write_line(t_line_list **first, char buf, t_hist_list **hist);
 char			*com_list_retrieve(t_com_list *begin);
 int				*hist_list_new(t_hist_list **hist);
 int				com_list_free(t_com_list *begin);
@@ -112,7 +112,7 @@ int				exec_list_count(t_exec_list *begin);
 int				sh_exec_control(char *str);
 int				sh_minishell(void);
 int				yank_line(char c, t_line_list **first);
-int				tab_mode(t_com_list *begin);
+int				tab_mode(t_line_list **first);
 t_tree			*sh_lexer_parser(char *str);
 int				sh_execute(char **com);
 int				sh_interpret(t_tree *root);

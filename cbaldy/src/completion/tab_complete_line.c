@@ -6,21 +6,21 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 16:49:46 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/29 17:03:07 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/02 18:33:11 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static int	increase_line(t_com_list *begin, char *test)
+static int	increase_line(t_line_list **first, char *test)
 {
 	t_com_list	*buf;
 	int			i;
 	int			len_list;
 
-	i = g_local->prompt + 1;
-	buf = begin;
-	len_list = com_list_count(begin);
+	i = (*first)->marge + 1;
+	buf = (*first)->begin;
+	len_list = com_list_count((*first)->begin);
 	while (buf && i < g_local->curs)
 	{
 		buf = buf->next;
@@ -28,13 +28,13 @@ static int	increase_line(t_com_list *begin, char *test)
 	}
 	while (buf && buf->c != ' ')
 	{
-		term_mv_horizontal(3, len_list);
+		term_mv_horizontal(3, first);
 		buf = buf->next;
 	}
 	i = 0;
 	while (test[i])
 	{
-		term_write_line(&begin, test[i]);
+		term_write_line(first, test[i], NULL);
 		i++;
 	}
 	free(test);
@@ -75,7 +75,7 @@ static int	get_compl_max(t_param *debut, int size_curr_word)
 	return (size_curr_word);
 }
 
-int			tab_complete_line(t_param *debut, t_com_list *begin, char *word)
+int			tab_complete_line(t_param *debut, t_line_list **first, char *word)
 {
 	char		*test;
 	int			size_curr_word;
@@ -90,12 +90,12 @@ int			tab_complete_line(t_param *debut, t_com_list *begin, char *word)
 		if (debut->next->nb != 0 && g_curr_compl == NULL)
 			return (1);
 		else if (debut->next->nb != 0)
-			test = tab_prepare_select(g_curr_compl->begin, begin);
+			test = tab_prepare_select(g_curr_compl->debut, first);
 		else
 			return (0);
 	}
 	else
 		test = ft_strsub(debut->var, ft_strlen(word),
 				size_curr_word - ft_strlen(word));
-	return (increase_line(begin, test));
+	return (increase_line(first, test));
 }

@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 16:49:41 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/29 17:07:26 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/02 16:22:47 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,13 @@ static char			*path_empty_curs(char *var, int i)
 	return (ft_strsub(var, i, count));
 }
 
-char				*path_to_tab(char *var)
+char				*path_to_tab(char *var, int marge)
 {
 	int			i;
 	int			count;
 	char		*buf;
 
-	i = g_local->curs - g_local->prompt - 1;
+	i = g_local->curs - marge - 1;
 	count = 1;
 	if (i < 0 || (i == 0 && var[i] <= 32))
 		return (NULL);
@@ -119,12 +119,12 @@ char				*path_to_tab(char *var)
 	return (buf);
 }
 
-char				**list_path(char *var)
+char				**list_path(char *var, int marge)
 {
 	char		*buf;
 	char		*res;
 
-	if ((buf = path_to_tab(var)) == NULL)
+	if ((buf = path_to_tab(var, marge)) == NULL)
 		return (NULL);
 	res = path_aliases_compl(buf);
 	free(buf);

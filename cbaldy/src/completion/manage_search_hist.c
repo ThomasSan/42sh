@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/29 18:26:54 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/29 19:07:09 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/02 18:29:52 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int		new_char_chaine(char n_c, t_line **chaine)
 	return (0);
 }
 
-static int		reprint_line(t_line *line, t_com_list *begin, int match)
+static int		reprint_line(t_line *line, t_line_list *first, int match)
 {
 	ft_notputs("sf", 1);
 	ft_notputs("cr", 1);
@@ -68,11 +68,11 @@ static int		reprint_line(t_line *line, t_com_list *begin, int match)
 		ft_putstr_fd("failing bck-i-search: ", STDOUT_FILENO);
 	print_line(line);
 	ft_notputs("cr", 1);
-	go_back_to_selected_char(begin);
+	go_back_to_selected_char(first);
 	return (0);
 }
 
-int				manage_search_hist(char *buf, t_com_list **begin,
+int				manage_search_hist(char *buf, t_line_list **first,
 		t_hist_list **hist, int check)
 {
 	static t_line		*line;
@@ -83,6 +83,7 @@ int				manage_search_hist(char *buf, t_com_list **begin,
 		return ((line == NULL) ? 0 : 1); 
 	if (check == 2)
 	{
+		search_bar_history(NULL, NULL, NULL, 1);
 		clear_tline(&line);
 		return (0);
 	}
@@ -93,9 +94,9 @@ int				manage_search_hist(char *buf, t_com_list **begin,
 		else
 			new_char_chaine(buf[0], &line);
 	}
-	if (search_bar_history(begin, hist, line) == 0)
-		reprint_line(line, *begin, 0);
+	if (search_bar_history(first, hist, line, 0) == 0)
+		reprint_line(line, *first, 0);
 	else
-		reprint_line(line, *begin, 1);
+		reprint_line(line, *first, 1);
 	return (0);
 }

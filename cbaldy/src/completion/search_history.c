@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/29 10:56:33 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/29 19:12:06 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/02 18:20:16 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,21 @@ static int		line_of_command(t_line *debut, char **str)
 	return (0);
 }
 
-static int		change_line(t_com_list **begin, t_hist_list **hist)
+static int		change_line(t_line_list **first, t_hist_list **hist)
 {
 	char	*str;
+	int		save;
 
-	while (term_mv_horizontal(4, 0) != -1)
+	save = line_list_get_marge(*first);
+	while (term_mv_horizontal(4, first) != -1)
 		;
 	ft_notputs("cd", 1);
-	*begin = com_list_dup((*hist)->old);
-	str = com_list_retrieve(*begin);
+	*first = line_list_dup((*hist)->old);
+	str = line_list_retrieve(*first);
 	hist_print_line(str);
-	g_local->curs = g_local->prompt + 1 +(int)ft_strlen(str);
+	(*first)->marge = save;
+	while ((*first)->next != NULL)
+	g_local->curs = (*first)->marge + 1 + com_list_count((*first)->begin);
 	free(str);
 	return (0);
 }
@@ -59,10 +63,10 @@ static int		change_line(t_com_list **begin, t_hist_list **hist)
 static int		hist_boucle(t_hist_list **hist, char *str)
 {
 	char		*tmp;
-
+	
 	while (*hist)
 	{
-		tmp = com_list_retrieve((*hist)->old);
+		tmp = line_list_retrieve((*hist)->old);
 		if (ft_strstr(tmp, str) != NULL)
 		{
 			free(tmp);
@@ -74,9 +78,9 @@ static int		hist_boucle(t_hist_list **hist, char *str)
 	return (0);
 }
 
-int			exit_search_hist(t_com_list **begin)
+int			exit_search_hist(t_line_list **first)
 {
-	exit_completion(*begin);
+	exit_completion(*first);
 	manage_search_hist(NULL, NULL, NULL, 2);
 	return (0);
 }
@@ -85,22 +89,31 @@ int			exit_search_hist(t_com_list **begin)
 ** check if search bar matches with history
 */
 
-int			search_bar_history(t_com_list **begin, t_hist_list **hist,
-		t_line *line)
+int			search_bar_history(t_line_list **first, t_hist_list **hist,
+		t_line *line, int flag)
 {
 	char					*str;
 	static t_hist_list		*buf;
 	int						ret;
 
+	if (flag == 1)
+	{
+		buf = NULL;
+		return (0);
+	}
 	line_of_command(line, &str);
-	if (ft_strcmp(str, "") == 0)
-		*hist = buf;
-	else
+	line_list_free((*hist)->old);
+	while ((*first)->previous)
+		*first = (*first)->previous;
+	(*hist)->old = line_list_dup(*first);
+	line_list_free(*first);
+	if (buf == NULL)
 		buf = *hist;
+	else
+		*hist = buf;
 	if ((ret = hist_boucle(hist, str)) == 0)
 		*hist = buf;
-	else
-		change_line(begin, hist);
+	change_line(first, hist);
 	free(str);
 	return (ret);
 }

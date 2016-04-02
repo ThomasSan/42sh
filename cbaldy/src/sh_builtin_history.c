@@ -6,19 +6,21 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/26 19:22:58 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/31 17:45:34 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/02 18:32:55 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static int		non_empty(t_line_list *begin)
+static int		non_empty(t_line_list *first)
 {
 	char	*buf;
 	int		i;
 
+	while (first->previous)
+		first = first->previous;
 	i = 0;
-	buf = line_list_retrieve(begin);
+	buf = line_list_retrieve(first);
 	while (buf[i])
 	{
 		if (buf[i] != ' ' && buf[i] != '\0')
