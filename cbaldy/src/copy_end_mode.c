@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/04 14:42:54 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/31 15:01:15 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/02 15:47:49 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,8 @@ static int	copy_reset_line(t_line_list *first)
 {
 	int			save;
 	int			j;
-	int			len_list;
 
 	save = g_local->curs;
-	len_list = com_list_count(first->begin);
 	ft_tputs("ce", 1, 0);
 	while (term_mv_horizontal(4, &first) == 0)
 		ft_tputs("dc", 1, 0);

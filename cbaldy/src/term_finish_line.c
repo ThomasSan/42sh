@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 18:32:23 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/30 20:38:42 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/02 18:15:48 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	*finish_line_init_tab(void)
 {
 	int		*arr;
 
-	if ((arr = (int *)malloc(sizeof(int) * 6)) == NULL)
+	if ((arr = (int *)malloc(sizeof(int) * 7)) == NULL)
 		return (NULL);
 	arr[0] = 0;
 	arr[1] = 0;
@@ -24,6 +24,7 @@ static int	*finish_line_init_tab(void)
 	arr[3] = 0;
 	arr[4] = 0;
 	arr[5] = 0;
+	arr[6] = 0;
 	return (arr);
 }
 
@@ -50,19 +51,35 @@ static int	lex_is_special(char c, int *arr)
 	return (0);
 }
 
-static int	lex_return_value(int *arr)
+static int	term_backslach(char *str, int *arr)
 {
-	int		i[2];
-	
-	i[0] = 0;
-	i[1] = 0;
-	while (i[0] < 6)
+	if (str[1] == '\0')
 	{
-		if (arr[i[0]] > 0)
-			i[1] = -1;
-		i[0]++;
+		arr[6] = 1;
+		return (1);
 	}
-	return (i[1]);
+	else if (str[1] == '(' || str[1] == ')' || str[1] == '[' || str[1] == ']'
+			|| str[1] == '{' || str[1] == '}' || str[1] == 39 || str[1]
+			== '"' || str[1] == '`' || str[1] == 92 || str[1] == 10)
+		return (2);
+	return (1);
+}
+
+static int	term_read_string(char *str, int *arr)
+{
+	int		i;
+
+	i = 1;
+	if (str[0] == 92)
+		return (term_backslach(str, arr));
+	lex_is_special(str[0], arr);
+	if ((str[0] == '`' && arr[5] != 0) || (str[0] == '"' &&
+				arr[4] != 0) || (str[0] == 39 && arr[3] != 0))
+	{
+		while (str[i] && str[i] != str[0])
+			i++;
+	}
+	return (i);
 }
 
 int			term_finish_line(t_line_list *first)
@@ -77,20 +94,16 @@ int			term_finish_line(t_line_list *first)
 	arr = finish_line_init_tab();
 	i[0] = 0;
 	while (str[i[0]] != '\0')
+		i[0] += term_read_string(&(str[i[0]]), arr);
+	free(str);
+	i[0] = 0;
+	i[1] = 0;
+	while (i[0] < 7)
 	{
-		lex_is_special(str[i[0]], arr);
-		if ((str[i[0]] == '`' && arr[5] != 0) || (str[i[0]] == '"' &&
-					arr[4] != 0) || (str[i[0]] == '\'' && arr[3] != 0))
-		{
-			i[1] = i[0];
-			while (str[i[1] + 1] && str[i[1] + 1] != str[i[0]])
-				i[1]++;
-			i[0] = i[1];
-		}
+		if (arr[i[0]] > 0)
+			i[1] = -1;
 		i[0]++;
 	}
-	free(str);
-	i[0] = lex_return_value(arr);
 	free(arr);
-	return (i[0]);
+	return (i[1]);
 }
