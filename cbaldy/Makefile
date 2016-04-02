@@ -6,7 +6,7 @@
 #    By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/14 14:42:25 by cbaldy            #+#    #+#              #
-#    Updated: 2016/03/31 15:41:04 by cbaldy           ###   ########.fr        #
+#    Updated: 2016/04/02 17:16:20 by dbaldy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,16 +57,16 @@ OBJ3 = $(TAB:.c=.o)
 all: $(NAME)
 
 $(NAME):
-	@gcc -c $(FLAG) $(INCLUDE) $(CFILES) $(CLEX) #$(CTAB)
+	@gcc -c $(FLAG) $(INCLUDE) $(CFILES) $(CLEX) $(CTAB)
 	@#@make -C libft/ fclean && make -C libft && make -C libft/ clean
 	@#@make -C ft_printf/ fclean && make -C ft_printf && make -C ft_printf/ clean
-	@gcc -o $(NAME) $(LIBRARIES) $(OBJ) $(OBJ2) #$(OBJ3)
-	@#@mkdir obj && mv $(OBJ) $(OBJ2) $(OBJ3) obj
+	@gcc -o $(NAME) $(LIBRARIES) $(OBJ) $(OBJ2) $(OBJ3)
+	@mkdir obj && mv $(OBJ) $(OBJ2) $(OBJ3) obj
 	@echo "\x1b[32;02m$(NAME) ready\x1b[0;m"
 
 clean:
 	@/bin/rm -rf obj
-	@/bin/rm -rf $(OBJ) $(OBJ2)
+	@/bin/rm -rf $(OBJ) $(OBJ2) $(OBJ3)
 	@echo "\x1b[0;01mclean\x1b[0;m"
 
 fclean: clean

@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 12:47:39 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/02 18:59:49 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/02 19:02:04 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static int	ed_delete_char(t_line_list **first)
 	return (0);
 }
 
-static int	ed_finish_line(t_line_list **first)
+static int	ed_finish_line(t_line_list **first, t_hist_list **hist)
 {
 	int			i;
 	t_line_list	*second;
@@ -88,18 +88,20 @@ static int	ed_finish_line(t_line_list **first)
 		(*first)->next = second;
 		*first = second;
 		g_local->curs = 11;
+		clear_hist(hist);
+		*hist = retrieve_history(2, NULL);
 		return (0);
 	}
 	ft_putchar_fd('\n', STDIN_FILENO);
 	return (10);
 }
 
-int			term_write_line(t_line_list **first, char buf)
+int			term_write_line(t_line_list **first, char buf, t_hist_list **hist)
 {
 	if (buf == 127)
 		return (ed_delete_char(first));
 	else if (buf == 10)
-		return (ed_finish_line(first));
+		return (ed_finish_line(first, hist));
 	else if (buf > 31 && buf < 127)
 		return (ed_add_char(first, buf));
 	return (0);

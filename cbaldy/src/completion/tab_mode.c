@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 13:40:47 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/29 17:25:16 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/02 17:00:09 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,40 +32,41 @@ static char			**hash_table(char **hash)
 	return (res);
 }
 
-static char			*word_to_tab(char *var)
+static char			*word_to_tab(char *var, int marge)
 {
 	char		*res;
 	char		*buf;
 
-	res = path_to_tab(var);
+	res = path_to_tab(var, marge);
 	buf = (ft_strrchr(res, '/') != NULL) ? ft_strdup(ft_strrchr(res, '/') + 1)
 		: ft_strdup(res);
 	free(res);
 	return (buf);
 }
 
-int					tab_mode(t_com_list *begin)
+int					tab_mode(t_line_list **first)
 {
 	t_param				*debut;
 	char				*var;
 	char				**table;
 	char				*word;
 
-	if (begin == NULL)
+	if ((*first)->begin == NULL)
 		return (0);
 	if (g_curr_compl != NULL)
-		return (tab_complete_line(g_curr_compl->begin, begin,
+		return (tab_complete_line(g_curr_compl->debut, first,
 			g_curr_compl->var));
-		if ((var = com_list_retrieve(begin)) == NULL)
+		if ((var = com_list_retrieve((*first)->begin)) == NULL)
 		return (0);
-	table = (iscommand(var) == 0) ? hash_table(g_hash) : list_path(var);
+	table = (iscommand(var, (*first)->marge) == 0) ? hash_table(g_hash) :
+		list_path(var, (*first)->marge);
 	if (table == NULL)
 		return (0);
-	word = word_to_tab(var);
+	word = word_to_tab(var, (*first)->marge);
 	if ((debut = string_matches(word, table)) == NULL && g_curr_compl != NULL)
-		exit_completion(begin);
+		exit_completion(*first);
 	else if (debut != NULL)
-		tab_select(&debut, begin, word);
+		tab_select(&debut, first, word);
 	ft_free_tab(table);
 	free(var);
 	free(word);

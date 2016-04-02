@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/17 17:00:59 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/29 18:51:46 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/02 18:16:49 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,24 +46,25 @@ typedef struct				s_arg_list
 typedef struct				s_list_compl
 {
 	char					*var;
-	t_param					*begin;
+	t_param					*debut;
 }							t_compl;
 
-int				search_bar_history(t_com_list **begin, t_hist_list **hist,
-		t_line *line);
+int							retrieve_row_to_skip(t_line_list *first);
+int							search_bar_history(t_line_list **begin,
+		t_hist_list **hist, t_line *line, int flag);
 char						*file_suffix(char *str, char *path);
 t_param						*string_matches(char *var, char **buf);
-char						*path_to_tab(char *var);
-char						**list_path(char *var);
+char						*path_to_tab(char *var, int marge);
+char						**list_path(char *var, int marge);
 int							clear_curr_compl(void);
 char						*tab_prepare_select(t_param *debut,
-		t_com_list *begin);
-int							tab_complete_line(t_param *debut, t_com_list *begin,
+		t_line_list **first);
+int							tab_complete_line(t_param *debut, t_line_list **first,
 		char *word);
 int							clear_tparam(t_param **begin);
-int							place_cursor_to_completion(t_com_list *begin);
-int							go_back_to_selected_char(t_com_list *begin);
-int							iscommand(char *var);
+int							place_cursor_to_completion(t_line_list *first);
+int							go_back_to_selected_char(t_line_list *first);
+int							iscommand(char *var, int marge);
 int							reset_select(t_param *debut);
 int							suppr_char_list(t_line **line);
 int							clear_tline(t_line **elem);
@@ -91,7 +92,7 @@ int							print_lines(int nb_row);
 int							move_cursor_one_down(int size, int col_nb);
 int							ft_notputs(char *str, int occ);
 int							move_cursor_up(int nb_row, int nb_tab);
-int							tab_select(t_param **debut, t_com_list *begin,
+int							tab_select(t_param **debut, t_line_list **first,
 		char *word);
 t_param						*list_param(char **argv);
 int							fputchar(int c);
