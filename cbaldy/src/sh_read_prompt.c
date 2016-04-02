@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:36:22 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/31 17:45:01 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/02 15:16:45 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int			sh_prompt(void)
 		i = sh_read_prompt(&first, &modif_hist);
 	if ((str = sh_retrieve_cmd_line(first, i, &modif_hist)) == NULL)
 		return (0);
-	ft_putendl(str);
 	sh_exec_control(str);
 	retrieve_history(1, first);
 	clear_hist(&modif_hist);

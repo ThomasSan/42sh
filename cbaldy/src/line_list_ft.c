@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 17:26:00 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/31 15:38:37 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/01 12:46:35 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,15 @@ int			line_list_free(t_line_list *first)
 	if (tmp != NULL)
 		line_list_free(tmp);
 	return (0);	
+}
+
+int			line_list_get_marge(t_line_list *first)
+{
+	while (first != NULL)
+	{
+		if (first->marge > 0)
+			return (first->marge);
+		first = first->previous;
+	}
+	return (0);
 }

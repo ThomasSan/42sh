@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 12:51:22 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/31 15:38:02 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/02 15:19:33 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ static int	term_spec_char(char buf, t_line_list **first, t_hist_list **hist)
 		ft_dprintf(STDOUT_FILENO, "\t21sh: exit\n");
 		exit(0);
 	}
-	if (buf == 3)
-		ft_dprintf(STDOUT_FILENO, "\n");
 	//if (buf == 9)
 	//	return (tab_mode((*first)->begin);
 	//if (buf == 18)
