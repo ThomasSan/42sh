@@ -6,7 +6,7 @@
 #    By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/14 14:42:25 by cbaldy            #+#    #+#              #
-#    Updated: 2016/04/02 17:16:20 by dbaldy           ###   ########.fr        #
+#    Updated: 2016/04/02 19:27:05 by dbaldy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ SRC = main.c sh_set_term.c sh_read_prompt.c sh_command.c sh_builtin_cd.c \
 TAB = tab_mode.c tab_select.c tab_nb_col.c tab_nb_row.c tab_cursor_mvt.c \
 	  tab_line_management.c tab_complete_line.c tab_prepare_select.c\
       tab_list_path.c tab_string_match.c tab_supp.c manage_search_hist.c\
-	  search_history.c suppr_elem.c
+	  search_history.c suppr_elem.c prepare_search_bar.c
 
 LEX = lexer.c ft_token_recognition.c ft_free.c \
 	  ft_push_tree.c ft_misc.c pipe_grammar.c ft_great_grammar.c \
