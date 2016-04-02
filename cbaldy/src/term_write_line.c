@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 12:47:39 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/01 17:59:03 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/02 15:24:44 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,8 @@ static int	ed_delete_char(t_line_list **first)
 static int	ed_finish_line(t_line_list **first)
 {
 	int			i;
-	int			k;
 	t_line_list	*second;
 
-	k = com_list_count((*first)->begin);
 	while (term_mv_horizontal(3, first) != -1)
 		;
 	if ((i = term_finish_line(*first)) < 0)
@@ -92,7 +90,7 @@ static int	ed_finish_line(t_line_list **first)
 		g_local->curs = 11;
 		return (0);
 	}
-	ft_putchar('\n');
+	ft_putchar_fd('\n', STDIN_FILENO);
 	return (10);
 }
 
