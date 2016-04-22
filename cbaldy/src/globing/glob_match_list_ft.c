@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 18:54:50 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/22 18:38:09 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/22 19:23:58 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,13 @@ int				clear_matchlist(t_glob_list *match_list)
 	return (0);
 }
 
-t_glob_list		*add_elem_glob(char *path, char *match, t_glob_list *glob)
+t_glob_list		*add_elem_glob(char *match, t_glob_list *glob)
 {
 	t_glob_list	*new;
 
 	if ((new = (t_glob_list*)malloc(sizeof(t_glob_list))) == NULL)
 		return (NULL);
-	new->var = (ft_strcmp(path, "./") != 0) ? ft_strjoin(path, match) :
-		ft_strdup(match);
+	new->var = ft_strdup(match);
 	new->next = NULL;
 	new->prev = glob;
 	if (glob != NULL)

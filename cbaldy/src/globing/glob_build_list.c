@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 18:55:47 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/22 18:23:46 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/22 19:24:28 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_glob_list			*build_match_list(char **path, char *word)
 	{
 		if (match(possibilities[i], word) == 1 && (possibilities[i][0] != '.'
 				|| word[0] == '.'))
-			glob = add_elem_glob(*path, possibilities[i], glob);
+			glob = add_elem_glob(possibilities[i], glob);
 		i++;
 	}
 	while (glob && glob->prev)

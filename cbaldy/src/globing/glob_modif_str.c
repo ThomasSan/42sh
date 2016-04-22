@@ -6,36 +6,52 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 18:48:50 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/22 18:46:07 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/22 19:46:56 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "glob.h"
 
-int			glob_modif_str(char **str, t_glob_list *match_list, int i)
+static char		*full_glob(t_glob_list *match_list, char *path)
+{
+	char		*tmp;
+	t_glob_list *list_buf;
+	char		*insert;
+
+	list_buf = match_list;
+	while (list_buf)
+	{
+		tmp = ft_strdup(insert); 
+		free(insert);
+		insert = ft_strjoin_multiple(4, tmp, " ", path, list_buf->var);
+		free(tmp);
+		list_buf = list_buf->next;
+	}
+	return (insert);
+}
+
+int			glob_modif_str(char **str, t_glob_list *match_list, int i,
+		char *path)
 {
 	int			size;
 	char		*insert;
 	char		*tmp;
-	t_glob_list	*list_buf;
-
-	list_buf = match_list;
+	char		*to_replace;
+	
 	size = i;
+	ft_printf("OK PASCAL\n");
 	insert = ft_strdup("");
 	while ((*str)[size] && (*str)[size] != ' ' && (*str)[size] != '/'
 			&& (*str)[size] != '\n')
 		size++;
-	while (match_list)
-	{
-		tmp = ft_strdup(insert); 
-		free(insert);
-		insert = ft_strjoin_multiple(3, tmp, " ", match_list->var);
-		free(tmp);
-		match_list = match_list->next;
-	}
+	insert = full_glob(match_list, path);
 	tmp = ft_strsub(*str, i, size);
-	*str = ft_replace_str(*str, tmp, insert);
+	to_replace = ft_strjoin(path, tmp);
+	free(tmp);
+	free(path);
+	ft_printf("%s\n", to_replace);
+	*str = ft_replace_str(*str, to_replace, insert);
 	free(insert);
-	match_list = list_buf;
+	free(to_replace);
 	return (0);
 }

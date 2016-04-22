@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 17:45:18 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/22 18:37:42 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/22 19:24:12 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ int				glob_new_string(char **str)
 			path = path_to_explore(*str, i);
 			word = word_to_glob(*str, &i);
 			match_list = build_match_list(&path, word);
-			free(path);
-			free(word);
-			glob_modif_str(str, match_list, i);
+			if (match_list == NULL)
+				return (-1);
+			glob_modif_str(str, match_list, i, path);
 			clear_matchlist(match_list);
 		}
 		i++;
