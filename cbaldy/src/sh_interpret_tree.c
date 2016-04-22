@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 12:05:44 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/02 15:11:57 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/22 18:47:30 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,13 @@ static int	sh_exec_tree(char *str)
 {
 	t_tree		*root;
 	int			ret;
+	char		*glob;
 
-	if ((root = sh_lexer_parser(str)) == NULL)
+	glob = ft_strdup(str);
+	glob_new_string(&glob);
+	ft_printf("glob: %s\n", glob);
+	exit(0);
+	if ((root = sh_lexer_parser(glob)) == NULL)
 		return (1);
 	sh_save_std_fd();
 	ret = sh_interpret(root);
