@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 12:47:39 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/02 19:02:04 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/22 16:53:35 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	ed_delete_char_nl(t_line_list **first)
 	tmp = buf[0]->begin;
 	while (tmp->next != NULL)
 		tmp = tmp->next;
-	term_mv_horizontal(4, first);
+	term_mv_horizontal(4, first, 0);
 	ft_tputs("cd", 1, 0);
 	(*first) = (*first)->next;
 	tmp->next = (*first)->begin;
@@ -46,7 +46,7 @@ static int	ed_delete_char_nl(t_line_list **first)
 	*first = buf[0];
 	print_command(tmp->next, 0, *first);
 	if (tmp->next != NULL)
-		term_mv_horizontal(4, first);
+		term_mv_horizontal(4, first, 0);
 	com_list_remove(tmp, &(buf[0]->begin));
 	return (0);
 }
@@ -78,7 +78,7 @@ static int	ed_finish_line(t_line_list **first, t_hist_list **hist)
 	int			i;
 	t_line_list	*second;
 
-	while (term_mv_horizontal(3, first) != -1)
+	while (term_mv_horizontal(3, first, 0) != -1)
 		;
 	if ((i = term_finish_line(*first)) < 0)
 	{

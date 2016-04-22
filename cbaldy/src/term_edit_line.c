@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 12:51:22 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/02 17:42:44 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/22 14:07:36 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,10 @@ static int	term_tree_choice(char *buf, int *arr, t_line_list **first,
 {
 	if (arr[1] == 1)
 		return (term_spec_char(buf[0], first, hist));
-	//else if (arr[1] == 2)
-	//	copy_cut_mode(first, buf[0]);
-	//else if (arr[1] == 3)
-	//	copy_paste(first);
 	else if (arr[1] == 4)
 		return (hist_change(buf[arr[0] - 1] - 64, hist, first));
 	else if (arr[1] == 5)
-		term_mv_horizontal(buf[arr[0] -1] - 64, first);
+		term_mv_horizontal(buf[arr[0] -1] - 64, first, 0);
 	else if (arr[1] == 6)
 		term_mv_cursor(buf[arr[0] - 1], first);
 	else if (arr[1] == 7)

@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:12:49 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/02 18:31:11 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/22 16:22:18 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ t_com_list		*com_list_dup(t_com_list *begin);
 int				hist_change(int move, t_hist_list **hist, t_line_list **first);
 int				hist_add_elem(t_line_list *begin, t_hist_list **hist);
 int				print_command(t_com_list *new, char buf, t_line_list *first);
-int				term_mv_horizontal(int move, t_line_list **first);
+int				term_mv_horizontal(int move, t_line_list **first, int change);
 int				copy_cut_mode(t_line_list **first, int mode);
 int				copy_end_mode(t_line_list **first);
 int				copy_paste(t_line_list **first);

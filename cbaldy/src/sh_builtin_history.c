@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/26 19:22:58 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/02 18:32:55 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/22 19:37:02 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static int		non_empty(t_line_list *first)
 		}
 		i++;
 	}
+	free(buf);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 11:42:12 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/31 11:22:35 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/22 12:26:28 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	term_mv_home_end(int move, t_line_list **first)
 		k = 4;
 	else
 		k = 3;
-	while (term_mv_horizontal(k, first) == 0)
+	while (term_mv_horizontal(k, first, 0) != -1)
 		;
 	return (0);
 }
@@ -36,19 +36,19 @@ static int	term_mv_word(int move, t_line_list **first)
 		tmp = tmp->next;
 	if (move == 67)
 	{
-		while (tmp && tmp->c > 32 && term_mv_horizontal(3, first) == 0)
+		while (tmp && tmp->c > 32 && term_mv_horizontal(3, first, 0) != -1)
 			tmp = tmp->next;
-		while (tmp && tmp->c < 33 && term_mv_horizontal(3, first) == 0)
+		while (tmp && tmp->c < 33 && term_mv_horizontal(3, first, 0) != -1)
 			tmp = tmp->next;
 	}
 	else if (move == 68)
 	{
-		while (tmp && tmp->c > 32 && term_mv_horizontal(4, first) == 0)
+		while (tmp && tmp->c > 32 && term_mv_horizontal(4, first, 0) != -1)
 			tmp = tmp->previous;
-		while (tmp && tmp->c < 33 && term_mv_horizontal(4, first) == 0)
+		while (tmp && tmp->c < 33 && term_mv_horizontal(4, first, 0) != -1)
 			tmp = tmp->previous;
 		if (tmp == NULL)
-			term_mv_horizontal(4, first);
+			term_mv_horizontal(4, first, 0);
 	}
 	return (0);
 }
@@ -62,13 +62,13 @@ static int	term_mv_vertical(int move, t_line_list **first)
 	buf = g_local->nb_col - 1;
 	if (move == 65 && line != 0)
 	{
-		while (term_mv_horizontal(4, first) == 0 && buf > 0)
+		while (term_mv_horizontal(4, first, 0) != -1 && buf > 0)
 			buf--;
 	}
 	else if (move == 66 && line < ((com_list_count((*first)->begin) +
 					(*first)->marge) / (g_local->nb_col + 1)))
 	{
-		while (term_mv_horizontal(3, first) == 0 && buf > 0)
+		while (term_mv_horizontal(3, first, 0) != -1 && buf > 0)
 			buf--;
 	}
 	else
