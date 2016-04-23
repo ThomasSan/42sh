@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 10:22:10 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/31 14:17:38 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/23 15:51:37 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ t_tree		*tree_build_cmd(t_parse *head)
 		head = head->next;
 		free(tmp);
 	}
-	tree_print(root);
+	//tree_print(root);
 	return (root);
+	tree_print(root);
 }

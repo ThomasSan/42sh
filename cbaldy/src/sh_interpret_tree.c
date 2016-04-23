@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 12:05:44 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/23 12:50:21 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/23 18:19:56 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_exec_list	g_exec_list[] = {
 	{LESS, &exec_redin},
 	{GREAT, &exec_redout},
-	{D_LESS, &exec_redin},
+	{D_LESS, &exec_heredoc},
 	{D_GREAT, &exec_redout},
 	{L_AND, &exec_redin},
 	{G_AND, &exec_redout},
@@ -49,10 +49,10 @@ int			sh_interpret(t_tree *root)
 	if (root == NULL)
 		return (0);
 	ret = -1;
-	if (root->types == CMD)
+	if (root->types == CMD && g_local->her == 0)
 		ret = sh_execute(root->cmd);
 	i = 0;
-	while (g_exec_list[i].id != -1 && ret == -1)
+	while (g_exec_list[i].id != -1 && ret == -1 && g_local->her == 0)
 	{
 		if (g_exec_list[i].id == root->types)
 			ret = g_exec_list[i].f(root);

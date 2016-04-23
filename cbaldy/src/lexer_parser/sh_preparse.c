@@ -6,7 +6,7 @@
 /*   By: tsanzey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 15:04:31 by tsanzey           #+#    #+#             */
-/*   Updated: 2016/03/28 15:04:34 by tsanzey          ###   ########.fr       */
+/*   Updated: 2016/04/23 15:49:22 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ t_parse		*sh_preparse(t_token *tok)
 	t_parse *head;
 
 	head = NULL;
-	// print_tok(tok);
+	 //print_tok(tok);
 	while (tok)
 	{
 		if (tok->type == WORDS)
