@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 17:45:18 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/23 12:29:32 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/23 13:26:25 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,6 @@ int				glob_new_string(char **str)
 	i = 0;
 	while ((*str)[i])
 	{
-		if ((*str)[i] == 39 || (*str)[i] == 34)
-			escape_quotes(*str, &i, (*str)[i]);
 		if ((*str)[i] == '*' || (*str)[i] == '?' || (*str)[i] == '[')
 		{
 			if ((*str)[i] == '[' && ft_strchr(&((*str)[i + 1]), ']') == NULL)
@@ -68,6 +66,7 @@ int				glob_new_string(char **str)
 			path = path_to_explore(*str, i);
 			word = word_to_glob(*str, &i);
 			match_list = build_match_list(&path, word);
+			free(word);
 			if (match_list == NULL)
 				return (-1);
 			glob_modif_str(str, match_list, i, path);

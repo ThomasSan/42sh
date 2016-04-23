@@ -6,13 +6,13 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 18:55:47 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/23 12:27:45 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/23 14:31:42 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "glob.h"
 
-static int			alias_home(char **path)
+int					alias_home(char **path)
 {
 	char	*home;
 	char	*result;
@@ -32,7 +32,7 @@ static int			alias_home(char **path)
 	return (0);
 }
 
-static char			**tabl_compl(char *path)
+char				**tabl_compl(char *path)
 {
 	DIR				*dip;
 	struct dirent	*files;

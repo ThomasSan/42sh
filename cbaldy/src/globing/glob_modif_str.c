@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 18:48:50 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/23 12:30:54 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/23 13:26:18 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,9 @@ int				glob_modif_str(char **str, t_glob_list *match_list, int i,
 	to_replace = ft_strjoin(path, tmp);
 	free(tmp);
 	free(path);
-	*str = ft_replace_str(*str, to_replace, insert);
+	tmp = ft_replace_str(*str, to_replace, insert);
+	free(*str);
+	*str = tmp;
 	free(insert);
 	free(to_replace);
 	return (0);

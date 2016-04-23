@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/08 15:22:50 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/22 14:28:56 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/23 15:01:23 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,27 +31,6 @@ char		*cd_var_env(char *name)
 	return (tmp);
 }
 
-static char	*cd_opt_path(char **com, int dir)
-{
-	char	*err;
-	char	*path;
-	int		i;
-
-	if ((i = sh_is_new_var("PWD")) < 0)
-	{
-		err = NULL;
-		if ((path = getcwd(err, 0)) == NULL)
-		{
-			ft_dprintf(STDERR_FILENO, "cd: error %s", err);
-			free(err);
-			return (NULL);
-		}
-	}
-	else
-		path = &(ft_strchr(g_env[i], '=')[1]);
-	return (mod_strjoin(ft_strjoin(path, "/"), com[dir], 1));
-}
-
 char		*cd_get_path(char **com, int opt)
 {
 	char	*path;
@@ -71,7 +50,7 @@ char		*cd_get_path(char **com, int opt)
 			return (NULL);
 	if (path != NULL)
 		return (mod_strjoin(path, &(com[dir][1]), 1));
-	return (cd_opt_path(com, dir));
+	return (cd_env_cdpath(com, dir));
 }
 
 char		*cd_get_old_path(void)

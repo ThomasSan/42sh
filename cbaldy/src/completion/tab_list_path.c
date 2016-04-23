@@ -6,13 +6,13 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 16:49:41 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/02 16:22:47 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/23 13:55:52 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static char			**tabl_compl(char *path)
+static char			**tabl_completion(char *path)
 {
 	DIR				*dip;
 	struct dirent	*files;
@@ -128,5 +128,5 @@ char				**list_path(char *var, int marge)
 		return (NULL);
 	res = path_aliases_compl(buf);
 	free(buf);
-	return (tabl_compl(res));
+	return (tabl_completion(res));
 }
