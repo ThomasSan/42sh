@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/04 14:42:54 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/31 15:01:15 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/22 13:48:59 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,12 @@
 
 static int	copy_reset_line(t_line_list *first)
 {
-	int			save;
-	int			j;
-	int			len_list;
-
-	save = g_local->curs;
-	len_list = com_list_count(first->begin);
 	ft_tputs("ce", 1, 0);
-	while (term_mv_horizontal(4, &first) == 0)
+	while (term_mv_horizontal(4, &first, 1) == 0)
 		ft_tputs("dc", 1, 0);
 	print_command(first->begin, 0, first);
-	while (term_mv_horizontal(4, &first) == 0)
+	while (term_mv_horizontal(4, &first, 1) == 0)
 		;
-	j = first->marge;
-	while (j++ != save - 1)
-		term_mv_horizontal(3, &first);
 	return (0);
 }
 
@@ -42,7 +33,7 @@ int			copy_paste(t_line_list **first)
 	com_list_add(&((*first)->begin), new, (*first)->marge);
 	copy_reset_line(*first);
 	i = com_list_count((*first)->begin);
-	while (term_mv_horizontal(3, first) == 0)
+	while (term_mv_horizontal(3, first, 1) == 0)
 		;
 	return (0);
 }

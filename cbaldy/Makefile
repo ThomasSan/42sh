@@ -6,7 +6,7 @@
 #    By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/14 14:42:25 by cbaldy            #+#    #+#              #
-#    Updated: 2016/04/23 13:54:41 by dbaldy           ###   ########.fr        #
+#    Updated: 2016/04/23 15:13:45 by dbaldy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,11 +19,11 @@ SRC = main.c sh_set_term.c sh_read_prompt.c sh_command.c sh_builtin_cd.c \
 	  sh_interpret_tree.c ft_tputs.c term_edit_line.c com_list_ft.c \
 	  term_write_line.c hist_list_ft.c print_command.c copy_end_mode.c \
 	  com_list_ft2.c term_finish_line.c sh_signal_handler.c \
-	  term_mv_cursor.c sh_minishell.c get_next_line.c change_hist.c \
+	  term_mv_cursor.c sh_minishell.c get_next_line.c hist_change.c \
       exec_redout.c exec_redin.c exec_pipe_and_or.c sh_get_exec_path.c \
 	  sh_builtin_echo.c hash_get_tab.c sh_builtin_hash.c sh_execute.c \
 	  sh_retrieve_cmd_line.c cd_get_path2.c sh_builtin_history.c \
-	  line_list_ft.c term_mv_horizontal.c cd_env_cdpath.c
+	  line_list_ft.c term_mv_horizontal.c hist_static.c cd_env_cdpath.c
 
 #copy_mode.c
 

@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/29 10:56:33 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/14 15:26:55 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/23 15:06:08 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ static int		change_line(t_line_list **first, t_hist_list **hist)
 	char	*str;
 	int		save;
 
-	while (term_mv_horizontal(4, first) != -1)
+	save = line_list_get_marge(*first);
+	while (term_mv_horizontal(4, first, 0) != -1)
 		;
 	ft_notputs("cd", 1);
 	save = line_list_get_marge(*first);
