@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/29 10:56:33 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/22 12:34:46 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/23 15:06:08 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,14 @@ static int		change_line(t_line_list **first, t_hist_list **hist)
 	while (term_mv_horizontal(4, first, 0) != -1)
 		;
 	ft_notputs("cd", 1);
+	save = line_list_get_marge(*first);
+	line_list_free(*first);
 	*first = line_list_dup((*hist)->old);
 	str = line_list_retrieve(*first);
 	hist_print_line(str);
 	(*first)->marge = save;
 	while ((*first)->next != NULL)
+		*first = (*first)->next;
 	g_local->curs = (*first)->marge + 1 + com_list_count((*first)->begin);
 	free(str);
 	return (0);
@@ -63,7 +66,7 @@ static int		change_line(t_line_list **first, t_hist_list **hist)
 static int		hist_boucle(t_hist_list **hist, char *str)
 {
 	char		*tmp;
-	
+
 	while (*hist)
 	{
 		tmp = line_list_retrieve((*hist)->old);
@@ -102,11 +105,7 @@ int			search_bar_history(t_line_list **first, t_hist_list **hist,
 		return (0);
 	}
 	line_of_command(line, &str);
-	line_list_free((*hist)->old);
-	while ((*first)->previous)
-		*first = (*first)->previous;
-	(*hist)->old = line_list_dup(*first);
-	line_list_free(*first);
+	prepare_search_bar(first, hist);
 	if (buf == NULL)
 		buf = *hist;
 	else

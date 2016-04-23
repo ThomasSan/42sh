@@ -6,7 +6,7 @@
 #    By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/14 14:42:25 by cbaldy            #+#    #+#              #
-#    Updated: 2016/04/23 12:39:23 by cbaldy           ###   ########.fr        #
+#    Updated: 2016/04/23 15:06:24 by cbaldy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,12 @@ SRC = main.c sh_set_term.c sh_read_prompt.c sh_command.c sh_builtin_cd.c \
 TAB = tab_mode.c tab_select.c tab_nb_col.c tab_nb_row.c tab_cursor_mvt.c \
 	  tab_line_management.c tab_complete_line.c tab_prepare_select.c\
       tab_list_path.c tab_string_match.c tab_supp.c manage_search_hist.c\
-	  search_history.c suppr_elem.c
+	  search_history.c suppr_elem.c prepare_search_bar.c
+
+#globing
+
+GLOB = escape_quotes.c glob_build_list.c glob_match_list_ft.c glob_new_string.c\
+	   glob_match.c glob_modif_str.c
 
 LEX = lexer.c ft_token_recognition.c ft_free.c \
 	  ft_push_tree.c ft_misc.c pipe_grammar.c ft_great_grammar.c \
@@ -46,6 +51,7 @@ FLAG = -Wall -Werror -Wextra -g
 
 LIBRARIES = -L libft/ -L ft_printf -lft -lftprintf -ltermcap
 
+CGLOB = $(addprefix src/globing/, $(GLOB))
 CFILES = $(addprefix src/, $(SRC))
 CLEX = $(addprefix src/lexer_parser/, $(LEX))
 CTAB = $(addprefix src/completion/, $(TAB))
@@ -53,20 +59,21 @@ CTAB = $(addprefix src/completion/, $(TAB))
 OBJ = $(SRC:.c=.o)
 OBJ2 = $(LEX:.c=.o)
 OBJ3 = $(TAB:.c=.o)
+OBJ4 = $(GLOB:.c=.o)
 
 all: $(NAME)
 
 $(NAME):
-	@gcc -c $(FLAG) $(INCLUDE) $(CFILES) $(CLEX) $(CTAB)
+	@gcc -c $(FLAG) $(INCLUDE) $(CFILES) $(CLEX) $(CTAB) $(CGLOB)
 	@#@make -C libft/ fclean && make -C libft && make -C libft/ clean
 	@#@make -C ft_printf/ fclean && make -C ft_printf && make -C ft_printf/ clean
-	@gcc -o $(NAME) $(LIBRARIES) $(OBJ) $(OBJ2) $(OBJ3)
-	@mkdir obj && mv $(OBJ) $(OBJ2) $(OBJ3) obj
+	@gcc -o $(NAME) $(LIBRARIES) $(OBJ) $(OBJ2) $(OBJ3) $(OBJ4)
+	@mkdir obj && mv $(OBJ) $(OBJ2) $(OBJ3) $(OBJ4) obj
 	@echo "\x1b[32;02m$(NAME) ready\x1b[0;m"
 
 clean:
 	@/bin/rm -rf obj
-	@/bin/rm -rf $(OBJ) $(OBJ2) $(OBJ3)
+	@/bin/rm -rf $(OBJ) $(OBJ2) $(OBJ3) $(OBJ4)
 	@echo "\x1b[0;01mclean\x1b[0;m"
 
 fclean: clean

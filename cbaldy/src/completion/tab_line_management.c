@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 16:19:18 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/02 16:29:59 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/02 18:53:30 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ int			retrieve_row_to_skip(t_line_list *first)
 	int				total_row;
 	int				size_list;
 
-	tmp = first;
-	size_list = com_list_count(tmp->begin);
+	tmp = first->next;
+	size_list = com_list_count(first->begin);
 	total_row = size_list / g_local->nb_col;
 	row_to_skip = total_row - (g_local->curs / g_local->nb_col);
 	while (tmp)

@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/29 18:23:39 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/21 18:31:23 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/22 14:48:14 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ void	ft_sort_integer_table(int *tabl, int size)
 		while (i[0] < size - 1)
 		{
 			i[1] = i[0] + 1;
-			if (tab[i[0]] > tab[i[1]])
+			if (tabl[i[0]] > tabl[i[1]])
 			{
-				buf = tab[i[0]];
-				tab[i[0]] = tab[i[1]];
-				tab[i[1]] = buf;
+				buf = tabl[i[0]];
+				tabl[i[0]] = tabl[i[1]];
+				tabl[i[1]] = buf;
 				n = 1;
 			}
 			i[0]++;
