@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 16:49:46 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/02 18:33:11 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/22 12:35:16 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	increase_line(t_line_list **first, char *test)
 	}
 	while (buf && buf->c != ' ')
 	{
-		term_mv_horizontal(3, first);
+		term_mv_horizontal(3, first, 0);
 		buf = buf->next;
 	}
 	i = 0;

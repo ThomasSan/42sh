@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 17:00:28 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/02 15:24:38 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/22 12:27:00 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	print_return_cursor(int len_str, t_line_list *first, int saut)
 	}
 	while (len_str > 0)
 	{
-		term_mv_horizontal(4, &first);
+		term_mv_horizontal(4, &first, 0);
 		len_str--;
 	}
 	return (0);
@@ -70,7 +70,7 @@ int			print_command(t_com_list *new, char buf, t_line_list *first)
 	op = (buf == 127 ? 0 : 1);
 	str = com_list_retrieve(new);
 	if (buf == 127)
-		term_mv_horizontal(4, &first);
+		term_mv_horizontal(4, &first, 0);
 	saut = print_string(str);
 	len_str = ft_strlen(str);
 	g_local->curs += len_str;
