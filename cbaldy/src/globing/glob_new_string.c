@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 17:45:18 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/22 19:24:12 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/23 12:29:32 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ static char		*word_to_glob(char *str, int *i)
 	int		le;
 
 	le = *i;
-	while (*i > 1 && str[*i - 1] != ' ' && str[*i - 1] != '/' && str[*i - 1] != '\n')
+	while (*i > 1 && str[*i - 1] != ' ' && str[*i - 1] != '/' &&
+			str[*i - 1] != '\n')
 		(*i)--;
 	while (str[le] && str[le] != ' ' && str[le] != '/' && str[le] != '\n')
 		le++;
@@ -27,7 +28,7 @@ static char		*word_to_glob(char *str, int *i)
 
 static char		*path_to_explore(char *str, int i)
 {
-	int 	var;
+	int		var;
 	char	*tmp;
 	char	*ret;
 

@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 18:55:47 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/22 19:24:28 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/23 12:27:45 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,24 +62,29 @@ static char			**tabl_compl(char *path)
 
 t_glob_list			*build_match_list(char **path, char *word)
 {
-	char			**possibilities;
+	char			**poss;
 	int				i;
 	t_glob_list		*glob;
 
 	i = 0;
 	alias_home(path);
 	glob = NULL;
-	if ((possibilities = tabl_compl(*path)) == NULL)
+	if ((poss = tabl_compl(*path)) == NULL)
 		return (NULL);
-	while (possibilities[i])
+	while (poss[i])
 	{
-		if (match(possibilities[i], word) == 1 && (possibilities[i][0] != '.'
-				|| word[0] == '.'))
-			glob = add_elem_glob(possibilities[i], glob);
+		if (match(poss[i], word) == 1)
+		{
+			if ((poss[i][0] == '.' && word[0] != '.') || ft_strcmp(poss[i], ".")
+			== 0 || ft_strcmp(poss[i], "..") == 0)
+				;
+			else
+				glob = add_elem_glob(poss[i], glob);
+		}
 		i++;
 	}
 	while (glob && glob->prev)
 		glob = glob->prev;
-	ft_free_tab(possibilities);
+	ft_free_tab(poss);
 	return (glob);
 }

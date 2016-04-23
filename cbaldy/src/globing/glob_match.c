@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 19:54:00 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/22 14:00:23 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/23 12:30:47 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static int	star(char *tested, char *word)
 	char	*ret;
 	int		skip;
 
-	buf = word + 1;	
+	buf = word + 1;
 	while (*buf && *buf != '*' && *buf != '?' && *buf != '[')
 		buf++;
 	if ((skip = skip_to_glob(buf, tested, word)) == 1)
@@ -77,7 +77,7 @@ static int	star(char *tested, char *word)
 		return (0);
 	buf = ft_strsub(word + 1, 0, buf - (word + 1));
 	ret = ft_strstr(tested, buf);
-	while (ret != NULL && 
+	while (ret != NULL &&
 			(match(ret + ft_strlen(buf), word + ft_strlen(buf) + 1)) == 0)
 		ret = ft_strstr(ret + ft_strlen(buf), buf);
 	free(buf);
@@ -88,11 +88,11 @@ static int	star(char *tested, char *word)
 
 int			match(char *tested, char *word)
 {
-	if (*word == '\0')
+	if (*word == '\0' && *tested == '\0')
 		return (1);
 	if (*word == '*' || *word == '?' || *word == '[')
 	{
-		if (*word == '*')			
+		if (*word == '*')
 			return (star(tested, word));
 		else if (*word == '?')
 			return (question_mark(tested, word));
