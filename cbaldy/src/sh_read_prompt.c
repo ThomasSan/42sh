@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:36:22 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/24 16:25:31 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/24 17:17:35 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static int	sh_print_prompt(void)
 	if (ioctl(STDIN_FILENO, TIOCGWINSZ, &w) < 0)
 		return (0);
 	g_local->nb_col = (w.ws_col == 0 ? 1 : w.ws_col);
-	g_local->her = 0;
 	sh_set_term();
 	ft_tputs("cd", 1, 0);
 	return (i);
@@ -45,7 +44,7 @@ static int	sh_read_prompt(t_line_list **first, t_hist_list **hist)
 	ft_bzero(&buf[len], 10 - len);
 	if (ft_strcmp(buf, "\x09") != 0)
 		clear_curr_compl();
-	if  (manage_search_hist(buf, first, hist, 1) != 0 &&
+	if (manage_search_hist(buf, first, hist, 1) != 0 &&
 			buf[0] <= 32 && buf[1] == 0)
 		exit_search_hist(first);
 	if (manage_search_hist(buf, first, hist, 1) != 0 && buf[0] > 32 &&

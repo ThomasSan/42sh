@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 12:18:39 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/23 18:55:02 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/24 17:10:51 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ typedef struct			s_local
 	int					nb_col;
 	int					exit_value;
 	int					le_mode;
-	int					her;
 	t_com_list			*begin;
 }						t_local;
 

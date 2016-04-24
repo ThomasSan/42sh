@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/08 15:22:50 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/23 15:01:23 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/24 17:20:19 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char		*cd_get_path(char **com, int opt)
 {
 	char	*path;
 	int		dir;
-	
+
 	dir = (opt == 0 || com[1] == NULL ? 1 : 2);
 	path = NULL;
 	if (com[dir] == NULL)

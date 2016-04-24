@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/25 11:51:07 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/24 15:55:26 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/24 17:19:05 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	exec_free_left_root(t_tree *root)
 	return (0);
 }
 
-int		exec_pipe(t_tree *root)
+int			exec_pipe(t_tree *root)
 {
 	int		fd[2];
 	pid_t	pid;
@@ -52,7 +52,7 @@ int		exec_pipe(t_tree *root)
 	return (i[1]);
 }
 
-int		exec_and(t_tree *root)
+int			exec_and(t_tree *root)
 {
 	int		ret;
 
@@ -65,7 +65,7 @@ int		exec_and(t_tree *root)
 	}
 }
 
-int		exec_or(t_tree *root)
+int			exec_or(t_tree *root)
 {
 	int		ret;
 
@@ -78,7 +78,7 @@ int		exec_or(t_tree *root)
 	}
 }
 
-int		exec_end(t_tree *root)
+int			exec_end(t_tree *root)
 {
 	char	*ret;
 	int		i;

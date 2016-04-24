@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 12:43:45 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/31 10:24:10 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/24 17:17:20 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ void		sig_quit(void)
 
 void		sig_int(void)
 {
-	char	buf = 4;
+	char	buf;
+
+	buf = 4;
 	ft_dprintf(STDIN_FILENO, "%c", buf);
 }
 
