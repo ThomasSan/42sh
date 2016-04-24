@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 16:44:46 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/23 18:54:59 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/24 17:18:43 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	heredoc_tree_choice(char *buf, int *arr, t_line_list **first)
 	if (arr[1] == 1)
 		return (heredoc_spec_char(buf[0]));
 	else if (arr[1] == 5)
-		term_mv_horizontal(buf[arr[0] -1] - 64, first, 0);
+		term_mv_horizontal(buf[arr[0] - 1] - 64, first, 0);
 	else if (arr[1] == 6)
 		term_mv_cursor(buf[arr[0] - 1], first);
 	else if (arr[1] == 7)
@@ -60,7 +60,7 @@ int			heredoc_edit_line(char *buf, int len, t_line_list **first)
 {
 	int		i;
 	int		arr[2];
-	
+
 	i = 0;
 	while (g_here_edit_line[i].id != NULL &&
 			ft_strncmp(g_here_edit_line[i].id, buf, len) != 0)

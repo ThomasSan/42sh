@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 15:42:46 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/24 15:14:44 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/24 17:12:04 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ static char	*heredoc_retrieve(t_line_list **first, int i)
 	tmp = NULL;
 	if (i == 3)
 	{
-		g_local->her = -1;
 		line_list_free(*first);
 		ft_putchar_fd('\n', STDIN_FILENO);
 		return (NULL);
@@ -97,8 +96,7 @@ int			exec_heredoc(t_tree *root)
 	save = fd_save();
 	sh_reset_std_fd();
 	str = heredoc_prompt(root->cmd[0]);
-	if (g_local->her != -1)
-		fd_reset(save);
+	fd_reset(save);
 	free(save);
 	pipe(fd);
 	if (str != NULL)

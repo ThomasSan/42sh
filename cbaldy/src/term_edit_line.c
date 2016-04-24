@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 12:51:22 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/22 14:07:36 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/24 17:16:07 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static int	term_tree_choice(char *buf, int *arr, t_line_list **first,
 	else if (arr[1] == 4)
 		return (hist_change(buf[arr[0] - 1] - 64, hist, first));
 	else if (arr[1] == 5)
-		term_mv_horizontal(buf[arr[0] -1] - 64, first, 0);
+		term_mv_horizontal(buf[arr[0] - 1] - 64, first, 0);
 	else if (arr[1] == 6)
 		term_mv_cursor(buf[arr[0] - 1], first);
 	else if (arr[1] == 7)
@@ -75,7 +75,7 @@ int			term_edit_line(char *buf, int len, t_line_list **first,
 {
 	int		i;
 	int		arr[2];
-	
+
 	i = 0;
 	while (g_edit_line[i].id != NULL &&
 			ft_strncmp(g_edit_line[i].id, buf, len) != 0)

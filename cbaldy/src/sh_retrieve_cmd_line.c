@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/25 17:28:38 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/24 16:26:06 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/24 17:19:24 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ static char	*sh_reset_cmd_line(t_line_list **first, t_hist_list **hist)
 	return (NULL);
 }
 
-char	*sh_retrieve_cmd_line(t_line_list *first, int end, t_hist_list **hist)
+char		*sh_retrieve_cmd_line(t_line_list *first, int end,
+		t_hist_list **hist)
 {
 	char	*cmd;
 

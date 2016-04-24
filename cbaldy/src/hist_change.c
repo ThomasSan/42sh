@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 11:57:11 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/23 15:05:30 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/24 17:18:03 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int			hist_print_line(char *s)
 	ft_tputs("ce", 1, 0);
 	return (0);
 }
-
 
 static int	move_hist(int move, t_hist_list **hist, t_line_list **first)
 {

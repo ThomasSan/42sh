@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 11:42:12 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/22 12:26:28 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/24 17:15:45 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int	term_mv_vertical(int move, t_line_list **first)
 {
 	int		buf;
 	int		line;
-	
+
 	line = g_local->curs / (g_local->nb_col + 1);
 	buf = g_local->nb_col - 1;
 	if (move == 65 && line != 0)
@@ -76,7 +76,7 @@ static int	term_mv_vertical(int move, t_line_list **first)
 	return (0);
 }
 
-int		term_mv_cursor(char buf, t_line_list **first)
+int			term_mv_cursor(char buf, t_line_list **first)
 {
 	if (buf == 70 || buf == 72)
 		return (term_mv_home_end(buf, first));
