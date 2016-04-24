@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 15:42:46 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/23 18:54:57 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/24 15:14:44 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ static char	*heredoc_retrieve(t_line_list **first, int i)
 	{
 		g_local->her = -1;
 		line_list_free(*first);
+		ft_putchar_fd('\n', STDIN_FILENO);
 		return (NULL);
 	}
-	else if (i == 10)
-		heredoc_remove_last(first);
+	heredoc_remove_last(first);
 	if (*first == NULL)
 		return (NULL);
 	while (*first != NULL && (*first)->previous != NULL)
@@ -76,31 +76,38 @@ static char	*heredoc_prompt(char *eof)
 
 	sh_set_term();
 	ft_tputs("cd", 1, 0);
-	ft_dprintf(STDIN_FILENO, "heredoc> ");
+	ft_dprintf(STDOUT_FILENO, "heredoc> ");
 	g_local->curs = 11;
 	if ((first = line_list_new(10)) == NULL)
 		return (NULL);
 	i = 0;
-	while (i != 10 && i != 3 && i != 4)
+	while (i != 10 && i != 3)
 		i = heredoc_read_prompt(&first, eof);
+	sh_reset_term();
 	return (heredoc_retrieve(&first, i));
 }
 
-int		exec_heredoc(t_tree *root)
+int			exec_heredoc(t_tree *root)
 {
 	char	*str;
 	int		ret;
 	int		fd[2];
+	int		*save;
 
+	save = fd_save();
+	sh_reset_std_fd();
 	str = heredoc_prompt(root->cmd[0]);
+	if (g_local->her != -1)
+		fd_reset(save);
+	free(save);
 	pipe(fd);
-	ft_putstr_fd(str, fd[1]);
+	if (str != NULL)
+		ft_putstr_fd(str, fd[1]);
 	close(fd[1]);
 	dup2(fd[0], STDIN_FILENO);
 	ret = sh_interpret(root->right);
 	if (str != NULL)
 		free(str);
 	close(fd[0]);
-	sh_reset_std_fd();
 	return (ret);
 }
