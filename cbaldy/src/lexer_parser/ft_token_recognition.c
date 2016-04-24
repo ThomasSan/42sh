@@ -6,7 +6,7 @@
 /*   By: tsanzey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 15:12:24 by tsanzey           #+#    #+#             */
-/*   Updated: 2016/04/02 18:07:05 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/24 16:05:16 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,8 @@ void		return_type_quoted(t_token *tok)
 		if (tok->type == BACKSLASH)
 		{
 			if (check_next_token(tok) != WORDS)
-			{
-				pop_middle_token(tok);
 				tok->next->type = WORDS;
-			}
+			pop_middle_token(tok);
 		}
 		tok = tok->next;
 	}
