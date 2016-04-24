@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:36:22 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/23 15:05:02 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/23 17:45:41 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static int	sh_print_prompt(void)
 	if (ioctl(STDIN_FILENO, TIOCGWINSZ, &w) < 0)
 		return (0);
 	g_local->nb_col = (w.ws_col == 0 ? 1 : w.ws_col);
+	g_local->her = 0;
 	sh_set_term();
 	ft_tputs("cd", 1, 0);
 	return (i);

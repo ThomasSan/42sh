@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 16:17:20 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/23 13:09:55 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/23 18:32:03 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*mod_strjoin(char *s1, char *s2, int fr)
 		tmp = ft_strjoin(s1, s2);
 	if ((fr & 1) != 0)
 		free(s1);
-	else if ((fr & 2) != 0)
+	if ((fr & 2) != 0)
 		free(s2);
 	return (tmp);
 }
