@@ -6,30 +6,12 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 13:45:30 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/25 11:53:42 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/25 16:42:47 by nchrupal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-
-static char	*sh_explore_dir(char *list_path, char *bin)
-{
-	DIR				*dirp;
-	struct dirent	*dp;
-	char			*exec;
-
-	exec = NULL;
-	if ((dirp = opendir(list_path)) != NULL)
-	{
-		while ((dp = readdir(dirp)) != NULL && exec == NULL)
-		{
-			if (ft_strcmp(bin, dp->d_name) == 0)
-				exec = mod_strjoin(ft_strjoin(list_path, "/"), bin, 1);
-		}
-		closedir(dirp);
-	}
-	return (exec);
-}
+#include "hashtable.h"
 
 static char	*sh_direct_call(char *cmd)
 {
@@ -55,23 +37,15 @@ static char	*sh_direct_call(char *cmd)
 static char	*sh_find_exec_path(char *cmd)
 {
 	int		i;
-	char	**path;
-	char	*bin;
+	t_hash	*hash;
+	t_hash	*find;
 
 	if ((i = sh_is_new_var("PATH")) < 0)
 		return (NULL);
-	path = ft_strsplit(&(ft_strchr(g_env[i], '=')[1]), ':');
-	i = 0;
-	while (path[i] != NULL)
-	{
-		if ((bin = sh_explore_dir(path[i], cmd)) != NULL)
-		{
-			ft_free_tab(path);
-			return (bin);
-		}
-		i++;
-	}
-	ft_free_tab(path);
+	hash = hash_createfile();
+	find = hash_exist(cmd);
+	if (find != NULL)
+		return (ft_strdup(find->fullpath));
 	return (NULL);
 }
 
