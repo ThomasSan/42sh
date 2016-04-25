@@ -39,9 +39,10 @@ t_token		*join_quoted(t_token *tok, t_sym sym)
 	{
 		if (tmp->type == sym)
 		{
-			tmp = tmp->next;
-			tmp1 = tmp;
-			tmp = tmp->next;
+			tmp1 = tmp->next;
+			if (tmp1->type == sym)
+				return (tok);
+			tmp = tmp1->next;
 			while (tmp && tmp->type != sym)
 			{
 				str = tmp1->content;
@@ -64,17 +65,21 @@ void		return_type_quoted(t_token *tok)
 	sym = -2;
 	while (tok)
 	{
-		if (is_quoted == 0 &&
-			(tok->type == QUOTES || tok->type == SINGLE_QUOTES))
+		if (is_quoted && tok->type == BACKSLASH && check_next_token(tok) == sym)
 		{
-			sym = tok->type;
-			is_quoted = 1;
-			tok = tok->next;
+			tok->next->type = WORDS;
+			tok = pop_middle_token(tok);
 		}
 		if (is_quoted && tok->type != sym)
 			tok->type = WORDS;
 		if (is_quoted && tok->type == sym)
 			is_quoted = 0;
+		if (is_quoted == 0 &&
+			(tok->type == QUOTES || tok->type == SINGLE_QUOTES))
+		{
+			sym = tok->type;
+			is_quoted = 1;
+		}
 		tok = tok->next;
 	}
 }

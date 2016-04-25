@@ -6,7 +6,7 @@
 /*   By: nchrupal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 08:53:14 by nchrupal          #+#    #+#             */
-/*   Updated: 2016/04/25 16:43:00 by nchrupal         ###   ########.fr       */
+/*   Updated: 2016/04/25 17:27:16 by tsanzey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 t_hash	*g_hashtable = NULL;
 
-void	*xmalloc(size_t size)
+void		*xmalloc(size_t size)
 {
 	void	*ptr;
 
