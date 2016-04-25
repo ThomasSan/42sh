@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/25 18:38:14 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/22 18:39:07 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/25 13:33:20 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,6 @@ char				*ft_convert_base(char *nbr, char *base_from,
 char				*ft_strtrunc(char *str, int c);
 char				*ft_strjoin_multiple(int nb, ...);
 char				*ft_replace_str(char *old, char *to_find, char *alias);
+char				*ft_ireplace_str(char *old, char *replace, int i,
+		int length);
 #endif

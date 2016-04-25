@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 17:53:12 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/25 11:55:29 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/25 13:51:22 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int			escape_quotes(char *str, int *i, int c)
 	var = *i + 1;
 	while (str[var])
 	{
+		if ((int)str[var] == 0x5c)
+			var += 2;
 		if ((int)str[var] == c)
 		{
 			*i = var + 1;

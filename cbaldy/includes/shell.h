@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:12:49 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/24 17:21:37 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/25 13:39:36 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ int				line_list_get_marge(t_line_list *first);
 int				glob_new_string(char **str);
 char			*cd_env_cdpath(char **com, int dir);
 char			**tabl_compl(char *path);
+int				alias_ihome(char **path, int i);
 int				alias_home(char **path);
 int				exec_heredoc(t_tree *root);
 int				heredoc_edit_line(char *buf, int len, t_line_list **first);

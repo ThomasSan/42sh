@@ -6,11 +6,25 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 18:55:47 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/23 14:31:42 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/25 13:47:05 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "glob.h"
+
+int					alias_ihome(char **path, int i)
+{
+	char	*result;
+	int		j;
+
+	if ((j = sh_is_new_var("HOME")) < 0)
+		return (0);
+	result = ft_strchr(g_env[j], '=') + 1;
+	result = ft_ireplace_str(*path, result, i, 1);
+	free(*path);
+	*path = result;
+	return (0);
+}
 
 int					alias_home(char **path)
 {
@@ -67,7 +81,6 @@ t_glob_list			*build_match_list(char **path, char *word)
 	t_glob_list		*glob;
 
 	i = 0;
-	alias_home(path);
 	glob = NULL;
 	if ((poss = tabl_compl(*path)) == NULL)
 		return (NULL);
@@ -76,7 +89,7 @@ t_glob_list			*build_match_list(char **path, char *word)
 		if (match(poss[i], word) == 1)
 		{
 			if ((poss[i][0] == '.' && word[0] != '.') || ft_strcmp(poss[i], ".")
-			== 0 || ft_strcmp(poss[i], "..") == 0)
+					== 0 || ft_strcmp(poss[i], "..") == 0)
 				;
 			else
 				glob = add_elem_glob(poss[i], glob);

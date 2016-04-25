@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 17:45:18 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/25 12:40:53 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/25 13:47:58 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static char		*path_to_explore(char *str, int i)
 	else
 		ret = ft_strdup(".");
 	free(tmp);
-	tmp = ft_strjoin(ret, "/");
+	tmp = (ft_strcmp(ret, "/") != 0) ? ft_strjoin(ret, "/") : ft_strdup(ret);
 	free(ret);
 	return (tmp);
 }
@@ -59,11 +59,12 @@ static int		glob_maison(char **str, int i)
 		return (-1);
 	path = path_to_explore(*str, i);
 	word = word_to_glob(*str, &i);
+	ft_printf("path: %s word: %s\n", path, word);
 	match_list = build_match_list(&path, word);
 	free(word);
 	if (match_list == NULL)
 		return (-1);
-	if (ft_strncmp(&((*str)[i]), "./", 2) != 0)
+	if (ft_strncmp(&((*str)[i]), "./", 2) != 0 && ft_strncmp(path, "./", 2) == 0)
 	{
 		word = ft_strsub(path, 2, ft_strlen(path) - 2);
 		free(path);
@@ -71,6 +72,7 @@ static int		glob_maison(char **str, int i)
 	}
 	glob_modif_str(str, match_list, i, path);
 	clear_matchlist(match_list);
+	ft_printf("str: %s\n", *str);
 	return (0);
 }
 
@@ -81,7 +83,9 @@ int				glob_new_string(char **str)
 	i = 0;
 	while ((*str)[i])
 	{
-		if ((*str)[i] == 0x22 || (*str)[i] == 0x27)
+		if ((*str)[i] == ' ' && (*str)[i + 1] == '~')
+			alias_ihome(str, i + 1);
+		else if ((*str)[i] == 0x22 || (*str)[i] == 0x27)
 			escape_quotes(*str, &i, (*str)[i]);
 		else if ((*str)[i] == '$')
 			replace_dollar(str, &i);
