@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/26 15:13:17 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/30 11:07:01 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/25 12:36:13 by tsanzey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	parse_analyse_token(t_parse **head, t_token *tok)
 				<= AND_GREAT))
 		return (parse_get_redir(head, tok));
 	else if (tok->type == PIPE || tok->type == SEMICOL ||
-		tok->type == D_PIPE || tok->type == D_SAND 
+		tok->type == D_PIPE || tok->type == D_SAND
 		|| tok->type == BACK_QUOTES)
 		return (parse_get_pipe_type(head, tok));
 	return (1);
@@ -83,7 +83,6 @@ t_parse		*parse_build_list(t_token *tok)
 			i--;
 		}
 	}
-	//parse_print(head);
 	return (head);
 	parse_print(head);
 }

@@ -12,26 +12,6 @@
 
 #include "lexer.h"
 
-t_parse		*ft_push_in_tab(t_parse *new, t_token *tok)
-{
-	int		rows;
-	int		i;
-
-	i = 0;
-	rows = number_of_rows(tok);
-	if (!(new->arg = (char **)malloc(sizeof(char *) * rows + 1)))
-		return (NULL);
-	while (i < rows)
-	{
-		new->arg[i] = ft_strdup(tok->content);
-		tok = tok->next;
-		i++;
-	}
-	new->arg[i] = NULL;
-	new->type = CMD;
-	return (new);
-}
-
 t_parse		*ft_push_pipe(t_parse *head, t_token *tok)
 {
 	t_parse	*new;
@@ -103,26 +83,11 @@ t_parse		*ft_parse_cmd(t_parse *head, t_token *tok)
 	return (head);
 }
 
-int			print_tok(t_token *tok)
-{
-	t_token	*tmp;
-
-	tmp = tok;
-	while (tmp != NULL)
-	{
-		printf("%d -> ", tmp->type);
-		tmp = tmp->next;
-	}
-	printf("\n");
-	return (0);
-}
-
 t_parse		*sh_preparse(t_token *tok)
 {
 	t_parse *head;
 
 	head = NULL;
-	 //print_tok(tok);
 	while (tok)
 	{
 		if (tok->type == WORDS)

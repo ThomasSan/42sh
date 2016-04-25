@@ -6,7 +6,7 @@
 /*   By: tsanzey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 15:23:00 by tsanzey           #+#    #+#             */
-/*   Updated: 2016/03/30 12:34:01 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/25 12:35:08 by tsanzey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int			is_word_or(char *s, int i)
 			return (1);
 	}
 	if (s[i - 1] != '\0' && ft_isdigit(s[i - 1]))
-	{	
+	{
 		j = 0;
 		while (s[i + j + 1] && ft_isdigit(s[i + j + 1]))
 			j--;
@@ -74,9 +74,6 @@ t_token		*ft_token_removal(t_token *tok, t_sym sym)
 	return (tok);
 }
 
-/*
-** ft_display_tokens a virer avant de push
-*/
 void		ft_display_tokens(t_token *tok)
 {
 	while (tok)
@@ -85,9 +82,6 @@ void		ft_display_tokens(t_token *tok)
 		tok = tok->next;
 	}
 }
-/*
-**
-*/
 
 int			ft_edit_useless(t_token *tok)
 {
