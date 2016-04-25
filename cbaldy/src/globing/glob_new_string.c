@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 17:45:18 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/25 13:47:58 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/25 14:29:35 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,30 @@ static char		*path_to_explore(char *str, int i)
 	free(ret);
 	return (tmp);
 }
-
-static int		glob_maison(char **str, int i)
+/*
+static t_glob_list 	*glob_progressiv(char *str, int i)
 {
-	t_glob_list	*match_list;
 	char		*word;
 	char		*path;
+	t_glob_list	*match_list;
+
+	path = path_to_explore(str, i);
+	word = word_to_glob(str, &i);
+	match_list = build_match_list(&path, word);
+	return (match_list);
+}
+*/
+static int			glob_maison(char **str, int i)
+{
+	t_glob_list	*match_list;
+	char		*path;
+	char		*word;
 
 	if ((*str)[i] == '[' && ft_strchr(&((*str)[i + 1]), ']') == NULL)
 		return (-1);
 	path = path_to_explore(*str, i);
 	word = word_to_glob(*str, &i);
-	ft_printf("path: %s word: %s\n", path, word);
 	match_list = build_match_list(&path, word);
-	free(word);
 	if (match_list == NULL)
 		return (-1);
 	if (ft_strncmp(&((*str)[i]), "./", 2) != 0 && ft_strncmp(path, "./", 2) == 0)
@@ -95,7 +105,7 @@ int				glob_new_string(char **str)
 				return (-1);
 			i = 0;
 		}
-		else
+		else if ((*str)[i] != '\0')
 			i = ((*str)[i] == 0x5c) ? i + 2 : i + 1;
 	}
 	return (0);
