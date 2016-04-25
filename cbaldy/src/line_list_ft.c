@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 17:26:00 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/23 15:05:13 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/24 17:16:56 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,10 @@ t_line_list	*line_list_dup(t_line_list *var)
 	return (tmp);
 }
 
-
 int			line_list_free(t_line_list *first)
 {
 	t_line_list	*tmp;
-	
+
 	if (first == NULL)
 		return (0);
 	while (first->previous)
@@ -82,7 +81,7 @@ int			line_list_free(t_line_list *first)
 		tmp->previous = NULL;
 		line_list_free(tmp);
 	}
-	return (0);	
+	return (0);
 }
 
 int			line_list_get_marge(t_line_list *first)

@@ -6,13 +6,15 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 20:03:13 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/23 15:04:49 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/24 17:13:57 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-/* 1 = changement de ligne impossible */
+/*
+** 1 = changement de ligne impossible
+*/
 
 static int	term_mv_left(t_line_list **first)
 {
@@ -75,7 +77,8 @@ int			term_mv_horizontal(int move, t_line_list **first, int change)
 	{
 		if (g_local->curs > (*first)->marge + 1)
 			return (term_mv_left(first));
-		else if ((*first)->marge == 0 && (*first)->previous != NULL && change != 1)
+		else if ((*first)->marge == 0 && (*first)->previous != NULL
+				&& change != 1)
 			return (term_mv_left(first));
 		else
 			return (-1);

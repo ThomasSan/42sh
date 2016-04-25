@@ -1,37 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sh_signal_handler.c                                :+:      :+:    :+:   */
+/*   fd_save.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/08 12:43:45 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/24 17:17:20 by cbaldy           ###   ########.fr       */
+/*   Created: 2016/04/24 15:02:36 by cbaldy            #+#    #+#             */
+/*   Updated: 2016/04/24 17:19:46 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void		sig_quit(void)
+int		*fd_save(void)
 {
-	ft_free_tab(g_env);
-	sh_reset_term();
-	ft_dprintf(STDOUT_FILENO, "\t21sh: exit\n");
-	exit(g_local->exit_value);
+	int		*save;
+
+	if ((save = (int *)malloc(sizeof(int) * 3)) == NULL)
+		return (NULL);
+	save[0] = dup(STDIN_FILENO);
+	save[1] = dup(STDOUT_FILENO);
+	save[2] = dup(STDERR_FILENO);
+	return (save);
 }
 
-void		sig_int(void)
+int		fd_reset(int *save)
 {
-	char	buf;
-
-	buf = 4;
-	ft_dprintf(STDIN_FILENO, "%c", buf);
-}
-
-void		signal_handler(int signum)
-{
-	if (signum == SIGQUIT)
-		sig_quit();
-	if (signum == SIGINT)
-		sig_int();
+	dup2(save[0], STDIN_FILENO);
+	dup2(save[1], STDOUT_FILENO);
+	dup2(save[2], STDERR_FILENO);
+	return (0);
 }

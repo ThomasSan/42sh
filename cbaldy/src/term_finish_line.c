@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 18:32:23 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/22 17:24:04 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/25 11:27:04 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static int	term_read_string(char *str, int *arr)
 	if ((str[0] == '`' && arr[5] != 0) || (str[0] == '"' &&
 				arr[4] != 0) || (str[0] == 39 && arr[3] != 0))
 	{
-		while (str[i] && str[i] != str[0])
+		while (str[i] && str[i] != str[0] && (str[i - 1] == 92 || str[0] == 39))
 			i++;
 	}
 	return (i);

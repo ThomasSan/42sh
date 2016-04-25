@@ -15,6 +15,8 @@
 
 int			is_word_or(char *s, int i)
 {
+	int		j;
+
 	if (!ft_isdigit(s[i]))
 		return (0);
 	if (s[i + 1] != '\0' && (s[i + 1] == '>' || s[i + 1] == '<'))
@@ -22,9 +24,21 @@ int			is_word_or(char *s, int i)
 	if (s[i - 1] && s[i - 1] == '&')
 		return (1);
 	if (s[i + 1] != '\0' && ft_isdigit(s[i + 1]))
-		return (1);
+	{
+		j = 0;
+		while (s[i + j + 1] && ft_isdigit(s[i + j + 1]))
+			j++;
+		if (s[i + 1] != '\0' && (s[i + 1] == '>' || s[i + 1] == '<'))
+			return (1);
+	}
 	if (s[i - 1] != '\0' && ft_isdigit(s[i - 1]))
-		return (1);
+	{	
+		j = 0;
+		while (s[i + j + 1] && ft_isdigit(s[i + j + 1]))
+			j--;
+		if (s[i - 1] && s[i - 1] == '&')
+			return (1);
+	}
 	return (0);
 }
 

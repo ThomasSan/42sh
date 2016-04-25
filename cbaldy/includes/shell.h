@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:12:49 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/23 15:13:08 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/24 17:21:37 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,12 @@ int				sh_set_term(void);
 int				sh_get_term_fildes(void);
 int				sh_reset_term(void);
 int				ft_tputs(char *s, int nb_l, int flag);
-int				term_edit_line(char *buf, int len, t_line_list **first, t_hist_list **hist);
+int				term_edit_line(char *buf, int len, t_line_list **first,
+		t_hist_list **hist);
 t_com_list		*com_list_new(char value);
 int				com_list_count(t_com_list *begin);
-int				term_write_line(t_line_list **first, char buf, t_hist_list **hist);
+int				term_write_line(t_line_list **first, char buf,
+		t_hist_list **hist);
 char			*com_list_retrieve(t_com_list *begin);
 int				*hist_list_new(t_hist_list **hist);
 int				com_list_free(t_com_list *begin);
@@ -138,4 +140,10 @@ int				glob_new_string(char **str);
 char			*cd_env_cdpath(char **com, int dir);
 char			**tabl_compl(char *path);
 int				alias_home(char **path);
+int				exec_heredoc(t_tree *root);
+int				heredoc_edit_line(char *buf, int len, t_line_list **first);
+int				heredoc_write_line(t_line_list **first, char buf, char *eof);
+int				*fd_save(void);
+int				fd_reset(int *save);
+
 #endif

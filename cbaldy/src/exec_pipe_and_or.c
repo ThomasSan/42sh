@@ -6,42 +6,53 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/25 11:51:07 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/02 15:01:01 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/24 17:19:05 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-int		exec_pipe(t_tree *root)
+static int	exec_free_left_root(t_tree *root)
+{
+	if (root->left != NULL)
+		exec_free_left_root(root->left);
+	if (root->right != NULL)
+		exec_free_left_root(root->right);
+	if (root->cmd != NULL)
+		ft_free_tab(root->cmd);
+	free(root);
+	return (0);
+}
+
+int			exec_pipe(t_tree *root)
 {
 	int		fd[2];
 	pid_t	pid;
-	int		i;
-	int		ret;
+	int		i[2];
 
 	pipe(fd);
-	ret = 0;
 	pid = fork();
 	if (pid == 0)
 	{
 		close(fd[0]);
 		dup2(fd[1], STDOUT_FILENO);
-		sh_interpret(root->left);
+		i[1] = sh_interpret(root->left);
 		close(fd[1]);
-		exit(ret);
+		exit(i[1]);
 	}
 	else if (pid > 0)
 	{
 		close(fd[1]);
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);
-		ret = sh_interpret(root->right);
-		wait(&i);
+		i[1] = sh_interpret(root->right);
+		wait(&i[0]);
+		exec_free_left_root(root->left);
 	}
-	return (ret);
+	return (i[1]);
 }
 
-int		exec_and(t_tree *root)
+int			exec_and(t_tree *root)
 {
 	int		ret;
 
@@ -54,7 +65,7 @@ int		exec_and(t_tree *root)
 	}
 }
 
-int		exec_or(t_tree *root)
+int			exec_or(t_tree *root)
 {
 	int		ret;
 
@@ -67,7 +78,7 @@ int		exec_or(t_tree *root)
 	}
 }
 
-int		exec_end(t_tree *root)
+int			exec_end(t_tree *root)
 {
 	char	*ret;
 	int		i;

@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/26 17:47:51 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/29 17:57:00 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/23 18:07:32 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static int	parse_get_redout(t_parse **head, t_token *tok)
 	if (tok != NULL && (i[1] == LESS || i[1] == D_LESS || i[1] == L_AND))
 	{
 		i[0]++;
+		free(std);
 		std = ft_itoa(STDIN_FILENO);
 	}
 	if ((arg = (char **)malloc(sizeof(char *) * 3)) == NULL)
