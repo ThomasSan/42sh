@@ -20,7 +20,7 @@ t_token		*join_tokens(t_token *tok)
 	tmp = tok;
 	while (tok)
 	{
-		if (tok->next && tok->type == WORDS && tok->next->type == WORDS)
+		if (tok->next && tok->type == WORDS && check_next_token(tok) == WORDS)
 		{
 			str = tok->content;
 			tok->content = ft_strjoin(tok->content, tok->next->content);
@@ -42,7 +42,7 @@ t_token		*inibitor_handler(t_token *tok)
 	inib = 0;
 	while (tok)
 	{
-		if (tok->type == SINGLE_QUOTES)
+		if (tok->type == SINGLE_QUOTES || tok->type == QUOTES)
 			inib = inib == 0 ? 1 : 0;
 		if (tok->type == BACKSLASH && inib == 0)
 		{
