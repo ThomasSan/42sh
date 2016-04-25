@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 17:45:18 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/23 13:26:25 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/25 12:40:53 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,30 +49,50 @@ static char		*path_to_explore(char *str, int i)
 	return (tmp);
 }
 
-int				glob_new_string(char **str)
+static int		glob_maison(char **str, int i)
 {
-	int			i;
 	t_glob_list	*match_list;
 	char		*word;
 	char		*path;
 
+	if ((*str)[i] == '[' && ft_strchr(&((*str)[i + 1]), ']') == NULL)
+		return (-1);
+	path = path_to_explore(*str, i);
+	word = word_to_glob(*str, &i);
+	match_list = build_match_list(&path, word);
+	free(word);
+	if (match_list == NULL)
+		return (-1);
+	if (ft_strncmp(&((*str)[i]), "./", 2) != 0)
+	{
+		word = ft_strsub(path, 2, ft_strlen(path) - 2);
+		free(path);
+		path = word;
+	}
+	glob_modif_str(str, match_list, i, path);
+	clear_matchlist(match_list);
+	return (0);
+}
+
+int				glob_new_string(char **str)
+{
+	int			i;
+
 	i = 0;
 	while ((*str)[i])
 	{
-		if ((*str)[i] == '*' || (*str)[i] == '?' || (*str)[i] == '[')
+		if ((*str)[i] == 0x22 || (*str)[i] == 0x27)
+			escape_quotes(*str, &i, (*str)[i]);
+		else if ((*str)[i] == '$')
+			replace_dollar(str, &i);
+		else if ((*str)[i] == '*' || (*str)[i] == '?' || (*str)[i] == '[')
 		{
-			if ((*str)[i] == '[' && ft_strchr(&((*str)[i + 1]), ']') == NULL)
+			if (glob_maison(str, i) < 0)
 				return (-1);
-			path = path_to_explore(*str, i);
-			word = word_to_glob(*str, &i);
-			match_list = build_match_list(&path, word);
-			free(word);
-			if (match_list == NULL)
-				return (-1);
-			glob_modif_str(str, match_list, i, path);
-			clear_matchlist(match_list);
+			i = 0;
 		}
-		i++;
+		else
+			i = ((*str)[i] == 0x5c) ? i + 2 : i + 1;
 	}
 	return (0);
 }

@@ -6,11 +6,57 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 18:48:50 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/23 13:26:18 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/25 12:40:58 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "glob.h"
+
+static char		*get_replacement(char *var)
+{
+	char	*res;
+	int 	i;
+
+	i = 0;
+	while (var[i])
+	{
+		var[i] = ft_toupper(var[i]);
+		i++;
+	}
+	if ((i = sh_is_new_var(var)) >= 0)
+		res = ft_strdup(ft_strchr(g_env[i], '=') + 1);
+	else
+		res = ft_strdup("");
+	return (res);		
+}
+
+int				replace_dollar(char **str, int *i)
+{
+	int			j;
+	char		*value;
+	char		*var;
+	char		*tmp;
+
+	j = *i;
+	if ((*str)[*i + 1] == '?')
+	{
+		*i += 2;
+		return (0);
+	}
+	while ((*str)[j + 1] && (*str)[j + 1] != ' ' && (*str)[j + 1] != '\n'
+			&& (*str)[j + 1] != '/')
+		j++;
+	var = ft_strsub(*str, *i + 1, j - *i);
+	value = get_replacement(var);
+	tmp = var;
+	var = ft_strjoin("$", tmp);
+	free(tmp);
+	*str = ft_replace_str(*str, var, value);
+	*i = (ft_strlen(value) == 0) ? *i + 1 : ft_strlen(value);
+	free(var);
+	free(value);
+	return (0);
+}
 
 static char		*full_glob(t_glob_list *match_list, char *path)
 {
@@ -44,8 +90,8 @@ int				glob_modif_str(char **str, t_glob_list *match_list, int i,
 	while ((*str)[size] && (*str)[size] != ' ' && (*str)[size] != '/'
 			&& (*str)[size] != '\n')
 		size++;
-	insert = full_glob(match_list, path);
 	tmp = ft_strsub(*str, i, size);
+	insert = full_glob(match_list, path);
 	to_replace = ft_strjoin(path, tmp);
 	free(tmp);
 	free(path);
