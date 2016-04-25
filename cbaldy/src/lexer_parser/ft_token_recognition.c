@@ -75,12 +75,12 @@ void		return_type_quoted(t_token *tok)
 			tok->type = WORDS;
 		if (is_quoted && tok->type == sym)
 			is_quoted = 0;
-		if (tok->type == BACKSLASH)
-		{
-			if (check_next_token(tok) != WORDS)
-				tok->next->type = WORDS;
-			pop_middle_token(tok);
-		}
+		// if (tok->type == BACKSLASH)
+		// {
+		// 	if (check_next_token(tok) != WORDS)
+		// 		tok->next->type = WORDS;
+		// 	pop_middle_token(tok);
+		// }
 		tok = tok->next;
 	}
 }
@@ -109,10 +109,59 @@ t_token		*check_minus(t_token *tok)
 	return (tok);
 }
 
+t_token 		*join_tokens(t_token *tok)
+{
+	t_token *tmp;
+	char	*str;
+
+	tmp = tok;
+	while (tok)
+	{
+		if (tok->next && tok->type == WORDS && tok->next->type == WORDS)
+		{
+			str = tok->content;
+			tok->content = ft_strjoin(tok->content, tok->next->content);
+			free(str);
+			tok = pop_middle_token(tok->next);
+		}
+		else
+			tok = tok->next;
+	}
+	return (tmp);
+}
+
+t_token 		*inibitor_handler(t_token *tok)
+{
+	t_token *tmp;
+
+	tmp = tok;
+	while (tok)
+	{
+		if (tok->type == BACKSLASH)
+		{
+			if (check_next_token(tok) != WORDS)
+				tok->next->type = WORDS;
+			if (tmp == tok)
+				tmp = tmp->next;
+			tok = pop_middle_token(tok);
+		}
+		else
+		tok = tok->next;
+	}
+	return (tmp);
+}
+
 t_parse		*ft_checking_syntax(t_token *tok)
 {
 	tok = check_dollar(tok);
+	printf("dollar checked\n");
+	tok = inibitor_handler(tok);
+	printf("inib checked\n");
+	tok = join_tokens(tok);
+	printf("join checked\n");
+	ft_display_tokens(tok);
 	return_type_quoted(tok);
+	printf("quoted checked\n");
 	// check_back_quotes(tok);
 	tok = join_quoted(tok, QUOTES);
 	tok = join_quoted(tok, SINGLE_QUOTES);
@@ -129,6 +178,6 @@ t_parse		*ft_checking_syntax(t_token *tok)
 		return (NULL);
 	if (!(ft_command_isvalid(tok)))
 		return (NULL);
-	//ft_display_tokens(tok);
+	printf("tok = %p\n", tok);
 	return (parse_build_list(tok));
 }
