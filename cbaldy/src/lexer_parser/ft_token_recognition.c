@@ -154,14 +154,10 @@ t_token 		*inibitor_handler(t_token *tok)
 t_parse		*ft_checking_syntax(t_token *tok)
 {
 	tok = check_dollar(tok);
-	printf("dollar checked\n");
 	tok = inibitor_handler(tok);
-	printf("inib checked\n");
 	tok = join_tokens(tok);
-	printf("join checked\n");
-	ft_display_tokens(tok);
+	// ft_display_tokens(tok);
 	return_type_quoted(tok);
-	printf("quoted checked\n");
 	// check_back_quotes(tok);
 	tok = join_quoted(tok, QUOTES);
 	tok = join_quoted(tok, SINGLE_QUOTES);
@@ -178,6 +174,5 @@ t_parse		*ft_checking_syntax(t_token *tok)
 		return (NULL);
 	if (!(ft_command_isvalid(tok)))
 		return (NULL);
-	printf("tok = %p\n", tok);
 	return (parse_build_list(tok));
 }
