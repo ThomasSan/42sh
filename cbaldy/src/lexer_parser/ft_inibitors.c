@@ -36,11 +36,15 @@ t_token		*join_tokens(t_token *tok)
 t_token		*inibitor_handler(t_token *tok)
 {
 	t_token *tmp;
+	int		inib;
 
 	tmp = tok;
+	inib = 0;
 	while (tok)
 	{
-		if (tok->type == BACKSLASH)
+		if (tok->type == SINGLE_QUOTES)
+			inib = inib == 0 ? 1 : 0;
+		if (tok->type == BACKSLASH && inib == 0)
 		{
 			if (check_next_token(tok) != WORDS)
 				tok->next->type = WORDS;
