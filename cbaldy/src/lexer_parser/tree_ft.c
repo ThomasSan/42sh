@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 11:37:07 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/28 19:15:12 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/25 12:36:50 by tsanzey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int			tree_place_cmd(t_tree *new, t_tree **root)
 		tmp = tmp->right;
 	if (tmp->types == CMD)
 	{
-		ft_putendl("tree_ft.c: double command error");//
+		ft_putendl("tree_ft.c: double command error");
 		return (-1);
 	}
 	else

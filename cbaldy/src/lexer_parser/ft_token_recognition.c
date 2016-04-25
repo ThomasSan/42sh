@@ -6,7 +6,7 @@
 /*   By: tsanzey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 15:12:24 by tsanzey           #+#    #+#             */
-/*   Updated: 2016/04/24 16:05:16 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/25 12:46:13 by tsanzey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,6 @@ void		return_type_quoted(t_token *tok)
 			tok->type = WORDS;
 		if (is_quoted && tok->type == sym)
 			is_quoted = 0;
-		// if (tok->type == BACKSLASH)
-		// {
-		// 	if (check_next_token(tok) != WORDS)
-		// 		tok->next->type = WORDS;
-		// 	pop_middle_token(tok);
-		// }
 		tok = tok->next;
 	}
 }
@@ -109,56 +103,12 @@ t_token		*check_minus(t_token *tok)
 	return (tok);
 }
 
-t_token 		*join_tokens(t_token *tok)
-{
-	t_token *tmp;
-	char	*str;
-
-	tmp = tok;
-	while (tok)
-	{
-		if (tok->next && tok->type == WORDS && tok->next->type == WORDS)
-		{
-			str = tok->content;
-			tok->content = ft_strjoin(tok->content, tok->next->content);
-			free(str);
-			pop_middle_token(tok->next);
-		}
-		else
-			tok = tok->next;
-	}
-	return (tmp);
-}
-
-t_token 		*inibitor_handler(t_token *tok)
-{
-	t_token *tmp;
-
-	tmp = tok;
-	while (tok)
-	{
-		if (tok->type == BACKSLASH)
-		{
-			if (check_next_token(tok) != WORDS)
-				tok->next->type = WORDS;
-			if (tmp == tok)
-				tmp = tmp->next;
-			tok = pop_middle_token(tok);
-		}
-		else
-		tok = tok->next;
-	}
-	return (tmp);
-}
-
 t_parse		*ft_checking_syntax(t_token *tok)
 {
 	tok = check_dollar(tok);
 	tok = inibitor_handler(tok);
 	tok = join_tokens(tok);
-	// ft_display_tokens(tok);
 	return_type_quoted(tok);
-	// check_back_quotes(tok);
 	tok = join_quoted(tok, QUOTES);
 	tok = join_quoted(tok, SINGLE_QUOTES);
 	tok = check_minus(tok);

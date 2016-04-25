@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/17 17:00:59 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/02 19:21:00 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/25 12:46:51 by tsanzey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ char						**list_path(char *var, int marge);
 int							clear_curr_compl(void);
 char						*tab_prepare_select(t_param *debut,
 		t_line_list **first);
-int							tab_complete_line(t_param *debut, t_line_list **first,
-		char *word);
+int							tab_complete_line(t_param *debut,
+		t_line_list **first, char *word);
 int							clear_tparam(t_param **begin);
 int							place_cursor_to_completion(t_line_list *first);
 int							go_back_to_selected_char(t_line_list *first);
