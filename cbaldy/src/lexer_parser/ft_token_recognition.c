@@ -122,7 +122,7 @@ t_token 		*join_tokens(t_token *tok)
 			str = tok->content;
 			tok->content = ft_strjoin(tok->content, tok->next->content);
 			free(str);
-			tok = pop_middle_token(tok->next);
+			pop_middle_token(tok->next);
 		}
 		else
 			tok = tok->next;
