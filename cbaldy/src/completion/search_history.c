@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/29 10:56:33 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/23 15:06:08 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/25 16:11:50 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static int		hist_boucle(t_hist_list **hist, char *str)
 	return (0);
 }
 
-int			exit_search_hist(t_line_list **first)
+int				exit_search_hist(t_line_list **first)
 {
 	exit_completion(*first);
 	manage_search_hist(NULL, NULL, NULL, 2);
@@ -92,7 +92,7 @@ int			exit_search_hist(t_line_list **first)
 ** check if search bar matches with history
 */
 
-int			search_bar_history(t_line_list **first, t_hist_list **hist,
+int				search_bar_history(t_line_list **first, t_hist_list **hist,
 		t_line *line, int flag)
 {
 	char					*str;

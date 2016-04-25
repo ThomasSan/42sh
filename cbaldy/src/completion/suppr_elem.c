@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/04 13:59:00 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/02 17:13:05 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/25 16:10:52 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int				clear_tline(t_line **elem)
 	*elem = NULL;
 	return (0);
 }
+
 int				line_of_command(t_line *debut, char **str)
 {
 	t_line	*buf;
@@ -79,7 +80,7 @@ int				line_of_command(t_line *debut, char **str)
 	return (0);
 }
 
-static int			decrease_nb(t_line *buf)
+static int		decrease_nb(t_line *buf)
 {
 	while (buf)
 	{
@@ -89,7 +90,7 @@ static int			decrease_nb(t_line *buf)
 	return (0);
 }
 
-int					suppr_char_list(t_line **chaine)
+int				suppr_char_list(t_line **chaine)
 {
 	t_line		*buf;
 

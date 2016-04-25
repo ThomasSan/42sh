@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/19 10:02:21 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/02 16:42:05 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/25 16:07:31 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ static int			not_enough_room(t_line_list *first, t_param *debut)
 
 	print_lines(1);
 	size_list = get_size_list(debut);
-	ft_dprintf(STDERR_FILENO, "not enough room to print %d solutions", size_list);
+	ft_dprintf(STDERR_FILENO, "not enough room to print %d solutions",
+			size_list);
 	ft_notputs("cr", 1);
 	go_back_to_selected_char(first);
 	return (0);
@@ -93,8 +94,8 @@ int					tab_select(t_param **debut, t_line_list **first, char *word)
 	if (g_curr_compl != NULL)
 		clear_tparam(debut);
 	if ((ret = tab_complete_line(list, first, param)) == 0 &&
-			g_curr_compl == NULL)
-			clear_tparam(debut);
+		g_curr_compl == NULL)
+		clear_tparam(debut);
 	else if (ret == 1)
 	{
 		ft_notputs("vi", 1);

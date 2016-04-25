@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 15:14:39 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/02 16:35:15 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/25 16:06:42 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ int			iscommand(char *var, int marge)
 	curseur = g_local->curs - marge - 1;
 	i = 0;
 	while (var[i] && i < curseur && var[i] <= ' ')
-		i++;	
+		i++;
 	while (var[i] && i < curseur)
 	{
-		if (var[i] == ' ')
+		if (var[i] == ' ' || var[i] == '/')
 			return (1);
 		i++;
 	}

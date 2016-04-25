@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/29 18:26:54 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/02 19:04:52 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/25 16:06:20 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int				manage_search_hist(char *buf, t_line_list **first,
 	if (line == NULL && check == 0)
 		init_debut(&line);
 	if (check == 1)
-		return ((line == NULL) ? 0 : 1); 
+		return ((line == NULL) ? 0 : 1);
 	if (check == 2)
 	{
 		search_bar_history(NULL, NULL, NULL, 1);
