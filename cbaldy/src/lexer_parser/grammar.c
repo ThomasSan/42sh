@@ -31,8 +31,8 @@ int		rules_for_orandif(t_token *tok)
 
 	prev = check_prev_token(tok);
 	next = check_next_token(tok);
-	if ((prev == WORDS && next == WORDS) ||
-		(prev == BACK_QUOTES && next == BACK_QUOTES))
+	if (((prev == WORDS || prev == FILENAME)&& (next == WORDS || next == FILENAME))
+		|| (prev == BACK_QUOTES && next == BACK_QUOTES))
 		return (1);
 	return (0);
 }

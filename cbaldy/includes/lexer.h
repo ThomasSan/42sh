@@ -131,5 +131,6 @@ int					is_word_or(char *s, int i);
 int					ft_token_type(char *s, int i);
 t_token				*join_tokens(t_token *tok);
 t_token				*inibitor_handler(t_token *tok);
+t_token				*free_token_list(t_token *tok);
 
 #endif
