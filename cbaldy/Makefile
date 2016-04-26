@@ -45,7 +45,7 @@ LEX = lexer.c ft_token_recognition.c ft_free.c \
 	  ft_isspace.c ft_catplus.c sh_lexer_parser.c ft_expansion.c \
 	  ft_variable_expand.c sh_preparse.c grammar.c \
 	  parse_build_list.c parse_list_ft.c parse_get_cmd.c parse_get_redir.c \
-	  ft_token_edition.c ft_push_intab.c ft_inibitors.c \
+	  ft_token_edition.c ft_push_intab.c ft_inibitors.c sh_backquotes.c\
 
 INCLUDE = -I includes/
 
