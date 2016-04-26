@@ -12,6 +12,7 @@
 
 #include "lexer.h"
 #include "shell.h"
+#include "ft_printf.h"
 
 int			is_word_or(char *s, int i)
 {
@@ -78,7 +79,7 @@ void		ft_display_tokens(t_token *tok)
 {
 	while (tok)
 	{
-		printf("t : %s, type : %d\n", tok->content, tok->type);
+		ft_printf("t : %s, type : %d\n", tok->content, tok->type);
 		tok = tok->next;
 	}
 }

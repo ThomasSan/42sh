@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "parse_build_list.h"
+#include "ft_printf.h"
 
 int			parse_print(t_parse *head)
 {
@@ -21,10 +22,10 @@ int			parse_print(t_parse *head)
 		i = 0;
 		while (head->arg != NULL && head->arg[i] != NULL)
 		{
-			printf("%s ", head->arg[i]);
+			ft_printf("%s ", head->arg[i]);
 			i++;
 		}
-		printf("%d\n", head->type);
+		ft_printf("%d\n", head->type);
 		head = head->next;
 	}
 	return (0);
