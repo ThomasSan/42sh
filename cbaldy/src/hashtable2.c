@@ -6,7 +6,7 @@
 /*   By: nchrupal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 08:53:14 by nchrupal          #+#    #+#             */
-/*   Updated: 2016/04/25 16:42:59 by nchrupal         ###   ########.fr       */
+/*   Updated: 2016/04/26 08:47:26 by nchrupal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ t_hash		*hash_createfile(void)
 	char	**path;
 	int		i;
 
+	hash_del();
 	g_hashtable = hash_new();
 	if ((i = sh_is_new_var("PATH")) < 0)
 		return (g_hashtable);
