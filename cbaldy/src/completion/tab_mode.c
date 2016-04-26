@@ -6,18 +6,23 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 13:40:47 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/25 14:51:36 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/26 11:03:17 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static char			**hash_table(char **hash)
+static char			**hash_table(void)
 {
 	int		i;
 	char	**res;
+	char	**hash;
 
 	i = 0;
+	if (g_hash != NULL)
+		ft_free_tab(g_hash);
+	hash_get_tab();
+	hash = g_hash;
 	while (hash[i])
 		i++;
 	if ((res = (char**)malloc(sizeof(char*) * (i + 1))) == NULL)
@@ -58,7 +63,7 @@ int					tab_mode(t_line_list **first)
 			g_curr_compl->var));
 		if ((var = com_list_retrieve((*first)->begin)) == NULL)
 		return (0);
-	table = (iscommand(var, (*first)->marge) == 0) ? hash_table(g_hash) :
+	table = (iscommand(var, (*first)->marge) == 0) ? hash_table() :
 		list_path(var, (*first)->marge);
 	if (table == NULL)
 		return (0);

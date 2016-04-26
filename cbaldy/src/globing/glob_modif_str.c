@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 18:48:50 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/25 12:57:06 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/26 13:53:21 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int				replace_dollar(char **str, int *i)
 	return (0);
 }
 
-static char		*full_glob(t_glob_list *match_list, char *path)
+static char		*full_glob(t_glob_list *match_list)
 {
 	char		*tmp;
 	t_glob_list *list_buf;
@@ -70,35 +70,23 @@ static char		*full_glob(t_glob_list *match_list, char *path)
 	{
 		tmp = ft_strdup(insert);
 		free(insert);
-		insert = (ft_strcmp(tmp, "") == 0) ? ft_strjoin(path, list_buf->var) :
-			ft_strjoin_multiple(4, tmp, " ", path, list_buf->var);
+		insert = (ft_strcmp(tmp, "") == 0) ? ft_strdup(list_buf->var) :
+			ft_strjoin_multiple(4, tmp, " ", list_buf->var);
 		free(tmp);
 		list_buf = list_buf->next;
 	}
 	return (insert);
 }
 
-int				glob_modif_str(char **str, t_glob_list *match_list, int i,
-		char *path)
+int				glob_modif_str(char **str, t_glob_list *match_list, char *word)
 {
-	int			size;
 	char		*insert;
 	char		*tmp;
-	char		*to_replace;
 
-	size = i;
-	while ((*str)[size] && (*str)[size] != ' ' && (*str)[size] != '/'
-			&& (*str)[size] != '\n')
-		size++;
-	tmp = ft_strsub(*str, i, size);
-	insert = full_glob(match_list, path);
-	to_replace = ft_strjoin(path, tmp);
-	free(tmp);
-	free(path);
-	tmp = ft_replace_str(*str, to_replace, insert);
+	insert = full_glob(match_list);
+	tmp = ft_replace_str(*str, word, insert);
 	free(*str);
 	*str = tmp;
 	free(insert);
-	free(to_replace);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 18:55:47 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/25 13:59:07 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/26 14:50:43 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,30 +74,55 @@ char				**tabl_compl(char *path)
 	return (res);
 }
 
-t_glob_list			*build_match_list(char **path, char *word)
+static int			is_dir(char *path, char *poss)
+{
+	char		*tmp;
+	struct stat	*isdir;
+
+	if ((isdir = (struct stat*)malloc(sizeof(struct stat))) == NULL)
+		return (-1);
+	tmp = ft_strjoin(path, poss);
+	stat(tmp, isdir);
+	free(tmp);
+	if ((isdir->st_mode & S_IFDIR) == 0)
+	{
+		free(isdir);
+		return (-1);
+	}
+	free(isdir);
+	return (0);
+}
+
+char				**build_match_list(char *path, char *word, char *next)
 {
 	char			**poss;
 	int				i;
-	t_glob_list		*glob;
+	char			**matches;
 
 	i = 0;
-	glob = NULL;
-	if ((poss = tabl_compl(*path)) == NULL)
+	matches = NULL;
+	if ((poss = tabl_compl(path)) == NULL)
 		return (NULL);
 	while (poss[i])
 	{
-		if (match(poss[i], word) == 1)
+		if (next != NULL && is_dir(path, poss[i]) == 0)
+			;
+		else if (match(poss[i], word) == 1)
 		{
 			if ((poss[i][0] == '.' && word[0] != '.') || ft_strcmp(poss[i], ".")
 					== 0 || ft_strcmp(poss[i], "..") == 0)
 				;
 			else
-				glob = add_elem_glob(poss[i], glob);
+				ft_array_push(&matches, poss[i]);
 		}
 		i++;
 	}
-	while (glob && glob->prev)
-		glob = glob->prev;
+	i = 0;
+	while (matches[i])
+	{
+		ft_printf("matches:%s\n", matches[i]);
+		i++;
+	}
 	ft_free_tab(poss);
-	return (glob);
+	return (matches);
 }
