@@ -77,12 +77,13 @@ char	*ft_backquotes(char *str, int i)
 	t_tree	*root;
 	int		len;
 
+	dst = NULL;
 	len = ft_sublen(str, i, '`');
 	tmp = ft_subcopy(str, i);
 	root = sh_lexer_parser(tmp);
 	ft_bzero(tmp, ft_strlen(tmp));
 	free(tmp);
-	dst = exec_back_quote(root);
+	// dst = exec_back_quote(root);
 	tmp = ft_join_in_middle(str, dst, i, len);
 	printf("tmp %s\n", tmp);
 	free(str);

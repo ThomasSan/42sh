@@ -15,7 +15,7 @@
 int		ft_other_redirs(char *s, int i, int type)
 {
 	static const char	*token_types[] = {"\"", "\'", ">", ">>", "<",
-	"<<", "|", ";", "&", "~", "\\", "$", "-", "\0"};
+	"<<", "|", ";", "&", "~", "\\", "$", "-", "(", ")", "\0"};
 
 	if (s[i + 1] && type == DIPLE_R && s[i + 1] == s[i])
 		return (DOUBLE_R);
@@ -39,7 +39,7 @@ int		ft_token_type(char *s, int i)
 	int					type;
 	int					j;
 	static const char	*token_types[] = {"\"", "\'", ">", ">>", "<",
-	"<<", "|", ";", "&", "~", "\\", "$", "-", "\0"};
+	"<<", "|", ";", "&", "~", "\\", "$", "-", "(", ")", "\0"};
 
 	type = WORDS;
 	j = 0;
@@ -52,8 +52,9 @@ int		ft_token_type(char *s, int i)
 		if (s[i] == *token_types[j])
 		{
 			type = j;
-			if (j == DIPLE_R || j == DIPLE_L || j == AMPERSAND
-				|| j == PIPE)
+			if (j == MINUS && s[i - 1] != '&')
+				return (-1);
+			if (j == DIPLE_R || j == DIPLE_L || j == AMPERSAND || j == PIPE)
 				return (ft_other_redirs(s, i, type));
 			return (type);
 		}
@@ -67,7 +68,7 @@ char	*tok_content(char *s, int start, int type)
 	int					i;
 	char				*dst;
 	static const char	*token_types[] = {"\"", "\'", ">", ">>", "<",
-	"<<", "|", ";", "&", "~", "\\", "$", "-", "<&", ">&", "&>", "||",
+	"<<", "|", ";", "&", "~", "\\", "$", "-", "(", ")", "<&", ">&", "&>", "||",
 	"&&", "\0"};
 
 	if (type == DOUBLE_R || type == DOUBLE_L ||
