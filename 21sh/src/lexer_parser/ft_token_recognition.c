@@ -110,6 +110,7 @@ t_token		*check_minus(t_token *tok)
 
 t_parse		*ft_checking_syntax(t_token *tok)
 {
+	ft_display_tokens(tok);
 	tok = check_dollar(tok);
 	tok = inibitor_handler(tok);
 	tok = join_tokens(tok);

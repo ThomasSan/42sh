@@ -52,8 +52,9 @@ int		ft_token_type(char *s, int i)
 		if (s[i] == *token_types[j])
 		{
 			type = j;
-			if (j == DIPLE_R || j == DIPLE_L || j == AMPERSAND
-				|| j == PIPE)
+			if (j == MINUS && s[i - 1] != '&')
+				return (-1);
+			if (j == DIPLE_R || j == DIPLE_L || j == AMPERSAND || j == PIPE)
 				return (ft_other_redirs(s, i, type));
 			return (type);
 		}

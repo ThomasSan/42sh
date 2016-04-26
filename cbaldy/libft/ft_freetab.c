@@ -1,36 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   escape_quotes.c                                    :+:      :+:    :+:   */
+/*   ft_freetab.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/31 17:53:12 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/25 14:29:37 by dbaldy           ###   ########.fr       */
+/*   Created: 2016/04/26 10:42:04 by dbaldy            #+#    #+#             */
+/*   Updated: 2016/04/26 10:45:06 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-**	move i to next quote of same type c in str
-**	if quote found, return 0 and sets i to next element in str
-**	else return 1
-*/
-#include <stdio.h>
-int			escape_quotes(char *str, int *i, int c)
-{
-	int var;
+#include "libft.h"
+#include <stdlib.h>
 
-	var = *i + 1;
-	while (str[var])
+int		ft_freetab(char **arr)
+{
+	int		i;
+
+	if (arr != NULL)
 	{
-		if ((int)str[var] == 0x5c && c != 0x27 && str[var + 1] != '\0')
-				var += 2;
-		if ((int)str[var] == c)
+		i = 0;
+		while (arr[i] != NULL)
 		{
-			*i = var + 1;
-			return (0);
+			free(arr[i]);
+			arr[i] = NULL;
+			i++;
 		}
-		var++;
+		free(arr);
+		arr = NULL;
+		return (0);
 	}
-	return (1);
+	return (0);
 }

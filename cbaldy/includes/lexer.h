@@ -90,6 +90,7 @@ typedef struct		s_parse
 	struct s_parse	*next;
 }					t_parse;
 
+char				*ft_backquotes(char *str, int i);
 int					ft_isspace(int c);
 char				*ft_catplus(char *s1, char *s2, char c);
 t_parse				*ft_checking_syntax(t_token *tok);

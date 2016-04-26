@@ -6,7 +6,7 @@
 /*   By: tsanzey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 11:05:40 by tsanzey           #+#    #+#             */
-/*   Updated: 2016/04/25 12:37:19 by tsanzey          ###   ########.fr       */
+/*   Updated: 2016/04/26 12:30:01 by tsanzey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,8 @@ t_token	*ft_tokeniser(char *s, t_token *head)
 	i = 0;
 	while (s[i])
 	{
+		if (s[i] == '`')
+			s = ft_backquotes(s, i);
 		if (!(new = (t_token*)malloc(sizeof(t_token))))
 			return (NULL);
 		new->type = ft_token_type(s, i);
