@@ -128,6 +128,9 @@ t_parse		*ft_checking_syntax(t_token *tok)
 	if (!tok)
 		return (NULL);
 	if (!(ft_command_isvalid(tok)))
+	{
+		free_token_list(tok);
 		return (NULL);
+	}
 	return (parse_build_list(tok));
 }

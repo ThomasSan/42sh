@@ -24,7 +24,6 @@ typedef enum		e_sym
 {
 	QUOTES,
 	SINGLE_QUOTES,
-	BACK_QUOTES,
 	DIPLE_R,
 	DOUBLE_R,
 	DIPLE_L,
@@ -45,7 +44,8 @@ typedef enum		e_sym
 	WHITESPACE = 200,
 	COMMANDS = 300,
 	FILENAME = 400,
-	WORDS = -1
+	WORDS = -1,
+	BACK_QUOTES
 }					t_sym;
 
 typedef	enum		e_cmd
@@ -131,5 +131,6 @@ int					is_word_or(char *s, int i);
 int					ft_token_type(char *s, int i);
 t_token				*join_tokens(t_token *tok);
 t_token				*inibitor_handler(t_token *tok);
+t_token				*free_token_list(t_token *tok);
 
 #endif
