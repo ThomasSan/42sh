@@ -6,7 +6,7 @@
 #    By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/14 14:42:25 by cbaldy            #+#    #+#              #
-#    Updated: 2016/04/26 11:51:51 by cbaldy           ###   ########.fr        #
+#    Updated: 2016/04/26 14:52:59 by cbaldy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,8 +60,8 @@ all: $(NAME)
 
 $(NAME):
 	@gcc -c $(FLAG) $(INCLUDE) $(CFILES) $(CLEX) $(CTAB)
-	@#@make -C libft/ fclean && make -C libft && make -C libft/ clean
-	@#@make -C ft_printf/ fclean && make -C ft_printf && make -C ft_printf/ clean
+	@make -C libft/ fclean && make -C libft && make -C libft/ clean
+	@make -C ft_printf/ fclean && make -C ft_printf && make -C ft_printf/ clean
 	@gcc -o $(NAME) $(LIBRARIES) $(OBJ) $(OBJ2) $(OBJ3)
 	@mkdir obj && mv $(OBJ) $(OBJ2) $(OBJ3) obj
 	@echo "\x1b[32;02m$(NAME) ready\x1b[0;m"
@@ -73,6 +73,8 @@ clean:
 
 fclean: clean
 	@/bin/rm -f $(NAME)
+	@make -C libft/ fclean
+	@make -C ft_printf/ fclean
 	@echo "\x1b[0;01mfclean\x1b[0;m"
 
 re: fclean all
