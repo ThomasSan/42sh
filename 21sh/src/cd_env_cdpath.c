@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 13:12:43 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/23 15:11:24 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/26 14:33:00 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,11 @@ char		*cd_env_cdpath(char **com, int dir)
 		return (cd_opt_path(com, dir));
 	else
 		res = retrieve_cdpath(i, com, dir);
-	if (res == NULL)
-		ft_dprintf(STDERR_FILENO, "cd: no such file or directory: %s\n",
-				com[dir]);
-	else if (res[0] == '/')
+	if (res != NULL && res[0] == '/')
 		return (res);
-	else
+	else if (res != NULL)
 	{
+		ft_putendl(res);
 		tmp = com[dir];
 		com[dir] = res;
 		free(tmp);
