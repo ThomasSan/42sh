@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 18:32:23 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/25 17:12:04 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/26 11:43:42 by tsanzey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static int	term_read_string(char *str, int *arr)
 		while (str[i])
 		{
 			if (str[i] == str[0] && (str[i - 1] != 92 || str[0] != 34))
-					break;
+				break ;
 			i++;
 		}
 	}
