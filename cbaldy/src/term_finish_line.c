@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 18:32:23 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/25 11:27:04 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/26 11:43:42 by tsanzey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,15 @@ static int	term_read_string(char *str, int *arr)
 	if (str[0] == 92)
 		return (term_backslach(str, arr));
 	lex_is_special(str[0], arr);
-	if ((str[0] == '`' && arr[5] != 0) || (str[0] == '"' &&
+	if ((str[0] == '`' && arr[5] != 0) || (str[0] == 34 &&
 				arr[4] != 0) || (str[0] == 39 && arr[3] != 0))
 	{
-		while (str[i] && str[i] != str[0] && (str[i - 1] == 92 || str[0] == 39))
+		while (str[i])
+		{
+			if (str[i] == str[0] && (str[i - 1] != 92 || str[0] != 34))
+				break ;
 			i++;
+		}
 	}
 	return (i);
 }

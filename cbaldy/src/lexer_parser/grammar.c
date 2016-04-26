@@ -6,7 +6,7 @@
 /*   By: tsanzey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 11:05:12 by tsanzey           #+#    #+#             */
-/*   Updated: 2016/03/29 18:01:38 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/26 11:45:31 by tsanzey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,9 @@ int		rules_for_orandif(t_token *tok)
 
 	prev = check_prev_token(tok);
 	next = check_next_token(tok);
-	if ((prev == WORDS && next == WORDS) ||
-		(prev == BACK_QUOTES && next == BACK_QUOTES))
+	if (((prev == WORDS || prev == FILENAME) &&
+	(next == WORDS || next == FILENAME)) ||
+			(prev == BACK_QUOTES && next == BACK_QUOTES))
 		return (1);
 	return (0);
 }
