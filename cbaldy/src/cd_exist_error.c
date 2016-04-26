@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/12 13:40:38 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/02/24 10:50:57 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/26 19:20:40 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,18 @@ static int	cd_check_path_name(char *str, char *dir)
 	return (0);
 }
 
-static int	cd_check_rights(char *str, char *dir, struct dirent *dp)
+static int	cd_check_rights(char *str, char *dir)
 {
 	char			*path;
 	int				i;
+	struct stat		buf;
 
 	i = 1;
-	if (dp->d_type != 4 && dp->d_type != 10)
-		return (-ft_dprintf(STDERR_FILENO, "cd: not a directory: ", str));
 	path = mod_strjoin(ft_strjoin(str, "/"), dir, 1);
-	if (access(path, F_OK) < 0)
+	if (lstat(path, &buf) == -1 || ((buf.st_mode & S_IFDIR) == 0 &&
+		S_ISLNK(buf.st_mode) == 0))
+		i = -ft_dprintf(STDERR_FILENO, "cd: not a directory: ", str);
+	else if (access(path, F_OK) < 0)
 		i = -ft_dprintf(STDERR_FILENO,
 				"cd: too many levels of symbolic links: ");
 	else if (access(path, X_OK) < 0)
@@ -60,10 +62,11 @@ static int	cd_check_dir(char *str, char *dir)
 	while ((dp = readdir(dirp)) != NULL && found == 0)
 	{
 		if (ft_strcmp(dp->d_name, dir) == 0)
-			found = cd_check_rights(str, dir, dp);
+			found = cd_check_rights(str, dir);
 	}
 	if (found == 0)
-		return (-ft_dprintf(STDERR_FILENO, "cd: no such file or directory: "));
+		ft_dprintf(STDERR_FILENO, "cd: no such file or directory: ");
+	closedir(dirp);
 	return (found);
 }
 
@@ -80,7 +83,10 @@ static int	cd_check_path(char *path)
 	while (arr[i[0]] != NULL && i[1] > 0)
 	{
 		i[1] = cd_check_dir(str, arr[i[0]]);
-		str = mod_strjoin(mod_strjoin(str, "/", 1), arr[i[0]], 1);
+		if (i[0] != 0)
+			str = mod_strjoin(mod_strjoin(str, "/", 1), arr[i[0]], 1);
+		else
+			str = mod_strjoin(str, arr[i[0]], 1);
 		i[0]++;
 	}
 	free(str);
