@@ -6,18 +6,18 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/25 11:51:07 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/24 17:19:05 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/26 09:57:39 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static int	exec_free_left_root(t_tree *root)
+static int	exec_free_root(t_tree *root)
 {
 	if (root->left != NULL)
-		exec_free_left_root(root->left);
+		exec_free_root(root->left);
 	if (root->right != NULL)
-		exec_free_left_root(root->right);
+		exec_free_root(root->right);
 	if (root->cmd != NULL)
 		ft_free_tab(root->cmd);
 	free(root);
@@ -47,7 +47,7 @@ int			exec_pipe(t_tree *root)
 		close(fd[0]);
 		i[1] = sh_interpret(root->right);
 		wait(&i[0]);
-		exec_free_left_root(root->left);
+		exec_free_root(root->left);
 	}
 	return (i[1]);
 }
@@ -57,7 +57,10 @@ int			exec_and(t_tree *root)
 	int		ret;
 
 	if ((ret = sh_interpret(root->left)) > 0)
+	{
+		exec_free_root(root->right);
 		return (ret);
+	}
 	else
 	{
 		sh_reset_std_fd();
@@ -70,7 +73,10 @@ int			exec_or(t_tree *root)
 	int		ret;
 
 	if ((ret = sh_interpret(root->left)) == 0)
+	{
+		exec_free_root(root->right);
 		return (ret);
+	}
 	else
 	{
 		sh_reset_std_fd();
