@@ -22,9 +22,13 @@ t_token		*pop_middle_token(t_token *tok)
 	if (tok->next)
 		tok->next->prev = tok->prev;
 	tmp = tok->next;
+	// ft_printf("@tok : %p\n", tok);
+	// ft_printf("@tmp : %p\n", tmp);
 	free(tok->content);
 	free(tok);
 	tok = NULL;
+	if(tmp == NULL)
+		return(NULL);
 	return (tmp);
 }
 
@@ -111,7 +115,6 @@ t_token		*check_minus(t_token *tok)
 t_parse		*ft_checking_syntax(t_token *tok)
 {
 	tok = ft_subshell(tok);
-	ft_display_tokens(tok);
 	tok = check_dollar(tok);
 	tok = inibitor_handler(tok);
 	tok = join_tokens(tok);
@@ -121,6 +124,7 @@ t_parse		*ft_checking_syntax(t_token *tok)
 	tok = check_minus(tok);
 	tok = ft_tild_expand(tok);
 	ft_edit_useless(tok);
+	// ft_display_tokens(tok);
 	if ((tok = ft_token_removal(tok, WHITESPACE)) == NULL)
 		return (NULL);
 	if ((tok = ft_token_removal(tok, QUOTES)) == NULL)

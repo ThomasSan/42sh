@@ -111,8 +111,8 @@ char	*ft_backquotes(char *str, int i)
 		tmp = ft_remove_bquotes(str, i, len);
 	else
 		tmp = ft_join_in_middle(str, dst, i, len);
-	// ft_printf("tmp %s\n", tmp);
-	//free(str);
 	free(dst);
+	// ft_printf("tmp %s\n", tmp);
+	// free(str);
 	return (tmp);
 }

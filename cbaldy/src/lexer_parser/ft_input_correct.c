@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "lexer.h"
+#include "ft_printf.h"
 
 int		ft_command_isvalid(t_token *tok)
 {

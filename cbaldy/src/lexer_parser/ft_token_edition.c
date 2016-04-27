@@ -67,6 +67,8 @@ t_token		*ft_token_removal(t_token *tok, t_sym sym)
 		{
 			if (tok == tmp)
 				tok = tok->next;
+			if (check_next_token(tmp) == sym)
+				tmp->next = ft_emptyquotes(tmp->next);				
 			tmp = pop_middle_token(tmp);
 		}
 		else
@@ -79,7 +81,7 @@ void		ft_display_tokens(t_token *tok)
 {
 	while (tok)
 	{
-		ft_printf("t : %s, type : %d\n", tok->content, tok->type);
+		ft_printf("t : %s, type : %d add: %p\n", tok->content, tok->type, tok);
 		tok = tok->next;
 	}
 }
