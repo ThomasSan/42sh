@@ -102,8 +102,10 @@ t_token	*ft_tokeniser(char *s, t_token *head)
 {
 	t_token	*new;
 	int		i;
+	char	*str;
 
 	i = 0;
+	str = s;
 	while (s[i])
 	{
 		if (s[i] == '`')
@@ -124,5 +126,7 @@ t_token	*ft_tokeniser(char *s, t_token *head)
 			i++;
 		head = ft_push_token(head, new);
 	}
+	if (s != str)
+		free(s);
 	return (head);
 }
