@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/05 19:10:51 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/23 14:03:01 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/27 12:58:33 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ int			sh_add_var_env(char *name, char *value)
 		i++;
 	if ((new_env = sh_copy_env(i)) == NULL)
 		return (-1);
-	new_env[i] = mod_strjoin(ft_strjoin(name, "="), value, 1);
+	if (value != NULL && value[0] == '\0')
+		new_env[i] = ft_strjoin(name, "=");
+	else
+		new_env[i] = mod_strjoin(ft_strjoin(name, "="), value, 1);
 	ft_free_tab(g_env);
 	g_env = new_env;
 	return (0);
@@ -78,10 +81,22 @@ int			sh_change_var_env(char *name, char *value)
 {
 	int		i;
 
-	if ((i = sh_is_new_var(name)) == -1)
+	i = 0;
+	while (g_env[i] != NULL)
+	{
+		if (ft_strncmp(name, g_env[i], ft_strlen(name)) == 0 &&
+				g_env[i][ft_strlen(name)] == '=')
+			break ;
+		else
+			i++;
+	}
+	if (g_env[i] == NULL)
 		return (-1);
 	free(g_env[i]);
-	g_env[i] = mod_strjoin(ft_strjoin(name, "="), value, 1);
+	if (value != NULL && value[0] == '\0')
+		g_env[i] = ft_strjoin(name, "=");
+	else
+		g_env[i] = mod_strjoin(ft_strjoin(name, "="), value, 1);
 	return (0);
 }
 
@@ -93,7 +108,8 @@ int			sh_is_new_var(char *com)
 	while (g_env[i] != NULL)
 	{
 		if (ft_strncmp(com, g_env[i], ft_strlen(com)) == 0 &&
-				g_env[i][ft_strlen(com)] == '=')
+				g_env[i][ft_strlen(com)] == '='
+				&& g_env[i][ft_strlen(com) + 1] != '\0')
 			return (i);
 		else
 			i++;
