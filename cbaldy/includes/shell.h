@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:12:49 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/27 12:02:19 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/27 15:40:34 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ int				com_list_remove(t_com_list *del, t_com_list **begin);
 int				term_finish_line(t_line_list *first);
 int				com_list_add(t_com_list **begin, t_com_list *new, int marge);
 char			*com_list_join(t_com_list *begin);
-void			signal_handler(int signum);
 int				term_mv_cursor(char buf, t_line_list **first);
 t_exec_list		*parse_build_com(char *str);
 int				parse_find_error(char *s);
@@ -147,5 +146,6 @@ int				heredoc_write_line(t_line_list **first, char buf, char *eof);
 int				*fd_save(void);
 int				fd_reset(int *save);
 char			*exec_backquotes(t_tree *root);
+int				exec_free_root(t_tree *root);
 
 #endif
