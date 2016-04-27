@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 17:45:18 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/27 11:10:00 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/27 13:01:45 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,15 @@ static int			glob_new_string(char **str)
 	int			i;
 
 	i = 0;
+	replace_dollars(str);
 	while ((*str)[i])
 	{
-		if ((*str)[i] == ' ' && (*str)[i + 1] == '~')
-			alias_ihome(str, i + 1);
-		else if ((*str)[i] == 0x22 || (*str)[i] == 0x27)
+		if ((*str)[i] == 0x22 || (*str)[i] == 0x27)
 			escape_quotes(*str, &i, (*str)[i]);
-		else if ((*str)[i] == '$')
-			replace_dollar(str, &i);
 		else if ((*str)[i] == '*' || (*str)[i] == '?' || (*str)[i] == '[')
 		{
 			if (glob_maison(str, &i) < 0)
 				return (-1);
-
 		}
 		else if ((*str)[i] != '\0')
 			i = ((*str)[i] == 0x5c) ? i + 2 : i + 1;

@@ -6,57 +6,11 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 18:48:50 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/27 11:45:34 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/27 16:14:40 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "glob.h"
-
-static char		*get_replacement(char *var)
-{
-	char	*res;
-	int 	i;
-
-	i = 0;
-	while (var[i])
-	{
-		var[i] = ft_toupper(var[i]);
-		i++;
-	}
-	if ((i = sh_is_new_var(var)) >= 0)
-		res = ft_strdup(ft_strchr(g_env[i], '=') + 1);
-	else
-		res = ft_strdup("");
-	return (res);		
-}
-
-int				replace_dollar(char **str, int *i)
-{
-	int			j;
-	char		*value;
-	char		*var;
-	char		*tmp;
-
-	j = *i;
-	if ((*str)[*i + 1] == '?')
-	{
-		*i += 2;
-		return (0);
-	}
-	while ((*str)[j + 1] && (*str)[j + 1] != ' ' && (*str)[j + 1] != '\n'
-			&& (*str)[j + 1] != '/')
-		j++;
-	var = ft_strsub(*str, *i + 1, j - *i);
-	value = get_replacement(var);
-	tmp = var;
-	var = ft_strjoin("$", tmp);
-	free(tmp);
-	*str = ft_replace_str(*str, var, value);
-	*i = (ft_strlen(value) == 0) ? *i + 1 : ft_strlen(value);
-	free(var);
-	free(value);
-	return (0);
-}
 
 static int		add_bckslsh(char **to_add)
 {
@@ -76,7 +30,7 @@ static int		add_bckslsh(char **to_add)
 			free(begin);
 			free(end);
 			free(*to_add);
-			*to_add = tmp;		
+			*to_add = tmp;
 			i += 1;
 		}
 		i++;
@@ -122,7 +76,7 @@ int				glob_modif_str(char **str, t_glob_list *match_list, char *word
 	tmp = ft_replace_str(*str, word, insert);
 	free(*str);
 	*str = tmp;
-	*i = ft_strlen(*str) - ft_strlen((ft_strstr(*str, insert) + 
+	*i = ft_strlen(*str) - ft_strlen((ft_strstr(*str, insert) +
 				ft_strlen(insert)));
 	free(insert);
 	return (0);
