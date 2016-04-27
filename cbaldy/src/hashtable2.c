@@ -6,7 +6,7 @@
 /*   By: nchrupal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 08:53:14 by nchrupal          #+#    #+#             */
-/*   Updated: 2016/04/26 08:47:26 by nchrupal         ###   ########.fr       */
+/*   Updated: 2016/04/27 19:33:02 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ t_hash		*hash_createfile(void)
 		return (g_hashtable);
 	path = ft_strsplit(&(ft_strchr(g_env[i], '=')[1]), ':');
 	i = 0;
-	while (path[i] != NULL)
+	while (path != NULL && path[i] != NULL)
 	{
 		hash_addfile(path[i]);
 		i++;
