@@ -91,24 +91,11 @@ char	*tok_content(char *s, int start, int type)
 	return (dst);
 }
 
-t_token	*ft_push_token(t_token *head, t_token *new)
+t_token *ft_allocate(t_token *new)
 {
-	t_token	*tmp;
-
-	new->used = 0;
-	new->next = NULL;
-	new->prev = NULL;
-	if (!head)
-		head = new;
-	else
-	{
-		tmp = head;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new;
-		new->prev = tmp;
-	}
-	return (head);
+	if (!(new = (t_token*)malloc(sizeof(t_token))))
+		return (NULL);
+	return (new);
 }
 
 t_token	*ft_tokeniser(char *s, t_token *head)
@@ -121,8 +108,9 @@ t_token	*ft_tokeniser(char *s, t_token *head)
 	{
 		if (s[i] == '`')
 			s = ft_backquotes(s, i);
-		if (!(new = (t_token*)malloc(sizeof(t_token))))
-			return (NULL);
+		if (!s[i])
+			break ;
+		new = ft_allocate(new);
 		new->type = ft_token_type(s, i);
 		new->content = tok_content(s, i, new->type);
 		if (new->type == DOUBLE_R || new->type == DOUBLE_L ||
