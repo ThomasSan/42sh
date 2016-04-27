@@ -112,7 +112,5 @@ char	*ft_backquotes(char *str, int i)
 	else
 		tmp = ft_join_in_middle(str, dst, i, len);
 	free(dst);
-	// ft_printf("tmp %s\n", tmp);
-	// free(str);
 	return (tmp);
 }

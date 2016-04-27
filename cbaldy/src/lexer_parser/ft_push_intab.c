@@ -12,6 +12,13 @@
 
 #include "lexer.h"
 
+t_token		*ft_allocate(t_token *new)
+{
+	if (!(new = (t_token*)malloc(sizeof(t_token))))
+		return (NULL);
+	return (new);
+}
+
 t_token		*ft_emptyquotes(t_token *tok)
 {
 	tok->type = WORDS;

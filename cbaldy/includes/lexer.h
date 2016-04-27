@@ -95,9 +95,9 @@ typedef struct		s_parse
 }					t_parse;
 
 t_token				*ft_emptyquotes(t_token *tok);
-t_token 			*ft_allocate(t_token *new);
+t_token				*ft_allocate(t_token *new);
 t_token				*ft_push_token(t_token *head, t_token *new);
-t_token 			*ft_subshell(t_token *tok);
+t_token				*ft_subshell(t_token *tok);
 int					ft_sublen(char *str, int start, char c);
 char				*ft_backquotes(char *str, int i);
 int					ft_isspace(int c);

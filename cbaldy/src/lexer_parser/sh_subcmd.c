@@ -13,7 +13,7 @@
 #include "lexer.h"
 #include "shell.h"
 
-t_token		*ft_join_topar(t_token *tok)
+t_token			*ft_join_topar(t_token *tok)
 {
 	t_token	*tmp;
 	t_token	*tmp1;
@@ -42,7 +42,7 @@ t_token		*ft_join_topar(t_token *tok)
 	return (tok);
 }
 
-t_token 		*ft_subshell(t_token *tok)
+t_token			*ft_subshell(t_token *tok)
 {
 	t_token	*tmp;
 
