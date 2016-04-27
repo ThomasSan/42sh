@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/05 14:01:52 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/27 12:58:32 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/27 17:27:04 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ int			sh_builtin_setenv(char **com)
 		ft_dprintf(STDERR_FILENO, "usage: setenv [NAME]=[VALUE] ... \n");
 		return (1);
 	}
-	ft_putendl("2");
 	i[1] = 1;
 	while (i[1] < i[0])
 	{
