@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/27 09:36:53 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/27 10:57:30 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/27 15:38:39 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ char	*exec_backquotes(t_tree *root)
 			str = mod_strjoin(str, buf, 1);
 		wait(&ret);
 		close(fd[0]);
+		exec_free_root(root);
 		return (bq_format_string(str));
 	}
 	return (NULL);
