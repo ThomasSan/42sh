@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 13:40:47 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/26 14:51:59 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/26 19:18:54 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,13 @@ static char			**hash_table(void)
 
 	i = 0;
 	if (g_hash != NULL)
+	{
 		ft_free_tab(g_hash);
+		g_hash = NULL;
+	}
 	hash_get_tab();
-	hash = g_hash;
+	if ((hash = g_hash) == NULL)
+		return (NULL);
 	while (hash[i])
 		i++;
 	if ((res = (char**)malloc(sizeof(char*) * (i + 1))) == NULL)

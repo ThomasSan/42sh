@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 18:54:50 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/22 19:23:58 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/26 17:38:42 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@ int				clear_matchlist(t_glob_list *match_list)
 	tmp = match_list->next;
 	free(match_list->var);
 	if (match_list->next)
-		match_list->next->prev = NULL;
+		tmp->prev = NULL;
 	match_list->next = NULL;
 	match_list->prev = NULL;
+	free(match_list);
 	if (tmp != NULL)
 		clear_matchlist(tmp);
 	return (0);

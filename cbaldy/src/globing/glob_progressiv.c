@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 09:57:11 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/26 14:50:41 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/27 10:53:26 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,32 @@ static char			*build_p(char **table, int i)
 	return (res);
 }
 
-static int			glob_recurs(char **to_analyze, int i)
+static int			analyze_tab(char **to_analyze, char *match, int i)
+{
+	char		*buf;
+	char		*to_add;
+
+	buf = to_analyze[i + 1];
+	to_analyze[i + 1] = match;
+	if (to_analyze[i + 2] != NULL)
+		glob_recurs(to_analyze, i + 1);
+	else
+	{
+		to_add = build_p(to_analyze, i + 1);
+		g_glob = add_elem_glob(to_add, g_glob);
+		free(to_add);
+	}
+	to_analyze[i + 1] = buf;
+	return (0);
+}
+
+int					glob_recurs(char **to_analyze, int i)
 {
 	char	*path;
 	char	**table;
 	int		j;
 
-	if (ft_strcmp(to_analyze[0], "/") == 0 && i == 0)
-		i++;
 	path = build_p(to_analyze, i);
-	ft_printf("path: %s\n", path);
 	if ((table = build_match_list(path, to_analyze[i + 1],
 					to_analyze[i + 2])) == NULL)
 	{
@@ -50,18 +66,13 @@ static int			glob_recurs(char **to_analyze, int i)
 		return (-1);
 	}
 	j = 0;
+	free(path);
 	while (table[j])
 	{
-		if (to_analyze[i + 2] != NULL)
-		{
-			ft_printf("to_analyze:%s\n", to_analyze[i + 2]);
-			to_analyze[i + 1] = table[j];
-			glob_recurs(to_analyze, i + 1);
-		}
-		else
-			add_elem_glob(build_p(to_analyze, i + 1), g_glob);
+		analyze_tab(to_analyze, table[j], i);
 		j++;
 	}
+	ft_free_tab(table);
 	return (0);
 }
 
@@ -69,10 +80,16 @@ static int			glob_recurs(char **to_analyze, int i)
 t_glob_list			 *glob_progressiv(char *word)
 {
 	char		**to_analyze;
-
+	
+	g_glob = NULL;
 	to_analyze = ft_strsplit(word, '/');
 	if (*word == '/')
 		ft_array_push(&to_analyze, "/");
+	else if (ft_strncmp(word, "./", 2) != 0 && ft_strncmp(word, "../", 3) != 0)
+		ft_array_push(&to_analyze, ".");
 	glob_recurs(to_analyze, 0);
+	ft_free_tab(to_analyze);
+	while (g_glob && g_glob->prev)
+		g_glob = g_glob->prev;
 	return (g_glob);
 }
