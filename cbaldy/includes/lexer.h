@@ -35,6 +35,8 @@ typedef enum		e_sym
 	BACKSLASH,
 	DOLLAR,
 	MINUS,
+	O_PAR,
+	C_PAR,
 	LESS_AND,
 	GREAT_AND,
 	AND_GREAT,
@@ -45,6 +47,7 @@ typedef enum		e_sym
 	COMMANDS = 300,
 	FILENAME = 400,
 	WORDS = -1,
+	SUBSHELL = 150,
 	BACK_QUOTES
 }					t_sym;
 
@@ -79,6 +82,7 @@ typedef struct		s_token
 	int				type;
 	int				used;
 	char			*content;
+	t_tree			*tree;
 	struct s_token	*next;
 	struct s_token	*prev;
 }					t_token;
@@ -90,6 +94,8 @@ typedef struct		s_parse
 	struct s_parse	*next;
 }					t_parse;
 
+t_token 			*ft_subshell(t_token *tok);
+int					ft_sublen(char *str, int start, char c);
 char				*ft_backquotes(char *str, int i);
 int					ft_isspace(int c);
 char				*ft_catplus(char *s1, char *s2, char c);

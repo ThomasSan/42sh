@@ -6,13 +6,14 @@
 /*   By: tsanzey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 12:33:25 by tsanzey           #+#    #+#             */
-/*   Updated: 2016/04/27 10:54:26 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/27 10:59:58 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 #include "libft.h"
 #include "shell.h"
+#include "ft_printf.h"
 
 int		ft_sublen(char *str, int start, char c)
 {
@@ -77,6 +78,7 @@ char	*ft_backquotes(char *str, int i)
 	t_tree	*root;
 	int		len;
 
+	dst = NULL;
 	len = ft_sublen(str, i, '`');
 	tmp = ft_subcopy(str, i);
 	root = sh_lexer_parser(tmp);
