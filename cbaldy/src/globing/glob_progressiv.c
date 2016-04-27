@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 09:57:11 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/27 10:53:26 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/27 16:08:19 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,10 @@ int					glob_recurs(char **to_analyze, int i)
 	return (0);
 }
 
-
-t_glob_list			 *glob_progressiv(char *word)
+t_glob_list			*glob_progressiv(char *word)
 {
 	char		**to_analyze;
-	
+
 	g_glob = NULL;
 	to_analyze = ft_strsplit(word, '/');
 	if (*word == '/')

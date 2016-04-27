@@ -115,18 +115,18 @@ t_parse		*ft_checking_syntax(t_token *tok)
 	tok = ft_subshell(tok);
 	tok = check_dollar(tok);
 	tok = inibitor_handler(tok);
-	tok = join_tokens(tok);
 	return_type_quoted(tok);
 	tok = join_quoted(tok, QUOTES);
 	tok = join_quoted(tok, SINGLE_QUOTES);
 	tok = check_minus(tok);
 	tok = ft_tild_expand(tok);
 	ft_edit_useless(tok);
-	if ((tok = ft_token_removal(tok, WHITESPACE)) == NULL)
-		return (NULL);
 	if ((tok = ft_token_removal(tok, QUOTES)) == NULL)
 		return (NULL);
 	if ((tok = ft_token_removal(tok, SINGLE_QUOTES)) == NULL)
+		return (NULL);
+	tok = join_tokens(tok);
+	if ((tok = ft_token_removal(tok, WHITESPACE)) == NULL)
 		return (NULL);
 	if (!tok)
 		return (NULL);
