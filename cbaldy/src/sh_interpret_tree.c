@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 12:05:44 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/25 17:13:51 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/27 11:07:53 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,8 @@ static int	sh_exec_tree(char *str)
 	char		*glob;
 
 	glob = ft_strdup(str);
-	ft_putendl(glob);
-	if (glob_new_string(&glob) == -1)
-	{
-		ft_dprintf(STDERR_FILENO, "sh: no matches found: %s\n", str);
+	if (glob_it(&glob, str) == 1)
 		return (1);
-	}
 	if ((root = sh_lexer_parser(glob)) == NULL)
 		return (1);
 	free(glob);

@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 17:45:18 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/26 13:33:37 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/27 11:10:00 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,25 +24,29 @@ static char			*word_to_glob(char *str, int i)
 	return (ft_strsub(str, i, j - i));
 }
 
-static int			glob_maison(char **str, int i)
+static int			glob_maison(char **str, int *j)
 {
 	t_glob_list	*match_list;
 	char		*word;
+	int			i;
 
+	i = *j;
 	if ((*str)[i] == '[' && ft_strchr(&((*str)[i + 1]), ']') == NULL)
 		return (-1);
 	word = word_to_glob(*str, i);
-	ft_printf("%s\n", word);
 	match_list = glob_progressiv(word);
 	if (match_list == NULL)
+	{
+		free(word);
 		return (-1);
-	glob_modif_str(str, match_list, word);
+	}
+	glob_modif_str(str, match_list, word, j);
 	clear_matchlist(match_list);
-	ft_printf("str: %s\n", *str);
+	free(word);
 	return (0);
 }
 
-int				glob_new_string(char **str)
+static int			glob_new_string(char **str)
 {
 	int			i;
 
@@ -57,12 +61,29 @@ int				glob_new_string(char **str)
 			replace_dollar(str, &i);
 		else if ((*str)[i] == '*' || (*str)[i] == '?' || (*str)[i] == '[')
 		{
-			if (glob_maison(str, i) < 0)
+			if (glob_maison(str, &i) < 0)
 				return (-1);
-			i = 0;
+
 		}
 		else if ((*str)[i] != '\0')
 			i = ((*str)[i] == 0x5c) ? i + 2 : i + 1;
+	}
+	return (0);
+}
+
+int					glob_it(char **glob, char *str)
+{
+	if (glob_new_string(glob) == -1)
+	{
+		free(*glob);
+		ft_dprintf(STDERR_FILENO, "sh: no matches found: %s\n", str);
+		return (1);
+	}
+	if (ft_strlen(*glob) > 16384)
+	{
+		free(*glob);
+		ft_dprintf(STDERR_FILENO, "sh: argument list too long: %s\n", str);
+		return (1);
 	}
 	return (0);
 }
