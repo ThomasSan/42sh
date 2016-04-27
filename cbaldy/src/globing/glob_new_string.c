@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 17:45:18 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/27 13:01:45 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/27 17:43:34 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static int			glob_new_string(char **str)
 	int			i;
 
 	i = 0;
+	replace_bang(str);
 	replace_dollars(str);
 	while ((*str)[i])
 	{
