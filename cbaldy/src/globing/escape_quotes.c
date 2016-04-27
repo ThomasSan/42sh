@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 17:53:12 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/26 19:35:27 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/27 12:16:25 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 **	if quote found, return 0 and sets i to next element in str
 **	else return 1
 */
-#include <stdio.h>
-#include <stdlib.h>
+
 int			escape_quotes(char *str, int *i, int c)
 {
 	int var;
