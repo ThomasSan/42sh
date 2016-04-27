@@ -12,7 +12,22 @@
 
 #include "lexer.h"
 
-t_token	*ft_push_token(t_token *head, t_token *new)
+t_token		*ft_allocate(t_token *new)
+{
+	if (!(new = (t_token*)malloc(sizeof(t_token))))
+		return (NULL);
+	return (new);
+}
+
+t_token		*ft_emptyquotes(t_token *tok)
+{
+	tok->type = WORDS;
+	free(tok->content);
+	tok->content = ft_strdup("");
+	return (tok);
+}
+
+t_token		*ft_push_token(t_token *head, t_token *new)
 {
 	t_token	*tmp;
 

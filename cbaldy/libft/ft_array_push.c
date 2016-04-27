@@ -23,7 +23,6 @@ static int		add_push(char ***table, char *to_push)
 	return (0);
 }
 
-
 int				ft_array_push(char ***table, char *to_push)
 {
 	int		size;

@@ -25,6 +25,8 @@ t_token		*pop_middle_token(t_token *tok)
 	free(tok->content);
 	free(tok);
 	tok = NULL;
+	if (tmp == NULL)
+		return (NULL);
 	return (tmp);
 }
 
@@ -111,7 +113,6 @@ t_token		*check_minus(t_token *tok)
 t_parse		*ft_checking_syntax(t_token *tok)
 {
 	tok = ft_subshell(tok);
-	ft_display_tokens(tok);
 	tok = check_dollar(tok);
 	tok = inibitor_handler(tok);
 	tok = join_tokens(tok);

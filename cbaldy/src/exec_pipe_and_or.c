@@ -6,13 +6,13 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/25 11:51:07 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/26 09:57:39 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/27 15:37:07 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static int	exec_free_root(t_tree *root)
+int			exec_free_root(t_tree *root)
 {
 	if (root->left != NULL)
 		exec_free_root(root->left);
