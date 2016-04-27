@@ -6,7 +6,7 @@
 /*   By: tsanzey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 11:05:40 by tsanzey           #+#    #+#             */
-/*   Updated: 2016/04/25 12:37:19 by tsanzey          ###   ########.fr       */
+/*   Updated: 2016/04/27 10:40:33 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		ft_other_redirs(char *s, int i, int type)
 {
 	static const char	*token_types[] = {"\"", "\'", ">", ">>", "<",
-	"<<", "|", ";", "&", "~", "\\", "$", "-", "\0"};
+	"<<", "|", ";", "&", "~", "\\", "$", "-", "(", ")", "\0"};
 
 	if (s[i + 1] && type == DIPLE_R && s[i + 1] == s[i])
 		return (DOUBLE_R);
@@ -39,7 +39,7 @@ int		ft_token_type(char *s, int i)
 	int					type;
 	int					j;
 	static const char	*token_types[] = {"\"", "\'", ">", ">>", "<",
-	"<<", "|", ";", "&", "~", "\\", "$", "-", "\0"};
+	"<<", "|", ";", "&", "~", "\\", "$", "-", "(", ")", "\0"};
 
 	type = WORDS;
 	j = 0;
@@ -52,8 +52,9 @@ int		ft_token_type(char *s, int i)
 		if (s[i] == *token_types[j])
 		{
 			type = j;
-			if (j == DIPLE_R || j == DIPLE_L || j == AMPERSAND
-				|| j == PIPE)
+			if (j == MINUS && s[i - 1] != '&')
+				return (-1);
+			if (j == DIPLE_R || j == DIPLE_L || j == AMPERSAND || j == PIPE)
 				return (ft_other_redirs(s, i, type));
 			return (type);
 		}
@@ -67,7 +68,7 @@ char	*tok_content(char *s, int start, int type)
 	int					i;
 	char				*dst;
 	static const char	*token_types[] = {"\"", "\'", ">", ">>", "<",
-	"<<", "|", ";", "&", "~", "\\", "$", "-", "<&", ">&", "&>", "||",
+	"<<", "|", ";", "&", "~", "\\", "$", "-", "(", ")", "<&", ">&", "&>", "||",
 	"&&", "\0"};
 
 	if (type == DOUBLE_R || type == DOUBLE_L ||
@@ -90,24 +91,11 @@ char	*tok_content(char *s, int start, int type)
 	return (dst);
 }
 
-t_token	*ft_push_token(t_token *head, t_token *new)
+t_token *ft_allocate(t_token *new)
 {
-	t_token	*tmp;
-
-	new->used = 0;
-	new->next = NULL;
-	new->prev = NULL;
-	if (!head)
-		head = new;
-	else
-	{
-		tmp = head;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new;
-		new->prev = tmp;
-	}
-	return (head);
+	if (!(new = (t_token*)malloc(sizeof(t_token))))
+		return (NULL);
+	return (new);
 }
 
 t_token	*ft_tokeniser(char *s, t_token *head)
@@ -118,8 +106,11 @@ t_token	*ft_tokeniser(char *s, t_token *head)
 	i = 0;
 	while (s[i])
 	{
-		if (!(new = (t_token*)malloc(sizeof(t_token))))
-			return (NULL);
+		if (s[i] == '`')
+			s = ft_backquotes(s, i);
+		if (!s[i])
+			break ;
+		new = ft_allocate(new);
 		new->type = ft_token_type(s, i);
 		new->content = tok_content(s, i, new->type);
 		if (new->type == DOUBLE_R || new->type == DOUBLE_L ||

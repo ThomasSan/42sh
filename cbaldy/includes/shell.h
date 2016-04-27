@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:12:49 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/27 11:05:50 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/27 12:02:19 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,5 +146,6 @@ int				heredoc_edit_line(char *buf, int len, t_line_list **first);
 int				heredoc_write_line(t_line_list **first, char buf, char *eof);
 int				*fd_save(void);
 int				fd_reset(int *save);
+char			*exec_backquotes(t_tree *root);
 
 #endif

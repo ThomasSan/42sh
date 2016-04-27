@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/06 16:01:14 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/24 16:27:40 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/26 16:59:47 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,15 @@ static int	sh_execute_bin(char *path, char **com)
 
 int			sh_command(char **com)
 {
-	char	*path_to_bin;
-	int		i;
+	char		*path_to_bin;
+	int			i;
+	struct stat	buf;
 
 	if ((path_to_bin = sh_get_exec_path(com[0])) == NULL)
 		return (127);
-	if (access(path_to_bin, X_OK) < 0)
+	if (lstat(path_to_bin, &buf) == -1)
+		return (126);
+	if (access(path_to_bin, X_OK) < 0 || S_ISREG(buf.st_mode) == 0)
 	{
 		ft_dprintf(STDERR_FILENO, "shell: permission denied: %s\n", com[0]);
 		free(path_to_bin);
