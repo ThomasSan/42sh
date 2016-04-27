@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/26 15:13:17 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/25 12:36:13 by tsanzey          ###   ########.fr       */
+/*   Updated: 2016/04/27 10:45:03 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int			parse_print(t_parse *head)
 		i = 0;
 		while (head->arg != NULL && head->arg[i] != NULL)
 		{
-			printf("%s ", head->arg[i]);
+			ft_printf("%s ", head->arg[i]);
 			i++;
 		}
 		printf("%d\n", head->type);
