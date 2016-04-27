@@ -12,6 +12,41 @@
 
 #include "lexer.h"
 
+t_token		*ft_allocate(t_token *new)
+{
+	if (!(new = (t_token*)malloc(sizeof(t_token))))
+		return (NULL);
+	return (new);
+}
+
+t_token		*ft_emptyquotes(t_token *tok)
+{
+	tok->type = WORDS;
+	free(tok->content);
+	tok->content = ft_strdup("");
+	return (tok);
+}
+
+t_token		*ft_push_token(t_token *head, t_token *new)
+{
+	t_token	*tmp;
+
+	new->used = 0;
+	new->next = NULL;
+	new->prev = NULL;
+	if (!head)
+		head = new;
+	else
+	{
+		tmp = head;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new;
+		new->prev = tmp;
+	}
+	return (head);
+}
+
 t_parse		*ft_push_in_tab(t_parse *new, t_token *tok)
 {
 	int		rows;

@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 19:54:00 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/26 11:49:36 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/27 12:00:49 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ static int	test_bracket(char *tested, char *word)
 
 static int	question_mark(char *tested, char *word)
 {
+	if (*tested == '\0')
+		return (0);
 	if (*(word + 1) == '\0' && *(tested + 1) != '\0')
 		return (0);
 	return (match(tested + 1, word + 1));

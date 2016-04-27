@@ -91,50 +91,41 @@ char	*tok_content(char *s, int start, int type)
 	return (dst);
 }
 
-t_token	*ft_push_token(t_token *head, t_token *new)
+int		ft_get_i(t_token *new, char *s, int i)
 {
-	t_token	*tmp;
-
-	new->used = 0;
-	new->next = NULL;
-	new->prev = NULL;
-	if (!head)
-		head = new;
+	if (new->type == DOUBLE_R || new->type == DOUBLE_L ||
+		(new->type >= LESS_AND && new->type <= D_SAND))
+		i++;
+	if (ft_token_type(s, i) == WORDS)
+		i = ft_next_token(s, i, WORDS);
+	else if (ft_token_type(s, i) == NUMBERS)
+		i = ft_next_token(s, i, NUMBERS);
 	else
-	{
-		tmp = head;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new;
-		new->prev = tmp;
-	}
-	return (head);
+		i++;
+	return (i);
 }
 
 t_token	*ft_tokeniser(char *s, t_token *head)
 {
 	t_token	*new;
 	int		i;
+	char	*str;
 
 	i = 0;
+	str = s;
 	while (s[i])
 	{
 		if (s[i] == '`')
 			s = ft_backquotes(s, i);
-		if (!(new = (t_token*)malloc(sizeof(t_token))))
-			return (NULL);
+		if (!s[i])
+			break ;
+		new = ft_allocate(new);
 		new->type = ft_token_type(s, i);
 		new->content = tok_content(s, i, new->type);
-		if (new->type == DOUBLE_R || new->type == DOUBLE_L ||
-			(new->type >= LESS_AND && new->type <= D_SAND))
-			i++;
-		if (ft_token_type(s, i) == WORDS)
-			i = ft_next_token(s, i, WORDS);
-		else if (ft_token_type(s, i) == NUMBERS)
-			i = ft_next_token(s, i, NUMBERS);
-		else
-			i++;
 		head = ft_push_token(head, new);
+		i = ft_get_i(new, s, i);
 	}
+	if (s != str)
+		free(s);
 	return (head);
 }

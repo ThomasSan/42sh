@@ -71,6 +71,29 @@ char	*ft_join_in_middle(char *src, char *dst, int i, int len)
 	return (ret);
 }
 
+char	*ft_remove_bquotes(char *str, int i, int len)
+{
+	int		j;
+	int		k;
+	char	*tmp;
+
+	j = 0;
+	k = 0;
+	if (!(tmp = (char *)malloc(sizeof(char) * ft_strlen(str) - len)))
+		return (NULL);
+	while (str[j + k])
+	{
+		if (j == i)
+			k = len + 1;
+		if (str[j + k] == '\0')
+			break ;
+		tmp[j] = str[j + k];
+		j++;
+	}
+	tmp[j] = '\0';
+	return (tmp);
+}
+
 char	*ft_backquotes(char *str, int i)
 {
 	char	*dst;
@@ -84,10 +107,10 @@ char	*ft_backquotes(char *str, int i)
 	root = sh_lexer_parser(tmp);
 	ft_bzero(tmp, ft_strlen(tmp));
 	free(tmp);
-	dst = exec_backquotes(root);
-	tmp = ft_join_in_middle(str, dst, i, len);
-	//printf("tmp %s\n", tmp);
-	//free(str);
+	if (!(dst = exec_backquotes(root)))
+		tmp = ft_remove_bquotes(str, i, len);
+	else
+		tmp = ft_join_in_middle(str, dst, i, len);
 	free(dst);
 	return (tmp);
 }

@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 17:53:12 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/25 14:29:37 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/26 19:35:27 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 **	else return 1
 */
 #include <stdio.h>
+#include <stdlib.h>
 int			escape_quotes(char *str, int *i, int c)
 {
 	int var;
@@ -24,13 +25,14 @@ int			escape_quotes(char *str, int *i, int c)
 	while (str[var])
 	{
 		if ((int)str[var] == 0x5c && c != 0x27 && str[var + 1] != '\0')
-				var += 2;
-		if ((int)str[var] == c)
+			var += 2;
+		else if ((int)str[var] == c)
 		{
 			*i = var + 1;
 			return (0);
 		}
-		var++;
+		else
+			var++;
 	}
 	return (1);
 }

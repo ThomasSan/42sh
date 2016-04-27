@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 10:18:47 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/26 14:00:52 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/26 17:55:50 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ static int		add_push(char ***table, char *to_push)
 	(*table)[1] = NULL;
 	return (0);
 }
-
 
 int				ft_array_push(char ***table, char *to_push)
 {

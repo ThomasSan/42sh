@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:12:49 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/27 15:34:06 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/27 15:40:34 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ char			*line_list_retrieve(t_line_list *first);
 t_line_list		*line_list_dup(t_line_list *var);
 int				line_list_free(t_line_list *first);
 int				line_list_get_marge(t_line_list *first);
-int				glob_new_string(char **str);
+int				glob_it(char **glob, char *str);
 char			*cd_env_cdpath(char **com, int dir);
 char			**tabl_compl(char *path);
 int				alias_ihome(char **path, int i);
