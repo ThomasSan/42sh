@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 10:54:42 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/26 19:13:09 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/27 18:38:16 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static int	hash_explore_dir(char *path, t_hash_tree **root)
 	return (nb);
 }
 
-int			hash_get_tab(void)
+char		**hash_get_tab(void)
 {
 	char		**path;
 	char		**arr;
@@ -93,21 +93,21 @@ int			hash_get_tab(void)
 	int			nb;
 
 	if ((i = sh_is_new_var("PATH")) < 0)
-		return (0);
+		return (NULL);
 	root = NULL;
 	nb = 0;
 	path = ft_strsplit(&(ft_strchr(g_env[i], '=')[1]), ':');
 	i = 0;
-	while (path[i] != NULL)
+	while (path != NULL && path[i] != NULL)
 	{
 		nb += hash_explore_dir(path[i], &root);
 		i++;
 	}
-	if ((arr = (char **)malloc(sizeof(char *) * (nb + 1))) == NULL)
-		return (0);
+	if (nb == 0 || (arr = (char **)malloc(sizeof(char *) * (nb + 1))) == NULL)
+		return (NULL);
 	hash_build_tab(root, arr, 0);
 	arr[nb] = NULL;
 	g_hash = arr;
 	ft_free_tab(path);
-	return (0);
+	return (g_hash);
 }

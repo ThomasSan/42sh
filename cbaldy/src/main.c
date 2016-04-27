@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/27 12:36:46 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/25 12:30:20 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/27 17:26:38 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,15 @@ int			main(int ac, char **av, char **env)
 		ft_dprintf(STDERR_FILENO, "shell: argument invalid: %s\n", av[1]);
 		return (0);
 	}
-	ft_array_fun();
 	sh_set_env(env);
-	if (sh_set_term() < 0 || sh_get_term_fildes() < 0)
+	
+	int	i = 0;
+	int	j = 0;
+	if ((j = sh_get_term_fildes()) < 0 || (i = sh_set_term() < 0))
+	{
+		printf("%d %d\n", j, i);
 		return (main_alt());
+	}
 	while (42)
 	{
 		if (sh_prompt() < 0)

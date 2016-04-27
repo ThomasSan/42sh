@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/12 15:48:41 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/26 19:10:21 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/27 17:42:05 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int			sh_set_env(char **env)
 	int			i;
 	char		*nb_shlvl;
 
+	ft_array_fun();
+	g_hash = NULL;
 	sh_malloc_env(env);
 	sh_std_env();
 	if ((i = sh_is_new_var("SHLVL")) < 0)
@@ -72,7 +74,6 @@ int			sh_set_env(char **env)
 		sh_change_var_env("SHLVL", nb_shlvl);
 		free(nb_shlvl);
 	}
-	hash_get_tab();
 	if (sh_set_local_env() < 0)
 		return (-1);
 	return (0);
