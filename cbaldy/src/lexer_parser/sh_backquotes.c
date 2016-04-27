@@ -6,7 +6,7 @@
 /*   By: tsanzey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 12:33:25 by tsanzey           #+#    #+#             */
-/*   Updated: 2016/04/26 12:33:27 by tsanzey          ###   ########.fr       */
+/*   Updated: 2016/04/27 10:59:58 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,10 @@ char	*ft_backquotes(char *str, int i)
 	root = sh_lexer_parser(tmp);
 	ft_bzero(tmp, ft_strlen(tmp));
 	free(tmp);
-	// dst = exec_back_quote(root);
+	dst = exec_backquotes(root);
 	tmp = ft_join_in_middle(str, dst, i, len);
-	// ft_printf("tmp %s\n", tmp);
-	free(str);
+	//printf("tmp %s\n", tmp);
+	//free(str);
 	free(dst);
 	return (tmp);
 }

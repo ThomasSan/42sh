@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/08 15:22:50 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/24 17:20:19 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/26 15:54:04 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ char		*cd_var_env(char *name)
 	if (access(tmp, F_OK) < 0)
 	{
 		ft_dprintf(STDERR_FILENO, "cd: %s invalid path: %s\n", name, tmp);
+		free(tmp);
 		return (NULL);
 	}
 	return (tmp);
