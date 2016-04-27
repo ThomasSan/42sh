@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/26 15:27:53 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/01/20 11:49:21 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/27 18:23:35 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,13 @@ static int		ft_len_word(char const *s, char c)
 
 char			**ft_strsplit(char const *s, char c)
 {
-	size_t	i[3];
+	size_t	i[4];
 	char	**str;
 
-	str = (char **)malloc(sizeof(char *) * (ft_count_words(s, c) + 1));
-	if (str == NULL || s == NULL)
+	i[3] = 0;
+	if (s == NULL || (i[3] = ft_count_words(s, c)) == 0)
+		return (NULL);
+	if ((str = (char **)malloc(sizeof(char *) * (i[3] + 1))) == NULL)
 		return (NULL);
 	i[1] = 0;
 	i[0] = 0;
