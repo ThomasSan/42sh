@@ -6,13 +6,13 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/27 12:36:46 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/27 17:26:38 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/28 11:01:52 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static int	main_alt(void)
+static int	main_minishell(void)
 {
 	sh_reset_term();
 	ft_putstr_fd("shell: no termcaps activated\n", STDOUT_FILENO);
@@ -30,6 +30,12 @@ static int	main_alt(void)
 	return (0);
 }
 
+static int	main_input(void)
+{
+	sh_minishell();
+	return (0);
+}
+
 int			main(int ac, char **av, char **env)
 {
 	if (ac != 1)
@@ -38,14 +44,10 @@ int			main(int ac, char **av, char **env)
 		return (0);
 	}
 	sh_set_env(env);
-	
-	int	i = 0;
-	int	j = 0;
-	if ((j = sh_get_term_fildes()) < 0 || (i = sh_set_term() < 0))
-	{
-		printf("%d %d\n", j, i);
-		return (main_alt());
-	}
+	if (sh_get_term_fildes() < 0)
+		return (main_minishell());
+	if (sh_set_term() < 0)
+		return (main_input());
 	while (42)
 	{
 		if (sh_prompt() < 0)

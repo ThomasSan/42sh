@@ -6,11 +6,12 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 09:45:00 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/27 17:19:35 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/28 10:49:57 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+#include <errno.h>
 
 int			sh_get_term_fildes(void)
 {
@@ -36,18 +37,12 @@ int			sh_set_term(void)
 	struct termios	tmp;
 
 	if (tcgetattr(STDIN_FILENO, &tmp) < 0)
-	{
-		ft_putendl("GGGGGGG");
 		return (-1);
-	}
 	tmp.c_cc[VMIN] = 1;
 	tmp.c_cc[VTIME] = 0;
 	tmp.c_lflag &= ~(ICANON | ECHO | ISIG);
 	if ((tcsetattr(STDIN_FILENO, TCSANOW, &tmp)) < 0)
-	{
-		ft_putendl("HHHHHHH");
 		return (-1);
-	}
 	return (0);
 }
 
