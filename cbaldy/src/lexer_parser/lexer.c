@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "lexer.h"
+#include "ft_printf.h"
 
 int		ft_other_redirs(char *s, int i, int type)
 {
@@ -39,7 +40,7 @@ int		ft_token_type(char *s, int i)
 	int					type;
 	int					j;
 	static const char	*token_types[] = {"\"", "\'", ">", ">>", "<",
-	"<<", "|", ";", "&", "~", "\\", "$", "-", "(", ")", "\0"};
+	"<<", "|", ";", "&", "~", "\\", "$", "-", "(", ")", "`","\0"};
 
 	type = WORDS;
 	j = 0;
@@ -116,10 +117,7 @@ t_token	*ft_tokeniser(char *s, t_token *head)
 	while (s[i])
 	{
 		if (s[i] == '`')
-		{
-			ft_putendl("on est la ");
 			s = ft_backquotes(s, i);
-		}
 		if (!s[i])
 			break ;
 		new = ft_allocate(new);

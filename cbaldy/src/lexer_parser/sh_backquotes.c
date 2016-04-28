@@ -13,7 +13,6 @@
 #include "lexer.h"
 #include "libft.h"
 #include "shell.h"
-#include "ft_printf.h"
 
 int		ft_sublen(char *str, int start, char c)
 {
@@ -104,9 +103,7 @@ char	*ft_backquotes(char *str, int i)
 	dst = NULL;
 	len = ft_sublen(str, i, '`');
 	tmp = ft_subcopy(str, i);
-	ft_printf("tmp : %s\n", tmp);
 	root = sh_lexer_parser(tmp);
-	ft_printf("root : %p\n", root);
 	ft_bzero(tmp, ft_strlen(tmp));
 	free(tmp);
 	if (!(dst = exec_backquotes(root)))
