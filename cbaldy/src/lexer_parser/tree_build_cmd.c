@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 10:22:10 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/28 14:30:30 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/28 15:36:44 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,15 @@ t_tree		*tree_build_cmd(t_parse *head)
 	root = NULL;
 	while (head != NULL)
 	{
-		if ((new = tree_new_elem(head->arg, head->type)) == NULL || 
-				tree_insert_elem(new, &root) < 0)
+		if ((new = tree_new_elem(head->arg, head->type)) == NULL)
+		   return (NULL);
+	   if (tree_insert_elem(new, &root) < 0)
 		{
 			if (new != NULL)
 				exec_free_root(new);
 			exec_free_root(root);
+			parse_list_free(head->next);
+			free(head);
 			root = NULL;
 			break ;
 		}
@@ -102,7 +105,6 @@ t_tree		*tree_build_cmd(t_parse *head)
 		free(head);
 		head = tmp;
 	}
-	parse_list_free(head);
 	return (root);
 	tree_print(root);
 }
