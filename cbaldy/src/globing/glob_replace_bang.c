@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/27 17:16:36 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/28 16:11:25 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/28 17:48:47 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,6 @@ int			replace_bang(char **str)
 			i = ((*str)[i] == 0x5c) ? i + 2 : i + 1;
 	}
 	if (expand == 1)
-		ft_dprintf(STDOUT_FILENO, "%s\n", *str);
+		ft_dprintf(STDOUT_FILENO, "bang:%s\n", *str);
 	return (0);
 }

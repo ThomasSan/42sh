@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 17:45:18 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/28 12:23:45 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/28 18:09:52 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ static int			glob_new_string(char **str)
 	{
 		if ((*str)[i] == 0x22 || (*str)[i] == 0x27)
 			escape_quotes(*str, &i, (*str)[i]);
+		else if ((*str)[i] == '$' && (*str)[i + 1] == '?')
+			i += 2;
 		else if ((*str)[i] == '*' || (*str)[i] == '?' || (*str)[i] == '[')
 		{
 			if (glob_maison(str, &i) < 0)

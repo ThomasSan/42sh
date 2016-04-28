@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/27 12:59:08 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/28 12:24:28 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/28 18:05:08 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ static int		replace_dollar(char **str, int *i)
 	j = *i;
 	if ((*str)[*i + 1] == '?')
 		return (escape_questm(i));
-	while ((*str)[j + 1] && (*str)[j + 1] != ' ' && (*str)[j + 1] != '\n'
-			&& (*str)[j + 1] != '/' && j - *i < 256)
+	while ((*str)[j + 1] && (ft_isalnum((*str)[j + 1]) == 1 ||
+		(*str)[j + 1] == '_') && j - *i < 256)
 		j++;
 	var = ft_strsub(*str, *i + 1, j - *i);
 	value = get_replacement(var);
@@ -72,7 +72,7 @@ int				replace_dollars(char **str)
 	{
 		if ((*str)[i] == ' ' && (*str)[i + 1] == '~')
 			alias_ihome(str, i + 1);
-		if ((*str)[i] == 0x22 || (*str)[i] == 0x27)
+		if ((*str)[i] == 0x27)
 			escape_quotes(*str, &i, (*str)[i]);
 		else if ((*str)[i] == '$')
 			replace_dollar(str, &i);
