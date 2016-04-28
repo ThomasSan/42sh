@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/26 15:13:17 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/28 10:20:50 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/28 14:12:35 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,28 +41,36 @@ static int	parse_get_pipe_type(t_parse **head, t_token *tok)
 		op = END;
 	else if (tok->type == D_PIPE)
 		op = OR_IF;
-	else if (tok->type == D_SAND)
-		op = AND_IF;
 	else
-		op = B_QUOTES;
+		op = AND_IF;
 	return (parse_list_pushback(parse_list_new(NULL, op), head) + 1);
+}
+
+static int	parse_get_subshell(t_parse **head, t_token *tok)
+{
+	char	**arg;
+
+	if ((arg = (char **)malloc(sizeof(char *) * 2)) == NULL)
+		return (1);
+	arg[0] = ft_strdup(tok->content);
+	arg[1] = NULL;
+	return (parse_list_pushback(parse_list_new(arg, S_SHELL), head) + 1);
 }
 
 static int	parse_analyse_token(t_parse **head, t_token *tok)
 {
-	if (tok->type == SUBSHELL)
-		ft_putendl("SUBSHELL");
 	if (tok->type == WORDS)
 		return (parse_get_cmd(head, tok));
+	else if (tok->type == SUBSHELL)
+		return (parse_get_subshell(head, tok));
 	else if ((tok->type >= DIPLE_R && tok->type <= DOUBLE_L) ||
 			tok->type == NUMBERS || (tok->type >= LESS_AND && tok->type
 				<= AND_GREAT))
 		return (parse_get_redir(head, tok));
 	else if (tok->type == PIPE || tok->type == SEMICOL ||
-		tok->type == D_PIPE || tok->type == D_SAND
-		|| tok->type == BACK_QUOTES)
+		tok->type == D_PIPE || tok->type == D_SAND)
 		return (parse_get_pipe_type(head, tok));
-	return (-1);
+	return (1);
 }
 
 t_parse		*parse_build_list(t_token *tok)

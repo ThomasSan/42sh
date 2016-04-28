@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/25 18:33:06 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/26 19:20:02 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/28 13:01:41 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,21 @@ int		parse_list_pushback(t_parse *new, t_parse **head)
 		while (tmp->next != NULL)
 			tmp = tmp->next;
 		tmp->next = new;
+	}
+	return (0);
+}
+
+int		parse_list_free(t_parse *head)
+{
+	t_parse	*tmp;
+
+	while (head != NULL)
+	{
+		tmp = head->next;
+		if (head->arg != NULL)
+			ft_free_tab(head->arg);
+		free(head);
+		head = tmp;
 	}
 	return (0);
 }

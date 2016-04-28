@@ -6,7 +6,7 @@
 /*   By: tsanzey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 18:02:06 by tsanzey           #+#    #+#             */
-/*   Updated: 2016/04/28 10:18:30 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/28 14:11:33 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ t_token			*ft_subshell(t_token *tok)
 		if (tmp->type == O_PAR)
 		{
 			tok = ft_join_topar(tok);
-			if (check_next_token(tok) != C_PAR)
-				tok->next->tree = sh_lexer_parser(tok->next->content);
 			tok = ft_token_removal(tok, O_PAR);
 			tok = ft_token_removal(tok, C_PAR);
 		}

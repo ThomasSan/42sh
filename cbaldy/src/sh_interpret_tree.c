@@ -6,13 +6,14 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 12:05:44 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/28 14:37:04 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/28 14:38:21 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
 t_exec_list	g_exec_list[] = {
+	{S_SHELL, &exec_subshell},
 	{LESS, &exec_redin},
 	{GREAT, &exec_redout},
 	{D_LESS, &exec_heredoc},

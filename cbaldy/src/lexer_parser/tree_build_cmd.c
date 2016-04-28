@@ -6,24 +6,33 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 10:22:10 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/27 19:24:21 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/28 14:30:30 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tree_build_cmd.h"
+#include "shell.h"
 
 static int	tree_print(t_tree *root)
 {
 	int		i;
 
+	if (root == NULL)
+	{
+		ft_putendl("NULL ROOT");
+		return (0);
+	}
+	ft_printf("type: %d  ", root->types);
 	if (root->types == 0)
 	{
 		i = 0;
 		while (root->cmd[i] != NULL)
 		{
+			ft_printf("%s", root->cmd[i]);
 			i++;
 		}
 	}
+	ft_putchar('\n');
 	if (root->left != NULL)
 	{
 		tree_print(root->left);
@@ -35,29 +44,28 @@ static int	tree_print(t_tree *root)
 	return (0);
 }
 
-int			tree_place_bq(t_tree *new, t_tree **root)
+static int	tree_place_sshell(t_tree *new, t_tree **root)
 {
-	t_tree *tmp;
-	t_tree *tmp1;
+	t_tree *leg;
 
-	tmp = *root;
-	if (tmp->types >= TUBES && tmp->types <= OR_IF)
+	if ((leg = sh_lexer_parser(new->cmd[0])) == NULL)
+		return (-1);
+	new->right = leg;
+	ft_free_tab(new->cmd);
+	new->cmd = NULL;
+	if (*root == NULL)
 	{
-		tmp1 = tmp->right;
-		new->right = tmp1;
-		tmp->right = new;
-	}
-	else
-	{
-		new->right = tmp;
 		*root = new;
+		return (0);
 	}
-	return (0);
+	return (tree_place_cmd(new, root));
 }
 
 static int	tree_insert_elem(t_tree *new, t_tree **root)
 {
-	if (*root == NULL)
+	if (new->types == S_SHELL)
+		return (tree_place_sshell(new, root));
+	else if (*root == NULL)
 	{
 		*root = new;
 		return (0);
@@ -68,8 +76,6 @@ static int	tree_insert_elem(t_tree *new, t_tree **root)
 		return (tree_place_type_red(new, root));
 	else if (new->types < END)
 		return (tree_place_type_pipe(new, root));
-	else if (new->types == B_QUOTES)
-		return (tree_place_bq(new, root));
 	else
 		return (tree_place_type_end(new, root));
 }
@@ -79,25 +85,24 @@ t_tree		*tree_build_cmd(t_parse *head)
 	t_tree	*root;
 	t_tree	*new;
 	t_parse	*tmp;
-	int		bq;
 
 	root = NULL;
-	bq = 0;
 	while (head != NULL)
 	{
-		if (bq == 0 || head->type != B_QUOTES)
+		if ((new = tree_new_elem(head->arg, head->type)) == NULL || 
+				tree_insert_elem(new, &root) < 0)
 		{
-			if (head->type == B_QUOTES)
-				bq = bq == 0 ? 1 : 0;
-			if ((new = tree_new_elem(head->arg, head->type)) == NULL)
-				return (NULL);
-			if (tree_insert_elem(new, &root) < 0)
-				return (NULL);
+			if (new != NULL)
+				exec_free_root(new);
+			exec_free_root(root);
+			root = NULL;
+			break ;
 		}
-		tmp = head;
-		head = head->next;
-		free(tmp);
+		tmp = head->next;
+		free(head);
+		head = tmp;
 	}
+	parse_list_free(head);
 	return (root);
 	tree_print(root);
 }

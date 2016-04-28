@@ -6,7 +6,7 @@
 /*   By: tsanzey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 12:46:57 by tsanzey           #+#    #+#             */
-/*   Updated: 2016/04/26 11:47:22 by tsanzey          ###   ########.fr       */
+/*   Updated: 2016/04/28 11:26:10 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef enum		e_sym
 typedef	enum		e_cmd
 {
 	CMD,
+	S_SHELL,
 	LESS,
 	GREAT,
 	D_LESS,
@@ -65,7 +66,6 @@ typedef	enum		e_cmd
 	AND_IF,
 	OR_IF,
 	END,
-	B_QUOTES
 }					t_cmd;
 
 typedef struct		s_tree
