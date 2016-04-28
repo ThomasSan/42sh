@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/25 11:51:07 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/27 15:37:07 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/28 10:46:22 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int			exec_free_root(t_tree *root)
 {
+	if (root == NULL)
+		return (0);
 	if (root->left != NULL)
 		exec_free_root(root->left);
 	if (root->right != NULL)

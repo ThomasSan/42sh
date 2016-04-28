@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/26 15:13:17 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/27 10:45:03 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/28 10:20:50 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ static int	parse_get_pipe_type(t_parse **head, t_token *tok)
 
 static int	parse_analyse_token(t_parse **head, t_token *tok)
 {
+	if (tok->type == SUBSHELL)
+		ft_putendl("SUBSHELL");
 	if (tok->type == WORDS)
 		return (parse_get_cmd(head, tok));
 	else if ((tok->type >= DIPLE_R && tok->type <= DOUBLE_L) ||
@@ -60,7 +62,7 @@ static int	parse_analyse_token(t_parse **head, t_token *tok)
 		tok->type == D_PIPE || tok->type == D_SAND
 		|| tok->type == BACK_QUOTES)
 		return (parse_get_pipe_type(head, tok));
-	return (1);
+	return (-1);
 }
 
 t_parse		*parse_build_list(t_token *tok)
