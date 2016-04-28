@@ -35,9 +35,9 @@ int			is_word_or(char *s, int i)
 	if (s[i - 1] != '\0' && ft_isdigit(s[i - 1]))
 	{
 		j = 0;
-		while (s[i + j + 1] && ft_isdigit(s[i + j + 1]))
+		while ((i + j) > 0 && ft_isdigit(s[i + j]))
 			j--;
-		if (s[i - 1] && s[i - 1] == '&')
+		if (s[i + j] && s[i + j] == '&')
 			return (1);
 	}
 	return (0);
