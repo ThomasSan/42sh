@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/27 17:16:36 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/27 19:33:26 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/28 14:37:06 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,59 +15,37 @@
 static int	rcpy_begin_line(char **str, int *i)
 {
 	char	*begin;
+	char	*tmp;
 	
 	begin = ft_strsub(*str, 0, *i);
 	tmp = ft_ireplace_str(*str, begin, *i, 2);
 	*i += ft_strlen(begin);
+	free(*str);
+	*str = tmp;
 	return (0);
-}
-
-static int	to_nhist(char **str, int *i, t_hist_list **hist, int h_nb)
-{
-	t_hist_list		*buf;
-	char			*to_add;
-
-	buf = *hist;
-	to_add = NULL;
-	while (buf)
-	{
-		if ((*hist)->nb == h_nb)
-		{
-			to_add = line_list_retrieve((*hist)->old);
-			break ;
-		}
-		(*hist) = (*hist)->prev;
-	}
-	if (to_add == NULL)
-		return (-1);
-	else if ((*str)[i + 1] == '-')
-		return (remove_bang(str, i, to_add));
-	tmp = ft_ireplace_str(*str, to_add, *i, 2);
-			
 }
 
 static int	replace_bangs(char **str, int *i)
 {
 	t_hist_list	*hist;
 
-	if ((*str)[i + 1] == '#')
+	if ((*str)[*i + 1] == '#')
 		return (rcpy_begin_line(str, i));
 	if ((hist = retrieve_history(2, NULL)) == NULL)
 		return (-1);
-	if (ft_isdigit((*str)[i + 1]) == 1)
-		return (to_nhist(str, i, &hist, ft_atoi(&((*str)[i + 1]))));
-	else if ((*str)[i + 1] == '-')
+	if (ft_isdigit((*str)[*i + 1]) == 1 || (*str)[*i + 1] == '!')
+		return (direct_digit(str, i, &hist));
+	else if ((*str)[*i + 1] == '-')
 	{
-		if (ft_isdigit((*str)[i + 2]) == 1)
-			return (to_nhist(str, i, &hist, 1 + hist->nb -
-					ft_atoi(&((*str)[i + 1]))));
+		if (ft_isdigit((*str)[*i + 2]) == 1)
+			return (backward_digit(str, i, &hist));
 		else
-			return (-2);
+			return (-1);
 	}
-	else if ((*str)[i + 1] == '!')
-		return (to_nhist(str, i, &hist, hist->nb));
-	else if ((*str)[i + 1] == '?')
+	else if ((*str)[*i + 1] == '?')
 		return (strstr_cmd(str, i, &hist));
+	else
+		return (strcmp_cmd(str, i, &hist));
 	return (0);
 }
 
@@ -94,7 +72,5 @@ int			replace_bang(char **str)
 		else if ((*str)[i] != '\0')
 			i = ((*str)[i] == 0x5c) ? i + 2 : i + 1;
 	}
-	ft_printf("%s\n", *str);
-	exit(0);
 	return (0);
 }

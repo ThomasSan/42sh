@@ -6,13 +6,13 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 09:57:11 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/27 16:08:19 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/28 12:59:22 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "glob.h"
 
-t_glob_list			*g_glob;
+static t_glob_list	*g_glob;
 
 static char			*build_p(char **table, int i)
 {
