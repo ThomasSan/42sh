@@ -6,14 +6,14 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 10:22:10 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/28 15:36:44 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/28 15:45:34 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tree_build_cmd.h"
 #include "shell.h"
 
-static int	tree_print(t_tree *root)
+/*static int	tree_print(t_tree *root)
 {
 	int		i;
 
@@ -42,7 +42,7 @@ static int	tree_print(t_tree *root)
 		tree_print(root->right);
 	}
 	return (0);
-}
+}*/
 
 static int	tree_place_sshell(t_tree *new, t_tree **root)
 {
@@ -90,8 +90,8 @@ t_tree		*tree_build_cmd(t_parse *head)
 	while (head != NULL)
 	{
 		if ((new = tree_new_elem(head->arg, head->type)) == NULL)
-		   return (NULL);
-	   if (tree_insert_elem(new, &root) < 0)
+			return (NULL);
+		if (tree_insert_elem(new, &root) < 0)
 		{
 			if (new != NULL)
 				exec_free_root(new);
@@ -106,5 +106,4 @@ t_tree		*tree_build_cmd(t_parse *head)
 		head = tmp;
 	}
 	return (root);
-	tree_print(root);
 }

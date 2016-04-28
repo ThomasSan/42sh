@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   term_finish_line.c                                 :+:      :+:    :+:   */
+/*   mini_finish_line.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/30 18:32:23 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/28 15:53:19 by cbaldy           ###   ########.fr       */
+/*   Created: 2016/04/28 15:53:44 by cbaldy            #+#    #+#             */
+/*   Updated: 2016/04/28 16:03:31 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static int	*finish_line_init_tab(void)
+static int	*finish_line_init_tab_mini(void)
 {
 	int		*arr;
 
@@ -28,7 +28,7 @@ static int	*finish_line_init_tab(void)
 	return (arr);
 }
 
-static int	lex_is_special(char c, int *arr)
+static int	lex_is_special_mini(char c, int *arr)
 {
 	if (c == '(')
 		arr[0] += 1;
@@ -51,7 +51,7 @@ static int	lex_is_special(char c, int *arr)
 	return (0);
 }
 
-static int	term_backslach(char *str, int *arr)
+static int	mini_backslach(char *str, int *arr)
 {
 	if (str[1] == '\0')
 	{
@@ -65,14 +65,14 @@ static int	term_backslach(char *str, int *arr)
 	return (1);
 }
 
-static int	term_read_string(char *str, int *arr)
+static int	mini_read_string(char *str, int *arr)
 {
 	int		i;
 
 	i = 1;
 	if (str[0] == 92)
-		return (term_backslach(str, arr));
-	lex_is_special(str[0], arr);
+		return (mini_backslach(str, arr));
+	lex_is_special_mini(str[0], arr);
 	if ((str[0] == '`' && arr[5] != 0) || (str[0] == 34 &&
 				arr[4] != 0) || (str[0] == 39 && arr[3] != 0))
 	{
@@ -86,19 +86,15 @@ static int	term_read_string(char *str, int *arr)
 	return (i);
 }
 
-int			term_finish_line(t_line_list *first)
+int			mini_finish_line(char *str)
 {
-	char	*str;
 	int		*arr;
 	int		i[2];
 
-	while (first->previous != NULL)
-		first = first->previous;
-	str = line_list_retrieve(first);
-	arr = finish_line_init_tab();
+	arr = finish_line_init_tab_mini();
 	i[0] = 0;
 	while (str[i[0]] != '\0')
-		i[0] += term_read_string(&(str[i[0]]), arr);
+		i[0] += mini_read_string(&(str[i[0]]), arr);
 	free(str);
 	i[0] = 0;
 	i[1] = 0;
