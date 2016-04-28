@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 10:54:42 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/27 19:33:04 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/28 17:14:33 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,11 +103,11 @@ char		**hash_get_tab(void)
 		nb += hash_explore_dir(path[i], &root);
 		i++;
 	}
+	ft_free_tab(path);
 	if (nb == 0 || (arr = (char **)malloc(sizeof(char *) * (nb + 1))) == NULL)
 		return (NULL);
 	hash_build_tab(root, arr, 0);
 	arr[nb] = NULL;
 	g_hash = arr;
-	ft_free_tab(path);
 	return (g_hash);
 }
