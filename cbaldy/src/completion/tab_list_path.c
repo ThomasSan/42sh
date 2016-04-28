@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 16:49:41 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/28 15:32:19 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/28 17:18:40 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,37 +69,13 @@ static char			*path_aliases_compl(char *buf)
 	return (res);
 }
 
-static char			*path_empty_curs(char *var, int i)
-{
-	int			count;
-
-	if (var[i - 1] == ' ')
-	{
-		while (i > 0)
-		{
-			if (var[i] != ' ')
-				return (ft_strdup("./"));
-			i--;
-		}
-		return (NULL);
-	}
-	i--;
-	count = 1;
-	while (var[i - 1] != ' ' && i > 0)
-	{
-		i--;
-		count++;
-	}
-	return (ft_strsub(var, i, count));
-}
-
 char				*path_to_tab(char *var, int marge)
 {
 	int			i;
 	int			count;
 	char		*buf;
 
-	i = g_local->curs - marge - 1;
+	i = g_local->curs - marge - 2;
 	count = 1;
 	if (i < 0 || (i == 0 && var[i] <= 32))
 		return (NULL);
@@ -107,7 +83,7 @@ char				*path_to_tab(char *var, int marge)
 	{
 		while (var[i + 1] && var[i + 1] != ' ')
 			i++;
-		while (var[i - 1] != ' ' && i > 0)
+		while (i > 1 && var[i - 1] != ' ')
 		{
 			count++;
 			i--;
@@ -115,7 +91,7 @@ char				*path_to_tab(char *var, int marge)
 		buf = ft_strsub(var, i, count);
 	}
 	else
-		buf = path_empty_curs(var, i);
+		buf = ft_strdup("./");
 	return (buf);
 }
 
