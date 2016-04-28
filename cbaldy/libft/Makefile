@@ -6,7 +6,7 @@
 #    By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 18:31:38 by cbaldy            #+#    #+#              #
-#    Updated: 2016/04/26 12:44:25 by dbaldy           ###   ########.fr        #
+#    Updated: 2016/04/28 12:48:42 by dbaldy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ SRC = ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c ft_isascii.c \
 	 ft_lstdel.c ft_lstadd.c ft_lstiter.c ft_lstmap.c \
 	 ft_sort_integer_table.c ft_power.c ft_sqrt.c ft_is_prime.c \
 	 ft_find_next_prime.c ft_convert_base.c ft_strtrunc.c ft_strjoin_multiple.c\
-	 ft_replace_str.c ft_ireplace_str.c ft_freetab.c ft_array_push.c
+	 ft_replace_str.c ft_ireplace_str.c ft_freetab.c ft_array_push.c\
+	 ft_number_size.c
 
 SRC1 = ft_atoi.o ft_bzero.o ft_isalnum.o ft_isalpha.o ft_isascii.o \
 	  ft_isdigit.o ft_isprint.o ft_memccpy.o ft_memchr.o ft_memcmp.o \
@@ -42,7 +43,8 @@ SRC1 = ft_atoi.o ft_bzero.o ft_isalnum.o ft_isalpha.o ft_isascii.o \
 	 ft_lstdel.o ft_lstadd.o ft_lstiter.o ft_lstmap.o \
 	 ft_sort_integer_table.o ft_power.o ft_sqrt.o ft_is_prime.o \
 	 ft_find_next_prime.o ft_convert_base.o ft_strtrunc.o ft_strjoin_multiple.o\
-	  ft_replace_str.o ft_ireplace_str.o ft_freetab.o ft_array_push.o
+	  ft_replace_str.o ft_ireplace_str.o ft_freetab.o ft_array_push.o\
+	  ft_number_size.o
 
 all: $(NAME)
 

@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/27 12:59:08 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/27 17:50:07 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/28 12:24:28 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int		replace_dollar(char **str, int *i)
 	if ((*str)[*i + 1] == '?')
 		return (escape_questm(i));
 	while ((*str)[j + 1] && (*str)[j + 1] != ' ' && (*str)[j + 1] != '\n'
-			&& (*str)[j + 1] != '/')
+			&& (*str)[j + 1] != '/' && j - *i < 256)
 		j++;
 	var = ft_strsub(*str, *i + 1, j - *i);
 	value = get_replacement(var);
@@ -57,7 +57,7 @@ static int		replace_dollar(char **str, int *i)
 	tmp = ft_replace_str(*str, var, value);
 	free(*str);
 	*str = tmp;
-	*i = (ft_strlen(value) == 0) ? *i + 1 : ft_strlen(value);
+	*i = (ft_strlen(value) == 0) ? *i + 1 : *i + ft_strlen(value);
 	free(var);
 	free(value);
 	return (0);

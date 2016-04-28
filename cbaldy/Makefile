@@ -6,7 +6,7 @@
 #    By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/14 14:42:25 by cbaldy            #+#    #+#              #
-#    Updated: 2016/04/28 13:41:54 by cbaldy           ###   ########.fr        #
+#    Updated: 2016/04/28 14:38:54 by cbaldy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ TAB = tab_mode.c tab_select.c tab_nb_col.c tab_nb_row.c tab_cursor_mvt.c \
 
 GLOB = escape_quotes.c glob_build_list.c glob_match_list_ft.c glob_new_string.c\
 	   glob_match.c glob_modif_str.c glob_progressiv.c glob_replace_dol.c \
-	   
+	   glob_bang_str.c glob_replace_bang.c glob_bang_digit.c	   
 
 LEX = lexer.c ft_token_recognition.c ft_free.c \
 	  ft_push_tree.c ft_misc.c pipe_grammar.c ft_great_grammar.c \
