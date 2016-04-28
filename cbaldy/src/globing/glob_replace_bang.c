@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/27 17:16:36 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/28 14:37:06 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/28 16:11:25 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,19 @@ static int	replace_bangs(char **str, int *i)
 int			replace_bang(char **str)
 {
 	int		i;
+	int		expand;
 
 	i = 0;
+	expand = 0;
 	while ((*str)[i])
 	{
 		if ((*str)[i] == ' ' && (*str)[i + 1] == '~')
 			alias_ihome(str, i + 1);
-		else if ((*str)[i] == 0x22 || (*str)[i] == 0x27)
+		else if ((*str)[i] == 0x27)
 			escape_quotes(*str, &i, (*str)[i]);
 		else if ((*str)[i] == '!')
 		{
+			expand = 1;
 			if (replace_bangs(str, &i) < 0)
 			{
 				free(*str);
@@ -72,5 +75,7 @@ int			replace_bang(char **str)
 		else if ((*str)[i] != '\0')
 			i = ((*str)[i] == 0x5c) ? i + 2 : i + 1;
 	}
+	if (expand == 1)
+		ft_dprintf(STDOUT_FILENO, "%s\n", *str);
 	return (0);
 }

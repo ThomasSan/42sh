@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 16:49:41 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/28 11:40:44 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/28 15:32:19 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,11 +125,7 @@ char				**list_path(char *var, int marge)
 	char		*res;
 
 	if ((buf = path_to_tab(var, marge)) == NULL)
-	{
-		free(var);
 		return (NULL);
-	}
-	free(var);
 	res = path_aliases_compl(buf);
 	free(buf);
 	return (tabl_completion(res));
