@@ -116,7 +116,10 @@ t_token	*ft_tokeniser(char *s, t_token *head)
 	while (s[i])
 	{
 		if (s[i] == '`')
+		{
+			ft_putendl("on est la ");
 			s = ft_backquotes(s, i);
+		}
 		if (!s[i])
 			break ;
 		new = ft_allocate(new);
