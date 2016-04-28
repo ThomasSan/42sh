@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 11:37:07 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/25 12:36:50 by tsanzey          ###   ########.fr       */
+/*   Updated: 2016/04/28 12:34:13 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int			tree_place_type_red(t_tree *new, t_tree **root)
 	else
 	{
 		tmp = *root;
-		while (tmp->right != NULL && tmp->right->types != CMD)
+		while (tmp->right != NULL && tmp->right->types > S_SHELL)
 			tmp = tmp->right;
 		tmp2 = tmp->right;
 		tmp->right = new;
@@ -73,16 +73,11 @@ int			tree_place_cmd(t_tree *new, t_tree **root)
 	t_tree	*tmp;
 
 	tmp = *root;
-	if (tmp->types == B_QUOTES)
-	{
-		tmp->left = new;
-		return (0);
-	}
 	while (tmp->right != NULL)
 		tmp = tmp->right;
-	if (tmp->types == CMD)
+	if (tmp->types < LESS)
 	{
-		ft_putendl("tree_ft.c: double command error");
+		ft_putendl("shell: double command error");
 		return (-1);
 	}
 	else

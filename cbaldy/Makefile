@@ -6,7 +6,7 @@
 #    By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/14 14:42:25 by cbaldy            #+#    #+#              #
-#    Updated: 2016/04/27 16:22:11 by dbaldy           ###   ########.fr        #
+#    Updated: 2016/04/28 14:38:54 by cbaldy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRC = main.c sh_set_term.c sh_read_prompt.c sh_command.c sh_builtin_cd.c \
 	  cd_get_path.c sh_set_env.c env_custom.c cd_substitution.c yank_line.c\
 	  sh_interpret_tree.c ft_tputs.c term_edit_line.c com_list_ft.c \
 	  term_write_line.c hist_list_ft.c print_command.c copy_end_mode.c \
-	  com_list_ft2.c term_finish_line.c \
+	  com_list_ft2.c term_finish_line.c exec_subshell.c\
 	  term_mv_cursor.c sh_minishell.c get_next_line.c hist_change.c \
       exec_redout.c exec_redin.c exec_pipe_and_or.c sh_get_exec_path.c \
 	  sh_builtin_echo.c hash_get_tab.c sh_builtin_hash.c sh_execute.c \
@@ -38,7 +38,7 @@ TAB = tab_mode.c tab_select.c tab_nb_col.c tab_nb_row.c tab_cursor_mvt.c \
 
 GLOB = escape_quotes.c glob_build_list.c glob_match_list_ft.c glob_new_string.c\
 	   glob_match.c glob_modif_str.c glob_progressiv.c glob_replace_dol.c \
-	   
+	   glob_bang_str.c glob_replace_bang.c glob_bang_digit.c	   
 
 LEX = lexer.c ft_token_recognition.c ft_free.c \
 	  ft_push_tree.c ft_misc.c pipe_grammar.c ft_great_grammar.c \
