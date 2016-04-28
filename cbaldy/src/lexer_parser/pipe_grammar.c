@@ -21,7 +21,7 @@ int					rules_for_pipes(t_token *tok)
 	next = check_next_token(tok);
 	if ((next == WORDS || next == BACK_QUOTES || next == SUBSHELL) &&
 		(prev == WORDS || prev == FILENAME || prev == BACK_QUOTES ||
-			prev == SUBSHELL))
+			prev == SUBSHELL || prev == NUMBERS || prev == MINUS))
 		return (1);
 	return (0);
 }
