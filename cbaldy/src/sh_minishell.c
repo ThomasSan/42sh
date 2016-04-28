@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:08:28 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/28 16:03:30 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/28 16:23:43 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int			sh_minishell(void)
 			ft_dprintf(STDERR_FILENO, "shell: bad pattern\n");
 		else
 			sh_exec_control(str);
-		//free(str);
+		free(str);
 	}
 	else if (str == NULL)
 		exit(1);
