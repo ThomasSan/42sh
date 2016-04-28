@@ -19,8 +19,9 @@ int					rules_for_pipes(t_token *tok)
 
 	prev = check_prev_token(tok);
 	next = check_next_token(tok);
-	if ((next == WORDS || next == BACK_QUOTES) &&
-		(prev == WORDS || prev == FILENAME || prev == BACK_QUOTES))
+	if ((next == WORDS || next == BACK_QUOTES || next == SUBSHELL) &&
+		(prev == WORDS || prev == FILENAME || prev == BACK_QUOTES ||
+			prev == SUBSHELL))
 		return (1);
 	return (0);
 }
