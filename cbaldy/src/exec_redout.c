@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/29 12:09:42 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/24 15:02:18 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/28 19:51:48 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int			exec_redout(t_tree *root)
 		return (sh_interpret(root->right));
 	}
 	if ((fd[1] = exec_redout_g_and(root)) < 0)
-		return (1);
+		return (exec_free_root(root->right) + 1);
 	fd[0] = ft_atoi(root->cmd[0]);
 	if (fd[0] >= g_std_fd[0] && fd[0] <= g_std_fd[2])
 		fd[0] = STDOUT_FILENO;
