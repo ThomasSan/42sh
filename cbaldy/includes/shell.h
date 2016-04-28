@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:12:49 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/27 15:40:34 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/28 13:42:18 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,5 +147,7 @@ int				*fd_save(void);
 int				fd_reset(int *save);
 char			*exec_backquotes(t_tree *root);
 int				exec_free_root(t_tree *root);
+int				parse_list_free(t_parse *head);
+int				exec_subshell(t_tree *root);
 
 #endif
