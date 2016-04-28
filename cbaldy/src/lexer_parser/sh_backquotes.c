@@ -13,6 +13,7 @@
 #include "lexer.h"
 #include "libft.h"
 #include "shell.h"
+#include "ft_printf.h"
 
 int		ft_sublen(char *str, int start, char c)
 {
