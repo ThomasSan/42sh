@@ -44,6 +44,8 @@ t_token		*check_dollar(t_token *tok)
 	t_token *tmp;
 
 	tmp = tok;
+	if (!tok)
+		return (NULL);
 	while (tmp->next)
 	{
 		if (tmp->type == DOLLAR)

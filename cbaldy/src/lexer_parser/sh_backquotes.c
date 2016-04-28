@@ -108,9 +108,13 @@ char	*ft_backquotes(char *str, int i)
 	ft_bzero(tmp, ft_strlen(tmp));
 	free(tmp);
 	if (!(dst = exec_backquotes(root)))
+	{
 		tmp = ft_remove_bquotes(str, i, len);
+	}
 	else
+	{
 		tmp = ft_join_in_middle(str, dst, i, len);
+	}
 	free(dst);
 	return (tmp);
 }

@@ -92,6 +92,8 @@ t_token		*check_minus(t_token *tok)
 	char	*tmp1;
 
 	tmp = tok;
+	if (!tok)
+		return (NULL);
 	while (tmp->next)
 	{
 		if (tmp->type == MINUS && check_next_token(tmp) == WORDS)

@@ -22,6 +22,7 @@ typedef struct			s_glob_list
 	struct s_glob_list	*prev;
 }						t_glob_list;
 
+int						replace_bang(char **str);
 int						replace_dollars(char **str);
 int						escape_quotes(char *str, int *i, int c);
 char					**build_match_list(char *path, char *word, char *next);
