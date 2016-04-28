@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 17:53:12 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/27 12:16:25 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/28 12:22:56 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ int			escape_quotes(char *str, int *i, int c)
 		else
 			var++;
 	}
+	*i = var;
 	return (1);
 }

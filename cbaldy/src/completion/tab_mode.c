@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 13:40:47 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/27 18:47:28 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/28 11:58:09 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ static char			**hash_table(void)
 
 	i = 0;
 	if (g_hash != NULL)
+	{
 		ft_free_tab(g_hash);
+		g_hash = NULL;
+	}
 	if ((hash = hash_get_tab()) == NULL)
 		return (NULL);
 	while (hash[i])
@@ -49,6 +52,12 @@ static char			*word_to_tab(char *var, int marge)
 	return (buf);
 }
 
+static int			f_var(char *var)
+{
+	free(var);
+	return (0);
+}
+
 int					tab_mode(t_line_list **first)
 {
 	t_param				*debut;
@@ -65,8 +74,8 @@ int					tab_mode(t_line_list **first)
 		return (0);
 	table = (iscommand(var, (*first)->marge) == 0) ? hash_table() :
 		list_path(var, (*first)->marge);
-	if (table == NULL) // la variable var n'est pas free
-		return (0);
+	if (table == NULL)
+		return (f_var(var));
 	word = word_to_tab(var, (*first)->marge);
 	if ((debut = string_matches(word, table)) == NULL && g_curr_compl != NULL)
 		exit_completion(*first);

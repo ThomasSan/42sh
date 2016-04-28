@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/27 17:16:36 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/27 19:16:59 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/27 19:33:26 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,22 @@ static int	to_nhist(char **str, int *i, t_hist_list **hist, int h_nb)
 	char			*to_add;
 
 	buf = *hist;
+	to_add = NULL;
 	while (buf)
 	{
 		if ((*hist)->nb == h_nb)
 		{
 			to_add = line_list_retrieve((*hist)->old);
+			break ;
 		}
+		(*hist) = (*hist)->prev;
 	}
+	if (to_add == NULL)
+		return (-1);
+	else if ((*str)[i + 1] == '-')
+		return (remove_bang(str, i, to_add));
+	tmp = ft_ireplace_str(*str, to_add, *i, 2);
+			
 }
 
 static int	replace_bangs(char **str, int *i)
