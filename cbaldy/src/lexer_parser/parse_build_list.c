@@ -6,14 +6,14 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/26 15:13:17 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/28 14:12:35 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/28 15:44:36 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse_build_list.h"
 #include "ft_printf.h"
 
-int			parse_print(t_parse *head)
+/*int			parse_print(t_parse *head)
 {
 	int		i;
 
@@ -29,7 +29,7 @@ int			parse_print(t_parse *head)
 		head = head->next;
 	}
 	return (0);
-}
+}*/
 
 static int	parse_get_pipe_type(t_parse **head, t_token *tok)
 {
@@ -95,5 +95,4 @@ t_parse		*parse_build_list(t_token *tok)
 		}
 	}
 	return (head);
-	parse_print(head);
 }

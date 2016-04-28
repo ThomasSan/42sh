@@ -37,3 +37,9 @@ int		ft_command_isvalid(t_token *tok)
 		return (0);
 	}
 }
+
+int		rules_for_par(t_token *tok)
+{
+	(void)tok;
+	return (0);
+}
