@@ -27,11 +27,11 @@ t_token			*ft_join_topar(t_token *tok)
 			tmp1 = tmp->next;
 			if (tmp1->type == C_PAR)
 				return (tok);
+			tmp1->type = SUBSHELL;
 			tmp = tmp1->next;
 			while (tmp && tmp->type != C_PAR)
 			{
 				str = tmp1->content;
-				tmp1->type = SUBSHELL;
 				tmp1->content = ft_strjoin(tmp1->content, tmp->content);
 				tmp = pop_middle_token(tmp);
 				free(str);
