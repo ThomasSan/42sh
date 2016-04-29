@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 12:05:44 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/29 09:55:09 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/29 12:30:46 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,12 @@ void		sh_save_std_fd(void)
 	g_std_fd[2] = dup(STDERR_FILENO);
 }
 
-void		sh_reset_std_fd(void)
+int			sh_reset_std_fd(void)
 {
 	dup2(g_std_fd[0], STDIN_FILENO);
 	dup2(g_std_fd[1], STDOUT_FILENO);
 	dup2(g_std_fd[2], STDERR_FILENO);
+	return (0);
 }
 
 int			sh_interpret(t_tree *root)
