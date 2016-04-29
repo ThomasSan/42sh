@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/29 18:41:27 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/28 12:39:29 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/29 18:17:33 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void				clear_hist(t_hist_list **hist)
 	(*hist) = NULL;
 }
 
-static int			hist_control_size(t_hist_list **hist)
+int				hist_control_size(t_hist_list **hist)
 {
 	int			i;
 	t_hist_list *tmp[2];
@@ -90,30 +90,5 @@ static int			hist_control_size(t_hist_list **hist)
 		line_list_free(tmp[1]->old);
 		free(tmp[1]);
 	}
-	return (0);
-}
-
-int					hist_add_elem(t_line_list *first, t_hist_list **hist)
-{
-	while ((*hist)->previous != NULL)
-		*hist = (*hist)->previous;
-	if (first != NULL)
-	{
-		if (first->begin->c != 0)
-			(*hist)->old = first;
-		else
-			free(first);
-	}
-	else if ((*hist)->next != 0)
-	{
-		*hist = (*hist)->next;
-		free((*hist)->previous);
-	}
-	else
-	{
-		free(*hist);
-		*hist = NULL;
-	}
-	hist_control_size(hist);
 	return (0);
 }
