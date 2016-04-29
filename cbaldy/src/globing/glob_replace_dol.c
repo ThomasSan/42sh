@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/27 12:59:08 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/29 16:28:23 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/29 19:47:51 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ static char		*get_replaced(char *str, int *i, int j)
 	var = ft_strjoin("$", tmp);
 	up_var(str, j + 1, *i - j);
 	res = ft_replace_str(str, var, value);
-
 	*i = (ft_strlen(value) == 0) ? j + 1 : j + ft_strlen(value);
 	free(tmp);
 	free(var);

@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 16:49:41 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/29 12:28:22 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/29 19:46:56 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static char			**tabl_completion(char *path)
 	closedir(dip);
 	return (res);
 }
+
 static char			*alias_path(char *home, char *res)
 {
 	home = ft_strtrunc(res, '/');

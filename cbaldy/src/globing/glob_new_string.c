@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 17:45:18 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/29 17:05:02 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/29 19:47:38 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 static char			*word_to_glob(char *str, int i)
 {
-	int 	j;
+	int		j;
 	char	*tmp;
 
 	j = i;
 	while (i > 1 && ((str[i - 1] != ' ' && str[i - 1] != '\n') ||
 	((str[i - 1] == ' ' || str[i - 1] == '\n') && i > 1 &&
-	 str[i - 2] == 0x5c)))
+		str[i - 2] == 0x5c)))
 		i--;
 	while (str[j] && ((str[j] != ' ' && str[j] != '\n') || (j > 0 &&
 	(str[j] == ' ' || str[j] == '\n') && str[j - 1] == 0x5c)))
@@ -46,7 +46,6 @@ static int			glob_maison(char **str, int *j)
 		return (-1);
 	}
 	glob_modif_str(str, match_list, word, j);
-	ft_printf("str:%s\n", *str);
 	clear_matchlist(match_list);
 	free(word);
 	return (0);
