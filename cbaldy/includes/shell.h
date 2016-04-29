@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:12:49 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/29 18:05:07 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/29 19:12:09 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # include <term.h>
 # include <sys/ioctl.h>
 
-# define HIST_SIZE 128
+# define HIST_SIZE 32
 
 t_line_list		*line_list_dup(t_line_list *var);
 int				line_list_free(t_line_list *first);
@@ -93,7 +93,6 @@ int				*hist_list_new(t_hist_list **hist);
 int				com_list_free(t_com_list *begin);
 t_com_list		*com_list_dup(t_com_list *begin);
 int				hist_change(int move, t_hist_list **hist, t_line_list **first);
-int				hist_add_elem(t_line_list *begin, t_hist_list **hist);
 int				print_command(t_com_list *new, char buf, t_line_list *first);
 int				term_mv_horizontal(int move, t_line_list **first, int change);
 int				copy_cut_mode(t_line_list **first, int mode);
@@ -127,8 +126,7 @@ int				exec_or(t_tree *root);
 int				exec_end(t_tree *root);
 void			sh_save_std_fd(void);
 int				sh_reset_std_fd(void);
-char			*sh_retrieve_cmd_line(t_line_list *first, int end,
-				t_hist_list **hist);
+char			*sh_retrieve_cmd_line(t_line_list *first, int end);
 char			*cd_get_path2(char *com);
 t_line_list		*line_list_new(int marge);
 char			*line_list_retrieve(t_line_list *first);
@@ -152,5 +150,6 @@ int				exec_subshell(t_tree *root);
 int				replace_bang(char **str);
 int				mini_finish_line(char *str);
 int				escape_spec_cara(char **to_add);
+int				hist_control_size(t_hist_list **hist);
 
 #endif

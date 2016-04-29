@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 12:38:16 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/28 14:34:42 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/29 18:17:31 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ t_hist_list		*retrieve_history(int flag, t_line_list *first)
 	{
 		hist_list_new(&hist);
 		new_elem_hist(hist, first);
+		hist_control_size(&hist);
 	}
 	return (NULL);
 }
