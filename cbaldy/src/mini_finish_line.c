@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/28 15:53:44 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/28 16:23:46 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/29 14:02:43 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,7 @@ int			mini_finish_line(char *str)
 		i[0]++;
 	}
 	free(arr);
+	if (i[1] < 0)
+		ft_dprintf(STDERR_FILENO, "shell: bad pattern\n");
 	return (i[1]);
 }

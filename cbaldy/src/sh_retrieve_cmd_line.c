@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/25 17:28:38 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/24 17:19:24 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/29 14:07:17 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,15 @@ char		*sh_retrieve_cmd_line(t_line_list *first, int end,
 	while (first->previous != NULL)
 		first = first->previous;
 	cmd = line_list_retrieve(first);
-	if (end == 4 && cmd[0] == '\0')
-		exit(sh_reset_term());
+	if (end == 4)
+	{
+		if (cmd[0] == '\0')
+			exit(sh_reset_term());
+		else if (mini_finish_line(cmd) < 0)
+		{
+			free(cmd);
+			return (sh_reset_cmd_line(&first, hist));
+		}
+	}
 	return (cmd);
 }
