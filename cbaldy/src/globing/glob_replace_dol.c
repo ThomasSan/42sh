@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/27 12:59:08 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/29 12:30:35 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/29 15:24:19 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,36 +30,57 @@ static char		*get_replacement(char *var)
 	return (res);
 }
 
-static int		escape_questm(int *i)
+static int		up_var(char *str, int start, int length)
 {
-	*i += 2;
+	int		j;
+
+	j = start;
+	while (str[j] && j < length + start)
+	{
+		str[j] = ft_toupper(str[j]);
+		j++;
+	}
 	return (0);
+}
+
+static char		*get_replaced(char *str, int *i, int j)
+{
+	char		*var;
+	char		*value;
+	char		*tmp;
+	char		*res;
+
+	var = ft_strsub(str, j + 1, *i - j);
+	value = get_replacement(var);
+	tmp = var;
+	var = ft_strjoin("$", tmp);
+	up_var(str, j + 1, *i - j);
+	res = ft_replace_str(str, var, value);
+
+	*i = (ft_strlen(value) == 0) ? j + 1 : j + ft_strlen(value);
+	free(tmp);
+	free(var);
+	free(value);
+	return (res);
 }
 
 static int		replace_dollar(char **str, int *i)
 {
 	int			j;
-	char		*value;
-	char		*var;
 	char		*tmp;
 
 	j = *i;
 	if ((*str)[*i + 1] == '?')
-		return (escape_questm(i));
-	while ((*str)[j + 1] && (ft_isalnum((*str)[j + 1]) == 1 ||
-		(*str)[j + 1] == '_') && j - *i < 256)
-		j++;
-	var = ft_strsub(*str, *i + 1, j - *i);
-	value = get_replacement(var);
-	tmp = var;
-	var = ft_strjoin("$", tmp);
-	free(tmp);
-	tmp = ft_replace_str(*str, var, value);
+	{
+		*i += 2;
+		return (0);
+	}
+	while ((*str)[*i + 1] && (ft_isalnum((*str)[*i + 1]) == 1 ||
+		(*str)[*i + 1] == '_') && *i - j < 256)
+		(*i)++;
+	tmp = get_replaced(*str, i, j);
 	free(*str);
 	*str = tmp;
-	*i = (ft_strlen(value) == 0) ? *i + 1 : *i + ft_strlen(value);
-	free(var);
-	free(value);
 	return (0);
 }
 

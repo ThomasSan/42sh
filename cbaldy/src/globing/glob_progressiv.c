@@ -6,13 +6,38 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 09:57:11 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/28 12:59:22 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/29 16:18:02 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "glob.h"
 
 static t_glob_list	*g_glob;
+
+static char			*remove_quotes(char *to_glob)
+{
+	int			i;
+	char		*buf;
+	char		*wrk;
+
+	i = 0;
+	buf = NULL;
+	wrk = ft_strdup(to_glob);
+	while (wrk[i])
+	{
+		if (wrk[i] == 0x22 || wrk[i] == 0x27 || wrk[i] == 0x5c)
+		{
+			if (buf != NULL)
+				free(buf);
+			buf = ft_ireplace_str(wrk, "", i, 1);
+			free(wrk);
+			wrk = buf;
+		}
+		else
+			i++;
+	}
+	return (wrk); 
+}
 
 static char			*build_p(char **table, int i)
 {
@@ -76,11 +101,13 @@ int					glob_recurs(char **to_analyze, int i)
 	return (0);
 }
 
-t_glob_list			*glob_progressiv(char *word)
+t_glob_list			*glob_progressiv(char *to_glob)
 {
 	char		**to_analyze;
+	char		*word;
 
 	g_glob = NULL;
+	word = remove_quotes(to_glob);
 	to_analyze = ft_strsplit(word, '/');
 	if (*word == '/')
 		ft_array_push(&to_analyze, "/");
