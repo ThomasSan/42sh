@@ -6,7 +6,7 @@
 /*   By: tsanzey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 15:12:24 by tsanzey           #+#    #+#             */
-/*   Updated: 2016/04/28 10:20:53 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/29 12:30:08 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,9 +114,9 @@ t_token		*check_minus(t_token *tok)
 
 t_parse		*ft_checking_syntax(t_token *tok)
 {
+	tok = inibitor_handler(tok);
 	tok = ft_subshell(tok);
 	tok = check_dollar(tok);
-	tok = inibitor_handler(tok);
 	return_type_quoted(tok);
 	tok = join_quoted(tok, QUOTES);
 	tok = join_quoted(tok, SINGLE_QUOTES);
