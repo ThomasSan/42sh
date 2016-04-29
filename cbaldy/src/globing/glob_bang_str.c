@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/28 13:54:18 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/28 14:26:39 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/29 10:28:04 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int					strstr_cmd(char **str, int *i, t_hist_list **hist)
 	}
 	tmp = ft_ireplace_str(*str, to_add, *i, ft_strlen(to_search) + 2);
 	*i = ft_strlen(to_search) + 2;
+	free(to_add);
 	free(to_search);
 	free(*str);
 	*str = tmp;
@@ -94,6 +95,7 @@ int					strcmp_cmd(char **str, int *i, t_hist_list **hist)
 	}
 	tmp = ft_ireplace_str(*str, to_add, *i, ft_strlen(to_search) + 2);
 	*i = ft_strlen(to_search) + 2;
+	free(to_add);
 	free(to_search);
 	free(*str);
 	*str = tmp;

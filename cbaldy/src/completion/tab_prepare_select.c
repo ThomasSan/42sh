@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 15:38:55 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/22 13:59:32 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/29 12:00:29 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ char		*file_suffix(char *str, char *path)
 		tmp = ft_strjoin(str, "/");
 	else
 		tmp = ft_strdup(str);
+	escape_spec_cara(&tmp);
 	free(buf);
 	free(aux);
 	return (tmp);
