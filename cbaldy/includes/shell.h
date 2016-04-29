@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:12:49 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/28 15:56:12 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/29 10:33:23 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ int				exec_and(t_tree *root);
 int				exec_or(t_tree *root);
 int				exec_end(t_tree *root);
 void			sh_save_std_fd(void);
-void			sh_reset_std_fd(void);
+int				sh_reset_std_fd(void);
 char			*sh_retrieve_cmd_line(t_line_list *first, int end,
 				t_hist_list **hist);
 char			*cd_get_path2(char *com);
