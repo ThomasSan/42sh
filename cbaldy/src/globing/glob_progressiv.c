@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 09:57:11 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/29 17:12:30 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/29 19:01:51 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ t_glob_list			*glob_progressiv(char *to_glob)
 	char		*word;
 
 	g_glob = NULL;
-	word = remove_quotes(to_glob);
+	word = remove_spec_car(to_glob);
 	to_analyze = ft_strsplit(word, '/');
 	free(word);
 	if (*word == '/')

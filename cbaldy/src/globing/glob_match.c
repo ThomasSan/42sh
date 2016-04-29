@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 19:54:00 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/29 15:24:10 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/29 19:06:15 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,13 @@ int			match(char *tested, char *word)
 	if (*word == '\0' && *tested == '\0')
 		return (1);
 	if (*word == 0x5c)
-		return (match(tested, word + 1));
-	else if (*word == '*' || *word == '?' || *word == '[')
+	{
+		if (*(word + 1) != *tested)
+			return (0);
+		else
+			return (match(tested + 1, word + 2));
+	}
+	if (*word == '*' || *word == '?' || *word == '[')
 	{
 		if (*word == '*')
 			return (star(tested, word));
