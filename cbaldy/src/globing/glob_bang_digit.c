@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/28 12:27:47 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/28 14:32:11 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/29 10:25:34 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char			*to_nhist(t_hist_list **hist, int h_nb)
 
 	if ((buf = *hist) == NULL)
 		return (NULL);
-	if (buf->nb > h_nb)
+	if (buf->nb < h_nb)
 	{
 		clear_hist(hist);
 		return (NULL);
@@ -57,6 +57,7 @@ int					direct_digit(char **str, int *i, t_hist_list **hist)
 	if (to_add == NULL)
 		return (-1);
 	tmp = ft_ireplace_str(*str, to_add, *i, size);
+	free(to_add);
 	*i += size;
 	free(*str);
 	*str = tmp;
@@ -74,6 +75,7 @@ int					backward_digit(char **str, int *i, t_hist_list **hist)
 	if (to_add == NULL)
 		return (-1);
 	tmp = ft_ireplace_str(*str, to_add, *i, size);
+	free(to_add);
 	*i += size;
 	free(*str);
 	*str = tmp;

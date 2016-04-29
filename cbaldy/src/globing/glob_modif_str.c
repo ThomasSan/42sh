@@ -6,13 +6,13 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 18:48:50 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/27 16:14:40 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/29 12:07:41 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "glob.h"
 
-static int		add_bckslsh(char **to_add)
+static int		escape_carac(char **to_add, int c)
 {
 	int		i;
 	char	*tmp;
@@ -22,7 +22,7 @@ static int		add_bckslsh(char **to_add)
 	i = 0;
 	while ((*to_add)[i])
 	{
-		if ((*to_add)[i] == ' ')
+		if ((*to_add)[i] == c && (i > 1 || (*to_add)[i - 1] != 0x5c))
 		{
 			begin = ft_strsub(*to_add, 0, i);
 			end = ft_strdup(&((*to_add)[i]));
@@ -35,6 +35,19 @@ static int		add_bckslsh(char **to_add)
 		}
 		i++;
 	}
+	return (0);
+}
+
+int				escape_spec_cara(char **to_add)
+{
+	if (ft_strchr(*to_add, 0x5c) != NULL)
+		escape_carac(to_add, 0x5c);
+	if (ft_strchr(*to_add, ' ') != NULL)
+		escape_carac(to_add, ' ');
+	if (ft_strchr(*to_add, 0x28) != NULL)
+		escape_carac(to_add, 0x28);
+	if (ft_strchr(*to_add, 0x29) != NULL)
+		escape_carac(to_add, 0x29);
 	return (0);
 }
 
@@ -55,8 +68,7 @@ static char		*full_glob(t_glob_list *match_list, char *word)
 			to_add = ft_strsub(l_buf->var, 2, ft_strlen(l_buf->var) - 2);
 		else
 			to_add = ft_strdup(l_buf->var);
-		if (ft_strchr(to_add, ' ') != NULL)
-			add_bckslsh(&to_add);
+		escape_spec_cara(&to_add);
 		insert = (ft_strcmp(tmp, "") == 0) ? ft_strdup(to_add) :
 			ft_strjoin_multiple(3, tmp, " ", to_add);
 		free(to_add);
