@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 10:22:10 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/28 15:45:34 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/28 19:28:15 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@
 		return (0);
 	}
 	ft_printf("type: %d  ", root->types);
-	if (root->types == 0)
+	if (root->types == 0 || root->types == G_AND)
 	{
 		i = 0;
 		while (root->cmd[i] != NULL)
 		{
-			ft_printf("%s", root->cmd[i]);
+			ft_printf("%s ", root->cmd[i]);
 			i++;
 		}
 	}
@@ -105,5 +105,6 @@ t_tree		*tree_build_cmd(t_parse *head)
 		free(head);
 		head = tmp;
 	}
+	//tree_print(root);
 	return (root);
 }

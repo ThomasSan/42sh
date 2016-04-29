@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/29 12:09:42 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/24 15:02:18 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/29 10:34:56 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@ static int	exec_redout_get_fd(t_tree *root)
 	int		opt;
 
 	if ((path = cd_get_path2(root->cmd[1])) == NULL)
-		return (-1);
+		return (sh_reset_std_fd() - 1);
 	if (access(path, F_OK) == 0 && access(path, W_OK) < 0)
 	{
+		sh_reset_std_fd();
 		ft_dprintf(STDERR_FILENO, "shell: %s: permission denied\n",
 				root->cmd[1]);
 		free(path);
@@ -29,8 +30,11 @@ static int	exec_redout_get_fd(t_tree *root)
 	}
 	opt = O_WRONLY | O_CREAT | (root->types == D_GREAT ? O_APPEND : O_TRUNC);
 	if ((open_fd = open(path, opt, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)) < 0)
+	{
+		sh_reset_std_fd();
 		ft_dprintf(STDERR_FILENO, "shell: %s: cannot write on this\n",
 				root->cmd[1]);
+	}
 	free(path);
 	return (open_fd);
 }
@@ -45,6 +49,7 @@ static int	exec_redout_g_and(t_tree *root)
 		{
 			if ((open_fd = ft_atoi(root->cmd[1])) > STDERR_FILENO)
 			{
+				sh_reset_std_fd();
 				ft_dprintf(STDERR_FILENO, "shell: %d: bad file descriptor\n",
 						open_fd);
 				return (-1);
@@ -67,7 +72,7 @@ int			exec_redout(t_tree *root)
 		return (sh_interpret(root->right));
 	}
 	if ((fd[1] = exec_redout_g_and(root)) < 0)
-		return (1);
+		return (exec_free_root(root->right) + 1);
 	fd[0] = ft_atoi(root->cmd[0]);
 	if (fd[0] >= g_std_fd[0] && fd[0] <= g_std_fd[2])
 		fd[0] = STDOUT_FILENO;

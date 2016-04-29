@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 15:42:46 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/24 17:12:04 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/29 10:19:14 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,11 @@ static char	*heredoc_retrieve(t_line_list **first, int i)
 	char		*str;
 
 	tmp = NULL;
+	if (i == 4 || i == 3)
+		ft_putchar_fd('\n', STDIN_FILENO);
 	if (i == 3)
 	{
 		line_list_free(*first);
-		ft_putchar_fd('\n', STDIN_FILENO);
 		return (NULL);
 	}
 	heredoc_remove_last(first);
@@ -80,7 +81,7 @@ static char	*heredoc_prompt(char *eof)
 	if ((first = line_list_new(10)) == NULL)
 		return (NULL);
 	i = 0;
-	while (i != 10 && i != 3)
+	while (i != 10 && i != 3 && i != 4)
 		i = heredoc_read_prompt(&first, eof);
 	sh_reset_term();
 	return (heredoc_retrieve(&first, i));

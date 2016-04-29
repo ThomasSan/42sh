@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/24 15:02:36 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/24 17:19:46 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/29 10:09:38 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,8 @@ int		fd_reset(int *save)
 	dup2(save[0], STDIN_FILENO);
 	dup2(save[1], STDOUT_FILENO);
 	dup2(save[2], STDERR_FILENO);
+	close(save[0]);
+	close(save[1]);
+	close(save[2]);
 	return (0);
 }
