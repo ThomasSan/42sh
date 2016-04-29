@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/27 17:16:36 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/29 12:45:44 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/29 17:13:29 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	rcpy_begin_line(char **str, int *i)
 {
 	char	*begin;
 	char	*tmp;
-	
+
 	begin = ft_strsub(*str, 0, *i);
 	tmp = ft_ireplace_str(*str, begin, *i, 2);
 	*i += ft_strlen(begin);

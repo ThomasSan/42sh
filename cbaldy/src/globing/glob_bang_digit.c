@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/28 12:27:47 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/29 10:25:34 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/29 17:13:07 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static char			*to_nhist(t_hist_list **hist, int h_nb)
 		buf = buf->next;
 	}
 	clear_hist(hist);
-	return (to_add);			
+	return (to_add);
 }
 
 int					direct_digit(char **str, int *i, t_hist_list **hist)

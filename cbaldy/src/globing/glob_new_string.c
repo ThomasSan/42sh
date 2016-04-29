@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 17:45:18 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/29 16:18:01 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/29 17:05:02 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static int			glob_maison(char **str, int *j)
 		return (-1);
 	}
 	glob_modif_str(str, match_list, word, j);
+	ft_printf("str:%s\n", *str);
 	clear_matchlist(match_list);
 	free(word);
 	return (0);
@@ -59,7 +60,8 @@ static int			glob_new_string(char **str)
 	replace_dollars(str);
 	while ((*str)[i])
 	{
-		if ((*str)[i] == ' ' && (*str)[i + 1] == '~')
+		if ((*str)[i] == ' ' && (*str)[i + 1] == '~' && ((*str)[i + 2] == '/'
+				|| (*str)[i + 2] == ' ' || (*str)[i + 2] == '\n'))
 			alias_ihome(str, i + 1);
 		else if ((*str)[i] == 0x22 || (*str)[i] == 0x27)
 			escape_quotes(*str, &i, (*str)[i]);

@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/27 12:59:08 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/29 15:24:19 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/29 16:28:23 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,6 @@ int				replace_dollars(char **str)
 	i = 0;
 	while ((*str)[i])
 	{
-		if ((*str)[i] == ' ' && (*str)[i + 1] == '~')
-			alias_ihome(str, i + 1);
 		if ((*str)[i] == 0x27)
 			escape_quotes(*str, &i, (*str)[i]);
 		else if ((*str)[i] == '$')
