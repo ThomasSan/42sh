@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/26 15:13:17 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/28 17:55:41 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/29 12:18:13 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,13 @@
 	while (head != NULL)
 	{
 		i = 0;
+		ft_printf("command: ");
 		while (head->arg != NULL && head->arg[i] != NULL)
 		{
-			ft_printf("%s ", head->arg[i]);
+			ft_printf("%s\n", head->arg[i]);
 			i++;
 		}
-		ft_printf("%d\n", head->type);
+		ft_printf("type: %d\n", head->type);
 		head = head->next;
 	}
 	return (0);
