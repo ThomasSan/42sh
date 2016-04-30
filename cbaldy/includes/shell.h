@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:12:49 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/30 16:29:38 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/30 18:04:01 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int				sh_builtin_history(char **com);
 t_hist_list		*retrieve_history(int flag, t_line_list *first);
 int				exit_completion(t_line_list *begin);
 char			*cd_var_env(char *name);
-void			clear_hist(t_hist_list **hist);
+int				clear_hist(t_hist_list **hist);
 t_hist_list		*copy_hist(t_hist_list *hist);
 int				sh_prompt(void);
 int				sh_command(char **com);

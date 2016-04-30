@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 12:38:16 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/30 16:47:44 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/30 18:03:56 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ t_hist_list		*retrieve_history(int flag, t_line_list *first)
 	}
 	else if (flag == 2)
 		return (copy_hist(hist));
+	else if (flag == 3)
+		clear_hist(&hist);
 	else if (non_empty(first) == 0)
 	{
 		hist_list_new(&hist);

@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/28 12:27:47 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/30 16:52:56 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/30 17:15:29 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int					backward_digit(char **str, int *i, t_hist_list **hist)
 	char		*tmp;
 
 	size = ft_number_size(&((*str)[*i + 2])) + 2;
-	to_add = to_nhist(hist, (*hist)->nb - ft_atoi(&((*str)[*i + 2]) + 1));
+	to_add = to_nhist(hist, (*hist)->nb - ft_atoi(&((*str)[*i + 2])) + 1);
 	if (to_add == NULL)
 		return (-1);
 	tmp = ft_ireplace_str(*str, to_add, *i, size);
