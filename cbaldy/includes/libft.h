@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/25 18:38:14 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/28 12:48:19 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/30 15:25:52 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,5 @@ char				*ft_ireplace_str(char *old, char *replace, int i,
 int					ft_array_push(char ***table, char *to_push);
 int					ft_freetab(char **table);
 int					ft_number_size(char *str);
+char				*ft_strechr(char *str, int c);
 #endif

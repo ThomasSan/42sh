@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 16:49:41 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/29 19:46:56 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/30 14:42:00 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,13 @@ char				*path_to_tab(char *var, int marge)
 		while (var[i + 1] && ((var[i + 1] == ' ' && var[i] == 0x5c)
 				|| var[i + 1] != ' '))
 			i++;
-		while (i > 1 && ((var[i - 1] == ' ' && i > 2 && var[i - 2] == 0x5c) ||
-					var[i - 1] != ' '))
+		while (i > 0 && ((var[i] == ' ' && i > 1 && var[i - 1] == 0x5c) ||
+					var[i] != ' '))
 		{
 			count++;
 			i--;
 		}
+		i = (var[i] == ' ') ? i + 1 : i;
 		buf = ft_strsub(var, i, count);
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:12:49 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/29 19:12:09 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/30 16:29:38 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 
 # define HIST_SIZE 32
 
+t_line_list		*str_to_line(char *str, t_line_list *first);
 t_line_list		*line_list_dup(t_line_list *var);
 int				line_list_free(t_line_list *first);
 int				manage_search_hist(char *buf, t_line_list **first,
@@ -147,7 +148,7 @@ char			*exec_backquotes(t_tree *root);
 int				exec_free_root(t_tree *root);
 int				parse_list_free(t_parse *head);
 int				exec_subshell(t_tree *root);
-int				replace_bang(char **str);
+int				get_bangged(char **str, t_line_list **first);
 int				mini_finish_line(char *str);
 int				escape_spec_cara(char **to_add);
 int				hist_control_size(t_hist_list **hist);

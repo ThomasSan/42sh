@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:36:22 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/29 17:47:36 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/30 16:48:52 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ int			sh_prompt(void)
 	i = 0;
 	while (i != 10 && i != 4 && i != -1 && i != 3)
 		i = sh_read_prompt(&first, &modif_hist);
-	if ((str = sh_retrieve_cmd_line(first, i)) != NULL)
+	if ((str = sh_retrieve_cmd_line(first, i)) != NULL &&
+			get_bangged(&str, &first) >= 0)
 		sh_exec_control(str);
 	if (str != NULL)
 		retrieve_history(1, first);

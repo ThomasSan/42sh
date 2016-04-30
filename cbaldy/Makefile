@@ -6,7 +6,7 @@
 #    By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/14 14:42:25 by cbaldy            #+#    #+#              #
-#    Updated: 2016/04/29 18:47:36 by dbaldy           ###   ########.fr        #
+#    Updated: 2016/04/30 15:57:55 by dbaldy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ SRC = main.c sh_set_term.c sh_read_prompt.c sh_command.c sh_builtin_cd.c \
 	  sh_retrieve_cmd_line.c cd_get_path2.c sh_builtin_history.c \
 	  line_list_ft.c term_mv_horizontal.c hist_static.c cd_env_cdpath.c \
 	  exec_heredoc.c heredoc_write_line.c heredoc_edit_line.c fd_save.c \
-	  hashtable.c hashtable2.c exec_backquotes.c mini_finish_line.c
+	  hashtable.c hashtable2.c exec_backquotes.c mini_finish_line.c\
+	  line_list_ft2.c
 
 #copy_mode.c
 

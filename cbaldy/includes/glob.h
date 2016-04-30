@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 18:39:58 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/29 18:51:22 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/30 16:30:09 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ typedef struct			s_glob_list
 	struct s_glob_list	*prev;
 }						t_glob_list;
 
-int						replace_bang(char **str);
 int						replace_dollars(char **str);
 int						escape_quotes(char *str, int *i, int c);
 char					**build_match_list(char *path, char *word, char *next);
@@ -40,4 +39,5 @@ int						strcmp_cmd(char **str, int *i, t_hist_list **hist);
 int						direct_digit(char **str, int *i, t_hist_list **hist);
 int						backward_digit(char **str, int *i, t_hist_list **hist);
 char					*remove_spec_car(char *to_glob);
+int						new_char(char **wrk, int i);
 #endif

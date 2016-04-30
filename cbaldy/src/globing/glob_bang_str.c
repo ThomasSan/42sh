@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/28 13:54:18 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/29 10:28:04 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/30 16:46:32 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int					strcmp_cmd(char **str, int *i, t_hist_list **hist)
 	j = *i + 2;
 	while ((*str)[j] && (*str)[j] != ' ' && (*str)[j] != '?')
 		j++;
-	to_search = ft_strsub(*str, *i + 2, j - *i - 2);
+	to_search = ft_strsub(*str, *i + 1, j - *i - 1);
 	if ((to_add = to_strncmphist(hist, to_search)) == NULL)
 	{
 		free(to_search);
