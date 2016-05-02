@@ -1,5 +1,5 @@
 # 42sh
-Les raccourcis:
+Les raccourcis:\n
 ctrl + y = coller
 ctrl + u = couper à droite
 ctrl + p = copier à droite
