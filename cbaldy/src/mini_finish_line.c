@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/28 15:53:44 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/29 14:02:43 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/05/02 17:59:56 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,10 @@ static int	mini_read_string(char *str, int *arr)
 	if ((str[0] == '`' && arr[5] != 0) || (str[0] == 34 &&
 				arr[4] != 0) || (str[0] == 39 && arr[3] != 0))
 	{
-		while (str[i])
+		while (str[i] && str[i] != str[0])
 		{
-			if (str[i] == str[0] && (str[i - 1] != 92 || str[0] != 34))
-				break ;
+			if (str[0] == '"' && str[i] == 92)
+				i++;
 			i++;
 		}
 	}

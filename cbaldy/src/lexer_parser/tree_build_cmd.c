@@ -6,43 +6,12 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 10:22:10 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/28 19:28:15 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/05/02 18:03:51 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tree_build_cmd.h"
 #include "shell.h"
-
-/*static int	tree_print(t_tree *root)
-{
-	int		i;
-
-	if (root == NULL)
-	{
-		ft_putendl("NULL ROOT");
-		return (0);
-	}
-	ft_printf("type: %d  ", root->types);
-	if (root->types == 0 || root->types == G_AND)
-	{
-		i = 0;
-		while (root->cmd[i] != NULL)
-		{
-			ft_printf("%s ", root->cmd[i]);
-			i++;
-		}
-	}
-	ft_putchar('\n');
-	if (root->left != NULL)
-	{
-		tree_print(root->left);
-	}
-	if (root->right != NULL)
-	{
-		tree_print(root->right);
-	}
-	return (0);
-}*/
 
 static int	tree_place_sshell(t_tree *new, t_tree **root)
 {
@@ -105,6 +74,5 @@ t_tree		*tree_build_cmd(t_parse *head)
 		free(head);
 		head = tmp;
 	}
-	//tree_print(root);
 	return (root);
 }

@@ -6,31 +6,12 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/26 15:13:17 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/30 15:08:28 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/05/02 18:04:07 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse_build_list.h"
 #include "ft_printf.h"
-
-/*int			parse_print(t_parse *head)
-{
-	int		i;
-
-	while (head != NULL)
-	{
-		i = 0;
-		ft_printf("command: ");
-		while (head->arg != NULL && head->arg[i] != NULL)
-		{
-			ft_printf("%s\n", head->arg[i]);
-			i++;
-		}
-		ft_printf("type: %d\n", head->type);
-		head = head->next;
-	}
-	return (0);
-}*/
 
 static int	parse_get_pipe_type(t_parse **head, t_token *tok)
 {
