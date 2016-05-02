@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/27 09:36:53 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/28 10:46:36 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/05/02 10:31:50 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,26 @@ static char	*bq_format_string(char *str)
 	return (str);
 }
 
+char		*exec_backquote_read(int *fd)
+{
+	char	*str;
+	char	buf[2];
+
+	str = ft_strdup("");
+	close(fd[1]);
+	buf[1] = '\0';
+	while (read(fd[0], &(buf[0]), 1) > 0)
+		str = mod_strjoin(str, buf, 1);
+	close(fd[0]);
+	return (bq_format_string(str));
+}
+
 char	*exec_backquotes(t_tree *root)
 {
 	pid_t	pid;
 	int		fd[2];
 	int		ret;
+	char	*str;
 
 	pipe(fd);
 	pid = fork();
@@ -49,17 +64,10 @@ char	*exec_backquotes(t_tree *root)
 	}
 	else if (pid > 0)
 	{
-		char	*str;
-		char	buf[2];
-		str = ft_strdup("");
-		close(fd[1]);
-		buf[1] = '\0';
-		while (read(fd[0], &(buf[0]), 1) > 0)
-			str = mod_strjoin(str, buf, 1);
+		str = exec_backquote_read(fd);
 		wait(&ret);
-		close(fd[0]);
 		exec_free_root(root);
-		return (bq_format_string(str));
+		return (str);
 	}
 	return (NULL);
 }
