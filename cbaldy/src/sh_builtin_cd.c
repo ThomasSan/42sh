@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 15:51:04 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/23 15:11:42 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/05/02 16:03:47 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,8 @@ int			sh_builtin_cd(char **com)
 		cd_exist_error(new_path, com[1], 0);
 	else
 		cd_update_env(old_path, new_path, opt[0]);
-	if ((print_path = cd_print_path(com, new_path, opt[0])) != NULL)
+	if ((print_path = cd_print_path(com, new_path, opt[0])) != NULL
+			&& opt[1] == 0)
 		ft_dprintf(STDOUT_FILENO, "%s\n", print_path);
 	if (print_path != NULL)
 		free(print_path);

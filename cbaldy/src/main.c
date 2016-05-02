@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/27 12:36:46 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/28 16:27:00 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/05/02 15:55:51 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 static int	main_minishell(void)
 {
 	sh_reset_term();
-	ft_putstr_fd("shell: no termcaps activated\n", STDOUT_FILENO);
 	ft_putstr_fd("TERM not found or unknown\n", STDOUT_FILENO);
+	ft_putstr_fd("shell: limited commands available\n", STDOUT_FILENO);
+	ft_putstr_fd("shell: no termcaps activated\n", STDOUT_FILENO);
 	ft_putstr_fd("WARNING: undetermined behaviors may occur\n", STDOUT_FILENO);
 	while (42)
 	{
