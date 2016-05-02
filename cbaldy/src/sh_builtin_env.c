@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 15:51:57 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/05/02 14:05:36 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/05/02 18:25:43 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ static void	env_exec_utility(char **com, int i)
 		env_print();
 	else
 		ret = sh_execute(&(com[i]));
+	if (com != NULL)
+		ft_free_tab(com);
 	exit(ret);
 }
 

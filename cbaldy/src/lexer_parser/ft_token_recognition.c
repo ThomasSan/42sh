@@ -51,7 +51,8 @@ t_token		*join_quoted(t_token *tok, t_sym sym)
 				free(str);
 			}
 		}
-		tmp = tmp->next;
+		else
+			tmp = tmp->next;
 	}
 	return (tok);
 }
@@ -65,7 +66,7 @@ void		return_type_quoted(t_token *tok)
 	sym = -3;
 	while (tok)
 	{
-		if (is_quoted && tok->type == BACKSLASH && isinibed(tok, sym))
+		if (is_quoted && tok->type == BACKSLASH && isinibed(tok))
 		{
 			tok->next->type = WORDS;
 			tok = pop_middle_token(tok);
