@@ -25,7 +25,7 @@ t_token			*ft_join_topar(t_token *tok)
 		if (tmp->type == O_PAR)
 		{
 			tmp1 = tmp->next;
-			if (tmp1->type == C_PAR)
+			if (tmp1->type == C_PAR || tmp1->type == O_PAR)
 				return (tok);
 			tmp1->type = SUBSHELL;
 			tmp = tmp1->next;
