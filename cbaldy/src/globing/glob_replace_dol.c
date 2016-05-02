@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/27 12:59:08 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/30 15:34:29 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/05/02 11:54:14 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static char		*get_replaced(char *str, int *i, int j)
 	var = ft_strjoin("$", tmp);
 	up_var(str, j + 1, *i - j);
 	res = ft_replace_str(str, var, value);
-	*i = (ft_strlen(value) == 0) ? j + 1 : j + ft_strlen(value);
+	*i = (ft_strlen(value) == 0) ? j + 1 : j + ft_strlen(value) - 1;
 	free(tmp);
 	free(var);
 	free(value);
@@ -69,7 +69,7 @@ static int		replace_dollar(char **str, int *i, int *flag)
 	char		*tmp;
 
 	j = *i;
-	if ((*str)[*i + 1] == '?')
+	if ((*str)[*i + 1] == '?' || ft_isalnum((*str)[*i + 1]) == 0)
 	{
 		*i += 2;
 		return (0);
@@ -83,7 +83,7 @@ static int		replace_dollar(char **str, int *i, int *flag)
 	if (*flag >= 0 && (j = ft_strechr(&((*str)[*flag + 1]), 0x22) - *str) >= 0)
 	{
 		new_char(str, *flag);
-		j = ft_strechr(&((*str)[*flag]), 0x22) - *str; 
+		j = ft_strechr(&((*str)[*flag]), 0x22) - *str;
 		new_char(str, j);
 		*flag = -1;
 	}
