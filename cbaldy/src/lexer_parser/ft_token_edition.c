@@ -88,11 +88,21 @@ void		ft_display_tokens(t_token *tok)
 
 int			ft_edit_useless(t_token *tok)
 {
-	while (tok)
+	t_token	*tmp;
+
+	tmp = tok;
+	while (tmp)
 	{
-		if (tok->type == DOLLAR)
-			tok->type = WORDS;
-		tok = tok->next;
+		if (tmp->type == DOLLAR)
+			tmp->type = WORDS;
+		if (tmp->type == O_PAR || tmp->type == C_PAR)
+		{
+			if (tok == tmp)
+				tok = tok->next;
+			tmp = pop_middle_token(tmp);
+		}
+		else
+		tmp = tmp->next;
 	}
 	return (1);
 }
