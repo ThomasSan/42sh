@@ -12,6 +12,22 @@
 
 #include "lexer.h"
 
+int			isinibed(t_token *tok, t_sym sym)
+{
+	int		next;
+
+	next = check_next_token(tok);
+	if (next == sym)
+		return (1);
+	if (next == DOLLAR)
+		return (1);
+	if (next == BACK_QUOTES)
+		return (1);
+	if (next == BACKSLASH)
+		return (1);
+	return (0);
+}
+
 t_token		*join_tokens(t_token *tok)
 {
 	t_token *tmp;

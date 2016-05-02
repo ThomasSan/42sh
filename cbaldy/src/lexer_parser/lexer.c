@@ -40,7 +40,7 @@ int		ft_token_type(char *s, int i)
 	int					type;
 	int					j;
 	static const char	*token_types[] = {"\"", "\'", ">", ">>", "<",
-	"<<", "|", ";", "&", "~", "\\", "$", "-", "(", ")", "`","\0"};
+	"<<", "|", ";", "&", "~", "\\", "$", "-", "(", ")", "\0"};
 
 	type = WORDS;
 	j = 0;
@@ -116,7 +116,7 @@ t_token	*ft_tokeniser(char *s, t_token *head)
 	str = s;
 	while (s[i])
 	{
-		if (s[i] == '`')
+		if (s[i] == '`' && s[i - 1] != '\\')
 			s = ft_backquotes(s, i);
 		if (!s[i])
 			break ;
