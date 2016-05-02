@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/05 14:01:52 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/30 18:03:17 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/05/02 10:17:49 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	setenv_is_valid(char *str)
 		if ((str[i[0]] < '0' || str[i[0]] > '9') && (str[i[0]] < 'A' ||
 				str[i[0]] > 'Z') && str[i[0]] != '_')
 			return (-1);
-		i[0]++;	
+		i[0]++;
 	}
 	if (str[i[0]] != '=')
 		return (-1);
@@ -47,7 +47,7 @@ static int	setenv_check_arg(char **com)
 		if (setenv_is_valid(com[i[0]]) < 0)
 			return (-ft_dprintf(STDERR_FILENO,
 						"setenv: invalid variable name: %s\n", com[i[0]]));
-		i[0]++;
+			i[0]++;
 	}
 	return (i[1]);
 }
