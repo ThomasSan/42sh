@@ -6,11 +6,12 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/07 15:39:56 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/03/14 18:01:26 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/04/26 14:08:05 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "stdio.h"
 
 static char		*check_rights(char *to_check, char *elem)
 {

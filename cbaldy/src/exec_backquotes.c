@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/27 09:36:53 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/05/02 10:31:50 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/05/02 18:04:29 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char		*exec_backquote_read(int *fd)
 	return (bq_format_string(str));
 }
 
-char	*exec_backquotes(t_tree *root)
+char		*exec_backquotes(t_tree *root)
 {
 	pid_t	pid;
 	int		fd[2];
