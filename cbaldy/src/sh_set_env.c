@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/12 15:48:41 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/27 17:42:05 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/05/02 12:10:15 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static void	sh_malloc_env(char **env)
 static void	sh_std_env(void)
 {
 	char	*path;
-	char	*tmp;
 
 	if ((path = getcwd(NULL, 0)) == NULL)
 		path = ft_strdup("(null)");
@@ -41,8 +40,8 @@ static void	sh_std_env(void)
 		sh_add_var_env("PWD", path);
 	if (sh_is_new_var("OLDPWD") < 0)
 		sh_add_var_env("OLDPWD", path);
-	tmp = ft_strjoin(path, "/shell");
-	free(tmp);
+	if (sh_is_new_var("?") < 0)
+		sh_add_var_env("?", "0");
 	free(path);
 }
 
