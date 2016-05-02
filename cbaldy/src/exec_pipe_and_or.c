@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/25 11:51:07 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/29 11:15:59 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/05/02 11:10:07 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int			exec_pipe(t_tree *root)
 		dup2(fd[1], STDOUT_FILENO);
 		i[1] = sh_interpret(root->left);
 		close(fd[1]);
-		exit(i[1]);
+		exit(i[1] * 255);
 	}
 	else if (pid > 0)
 	{
@@ -48,7 +48,7 @@ int			exec_pipe(t_tree *root)
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);
 		i[1] = sh_interpret(root->right);
-		wait(&i[0]);
+		wait(&(i[0]));
 		exec_free_root(root->left);
 	}
 	return (i[1]);
