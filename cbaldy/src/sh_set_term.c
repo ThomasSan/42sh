@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 09:45:00 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/28 10:49:57 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/05/02 12:17:01 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,18 @@ int			sh_set_term(void)
 	struct termios	tmp;
 
 	if (tcgetattr(STDIN_FILENO, &tmp) < 0)
+	{
+		g_local->le_mode = 1;
 		return (-1);
+	}
 	tmp.c_cc[VMIN] = 1;
 	tmp.c_cc[VTIME] = 0;
 	tmp.c_lflag &= ~(ICANON | ECHO | ISIG);
 	if ((tcsetattr(STDIN_FILENO, TCSANOW, &tmp)) < 0)
+	{
+		g_local->le_mode = 1;
 		return (-1);
+	}
 	return (0);
 }
 
