@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/26 19:22:58 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/30 19:10:53 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/05/02 11:13:02 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ static int		print_history(int opt, t_hist_list *buf, int flag)
 
 	i = -1;
 	tmp = buf;
-	ft_printf("flag:%d opt:%d\n", flag, opt);
 	while (flag < 2 && buf->next && i++ < opt)
 		buf = buf->next;
 	while (buf)

@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/29 18:45:18 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/30 15:16:57 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/05/02 10:38:17 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char					*remove_spec_car(char *to_glob)
 	wrk = ft_strdup(to_glob);
 	while (wrk[i])
 	{
-		if (wrk[i] == 0x5c && wrk[i + 1] != '?' && wrk[i + 1] != '*' && 
+		if (wrk[i] == 0x5c && wrk[i + 1] != '?' && wrk[i + 1] != '*' &&
 				wrk[i + 1] != '[' && wrk[i + 1] != ']')
 		{
 			c = wrk[i];

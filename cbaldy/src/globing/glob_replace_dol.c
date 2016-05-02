@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/27 12:59:08 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/04/30 15:34:29 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/05/02 12:16:46 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,20 +56,21 @@ static char		*get_replaced(char *str, int *i, int j)
 	var = ft_strjoin("$", tmp);
 	up_var(str, j + 1, *i - j);
 	res = ft_replace_str(str, var, value);
-	*i = (ft_strlen(value) == 0) ? j + 1 : j + ft_strlen(value);
+	*i = (ft_strlen(value) == 0) ? j + 1 : j + ft_strlen(value) - 1;
 	free(tmp);
 	free(var);
 	free(value);
 	return (res);
 }
 
-static int		replace_dollar(char **str, int *i, int *flag)
+static int		replace_dollar(char **str, int *i)
 {
 	int			j;
 	char		*tmp;
 
 	j = *i;
-	if ((*str)[*i + 1] == '?')
+	if ((*str)[*i + 1] == '?' || (ft_isalnum((*str)[*i + 1]) == 0 &&
+				(*str)[*i + 1] == '_'))
 	{
 		*i += 2;
 		return (0);
@@ -80,34 +81,20 @@ static int		replace_dollar(char **str, int *i, int *flag)
 	tmp = get_replaced(*str, i, j);
 	free(*str);
 	*str = tmp;
-	if (*flag >= 0 && (j = ft_strechr(&((*str)[*flag + 1]), 0x22) - *str) >= 0)
-	{
-		new_char(str, *flag);
-		j = ft_strechr(&((*str)[*flag]), 0x22) - *str; 
-		new_char(str, j);
-		*flag = -1;
-	}
 	return (0);
 }
 
 int				replace_dollars(char **str)
 {
 	int		i;
-	int		flag;
 
-	flag = -1;
 	i = 0;
 	while ((*str)[i])
 	{
 		if ((*str)[i] == 0x27)
 			escape_quotes(*str, &i, (*str)[i]);
-		else if ((*str)[i] == 0x22)
-		{
-			flag = (flag == -1) ? i : -1;
-			i++;
-		}
 		else if ((*str)[i] == '$')
-			replace_dollar(str, &i, &flag);
+			replace_dollar(str, &i);
 		else if ((*str)[i] != '\0')
 			i = ((*str)[i] == 0x5c) ? i + 2 : i + 1;
 	}

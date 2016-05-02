@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 19:17:28 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/27 19:18:37 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/05/02 10:52:35 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	sh_error_msg(char **com, int error)
 	fd = STDERR_FILENO;
 	if (error == 2)
 		ft_dprintf(fd, "\n");
-	if (error == 11)
+	else if (error == 11)
 		ft_dprintf(fd, "shell: segmentation fault  %s\n", com[0]);
 	return (0);
 }
