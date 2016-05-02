@@ -144,6 +144,7 @@ int					ft_token_type(char *s, int i);
 t_token				*join_tokens(t_token *tok);
 t_token				*inibitor_handler(t_token *tok);
 t_token				*free_token_list(t_token *tok);
-int					isinibed(t_token *tok, t_sym sym);
+int					isinibed(t_token *tok);
+int					find_closing(char *s, int i);
 
 #endif

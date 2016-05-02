@@ -11,13 +11,14 @@
 /* ************************************************************************** */
 
 #include "lexer.h"
+#include "ft_printf.h"
 
-int			isinibed(t_token *tok, t_sym sym)
+int			isinibed(t_token *tok)
 {
 	int		next;
 
 	next = check_next_token(tok);
-	if (next == sym)
+	if (next == QUOTES)
 		return (1);
 	if (next == DOLLAR)
 		return (1);
@@ -62,7 +63,7 @@ t_token		*inibitor_handler(t_token *tok)
 			inib = inib == 0 ? 1 : 0;
 		if (tok->type == BACKSLASH && inib == 0)
 		{
-			if (check_next_token(tok) != WORDS)
+			if (tok->next && check_next_token(tok) != WORDS)
 				tok->next->type = WORDS;
 			if (tmp == tok)
 				tmp = tmp->next;
@@ -72,4 +73,14 @@ t_token		*inibitor_handler(t_token *tok)
 			tok = tok->next;
 	}
 	return (tmp);
+}
+
+int			find_closing(char *s, int i)
+{
+	while(s[i++])
+	{
+		if (s[i] == '`')
+			return (1);
+	}
+	return (0);
 }

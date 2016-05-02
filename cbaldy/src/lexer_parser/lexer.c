@@ -116,7 +116,7 @@ t_token	*ft_tokeniser(char *s, t_token *head)
 	str = s;
 	while (s[i])
 	{
-		if (s[i] == '`' && s[i - 1] != '\\')
+		if (s[i] == '`' && s[i - 1] != '\\' && find_closing(s, i))
 			s = ft_backquotes(s, i);
 		if (!s[i])
 			break ;
