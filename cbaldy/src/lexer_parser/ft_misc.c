@@ -28,6 +28,7 @@ void		ft_array_fun(void)
 	g_f[NUMBERS] = rules_for_numbers;
 	g_f[C_PAR] = rules_for_par;
 	g_f[O_PAR] = rules_for_par;
+	g_f[SEMICOL] = rules_for_semicol;
 }
 
 void		parse_error(char *s)

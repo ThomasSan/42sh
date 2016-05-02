@@ -15,9 +15,9 @@
 
 int		ft_command_isvalid(t_token *tok)
 {
-	if (tok->type == WORDS || tok->type == SEMICOL
-		|| tok->type == AMPERSAND || tok->type == FILENAME
-		|| tok->type == BACK_QUOTES || tok->type == SUBSHELL)
+	if (tok->type == WORDS || tok->type == AMPERSAND
+		|| tok->type == FILENAME || tok->type == BACK_QUOTES
+		|| tok->type == SUBSHELL)
 	{
 		if (tok->next)
 			return (ft_command_isvalid(tok->next));
@@ -42,4 +42,11 @@ int		rules_for_par(t_token *tok)
 {
 	(void)tok;
 	return (0);
+}
+
+int		rules_for_semicol(t_token *tok)
+{
+	if (check_next_token(tok) == SEMICOL || check_prev_token(tok) == SEMICOL)
+		return (0);
+	return (1);
 }

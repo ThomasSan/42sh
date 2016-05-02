@@ -125,6 +125,7 @@ void				ft_array_fun(void);
 int					rules_for_pipes(t_token *tok);
 int					rules_for_great(t_token *tok);
 int					rules_for_par(t_token *tok);
+int					rules_for_semicol(t_token *tok);
 int					rules_for_less(t_token *tok);
 int					rules_for_minus(t_token *tok);
 int					rules_for_great_and(t_token *tok);
