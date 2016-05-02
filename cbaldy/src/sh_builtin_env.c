@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 15:51:57 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/24 15:59:29 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/05/02 14:05:36 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@ int			sh_builtin_env(char **com)
 
 	i = 0;
 	if ((pid = fork()) < 0)
-		return (ft_free_tab(com));
+		return (ft_free_tab(com) + 1);
 	if (pid == 0)
 	{
 		if ((i = env_custom(com)) < 0)
-			exit(0);
+			exit(1);
 		env_exec_utility(com, i);
 	}
 	else if (pid > 0)
