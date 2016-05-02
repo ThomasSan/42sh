@@ -35,9 +35,9 @@ int			is_word_or(char *s, int i)
 	if (s[i - 1] != '\0' && ft_isdigit(s[i - 1]))
 	{
 		j = 0;
-		while ((i + j) > 0 && ft_isdigit(s[i + j]))
+		while (s[i + j + 1] && ft_isdigit(s[i + j + 1]))
 			j--;
-		if (s[i + j] && s[i + j] == '&')
+		if (s[i - 1] && s[i - 1] == '&')
 			return (1);
 	}
 	return (0);
@@ -88,21 +88,11 @@ void		ft_display_tokens(t_token *tok)
 
 int			ft_edit_useless(t_token *tok)
 {
-	t_token	*tmp;
-
-	tmp = tok;
-	while (tmp)
+	while (tok)
 	{
-		if (tmp->type == DOLLAR)
-			tmp->type = WORDS;
-		if (tmp->type == O_PAR || tmp->type == C_PAR)
-		{
-			if (tok == tmp)
-				tok = tok->next;
-			tmp = pop_middle_token(tmp);
-		}
-		else
-		tmp = tmp->next;
+		if (tok->type == DOLLAR)
+			tok->type = WORDS;
+		tok = tok->next;
 	}
 	return (1);
 }
