@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 10:40:18 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/05/03 10:54:42 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/05/03 12:06:06 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int			ed_ctrld_line(t_line_list **first)
 	t_com_list	*tmp;
 	int			i;
 
-	if ((*first)->begin == NULL)
+	if ((*first)->begin == NULL && (*first)->previous == NULL)
 		return (4);
 	if (term_mv_horizontal(3, first, 0) < 0)
 		return (0);
