@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/06 16:01:14 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/05/02 11:10:04 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/05/03 16:09:15 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	sh_check_rights(char *path_to_bin, char *com)
 		ft_dprintf(STDERR_FILENO, "shell: permission denied: %s\n", com);
 		return (126);
 	}
-	else if (S_ISREG(buf.st_mode) == 0)
+	else if (S_ISREG(buf.st_mode) == 0 && S_ISLNK(buf.st_mode) == 0)
 	{
 		ft_dprintf(STDERR_FILENO, "shell: exec format error: %s\n", com);
 		return (126);
