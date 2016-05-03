@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/04 14:42:54 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/22 13:48:59 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/05/03 13:35:23 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 static int	copy_reset_line(t_line_list *first)
 {
 	ft_tputs("ce", 1, 0);
-	while (term_mv_horizontal(4, &first, 1) == 0)
+	while (term_mv_horizontal(4, &first, 1) >= 0)
 		ft_tputs("dc", 1, 0);
+	ft_tputs("cd", 1, 0);
 	print_command(first->begin, 0, first);
 	while (term_mv_horizontal(4, &first, 1) == 0)
 		;
