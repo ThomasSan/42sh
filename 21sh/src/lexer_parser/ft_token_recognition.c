@@ -51,7 +51,7 @@ t_token		*join_quoted(t_token *tok, t_sym sym)
 				free(str);
 			}
 		}
-		else
+		if (tmp)
 			tmp = tmp->next;
 	}
 	return (tok);
