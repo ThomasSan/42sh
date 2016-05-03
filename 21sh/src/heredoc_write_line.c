@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 16:37:06 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/23 17:47:12 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/05/03 10:57:21 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,30 @@ static int	heredoc_delete_char(t_line_list **first)
 	t_com_list	*tmp;
 	int			i;
 
+	if ((g_local->curs == (*first)->marge + 1 && (*first)->marge > 0) ||
+			com_list_count((*first)->begin) == 0)
+		return (0);
+	i = 0;
+	tmp = (*first)->begin;
+	while (tmp->next != NULL && i < g_local->curs - (*first)->marge - 2)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	print_command(tmp->next, 127, *first);
+	com_list_remove(tmp, &((*first)->begin));
+	return (0);
+}
+
+int			heredoc_ctrld_line(t_line_list **first)
+{
+	t_com_list	*tmp;
+	int			i;
+
+	if ((*first)->begin == NULL)
+		return (4);
+	if (term_mv_horizontal(3, first, 0) < 0)
+		return (0);
 	if ((g_local->curs == (*first)->marge + 1 && (*first)->marge > 0) ||
 			com_list_count((*first)->begin) == 0)
 		return (0);

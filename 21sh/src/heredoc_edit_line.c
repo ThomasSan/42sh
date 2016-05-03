@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 16:44:46 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/29 10:19:22 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/05/03 10:54:04 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_edit_line	g_here_edit_line[] = {
 	{"\x1c", 1},
 	{"\x3", 1},
-	{"\x4", 1},
+	{"\x4", 2},
 	{"\x12", 1},
 	{"\x15", 7},
 	{"\x0b", 7},
@@ -47,6 +47,8 @@ static int	heredoc_tree_choice(char *buf, int *arr, t_line_list **first)
 {
 	if (arr[1] == 1)
 		return (heredoc_spec_char(buf[0]));
+	else if (arr[1] == 2)
+		return (heredoc_ctrld_line(first));
 	else if (arr[1] == 5)
 		term_mv_horizontal(buf[arr[0] - 1] - 64, first, 0);
 	else if (arr[1] == 6)

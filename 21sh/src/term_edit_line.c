@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 12:51:22 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/26 11:09:32 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/05/03 10:40:43 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,13 @@ static int	term_spec_char(char buf, t_line_list **first, t_hist_list **hist)
 		ft_dprintf(STDOUT_FILENO, "\t21sh: exit\n");
 		exit(0);
 	}
-	if (buf == 9 && (*first)->marge != 0)
+	else if (buf == 4)
+		return (ed_ctrld_line(first));
+	else if (buf == 9 && (*first)->marge != 0)
 		return (tab_mode(first));
-	if (buf == 18)
+	else if (buf == 18)
 		return (manage_search_hist("", first, hist, 0));
 	return (buf);
-	*hist = NULL;
 }
 
 static int	term_tree_choice(char *buf, int *arr, t_line_list **first,

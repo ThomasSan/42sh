@@ -6,7 +6,7 @@
 #    By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/14 14:42:25 by cbaldy            #+#    #+#              #
-#    Updated: 2016/05/02 18:53:12 by cbaldy           ###   ########.fr        #
+#    Updated: 2016/05/03 11:02:12 by cbaldy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SRC = main.c sh_set_term.c sh_read_prompt.c sh_command.c sh_builtin_cd.c \
 	  line_list_ft.c term_mv_horizontal.c hist_static.c cd_env_cdpath.c \
 	  exec_heredoc.c heredoc_write_line.c heredoc_edit_line.c fd_save.c \
 	  hashtable.c hashtable2.c exec_backquotes.c mini_finish_line.c\
-	  line_list_ft2.c heredoc_prompt.c
+	  line_list_ft2.c heredoc_prompt.c ed_ctrld_line.c
 
 TAB = tab_mode.c tab_select.c tab_nb_col.c tab_nb_row.c tab_cursor_mvt.c \
 	  tab_line_management.c tab_complete_line.c tab_prepare_select.c\
