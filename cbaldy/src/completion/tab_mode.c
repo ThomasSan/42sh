@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 13:40:47 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/30 14:40:15 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/05/03 17:45:04 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ static char			*word_to_tab(char *var, int marge)
 	char		*res;
 	char		*buf;
 
-	res = path_to_tab(var, marge);
+	if ((res = path_to_tab(var, marge)) == NULL)
+		return (NULL);
 	buf = (ft_strrchr(res, '/') != NULL) ? ft_strdup(ft_strrchr(res, '/') + 1)
 		: ft_strdup(res);
 	free(res);
@@ -74,9 +75,9 @@ int					tab_mode(t_line_list **first)
 		return (0);
 	table = (iscommand(var, (*first)->marge) == 0) ? hash_table() :
 		list_path(var, (*first)->marge);
-	if (table == NULL)
-		return (f_var(var));
 	word = word_to_tab(var, (*first)->marge);
+	if (table == NULL || word == NULL)
+		return (f_var(var));
 	if ((debut = string_matches(word, table)) == NULL && g_curr_compl != NULL)
 		exit_completion(*first);
 	else if (debut != NULL)
