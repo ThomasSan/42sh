@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 16:49:41 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/05/03 17:42:54 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/05/03 20:17:34 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,26 +81,21 @@ char				*path_to_tab(char *var, int marge)
 	int			count;
 	char		*buf;
 
+	count = 0;
 	i = g_local->curs - marge - 2;
-	count = 1;
-	if (i < 0 || (i == 0 && var[i] <= 32))
-		return (NULL);
-	if (var[i] != ' ' || (i > 1 && var[i] == ' ' && var[i - 1] == 0x5c))
+	while (var[count] && count < i)
 	{
-		while (var[i + 1] && ((var[i + 1] == ' ' && var[i] == 0x5c)
-				|| var[i + 1] != ' '))
-			i++;
-		while (i > 0 && ((var[i] == ' ' && i > 1 && var[i - 1] == 0x5c) ||
-					var[i] != ' '))
-		{
-			count++;
-			i--;
-		}
-		i = (var[i] == ' ') ? i + 1 : i;
-		buf = ft_strsub(var, i, count);
+		if (var[count] != ' ')
+			break ;
+		count++;
 	}
-	else
-		buf = ft_strdup("./");
+	if (count == i && var[count] == ' ')
+		return (NULL);
+	i = not_escaped(var, i, -1);
+	count = not_escaped(var, i, 1);
+	if (i < 0 || count - i < 0)
+		return (NULL);
+	buf = (count - i == 0) ? ft_strdup("./") : ft_strsub(var, i, count - i);
 	return (buf);
 }
 

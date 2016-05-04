@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 13:40:47 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/05/03 17:45:04 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/05/03 20:18:39 by dbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,38 @@ static char			*word_to_tab(char *var, int marge)
 	return (buf);
 }
 
-static int			f_var(char *var)
+static int			f_var(char *var, char *word, char **table)
 {
 	free(var);
+	if (word != NULL)
+		free(word);
+	if (table != NULL)
+		ft_free_tab(table);
+	return (0);
+}
+
+int					not_escaped(char *var, int i, int way)
+{
+	if (way == -1)
+	{
+		if (i == 0)
+			return ((var[i] == ' ') ? 1 : 0);
+		if (var[i] != ' ')
+			return (not_escaped(var, i - 1, way));
+		else if (i > 0 && var[i - 1] == 0x5c)
+			return ((i > 1) ? not_escaped(var, i - 2, way) : 0);
+		return (i + 1);
+	}
+	if (way == 1)
+	{
+		if (var[i] == '\0')
+			return (i);
+		if (var[i] != ' ')
+			return (not_escaped(var, i + 1, way));
+		else if (i > 0 && var[i - 1] == 0x5c)
+			return (not_escaped(var, i + 1, way));
+		return (i);
+	}
 	return (0);
 }
 
@@ -77,7 +106,7 @@ int					tab_mode(t_line_list **first)
 		list_path(var, (*first)->marge);
 	word = word_to_tab(var, (*first)->marge);
 	if (table == NULL || word == NULL)
-		return (f_var(var));
+		return (f_var(var, word, table));
 	if ((debut = string_matches(word, table)) == NULL && g_curr_compl != NULL)
 		exit_completion(*first);
 	else if (debut != NULL)
