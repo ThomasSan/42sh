@@ -6,7 +6,7 @@
 /*   By: dbaldy <dbaldy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 16:19:18 by dbaldy            #+#    #+#             */
-/*   Updated: 2016/05/04 10:27:41 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/05/04 11:56:45 by tsanzey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int			go_back_to_selected_char(t_line_list *first)
 	row_to_skip = retrieve_row_to_skip(first);
 	size_list = com_list_count(first->begin);
 	to_move = g_local->curs % g_local->nb_col - 1;
-	to_move = (g_local->curs == g_local->nb_col) ? g_local->nb_col : to_move; 
+	to_move = (g_local->curs == g_local->nb_col) ? g_local->nb_col : to_move;
 	ft_notputs("up", row_to_skip + 1);
 	ft_notputs("nd", to_move);
 	return (0);
