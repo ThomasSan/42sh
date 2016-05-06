@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 10:20:49 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/25 16:16:30 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/05/06 10:59:20 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,6 @@ t_tree	*tree_new_elem(char **cmd, int type);
 int		tree_place_type_pipe(t_tree *new, t_tree **root);
 int		tree_place_type_red(t_tree *new, t_tree **root);
 int		tree_place_type_end(t_tree *new, t_tree **root);
+int		heredoc_main(t_tree *root);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/02 12:28:57 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/05/02 12:29:58 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/05/06 11:12:54 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,6 @@ static char	*heredoc_prompt(char *eof)
 int			heredoc_main(t_tree *root)
 {
 	char	*str;
-	int		ret;
-	int		fd[2];
 	int		*save;
 
 	save = fd_save();
@@ -99,14 +97,11 @@ int			heredoc_main(t_tree *root)
 	str = heredoc_prompt(root->cmd[0]);
 	fd_reset(save);
 	free(save);
-	pipe(fd);
+	if (root->cmd[1] != NULL)
+		free(root->cmd[1]);
 	if (str != NULL)
-		ft_putstr_fd(str, fd[1]);
-	close(fd[1]);
-	dup2(fd[0], STDIN_FILENO);
-	ret = sh_interpret(root->right);
-	if (str != NULL)
-		free(str);
-	close(fd[0]);
-	return (ret);
+		root->cmd[1] = str;
+	else
+		root->cmd[1] = NULL;
+	return (0);
 }
