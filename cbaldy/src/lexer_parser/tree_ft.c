@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 11:37:07 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/28 12:34:13 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/05/06 10:58:18 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int			tree_place_type_red(t_tree *new, t_tree **root)
 	t_tree	*tmp;
 	t_tree	*tmp2;
 
+	if (new->types == D_LESS)
+		heredoc_main(new);
 	if ((*root)->right == NULL)
 	{
 		tmp = *root;

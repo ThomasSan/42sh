@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:12:49 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/05/03 19:14:27 by dbaldy           ###   ########.fr       */
+/*   Updated: 2016/05/06 10:59:27 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,6 @@ int				get_bangged(char **str, t_line_list **first);
 int				mini_finish_line(char *str);
 int				escape_spec_cara(char **to_add);
 int				hist_control_size(t_hist_list **hist);
-int				heredoc_main(t_tree *root);
 int				ed_ctrld_line(t_line_list **first);
 int				heredoc_ctrld_line(t_line_list **first);
 int				not_escaped(char *var, int i, int way);

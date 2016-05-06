@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/26 15:28:36 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/03/30 10:58:30 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/05/06 14:04:06 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static int	parse_concat_cmd(t_parse **head, t_token *tok)
 			tmp[1] = tmp[0];
 		tmp[0] = tmp[0]->next;
 	}
-	if ((tmp[0])->type > CMD && (tmp[0])->type < TUBES && tmp[1] != NULL
+	if ((tmp[0])->type > S_SHELL && (tmp[0])->type < TUBES && tmp[1] != NULL
 			&& (tmp[1])->type == CMD)
 		return (parse_insert_words(tmp[1], tok));
 	return (-1);
