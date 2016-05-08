@@ -6,11 +6,12 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 11:37:07 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/05/06 10:58:18 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/05/08 17:00:13 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tree_build_cmd.h"
+#include "shell.h"
 
 t_tree		*tree_new_elem(char **cmd, int type)
 {
@@ -50,7 +51,7 @@ int			tree_place_type_red(t_tree *new, t_tree **root)
 	t_tree	*tmp;
 	t_tree	*tmp2;
 
-	if (new->types == D_LESS)
+	if (new->types == D_LESS && g_local->le_mode == 0)
 		heredoc_main(new);
 	if ((*root)->right == NULL)
 	{

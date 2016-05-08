@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/02 12:30:09 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/05/06 11:12:52 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/05/08 17:00:07 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int			exec_heredoc(t_tree *root)
 
 	if (g_local->le_mode == 1)
 	{
-		sh_reset_std_fd();
 		ft_dprintf(STDERR_FILENO, "shell: no heredoc with this mode\n");
 		exec_free_root(root->right);
 		return (1);

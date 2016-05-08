@@ -6,11 +6,11 @@
 #    By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/14 14:42:25 by cbaldy            #+#    #+#              #
-#    Updated: 2016/05/03 10:41:38 by cbaldy           ###   ########.fr        #
+#    Updated: 2016/05/08 17:28:57 by cbaldy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = 21sh
+NAME = 42sh
 
 SRC = main.c sh_set_term.c sh_read_prompt.c sh_command.c sh_builtin_cd.c \
 	  sh_builtin_env.c ft_1_aux.c sh_builtin_exit.c cd_exist_error.c \
@@ -28,14 +28,10 @@ SRC = main.c sh_set_term.c sh_read_prompt.c sh_command.c sh_builtin_cd.c \
 	  hashtable.c hashtable2.c exec_backquotes.c mini_finish_line.c\
 	  line_list_ft2.c heredoc_prompt.c ed_ctrld_line.c
 
-#copy_mode.c
-
 TAB = tab_mode.c tab_select.c tab_nb_col.c tab_nb_row.c tab_cursor_mvt.c \
 	  tab_line_management.c tab_complete_line.c tab_prepare_select.c\
       tab_list_path.c tab_string_match.c tab_supp.c manage_search_hist.c\
 	  search_history.c suppr_elem.c prepare_search_bar.c
-
-#globing
 
 GLOB = escape_quotes.c glob_build_list.c glob_match_list_ft.c glob_new_string.c\
 	   glob_match.c glob_modif_str.c glob_progressiv.c glob_replace_dol.c \
@@ -51,7 +47,7 @@ LEX = lexer.c ft_token_recognition.c ft_free.c \
 
 INCLUDE = -I includes/
 
-FLAG = -Wall -Werror -Wextra -g
+FLAG = -Wall -Werror -Wextra
 
 LIBRARIES = -L libft/ -L ft_printf -lft -lftprintf -ltermcap
 
@@ -69,8 +65,8 @@ all: $(NAME)
 
 $(NAME):
 	@gcc -c $(FLAG) $(INCLUDE) $(CFILES) $(CLEX) $(CTAB) $(CGLOB)
-	@#@make -C libft/ fclean && make -C libft && make -C libft/ clean
-	@#@make -C ft_printf/ fclean && make -C ft_printf && make -C ft_printf/ clean
+	@make -C libft/ fclean && make -C libft && make -C libft/ clean
+	@make -C ft_printf/ fclean && make -C ft_printf && make -C ft_printf/ clean
 	@gcc -o $(NAME) $(LIBRARIES) $(OBJ) $(OBJ2) $(OBJ3) $(OBJ4)
 	@mkdir obj && mv $(OBJ) $(OBJ2) $(OBJ3) $(OBJ4) obj
 	@echo "\x1b[32;02m$(NAME) ready\x1b[0;m"
@@ -82,6 +78,8 @@ clean:
 
 fclean: clean
 	@/bin/rm -f $(NAME)
+	@make -C libft/ fclean
+	@make -C ft_printf/ fclean
 	@echo "\x1b[0;01mfclean\x1b[0;m"
 
 re: fclean all
