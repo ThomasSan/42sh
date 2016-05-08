@@ -6,7 +6,7 @@
 /*   By: cbaldy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/29 12:10:32 by cbaldy            #+#    #+#             */
-/*   Updated: 2016/04/29 11:10:11 by cbaldy           ###   ########.fr       */
+/*   Updated: 2016/05/08 17:02:00 by cbaldy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,8 @@ static int	exec_redin_open_fd(char *path, char *error_msg)
 	int		open_fd;
 
 	if ((open_fd = open(path, O_RDONLY)) < 0)
-	{
-		sh_reset_std_fd();
 		ft_dprintf(STDERR_FILENO,
 				"shell: %s: cannot read from here\n", error_msg);
-	}
 	return (open_fd);
 }
 
@@ -34,7 +31,6 @@ static int	exec_redin_get_path(t_tree *root)
 		return (sh_reset_std_fd() - 1);
 	if (access(path, F_OK) < 0)
 	{
-		sh_reset_std_fd();
 		ft_dprintf(STDERR_FILENO, "shell: %s: no such file or directory\n",
 				root->cmd[0]);
 		free(path);
@@ -42,7 +38,6 @@ static int	exec_redin_get_path(t_tree *root)
 	}
 	if (access(path, R_OK) < 0)
 	{
-		sh_reset_std_fd();
 		ft_dprintf(STDERR_FILENO, "shell: %s: permission denied\n",
 				root->cmd[0]);
 		free(path);
@@ -63,7 +58,6 @@ static int	exec_redin_l_and(t_tree *root)
 		{
 			if ((open_fd = ft_atoi(root->cmd[0])) > STDERR_FILENO)
 			{
-				sh_reset_std_fd();
 				ft_dprintf(STDERR_FILENO, "shell: %d: bad file descriptor\n",
 						open_fd);
 				return (-1);
